@@ -1,0 +1,10 @@
+package cn.e3mall.controller;
+
+/**
+ * 页面跳转Controller
+ * @author anluo
+ *
+ */
+public class PageController {
+
+}
