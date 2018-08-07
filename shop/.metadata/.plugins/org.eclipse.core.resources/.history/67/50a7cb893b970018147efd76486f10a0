@@ -1,0 +1,14 @@
+package cn.e3mall.controller;
+
+import org.springframework.stereotype.Controller;
+
+/**
+ * 商品分类管理Controller
+ * @author anluo
+ *
+ */
+
+@Controller
+public class ItemCatController {
+
+}
