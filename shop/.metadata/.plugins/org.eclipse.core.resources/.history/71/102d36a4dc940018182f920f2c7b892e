@@ -11,10 +11,10 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 	
 	<!-- 配置包扫描器 -->
-	<context:component-scan base-package="cn.e3mall.service"/>
+	<context:component-scan base-package="cn.mtmall.service"/>
 	<!-- 引用dubbo服务 -->
-	<dubbo:application name="e3-manager-web"/>
+	<dubbo:application name="mt-manager-web"/>
 	<dubbo:registry protocol="zookeeper" address="192.168.25.154:2181,192.168.25.154:2182,192.168.25.154:2183"/>	
-	<dubbo:reference interface="cn.e3mall.service.ItemService" id="itemService" />
+	<dubbo:reference interface="cn.mtmall.service.ItemService" id="itemService" />
 	
 </beans>

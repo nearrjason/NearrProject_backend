@@ -15,10 +15,10 @@
 			<item value="root"/>
 			<item value="com.taotao"/>
 			<item value="com.tao"/>
-			<item value="cn.e3mall"/>
+			<item value="cn.mtmall"/>
 		</list>
 		<list key="replacehistory">
-			<item value="cn.e3mall"/>
+			<item value="cn.mtmall"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

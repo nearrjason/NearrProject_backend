@@ -1,9 +1,9 @@
-package cn.e3mall.service.impl;
+package cn.mtmall.service.impl;
 
 import java.util.List;
 
-import cn.e3mall.common.pojo.EasyUITreeNode;
-import cn.e3mall.service.ItemCatService;
+import cn.mtmall.common.pojo.EasyUITreeNode;
+import cn.mtmall.service.ItemCatService;
 
 public class ItemCatServiceImpl implements ItemCatService {
 

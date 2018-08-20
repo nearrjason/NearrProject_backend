@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * sql解析类，使用该类时，必须引入jsqlparser-x.x.x.jar
  *
- * @author liuzh
+ * @author 
  */
 @SuppressWarnings("rawtypes")
 public class SqlParser implements SqlUtil.Parser {

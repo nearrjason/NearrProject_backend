@@ -1,16 +1,16 @@
-package cn.e3mall.service.impl;
+package cn.mtmall.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.e3mall.common.pojo.EasyUITreeNode;
-import cn.e3mall.mapper.TbItemCatMapper;
-import cn.e3mall.pojo.TbItemCat;
-import cn.e3mall.pojo.TbItemCatExample;
-import cn.e3mall.pojo.TbItemCatExample.Criteria;
-import cn.e3mall.service.ItemCatService;
+import cn.mtmall.common.pojo.EasyUITreeNode;
+import cn.mtmall.mapper.TbItemCatMapper;
+import cn.mtmall.pojo.TbItemCat;
+import cn.mtmall.pojo.TbItemCatExample;
+import cn.mtmall.pojo.TbItemCatExample.Criteria;
+import cn.mtmall.service.ItemCatService;
 
 /**
  * 商品分类管理

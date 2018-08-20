@@ -11,5 +11,5 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 	
 	<!-- 配置包扫描器 -->
-	<context:component-scan base-package="cn.e3mall.service"/>
+	<context:component-scan base-package="cn.mtmall.service"/>
 </beans>

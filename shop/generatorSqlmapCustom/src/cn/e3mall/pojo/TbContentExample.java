@@ -1,4 +1,4 @@
-package cn.e3mall.pojo;
+package cn.mtmall.pojo;
 
 import java.util.ArrayList;
 import java.util.Date;

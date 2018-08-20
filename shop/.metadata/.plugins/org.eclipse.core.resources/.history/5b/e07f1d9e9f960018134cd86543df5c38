@@ -1,9 +1,9 @@
-package cn.e3mall.pagehelper;
+package cn.mtmall.pagehelper;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import cn.e3mall.mapper.TbItemMapper;
+import cn.mtmall.mapper.TbItemMapper;
 
 public class PageHelperTest {
 	public void testPageHelper() throws Exception {

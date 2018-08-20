@@ -1,4 +1,4 @@
-package cn.e3mall.pagehelper;
+package cn.mtmall.pagehelper;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-import cn.e3mall.mapper.TbItemMapper;
-import cn.e3mall.pojo.TbItem;
-import cn.e3mall.pojo.TbItemExample;
+import cn.mtmall.mapper.TbItemMapper;
+import cn.mtmall.pojo.TbItem;
+import cn.mtmall.pojo.TbItemExample;
 
 public class PageHelperTest {
 	

@@ -2,12 +2,12 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardArtifactPage">
 		<list key="groupId">
-			<item value="cn.e3mall"/>
+			<item value="cn.mtmall"/>
 		</list>
 		<list key="name">
 		</list>
 		<list key="artifactId">
-			<item value="e3-manager"/>
+			<item value="mt-manager"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -58,11 +58,11 @@
 	</section>
 	<section name="MavenModuleWizardParentPage">
 		<list key="moduleName">
-			<item value="e3-manager-web"/>
-			<item value="e3-manager-service"/>
-			<item value="e3-manager-interface"/>
-			<item value="e3-manager-dao"/>
-			<item value="e3-manager-pojo"/>
+			<item value="mt-manager-web"/>
+			<item value="mt-manager-service"/>
+			<item value="mt-manager-interface"/>
+			<item value="mt-manager-dao"/>
+			<item value="mt-manager-pojo"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -75,8 +75,8 @@
 	</section>
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
-			<item value="C:\Users\anluo\eclipse-workspace\shop\e3-common"/>
-			<item value="C:\Users\anluo\eclipse-workspace\shop\e3-parent"/>
+			<item value="C:\Users\anluo\eclipse-workspace\shop\mt-common"/>
+			<item value="C:\Users\anluo\eclipse-workspace\shop\mt-parent"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -92,7 +92,7 @@
 			<item value="org."/>
 		</list>
 		<list key="groupId">
-			<item value="cn.e3mall"/>
+			<item value="cn.mtmall"/>
 		</list>
 		<list key="artifactId">
 		</list>
