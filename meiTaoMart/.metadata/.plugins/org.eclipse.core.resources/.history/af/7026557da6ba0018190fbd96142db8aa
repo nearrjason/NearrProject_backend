@@ -1,0 +1,14 @@
+package com.meitaomart.sso.service.impl;
+
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.sso.service.LogoutService;
+
+public class LogoutServiceImpl implements LogoutService {
+
+	@Override
+	public MeitaoResult userLogin(String token) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

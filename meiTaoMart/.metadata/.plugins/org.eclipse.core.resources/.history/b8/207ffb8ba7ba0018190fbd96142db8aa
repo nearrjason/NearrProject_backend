@@ -1,0 +1,19 @@
+package com.meitaomart.sso.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.meitaomart.common.jedis.JedisClient;
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.sso.service.LogoutService;
+
+public class LogoutServiceImpl implements LogoutService {
+	@Autowired
+	private JedisClient jedisClient;
+	
+	@Override
+	public MeitaoResult userLogout(String token) {
+		
+		// 删除redis里的token
+		return null;
+	}
+}

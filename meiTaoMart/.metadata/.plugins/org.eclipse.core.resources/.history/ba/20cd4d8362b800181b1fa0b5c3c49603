@@ -1,0 +1,9 @@
+package com.meitaomart.content.service.test;
+
+public class contentServiceTest {
+	@Test
+	public void redisTest() {
+		
+	}
+
+}

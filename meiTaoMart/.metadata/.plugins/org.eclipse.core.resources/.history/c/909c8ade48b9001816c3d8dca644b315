@@ -1,0 +1,50 @@
+package com.meitaomart.content.service.test;
+
+import java.util.List;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.meitaomart.common.jedis.JedisClient;
+import com.meitaomart.mapper.MeitaoContentMapper;
+import com.meitaomart.mapper.TbContentMapper;
+import com.meitaomart.pojo.TbContent;
+import com.meitaomart.pojo.TbContentExample;
+
+public class contentServiceTest {
+	@Test
+	public void redisTest() {
+		/*
+		 * // 初始化spring容器 ApplicationContext applicationContext = new
+		 * ClassPathXmlApplicationContext(
+		 * "classpath:spring/applicationContext-redis.xml"); //
+		 * 从容器中获得JedisClient对象 JedisClient jedisClient =
+		 * applicationContext.getBean(JedisClient.class); String json = ""; try
+		 * { //json = jedisClient.hget("CONTENT_LIST", "0");
+		 * jedisClient.set("mytest", "jedisClient"); String str =
+		 * jedisClient.get("mytest"); System.out.println(str); } catch
+		 * (Exception e) { // TODO: handle exception e.printStackTrace(); }
+		 * System.out.println(json);
+		 */
+	}
+
+	@Test
+	public void databaseTest() {
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-dao.xml");
+		// 查询数据库
+		/*
+		 * MeitaoContentExample example = new MeitaoContentExample(); Criteria
+		 * criteria = example.createCriteria();
+		 * criteria.andCategoryIdEqualTo(categoryId); List<MeitaoContent> list =
+		 * contentMapper.selectByExampleWithBLOBs(example);
+		 */
+
+		TbContentExample example = new TbContentExample();
+		com.meitaomart.pojo.TbContentExample.Criteria criteria = example.createCriteria();
+		criteria.andCategoryIdEqualTo(0L);
+		List<TbContent> list = tbContentMapper.selectByExampleWithBLOBs(example);
+	}
+
+}

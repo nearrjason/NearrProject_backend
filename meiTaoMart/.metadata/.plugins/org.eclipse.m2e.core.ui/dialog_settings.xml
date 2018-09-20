@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectWizardArtifactPage">
+		<list key="groupId">
+			<item value="com.meitaomart"/>
+		</list>
+		<list key="name">
+		</list>
+		<list key="artifactId">
+			<item value="meitao-order-web"/>
+			<item value="meitao-parent"/>
+			<item value="meitao-order-service"/>
+			<item value="meitao-order"/>
+			<item value="meitao-order-interface"/>
+			<item value="meitao-cart-web"/>
+			<item value="meitao-cart-interface"/>
+			<item value="meitao-cart"/>
+			<item value="meitao-cart-service"/>
+			<item value="meitao-sso-web"/>
+			<item value="meitao-sso-service"/>
+			<item value="meitao-sso"/>
+			<item value="meitao-sso-interface"/>
+			<item value="meitao-item-web"/>
+			<item value="meitao-search-web"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+		<list key="ciManagementUrl">
+		</list>
+		<list key="ciManagementSystem">
+		</list>
+		<list key="issueManagementSystem">
+		</list>
+		<list key="issueManagementUrl">
+		</list>
+	</section>
+	<section name="MavenProjectWizardArchetypePage">
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="MavenModuleWizardParentPage">
+		<list key="moduleName">
+			<item value="meitao-order-service"/>
+			<item value="meitao-order-interface"/>
+			<item value="meitao-cart-interface"/>
+			<item value="meitao-cart-service"/>
+			<item value="meitao-sso-service"/>
+			<item value="meitao-sso-interface"/>
+			<item value="meitao-search-service"/>
+			<item value="meitao-search-interface"/>
+			<item value="meitao-content-interface"/>
+			<item value="meitao-content-service"/>
+			<item value="meitao-manager-pojo"/>
+			<item value="meitao-manager-dao"/>
+			<item value="meitao-manager-service"/>
+			<item value="meitao-manager-interface"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardLocationPage">
+		<list key="location">
+			<item value="D:\meiTaoMart\meitao-parent"/>
+			<item value="D:\meiTaoMart\meitao-sso"/>
+			<item value="D:\meiTaoMart\meitao-content\meitao-content-interface"/>
+			<item value="D:\meiTaoMart\meitao-content"/>
+			<item value="D:\meiTaoMart\meitao-manager"/>
+			<item value="D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\utils"/>
+			<item value="D:\meiTaoMart\meitao-parent\pom.xml"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="Maven2ProjectWizardArchifactPage">
+		<list key="package">
+		</list>
+		<list key="groupId">
+		</list>
+		<list key="artifactId">
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+</section>

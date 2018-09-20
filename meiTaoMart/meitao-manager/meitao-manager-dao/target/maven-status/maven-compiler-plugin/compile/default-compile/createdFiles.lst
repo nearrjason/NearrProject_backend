@@ -1,0 +1,11 @@
+com\meitaomart\mapper\MeitaoContentCategoryMapper.class
+com\meitaomart\mapper\MeitaoUserMapper.class
+com\meitaomart\mapper\MeitaoItemPriceMapper.class
+com\meitaomart\mapper\MeitaoItemDescMapper.class
+com\meitaomart\mapper\MeitaoOrderItemMapper.class
+com\meitaomart\mapper\MeitaoItemMapper.class
+com\meitaomart\mapper\MeitaoOrderMapper.class
+com\meitaomart\mapper\MeitaoAdminUserMapper.class
+com\meitaomart\mapper\MeitaoAddressMapper.class
+com\meitaomart\mapper\MeitaoContentMapper.class
+com\meitaomart\mapper\MeitaoItemCategoryMapper.class

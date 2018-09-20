@@ -1,0 +1,12 @@
+package com.meitaomart.portal.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+public class LogoutController {
+	@RequestMapping("/user/logout")
+	public String logout() {
+		int a = 1;
+		System.out.println(a);
+		return null;
+	}
+}

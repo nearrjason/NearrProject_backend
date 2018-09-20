@@ -1,0 +1,16 @@
+package com.meitaomart.portal.controller;
+
+
+import org.apache.http.cookie.Cookie;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class LogoutController {
+	@RequestMapping("/user/logout")
+	public String logout(HttpServletRequest request) {
+		int a = 1;
+		System.out.println(a);
+		return null;
+	}
+}

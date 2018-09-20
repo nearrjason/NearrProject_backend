@@ -1,0 +1,5 @@
+package com.meitaomart.order.builder;
+
+public class OrderInfoBuilder {
+	private static OrderInfoBuilder orderInfoBuilder = new OrderInfoBuilder();
+}

@@ -1,0 +1,11 @@
+package com.meitaomart.sso.service;
+
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.pojo.TbUser;
+
+public interface RegisterService {
+
+	MeitaoResult checkData1(String param, int type);
+	MeitaoResult register1(MeitaoUser user);
+}

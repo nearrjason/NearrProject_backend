@@ -1,0 +1,4 @@
+com\meitaomart\sso\service\impl\TokenServiceImpl.class
+com\meitaomart\sso\service\impl\RegisterServiceImpl.class
+com\meitaomart\sso\service\impl\LoginServiceImpl.class
+com\meitaomart\sso\service\impl\LogoutServiceImpl.class

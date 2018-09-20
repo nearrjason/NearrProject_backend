@@ -1,0 +1,30 @@
+//package com.meitaomart.item.pojo;
+//
+//import com.meitaomart.pojo.MeitaoItem;
+//
+//public class Item extends MeitaoItem {
+//
+//	public Item(MeitaoItem meitaoItem) {
+//		this.setId(meitaoItem.getId());
+//		this.setName(meitaoItem.getName());
+//		this.setSellPoint(meitaoItem.getSellPoint());
+//		//this.setPrice(meitaoItem.getPrice());
+//		this.setStockNumber(meitaoItem.getStockNumber());
+//		this.setBarcode(meitaoItem.getBarcode());
+//		this.setImages(meitaoItem.getImages());
+//		this.setCategoryId(meitaoItem.getCategoryId());
+//		this.setStatus(meitaoItem.getStatus());
+//		this.setCreatedTime(meitaoItem.getCreatedTime());
+//		this.setUpdatedTime(meitaoItem.getUpdatedTime());
+//	}
+//
+//	public String[] getImages1() {
+//		String image2 = this.getImages();
+//		if (image2 != null && !"".equals(image2)) {
+//			String[] strings = image2.split(",");
+//			return strings;
+//		}
+//
+//		return null;
+//	}
+//}

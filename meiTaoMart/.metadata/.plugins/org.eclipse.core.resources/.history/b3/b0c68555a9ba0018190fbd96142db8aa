@@ -1,0 +1,27 @@
+package com.meitaomart.portal.controller;
+
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.http.cookie.Cookie;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.meitaomart.common.jedis.JedisClient;
+import com.meitaomart.common.utils.CookieUtils;
+
+@Controller
+public class LogoutController {
+	@Value("${TOKEN_KEY}")
+	private String TOKEN_KEY;
+	
+	@RequestMapping("/user/logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		String token = CookieUtils.getCookieValue(request, TOKEN_KEY, true);
+		CookieUtils.deleteCookie(request, response, token);
+		return null;
+	}
+}

@@ -1,0 +1,132 @@
+package com.meitaomart.content.service.impl;
+
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+import com.meitaomart.common.jedis.JedisClient;
+import com.meitaomart.common.pojo.EasyUIDataGridResult;
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.common.utils.JsonUtils;
+import com.meitaomart.content.service.ContentService;
+import com.meitaomart.mapper.MeitaoContentMapper;
+import com.meitaomart.mapper.TbContentMapper;
+import com.meitaomart.pojo.MeitaoContent;
+import com.meitaomart.pojo.MeitaoContentExample;
+import com.meitaomart.pojo.MeitaoContentExample.Criteria;
+
+/**
+ * 内容管理Service
+ * @author anluo
+ *
+ */
+
+@Service
+public class ContentServiceImpl implements ContentService {
+
+	@Autowired
+	private MeitaoContentMapper contentMapper;
+	@Autowired
+	private TbContentMapper tbContentMapper;
+	@Autowired
+	private JedisClient jedisClient;
+	
+	@Value("${CONTENT_LIST}")
+	private String CONTENT_LIST;
+	
+	@Override
+	public MeitaoResult addContent(MeitaoContent content) {
+		//将内容数据插入到内容表
+		content.setCreatedTime(new Date());
+		content.setUpdatedTime(new Date());
+		//插入到数据库  
+		contentMapper.insert(content);
+		deleteInRedis(CONTENT_LIST, content.getCategoryId().toString());
+		return MeitaoResult.ok();
+	}
+	
+	@Override
+	public EasyUIDataGridResult getContentList(Long categoryId, int page, int rows) {
+		//设置分页信息
+		PageHelper.startPage(page, rows);
+		//执行查询
+		MeitaoContentExample example = new MeitaoContentExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andCategoryIdEqualTo(categoryId);
+		
+		List<MeitaoContent> list = contentMapper.selectByExample(example);
+		// 创建一个返回值对象
+		EasyUIDataGridResult result = new EasyUIDataGridResult();
+		result.setRows(list);
+		//取分页结果
+		PageInfo<MeitaoContent> pageInfo = new PageInfo<>(list);
+		// 取总记录数
+		long total = pageInfo.getTotal();
+		result.setTotal(total);
+		return result;
+	}
+	
+	
+	@Override
+	public List<MeitaoContent> getContentListByCid(long categoryId) {
+		//先查询Redis缓存
+		try {
+			String json = jedisClient.hget(CONTENT_LIST, categoryId + "");
+			if (StringUtils.isNotBlank(json)) {
+				List<MeitaoContent> list = JsonUtils.jsonToList(json, MeitaoContent.class);
+				return list;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//查询数据库
+		MeitaoContentExample example = new MeitaoContentExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andCategoryIdEqualTo(categoryId);
+		List<MeitaoContent> list = contentMapper.selectByExampleWithBLOBs(example);
+		
+		MeitaoContentExample example = new MeitaoContentExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andCategoryIdEqualTo(categoryId);
+		List<MeitaoContent> list = contentMapper.selectByExampleWithBLOBs(example);
+		
+		//结果添加到缓存
+		try {
+			jedisClient.hset(CONTENT_LIST, categoryId + "", JsonUtils.objectToJson(list));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public MeitaoResult deleteContents(String ids) {
+		String[] arrayIds = ids.split(",");
+		for (String stringId : arrayIds) {
+			Long id = Long.parseLong(stringId.trim()); 
+			MeitaoContent content = contentMapper.selectByPrimaryKey(id);
+			deleteInRedis(CONTENT_LIST, content.getCategoryId().toString());
+			contentMapper.deleteByPrimaryKey(id);
+		}
+		return MeitaoResult.ok();
+	}
+	
+	private void deleteInRedis(String key, String id) {
+		if (jedisClient.hexists(key, id)) {
+			try {
+				jedisClient.hdel(key, id);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}

@@ -1,0 +1,6 @@
+com\meitaomart\search\service\impl\SearchServiceImpl.class
+com\meitaomart\search\message\MyMessageListener.class
+com\meitaomart\search\message\ItemAddMessageListener.class
+com\meitaomart\search\service\impl\SearchItemServiceImpl.class
+com\meitaomart\search\mapper\SearchItemMapper.class
+com\meitaomart\search\dao\SearchDao.class

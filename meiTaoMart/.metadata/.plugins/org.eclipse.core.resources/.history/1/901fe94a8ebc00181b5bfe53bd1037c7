@@ -1,0 +1,23 @@
+package com.meitaomart.common.utils;
+
+import java.util.Random;
+
+public final class TaxUtils {
+	/**
+	 * 
+	 * @param subtotal 商品总金额(单位:分)
+	 * @return 税 (单位:分)
+	 */
+	public static Integer getTaxFee(Long subtotal) {
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @return 税 (单位:分)
+	 */
+	public static Integer getTaxFee() {
+		Random random = new Random();
+		return random.nextInt(20) + 1;
+	}
+}

@@ -1,0 +1,50 @@
+package com.meitaomart.order.builder;
+
+import java.util.Date;
+
+import com.meitaomart.common.builder.CartItemBuilder;
+
+public class OrderInfoBuilder {
+	private static OrderInfoBuilder orderInfoBuilder = new OrderInfoBuilder();
+	
+	private OrderInfoBuilder() {
+	}
+
+	public static OrderInfoBuilder getInstance() {
+		return orderInfoBuilder;
+	}
+	
+	private String orderId;
+
+    private String subtotal;
+
+    private Byte paymentType;
+
+    private Long postFee;
+
+    private Long taxFee;
+
+    private Byte status;
+
+    private Date createdTime;
+
+    private Date updatedTime;
+
+    private Date paymentTime;
+
+    private Date consignTime;
+
+    private Date endTime;
+
+    private Date closeTime;
+
+    private String shippingName;
+
+    private String shippingCode;
+
+    private Long userId;
+
+    private String userComment;
+
+    private String username;
+}

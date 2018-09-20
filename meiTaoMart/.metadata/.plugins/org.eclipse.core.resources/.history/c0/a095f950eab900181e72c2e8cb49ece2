@@ -1,0 +1,27 @@
+ package com.meitaomart.common.pojo;
+
+import java.io.Serializable;
+
+public class SearchItem implements Serializable{
+	private String id;
+	private String name;
+	private String caption;
+	private String sellPoint;
+	private Integer netWeight;
+	private Integer stockNumber;
+	private String images;
+	private Long salePrice;
+	private String categoryName;
+
+	
+	
+	public String[] getImages2() {
+		if (image != null && !"".equals(image)) {
+			String[] strings = image.split(",");
+			return strings;
+		}
+		
+		return null;
+	}
+
+}

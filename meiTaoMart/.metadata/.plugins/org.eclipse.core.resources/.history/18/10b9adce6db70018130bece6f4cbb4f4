@@ -1,0 +1,9 @@
+package com.meitaomart.service.test;
+
+public class ItemServiceTest {
+	@Test
+	public void getItemList() {
+		
+	}
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;com.meitaomart.content.service.test.redisTest.java&apos; to &apos;contentServiceTest.java&apos;&#x0D;&#x0A;- Original project: &apos;meitao-content-service&apos;&#x0D;&#x0A;- Original element: &apos;com.meitaomart.content.service.test.redisTest.java&apos;&#x0D;&#x0A;- Renamed element: &apos;com.meitaomart.content.service.test.contentServiceTest.java&apos;" description="Rename compilation unit &apos;redisTest.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src\/test\/java&lt;com.meitaomart.content.service.test{redisTest.java" name="contentServiceTest.java" references="false" stamp="1536959367556" version="1.0"/>
+</session>

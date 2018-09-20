@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.meitaomart.service.ItemCatService&apos; to &apos;ItemCategoryService&apos;&#x0D;&#x0A;- Original project: &apos;meitao-manager-interface&apos;&#x0D;&#x0A;- Original element: &apos;com.meitaomart.service.ItemCatService&apos;&#x0D;&#x0A;- Renamed element: &apos;com.meitaomart.service.ItemCategoryService&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ItemCatService&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java&lt;com.meitaomart.service{ItemCatService.java[ItemCatService" matchStrategy="1" name="ItemCategoryService" qualified="false" references="true" similarDeclarations="false" stamp="1536777170802" textual="false" version="1.0"/>
+</session>

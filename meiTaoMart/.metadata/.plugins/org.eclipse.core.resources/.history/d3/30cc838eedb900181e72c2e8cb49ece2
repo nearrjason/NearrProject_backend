@@ -1,0 +1,8 @@
+package com.meitaomart.search.service.test;
+
+public class SearchDatabaseTest {
+	public void searchFromDatabase() {
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-dao.xml"); 
+	}
+
+}

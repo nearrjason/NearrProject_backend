@@ -1,0 +1,10 @@
+package com.meitaomart.order.service;
+
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.order.pojo.OrderInfo;
+
+public interface OrderService {
+
+	MeitaoResult createOrder(OrderInfo orderInfo);
+	OrderInfo getOrderInfoByCartList(List<CartItem>);
+}

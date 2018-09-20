@@ -1,0 +1,14 @@
+package com.meitaomart.search.service.test;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.meitaomart.search.mapper.SearchItemMapper;
+
+public class SearchDatabaseTest {
+	public void searchFromDatabase() {
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-dao.xml"); 
+		SearchItemMapper meitaoContentMapper = applicationContext.getBean(SearchItemMapper.class);
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.meitaomart.common.utils;
+
+public class TaxUtils {
+
+}

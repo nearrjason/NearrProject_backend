@@ -1,0 +1,11 @@
+package com.meitaomart.common.utils;
+
+import java.util.Random;
+
+public final class ShippingUtils {
+	public static Long getTaxFee() {
+		Random random = new Random();
+		long postFee = random.nextInt(20) + 1;
+		return postFee;
+	}
+}

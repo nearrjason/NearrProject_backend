@@ -1,0 +1,11 @@
+package com.meitaomart.search.mapper;
+
+import java.util.List;
+
+import com.meitaomart.common.pojo.ItemInfo;
+
+
+public interface ItemInfoMapper {
+	List<ItemInfo> getItemList();
+	ItemInfo getItemById(long itemId);
+}

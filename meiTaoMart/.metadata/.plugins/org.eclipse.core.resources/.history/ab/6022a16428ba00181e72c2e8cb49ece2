@@ -1,0 +1,337 @@
+package com.meitaomart.service.impl;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.meitaomart.common.builder.ItemInfoBuilder;
+import com.meitaomart.common.jedis.JedisClient;
+import com.meitaomart.common.pojo.EasyUIDataGridResult;
+import com.meitaomart.common.pojo.ItemInfo;
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.common.utils.IDUtils;
+import com.meitaomart.common.utils.JsonUtils;
+import com.meitaomart.mapper.MeitaoItemDescMapper;
+import com.meitaomart.mapper.MeitaoItemMapper;
+import com.meitaomart.mapper.MeitaoItemPriceMapper;
+import com.meitaomart.pojo.MeitaoItem;
+import com.meitaomart.pojo.MeitaoItemDesc;
+import com.meitaomart.pojo.MeitaoItemDescExample;
+import com.meitaomart.pojo.MeitaoItemExample;
+import com.meitaomart.pojo.MeitaoItemPrice;
+import com.meitaomart.pojo.MeitaoItemPriceExample;
+import com.meitaomart.service.ItemService;
+import com.meitaomart.pojo.MeitaoItemExample.Criteria;
+
+/**
+ * 商品管理Service
+ * 
+ * @version 1.0
+ */
+
+@Service
+public class ItemServiceImpl implements ItemService {
+
+	@Autowired
+	private MeitaoItemMapper itemMapper;
+	@Autowired
+	private MeitaoItemDescMapper itemDescMapper;
+	@Autowired
+	private MeitaoItemPriceMapper itemPriceMapper;
+	@Autowired
+	private JmsTemplate jmsTemplate;
+	@Autowired
+	private JedisClient jedisClient;
+
+	@Value("${REDIS_ITEM_PRE}")
+	private String REDIS_ITEM_PRE;
+	@Value("${REDIS_ITEM_PRICE_PRE}")
+	private String REDIS_ITEM_PRICE_PRE;
+	@Value("${REDIS_ITEM_DESC_PRE}")
+	private String REDIS_ITEM_DESC_PRE;
+	@Value("${ITEM_CACHE_EXPIRE}")
+	private Integer ITEM_CACHE_EXPIRE;
+
+	@Resource
+	private Destination topicDestination;
+
+	/**
+	 * 得到所有的item信息 信息来源表: MeitaoItem, MeitaoItemPrice, MeitaoItemDesc
+	 */
+	@Override
+	public List<ItemInfo> getItemList() {
+		MeitaoItemExample itemExample = new MeitaoItemExample();
+		List<MeitaoItem> itemList = itemMapper.selectByExample(itemExample);
+
+		MeitaoItemPriceExample itemPriceExample = new MeitaoItemPriceExample();
+		List<MeitaoItemPrice> itemPriceList = itemPriceMapper.selectByExample(itemPriceExample);
+
+		MeitaoItemDescExample itemDescExample = new MeitaoItemDescExample();
+		List<MeitaoItemDesc> itemDescList = itemDescMapper.selectByExample(itemDescExample);
+
+		List<ItemInfo> resultList = new ArrayList<>();
+
+		int size = itemList.size();
+		if (size != itemPriceList.size() || size != itemDescList.size()
+				|| itemPriceList.size() != itemDescList.size()) {
+			// Report to kibana in the future
+			System.out.println("商品信息不一致，请检查数据库");
+		}
+
+		for (int i = 0; i < size; i++) {
+			ItemInfo itemInfo = createItemInfo(itemList.get(i), itemPriceList.get(0), itemDescList.get(0));
+			resultList.add(itemInfo);
+		}
+
+		return resultList;
+	}
+
+	private ItemInfo createItemInfo(MeitaoItem item, MeitaoItemPrice itemPrice, MeitaoItemDesc itemDesc) {
+		ItemInfo itemInfo = ItemInfoBuilder.createIntemInfoCreater().setId(item.getId())
+				.setCategoryId(item.getCategoryId()).setName(item.getName()).setCaption(item.getCaption())
+				.setBrandName(item.getBrandName()).setSupplier(item.getSupplier()).setSellPoint(item.getSellPoint())
+				.setNetWeight(item.getNetWeight()).setStockNumber(item.getStockNumber()).setBarcode(item.getBarcode())
+				.setImages(item.getImages()).setStatus(item.getStatus()).setAdminUserId(item.getAdminUserId())
+				.setCreatedTime(item.getCreatedTime()).setUpdatedTime(item.getUpdatedTime())
+				.setCost(itemPrice.getCost()).setSalePrice(itemPrice.getSalePrice())
+				.setDiscount(itemPrice.getDiscount()).setItemDesc(itemDesc.getItemDesc()).build();
+
+		return itemInfo;
+	}
+
+	@Override
+	public ItemInfo getItemById(long itemId) {
+		MeitaoItem meitaoItem = getItemByIdFromMeitaoItem(itemId);
+		MeitaoItemPrice meitaoItemPrice = getItemByIdFromMeitaoItemPrice(itemId);
+		MeitaoItemDesc meitaoItemDesc = getItemByIdFromMeitaoItemDesc(itemId);
+		ItemInfo itemInfo = createItemInfo(meitaoItem, meitaoItemPrice, meitaoItemDesc);
+		return itemInfo
+	}
+
+	private MeitaoItem getItemByIdFromMeitaoItem(long itemId) {
+		// 查询缓存
+		try {
+			String json = jedisClient.get(REDIS_ITEM_PRE + ":" + itemId + ":BASE");
+			if (StringUtils.isNotBlank(json)) {
+				MeitaoItem meitaoItem = JsonUtils.jsonToPojo(json, MeitaoItem.class);
+				return meitaoItem;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MeitaoItemExample example = new MeitaoItemExample();
+		Criteria criteria = example.createCriteria();
+
+		// 设置查询条件
+		criteria.andIdEqualTo(itemId);
+		// 執行查詢
+		List<MeitaoItem> list = itemMapper.selectByExample(example);
+		if (list != null && list.size() > 0) {
+			try {
+				// 把数据库查询结果添加到缓存
+				jedisClient.set(REDIS_ITEM_PRE + ":" + itemId + ":BASE", JsonUtils.objectToJson(list.get(0)));
+				// 设置过期时间
+				jedisClient.expire(REDIS_ITEM_PRE + ":" + itemId + ":BASE", ITEM_CACHE_EXPIRE); // 3600s
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return list.get(0);
+		}
+		return null;
+	}
+
+	private MeitaoItemPrice getItemByIdFromMeitaoItemPrice(long itemId) {
+		// 查询缓存
+		try {
+			String json = jedisClient.get(REDIS_ITEM_PRICE_PRE + ":" + itemId + ":BASE");
+			if (StringUtils.isNotBlank(json)) {
+				MeitaoItemPrice meitaoItemPrice = JsonUtils.jsonToPojo(json, MeitaoItemPrice.class);
+				return meitaoItemPrice;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MeitaoItemPriceExample example = new MeitaoItemPriceExample();
+		com.meitaomart.pojo.MeitaoItemPriceExample.Criteria criteria = example.createCriteria();
+
+		// 设置查询条件
+		criteria.andItemIdEqualTo(itemId);
+		// 執行查詢
+		List<MeitaoItemPrice> list = itemPriceMapper.selectByExample(example);
+		if (list != null && list.size() > 0) {
+			try {
+				// 把数据库查询结果添加到缓存
+				jedisClient.set(REDIS_ITEM_PRICE_PRE + ":" + itemId + ":BASE", JsonUtils.objectToJson(list.get(0)));
+				// 设置过期时间
+				jedisClient.expire(REDIS_ITEM_PRICE_PRE + ":" + itemId + ":BASE", ITEM_CACHE_EXPIRE); // 3600s
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return list.get(0);
+		}
+		return null;
+	}
+	
+	private MeitaoItemDesc getItemByIdFromMeitaoItemDesc(long itemId) {
+		// 查询缓存
+		try {
+			String json = jedisClient.get(REDIS_ITEM_DESC_PRE + ":" + itemId + ":BASE");
+			if (StringUtils.isNotBlank(json)) {
+				MeitaoItemDesc meitaoItemDesc = JsonUtils.jsonToPojo(json, MeitaoItemDesc.class);
+				return meitaoItemDesc;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MeitaoItemDescExample example = new MeitaoItemDescExample();
+		com.meitaomart.pojo.MeitaoItemDescExample.Criteria criteria = example.createCriteria();
+
+		// 设置查询条件
+		criteria.andItemIdEqualTo(itemId);
+		// 執行查詢
+		List<MeitaoItemDesc> list = itemDescMapper.selectByExample(example);
+		if (list != null && list.size() > 0) {
+			try {
+				// 把数据库查询结果添加到缓存
+				jedisClient.set(REDIS_ITEM_DESC_PRE + ":" + itemId + ":BASE", JsonUtils.objectToJson(list.get(0)));
+				// 设置过期时间
+				jedisClient.expire(REDIS_ITEM_DESC_PRE + ":" + itemId + ":BASE", ITEM_CACHE_EXPIRE); // 3600s
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return list.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public EasyUIDataGridResult getItemList(int page, int rows) {
+		// 设置分页信息
+		PageHelper.startPage(page, rows);
+		// 执行查询
+		/*
+		 * MeitaoItemExample example = new MeitaoItemExample(); List<MeitaoItem>
+		 * list = itemMapper.selectByExample(example);
+		 */
+		List<ItemInfo> list = getItemList();
+		// 创建一个返回值对象
+		EasyUIDataGridResult result = new EasyUIDataGridResult();
+		result.setRows(list);
+		// 取分页结果
+		PageInfo<ItemInfo> pageInfo = new PageInfo<>(list);
+		// 取总记录数
+		long total = pageInfo.getTotal();
+		result.setTotal(total);
+		return result;
+	}
+
+	@Override
+	public MeitaoResult deleteItems(String ids) {
+		String[] arrayIds = ids.split(",");
+		for (String stringId : arrayIds) {
+			Long id = Long.parseLong(stringId.trim());
+			itemMapper.deleteByPrimaryKey(id);
+			itemDescMapper.deleteByPrimaryKey(id);
+			itemPriceMapper.deleteByPrimaryKey(id);
+		}
+		return MeitaoResult.ok();
+	}
+
+	@Override
+	public MeitaoResult addItem(MeitaoItem item, MeitaoItemPrice itemPrices, String desc) {
+		/**
+		 * 商品表插入
+		 */
+		// 生成商品id
+		final long itemId = IDUtils.genItemId();
+
+		// 补全item的属性
+		item.setId(itemId);
+		// 1-正常 2-下架 3-删除
+		item.setStatus((byte) 1);
+		item.setCreatedTime(new Date());
+		item.setUpdatedTime(new Date());
+
+		// 向商品表插入数据
+		itemMapper.insert(item);
+
+		/**
+		 * 商品价格表插入
+		 */
+		itemPrices.setItemId(itemId);
+		itemPriceMapper.insert(itemPrices);
+
+		/**
+		 * 商品描述表插入
+		 */
+		// 创建一个商品描述表对应的pojo对象
+		MeitaoItemDesc itemDesc = new MeitaoItemDesc();
+
+		// 补全属性
+		itemDesc.setItemId(itemId);
+		itemDesc.setItemDesc(desc);
+		itemDesc.setCreatedTime(new Date());
+		itemDesc.setUpdatedTime(new Date());
+
+		// 向商品描述表插入数据
+		itemDescMapper.insert(itemDesc);
+		// 发送一个商品添加消息
+		/*
+		 * jmsTemplate.send(topicDestination, new MessageCreator() {
+		 * 
+		 * @Override public Message createMessage(Session session) throws
+		 * JMSException { TextMessage textMessage =
+		 * session.createTextMessage(itemId + ""); return textMessage; }
+		 * 
+		 * });
+		 */
+		// 返回成功
+		return MeitaoResult.ok();
+	}
+
+	@Override
+	public MeitaoItemDesc getItemDescById(long itemId) {
+		// 查询缓存
+		try {
+			String json = jedisClient.get(REDIS_ITEM_PRE + ":" + itemId + ":DESC");
+			if (StringUtils.isNotBlank(json)) {
+				MeitaoItemDesc itemDesc = JsonUtils.jsonToPojo(json, MeitaoItemDesc.class);
+				return itemDesc;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		MeitaoItemDesc itemDesc = itemDescMapper.selectByPrimaryKey(itemId);
+
+		try {
+			// 把数据库查询结果添加到缓存
+			jedisClient.set(REDIS_ITEM_PRE + ":" + itemId + ":DESC", JsonUtils.objectToJson(itemDesc));
+			// 设置过期时间
+			jedisClient.expire(REDIS_ITEM_PRE + ":" + itemId + ":DESC", ITEM_CACHE_EXPIRE); // 3600s
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return itemDesc;
+	}
+
+}
