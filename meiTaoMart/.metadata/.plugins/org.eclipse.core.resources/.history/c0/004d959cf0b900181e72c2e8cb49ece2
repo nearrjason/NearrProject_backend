@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meitaomart.search.mapper.SearchItemMapper">
+   <resultMap id="BaseResultMap" type="com.meitaomart.pojo.SearchItem" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="caption" property="caption" jdbcType="VARCHAR" />
+    <result column="supplier" property="supplier" jdbcType="VARCHAR" />
+    <result column="sell_point" property="sellPoint" jdbcType="VARCHAR" />
+    <result column="net_weight" property="netWeight" jdbcType="INTEGER" />
+    <result column="stock_number" property="stockNumber" jdbcType="INTEGER" />
+    <result column="barcode" property="barcode" jdbcType="VARCHAR" />
+    <result column="images" property="images" jdbcType="VARCHAR" />
+    <result column="sale_price" property="salePrice" jdbcType="BIGINT" />
+    <result column="discount" property="discount" jdbcType="TINYINT" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+  </resultMap>
+	<select id="getItemList">
+		SELECT
+		a.id,
+		a.name,
+		a.caption,
+		a.sell_point,
+		a.net_weight,
+		a.stock_number,
+		a.images,
+		b.sale_price,
+		b.discount,
+		c.name as category_name
+		FROM meitao_item a
+		 LEFT JOIN meitao_item_price b ON a.id = b.item_id
+		 LEFT JOIN meitao_item_category c ON a.categoryId = c.id
+		WHERE
+		a. STATUS = 1
+	</select>
+	<!-- <select id="getItemList" resultType="com.meitaomart.common.pojo.SearchItem">
+		SELECT
+		a.id,
+		a.title,
+		a.sell_point,
+		a.price,
+		a.image,
+		b. NAME category_name
+		FROM
+		tb_item a
+		LEFT JOIN tb_item_cat b ON a.categoryId = b.id
+		WHERE
+		a. STATUS = 1
+	</select>
+	<select id="getItemById" parameterType="long" resultType="com.meitaomart.common.pojo.SearchItem">
+		SELECT
+			a.id,
+			a.title,
+			a.sell_point,
+			a.price,
+			a.image,
+			b. NAME category_name
+		FROM
+			tb_item a
+		LEFT JOIN tb_item_cat b ON a.categoryId = b.id
+		WHERE
+			a. STATUS = 1
+		AND
+			a.id=#{itemid}
+	</select> -->
+</mapper>

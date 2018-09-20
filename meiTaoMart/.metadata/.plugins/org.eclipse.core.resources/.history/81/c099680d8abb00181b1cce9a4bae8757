@@ -1,0 +1,117 @@
+var CART = {
+	itemNumChange : function(){
+		$(".increment").click(function(){// ＋
+			
+			var index = $(this).attr("index");
+			var singleTotalPriceId = "#singleTotalPrice" + index;
+			var singleTotalPrice = $(singleTotalPriceId);
+			console.log(singleTotalPrice);
+			
+			console.log(index);
+			/*var _thisInput = $(this).siblings("input");
+			_thisInput.val(eval(_thisInput.val()) + 1);
+			console.log(_thisInput);
+			$.post("/cart/update/num/"+_thisInput.attr("itemId")+"/"+_thisInput.val() + ".action",function(response){
+				
+				CART.refreshTotalPrice();
+				//location.reload();
+				$('html').html(response);
+			});*/
+		});
+		$(".decrement").click(function(){// -
+			var _thisInput = $(this).siblings("input");
+			if(eval(_thisInput.val()) == 1){
+				return ;
+			}
+			_thisInput.val(eval(_thisInput.val()) - 1);
+			$.post("/cart/update/num/"+_thisInput.attr("itemId")+"/"+_thisInput.val() + ".action",function(data){
+				CART.refreshTotalPrice();
+			});
+		});
+		/*
+		 * $(".itemnum").change(function(){ var _thisInput = $(this);
+		 * $.post("/service/cart/update/num/"+_thisInput.attr("itemId")+"/"+_thisInput.val(),function(data){
+		 * CART.refreshTotalPrice(); }); });
+		 */
+	},
+	refreshTotalPrice : function(){ // 重新计算总价
+		var total = 0;
+		$(".itemnum").each(function(i,e){
+			var test = $("#total_price");
+			console.log(test);
+			var _this = $(e);
+			total += (eval(_this.attr("itemPrice")) * 10000 * eval(_this.val())) / 10000;
+		});
+		
+		//$("#total_price").load(window.location.href + "#total_price" );
+		
+		$("#allMoney2").html(new Number(total/100).toFixed(2)).priceFormat({ // 价格格式化插件
+			 prefix: '$',
+			 thousandsSeparator: ',',
+			 centsLimit: 2
+		});
+	},
+	cartDelMore : function() {
+		jConfirm("确定删除选中的商品？", '提示消息', function(r){
+		    if (r){
+		      var result = new Array();
+		      $("input[name='cart_list']:checked").each(function(){ 
+		    	var id = $(this).val();
+		    	if (id) {
+		    		result.push(id);
+		    	}
+		      });
+		      var ids = result.join(",");
+		      $.post("/cart/delete/multiple/" + ids + ".html", function(data){
+				  $('html').html(data);
+				});
+		    }else{
+		      return false;
+		    }
+		  });
+	},
+	cartDelAll : function() {
+		jConfirm("确定要清空购物车？", '提示消息', function(r){
+		    if (r){
+		      var result = new Array();
+		      $("input[name='cart_list']").each(function(){ 
+		    	  var id = $(this).val();
+		    	  if (id) {
+		    		 result.push(id);
+		    	  }
+		      });
+		      var ids = result.join(",");
+		      $.post("/cart/delete/multiple/" + ids + ".html", function(data){
+				  $('html').html(data);
+				});
+		    }else{
+		      return false;
+		    }
+		  });
+	},
+	selectAll : function() {
+		var allCheckBoxState = $("#selectAllCheckBox")[0].checked;
+		var checkboxes = $("input[name='cart_list']");
+		for (var i = 0; i < checkboxes.length; i++) {
+			checkboxes[i].checked = allCheckBoxState;
+		}
+	}
+};
+
+$(function(){
+	CART.itemNumChange();
+});
+
+
+// 删除多个选择商品
+function cartDelMore(){
+	CART.cartDelMore();
+};
+
+function cartDelAll(){
+	CART.cartDelAll();
+};
+
+function selectAll() {
+	CART.selectAll();
+};

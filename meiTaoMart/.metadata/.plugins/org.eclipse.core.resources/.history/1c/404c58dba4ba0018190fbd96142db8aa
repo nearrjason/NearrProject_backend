@@ -1,0 +1,21 @@
+package com.meitaomart.portal.controller;
+
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.http.cookie.Cookie;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.meitaomart.common.utils.CookieUtils;
+
+@Controller
+public class LogoutController {
+	@RequestMapping("/user/logout")
+	public String logout(HttpServletRequest request) {
+		String json = CookieUtils.getCookieValue(request, "token", true);
+		int a = 1;
+		System.out.println(a);
+		return null;
+	}
+}

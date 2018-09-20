@@ -1,0 +1,17 @@
+package com.meitaomart.service.test;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.meitaomart.service.ItemService;
+
+public class ItemServiceTest {
+	@Autowired
+	private ItemService itemService;
+	
+	@Test
+	public void getItemList() {
+		ItemService a = itemService;
+		System.out.println(a);
+	}
+}

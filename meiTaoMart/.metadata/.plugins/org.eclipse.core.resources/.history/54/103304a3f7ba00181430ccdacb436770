@@ -1,0 +1,19 @@
+package com.meitaomart.cart.service;
+
+import java.util.List;
+
+import com.meitaomart.cart.pojo.CartItem;
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.pojo.MeitaoItem;
+
+public interface CartService {
+
+	MeitaoResult addCart(long userId, long itemId, int purchaseQuantity);
+	MeitaoResult mergeCart(long userId, List<MeitaoItem> itemList);
+	MeitaoResult mergeCart1(long userId, List<CartItem> cartItemList);
+	List<MeitaoItem> getCartList(long userId);
+	List<CartItem> getCartList1(long userId);
+	MeitaoResult updateCartNum(long userId, long itemId, int purchaseQuantity);
+	MeitaoResult deleteCartItem(long userId, long itemId);
+	MeitaoResult clearCartItem(long userId);
+}

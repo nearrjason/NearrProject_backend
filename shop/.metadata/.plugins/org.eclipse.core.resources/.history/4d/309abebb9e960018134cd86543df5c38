@@ -1,7 +1,0 @@
-package cn.e3mall.pagehelper;
-
-public class PageHelperTest {
-	public void testPageHelper() throws Exception {
-		
-	}
-}

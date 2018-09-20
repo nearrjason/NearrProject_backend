@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-  <system systemId="http://code.alibabatech.com/schema/dubbo" uri="file:///C:/Users/anluo/eclipse-workspace/shop/repository/com/alibaba/dubbo/dubbo.xsd"/>
-</catalog>

@@ -1,0 +1,560 @@
+
+
+[INFO ] 2018-09-19 14:51:43,620 method:org.I0Itec.zkclient.ZkEventThread.run(ZkEventThread.java:64)
+Starting ZkClient event thread.
+
+
+[INFO ] 2018-09-19 14:51:43,634 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:zookeeper.version=3.4.10-39d3a4f269333c922ed3db283be479f9deacaa0f, built on 03/23/2017 10:13 GMT
+
+
+[INFO ] 2018-09-19 14:51:43,637 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:host.name=LAPTOP-KL824SL2
+
+
+[INFO ] 2018-09-19 14:51:43,642 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.version=1.8.0_181
+
+
+[INFO ] 2018-09-19 14:51:43,642 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.vendor=Oracle Corporation
+
+
+[INFO ] 2018-09-19 14:51:43,643 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.home=C:\Program Files\Java\jdk1.8.0_181\jre
+
+
+[INFO ] 2018-09-19 14:51:43,643 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.class.path=E:\apache-maven-3.3.9\boot\plexus-classworlds-2.5.2.jar
+
+
+[INFO ] 2018-09-19 14:51:43,645 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.library.path=C:\Program Files\Java\jdk1.8.0_181\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jdk1.8.0_181/bin/../jre/bin/server;C:/Program Files/Java/jdk1.8.0_181/bin/../jre/bin;C:/Program Files/Java/jdk1.8.0_181/bin/../jre/lib/amd64;C:\Program Files\MySQL\MySQL Server 5.5\bin;C:\Program Files\Java\jdk1.8.0_181\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;;C:\WINDOWS\System32\OpenSSH\;C:\Users\anluo\AppData\Local\Microsoft\WindowsApps;;E:\;E:\SSH Secure Shell;C:\Program Files (x86)\SSH Communications Security\SSH Secure Shell;E:\eclipse;;.
+
+
+[INFO ] 2018-09-19 14:51:43,645 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.io.tmpdir=C:\Users\anluo\AppData\Local\Temp\
+
+
+[INFO ] 2018-09-19 14:51:43,646 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.compiler=<NA>
+
+
+[INFO ] 2018-09-19 14:51:43,647 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:os.name=Windows 10
+
+
+[INFO ] 2018-09-19 14:51:43,648 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:os.arch=amd64
+
+
+[INFO ] 2018-09-19 14:51:43,649 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:os.version=10.0
+
+
+[INFO ] 2018-09-19 14:51:43,650 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:user.name=anluo
+
+
+[INFO ] 2018-09-19 14:51:43,650 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:user.home=C:\Users\anluo
+
+
+[INFO ] 2018-09-19 14:51:43,650 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:user.dir=D:\meiTaoMart\meitao-search-web
+
+
+[INFO ] 2018-09-19 14:51:43,652 method:org.apache.zookeeper.ZooKeeper.<init>(ZooKeeper.java:438)
+Initiating client connection, connectString=192.168.1.211:2181 sessionTimeout=30000 watcher=org.I0Itec.zkclient.ZkClient@ebb0feb
+
+
+[INFO ] 2018-09-19 14:51:43,748 method:org.apache.zookeeper.ClientCnxn$SendThread.logStartConnect(ClientCnxn.java:1032)
+Opening socket connection to server 192.168.1.211/192.168.1.211:2181. Will not attempt to authenticate using SASL (unknown error)
+
+
+[INFO ] 2018-09-19 14:51:43,770 method:org.apache.zookeeper.ClientCnxn$SendThread.primeConnection(ClientCnxn.java:876)
+Socket connection established to 192.168.1.211/192.168.1.211:2181, initiating session
+
+
+[INFO ] 2018-09-19 14:51:43,792 method:org.apache.zookeeper.ClientCnxn$SendThread.onConnected(ClientCnxn.java:1299)
+Session establishment complete on server 192.168.1.211/192.168.1.211:2181, sessionid = 0x165f329fda90006, negotiated timeout = 30000
+
+
+[INFO ] 2018-09-19 14:51:43,798 method:org.I0Itec.zkclient.ZkClient.processStateChanged(ZkClient.java:449)
+zookeeper state changed (SyncConnected)
+
+
+[INFO ] 2018-09-19 14:51:43,867 method:com.alibaba.dubbo.registry.support.AbstractRegistry.register(AbstractRegistry.java:302)
+ [DUBBO] Register: consumer://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=consumers&check=false&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=7500&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537383102674, dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-19 14:51:43,898 method:com.alibaba.dubbo.registry.support.AbstractRegistry.subscribe(AbstractRegistry.java:325)
+ [DUBBO] Subscribe: consumer://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=providers,configurators,routers&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=7500&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537383102674, dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-19 14:51:43,984 method:com.alibaba.dubbo.registry.support.AbstractRegistry.notify(AbstractRegistry.java:422)
+ [DUBBO] Notify urls for subscribe url consumer://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=providers,configurators,routers&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=7500&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537383102674, urls: [dubbo://192.168.159.1:20882/com.meitaomart.search.service.SearchService?anyhost=true&application=meitao-search&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=13504&side=provider&timeout=600000&timestamp=1537383034139, empty://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=configurators&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=7500&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537383102674, empty://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=routers&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=7500&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537383102674], dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-19 14:51:44,660 method:com.alibaba.dubbo.remoting.transport.AbstractClient.connect(AbstractClient.java:287)
+ [DUBBO] Successed connect to server /192.168.159.1:20882 from NettyClient 192.168.159.1 using dubbo version 2.5.3, channel is NettyChannel [channel=[id: 0x5800840c, /192.168.159.1:62440 => /192.168.159.1:20882]], dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-19 14:51:44,660 method:com.alibaba.dubbo.remoting.transport.AbstractClient.<init>(AbstractClient.java:105)
+ [DUBBO] Start NettyClient LAPTOP-KL824SL2/192.168.159.1 connect to the server /192.168.159.1:20882, dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-19 14:51:45,028 method:com.alibaba.dubbo.config.ReferenceConfig.createProxy(ReferenceConfig.java:423)
+ [DUBBO] Refer dubbo service com.meitaomart.search.service.SearchService from url zookeeper://192.168.1.211:2181/com.alibaba.dubbo.registry.RegistryService?anyhost=true&application=meitao-search-web&check=false&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=7500&revision=0.0.1-SNAPSHOT&side=consumer&timeout=600000&timestamp=1537383102674, dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-19 14:51:45,828 method:org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:527)
+Mapped "{[/search]}" onto public java.lang.String com.meitaomart.search.controller.SearchController.searchItemListByKeyWord(java.lang.String,java.lang.Integer,org.springframework.ui.Model) throws java.lang.Exception
+
+
+[INFO ] 2018-09-19 14:51:45,830 method:org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:527)
+Mapped "{[/category/{categoryId}]}" onto public java.lang.String com.meitaomart.search.controller.SearchController.searchItemListByCategory(org.springframework.ui.Model,java.lang.Long,java.lang.String) throws java.lang.Exception
+
+
+[INFO ] 2018-09-19 14:51:45,831 method:org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:527)
+Mapped "{[/category/{categoryId2}/{categoryId3}]}" onto public java.lang.String com.meitaomart.search.controller.SearchController.searchItemListByCategorys(org.springframework.ui.Model,java.lang.Long,java.lang.Long,java.lang.String) throws java.lang.Exception
+
+
+[INFO ] 2018-09-19 14:51:46,873 method:org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)
+Looking for @ControllerAdvice: WebApplicationContext for namespace 'meitao-search-web-servlet': startup date [Wed Sep 19 14:51:39 EDT 2018]; root of context hierarchy
+
+
+[INFO ] 2018-09-19 14:51:46,932 method:org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)
+Looking for @ControllerAdvice: WebApplicationContext for namespace 'meitao-search-web-servlet': startup date [Wed Sep 19 14:51:39 EDT 2018]; root of context hierarchy
+
+
+[INFO ] 2018-09-19 14:51:47,225 method:org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:508)
+FrameworkServlet 'meitao-search-web': initialization completed in 7925 ms
+
+
+[WARN ] 2018-09-19 15:57:18,967 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:57:30,909 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:57:31,826 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:57:34,735 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:57:54,776 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:57:57,876 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:58:05,707 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:58:17,777 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/productlist/search/] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:58:20,927 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:58:21,666 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:58:31,033 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:58:32,412 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:58:35,576 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:59:08,395 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:59:09,549 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:59:11,993 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:59:19,046 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:59:20,309 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:59:21,053 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:59:22,131 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:59:23,302 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:59:24,907 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:59:26,645 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:59:27,030 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:59:28,563 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 15:59:30,023 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[WARN ] 2018-09-19 16:16:51,989 method:org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1136)
+No mapping found for HTTP request with URI [/html/web/_public/_ajaxStaticMenu.html] in DispatcherServlet with name 'meitao-search-web'
+
+
+[INFO ] 2018-09-19 22:11:40,445 method:org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:489)
+FrameworkServlet 'meitao-search-web': initialization started
+
+
+[INFO ] 2018-09-19 22:11:40,524 method:org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578)
+Refreshing WebApplicationContext for namespace 'meitao-search-web-servlet': startup date [Wed Sep 19 22:11:40 EDT 2018]; root of context hierarchy
+
+
+[INFO ] 2018-09-19 22:11:40,568 method:org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)
+Loading XML bean definitions from class path resource [spring/springmvc.xml]
+
+
+[INFO ] 2018-09-19 22:11:41,123 method:
+using logger: com.alibaba.dubbo.common.logger.log4j.Log4jLoggerAdapter
+
+
+[INFO ] 2018-09-19 22:11:41,241 method:org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)
+Loading properties file from class path resource [conf/resource.properties]
+
+
+[INFO ] 2018-09-19 22:11:41,249 method:org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)
+JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+
+
+[INFO ] 2018-09-19 22:11:41,781 method:com.alibaba.dubbo.registry.support.AbstractRegistry.loadProperties(AbstractRegistry.java:232)
+ [DUBBO] Load registry store file C:\Users\anluo\.dubbo\dubbo-registry-192.168.1.211.cache, data: {com.meitaomart.search.service.SearchItemService=empty://192.168.159.1/com.meitaomart.search.service.SearchItemService?application=meitao-manager-web&category=configurators&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchItemService&methods=importAllItems&pid=13944&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409316261 empty://192.168.159.1/com.meitaomart.search.service.SearchItemService?application=meitao-manager-web&category=routers&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchItemService&methods=importAllItems&pid=13944&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409316261 dubbo://192.168.159.1:20882/com.meitaomart.search.service.SearchItemService?anyhost=true&application=meitao-search&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchItemService&methods=importAllItems&pid=14712&side=provider&timeout=600000&timestamp=1537408392283, com.meitaomart.sso.service.TokenService=empty://192.168.159.1:20883/com.meitaomart.sso.service.TokenService?anyhost=true&application=meitao-sso&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.sso.service.TokenService&methods=getUserByToken&pid=1620&side=provider&timeout=600000&timestamp=1537409451801, com.meitaomart.search.service.SearchService=empty://192.168.159.1:20882/com.meitaomart.search.service.SearchService?anyhost=true&application=meitao-search&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=14712&side=provider&timeout=600000&timestamp=1537408397346, 5.3&interface=com.meitaomart.sso.service.LoginService&methods=userLogin&pid=8872&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537383158537=dubbo://192.168.159.1:20883/com.meitaomart.sso.service.LoginService?anyhost=true&application=meitao-sso&dubbo=2.5.3&interface=com.meitaomart.sso.service.LoginService&methods=userLogin&pid=9980&side=provider&timeout=600000&timestamp=1537383031840, com.meitaomart.sso.service.LogoutService=empty://192.168.159.1:20883/com.meitaomart.sso.service.LogoutService?anyhost=true&application=meitao-sso&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.sso.service.LogoutService&methods=userLogout&pid=1620&side=provider&timeout=600000&timestamp=1537409451655, ut=30000&timestamp=1537383025757=, pid=9196&side=provider&timeout=30000&timestamp=1537332012697=, com.meitaomart.order.service.OrderService=empty://192.168.159.1:20885/com.meitaomart.order.service.OrderService?anyhost=true&application=meitao-order&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.order.service.OrderService&methods=createOrder&pid=13572&side=provider&timeout=600000&timestamp=1537409458226, com.meitaomart.service.ItemCategoryService=empty://192.168.159.1/com.meitaomart.service.ItemCategoryService?application=meitao-manager-web&category=configurators&dubbo=2.5.3&interface=com.meitaomart.service.ItemCategoryService&methods=deleteItemCategory,updateItemCategory,addItemCategory,getItemCategoryList,getItemCategoryListWithChildrenList,getItemCategoryListEasyUI&pid=13944&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409316142 empty://192.168.159.1/com.meitaomart.service.ItemCategoryService?application=meitao-manager-web&category=routers&dubbo=2.5.3&interface=com.meitaomart.service.ItemCategoryService&methods=deleteItemCategory,updateItemCategory,addItemCategory,getItemCategoryList,getItemCategoryListWithChildrenList,getItemCategoryListEasyUI&pid=13944&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409316142 dubbo://192.168.159.1:20880/com.meitaomart.service.ItemCategoryService?anyhost=true&application=meitao-manager&dubbo=2.5.3&interface=com.meitaomart.service.ItemCategoryService&methods=deleteItemCategory,updateItemCategory,addItemCategory,getItemCategoryList,getItemCategoryListWithChildrenList,getItemCategoryListEasyUI&pid=13228&side=provider&timeout=600000&timestamp=1537409085263, com.meitaomart.sso.service.RegisterService=empty://192.168.159.1:20883/com.meitaomart.sso.service.RegisterService?anyhost=true&application=meitao-sso&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.sso.service.RegisterService&methods=checkData,register&pid=1620&side=provider&timeout=600000&timestamp=1537409445788, com.meitaomart.service.ItemService=empty://192.168.159.1/com.meitaomart.service.ItemService?application=meitao-manager-web&category=configurators&dubbo=2.5.3&interface=com.meitaomart.service.ItemService&methods=addItem,getItemList,deleteItems,getItemById,getItemDescById&pid=13944&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409316196 empty://192.168.159.1/com.meitaomart.service.ItemService?application=meitao-manager-web&category=routers&dubbo=2.5.3&interface=com.meitaomart.service.ItemService&methods=addItem,getItemList,deleteItems,getItemById,getItemDescById&pid=13944&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409316196 dubbo://192.168.159.1:20880/com.meitaomart.service.ItemService?anyhost=true&application=meitao-manager&dubbo=2.5.3&interface=com.meitaomart.service.ItemService&methods=addItem,getItemList,deleteItems,getItemById,getItemDescById&pid=13228&side=provider&timeout=600000&timestamp=1537409090222, com.meitaomart.sso.service.LoginService=empty://192.168.159.1:20883/com.meitaomart.sso.service.LoginService?anyhost=true&application=meitao-sso&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.sso.service.LoginService&methods=userLogin&pid=1620&side=provider&timeout=600000&timestamp=1537409451550, com.meitaomart.content.service.ContentCategoryService=empty://192.168.159.1/com.meitaomart.content.service.ContentCategoryService?application=meitao-manager-web&category=configurators&dubbo=2.5.3&interface=com.meitaomart.content.service.ContentCategoryService&methods=addContentCategory,updateContentCategory,deleteContentCategory,getContentCatList&pid=13944&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409310970 empty://192.168.159.1/com.meitaomart.content.service.ContentCategoryService?application=meitao-manager-web&category=routers&dubbo=2.5.3&interface=com.meitaomart.content.service.ContentCategoryService&methods=addContentCategory,updateContentCategory,deleteContentCategory,getContentCatList&pid=13944&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409310970 dubbo://192.168.159.1:20881/com.meitaomart.content.service.ContentCategoryService?anyhost=true&application=meitao-content&dubbo=2.5.3&interface=com.meitaomart.content.service.ContentCategoryService&methods=addContentCategory,updateContentCategory,deleteContentCategory,getContentCatList&pid=13488&side=provider&timeout=30000&timestamp=1537409110158, com.meitaomart.content.service.ContentService=empty://192.168.159.1/com.meitaomart.content.service.ContentService?application=meitao-manager-web&category=configurators&dubbo=2.5.3&interface=com.meitaomart.content.service.ContentService&methods=getContentListByCid,getContentList,deleteContents,addContent&pid=13944&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409316079 empty://192.168.159.1/com.meitaomart.content.service.ContentService?application=meitao-manager-web&category=routers&dubbo=2.5.3&interface=com.meitaomart.content.service.ContentService&methods=getContentListByCid,getContentList,deleteContents,addContent&pid=13944&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409316079 dubbo://192.168.159.1:20881/com.meitaomart.content.service.ContentService?anyhost=true&application=meitao-content&dubbo=2.5.3&interface=com.meitaomart.content.service.ContentService&methods=getContentListByCid,getContentList,deleteContents,addContent&pid=13488&side=provider&timeout=30000&timestamp=1537409115266, com.meitaomart.cart.service.CartService=empty://192.168.159.1/com.meitaomart.cart.service.CartService?application=meitao-cart-web&category=configurators&dubbo=2.5.3&interface=com.meitaomart.cart.service.CartService&methods=updateCartPurchaseQuantity,addCart,mergeCart,getCartList,deleteCartItem,clearCartItem&pid=5732&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537383162868 empty://192.168.159.1/com.meitaomart.cart.service.CartService?application=meitao-cart-web&category=routers&dubbo=2.5.3&interface=com.meitaomart.cart.service.CartService&methods=updateCartPurchaseQuantity,addCart,mergeCart,getCartList,deleteCartItem,clearCartItem&pid=5732&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537383162868 dubbo://192.168.159.1:20884/com.meitaomart.cart.service.CartService?anyhost=true&application=meitao-cart&dubbo=2.5.3&interface=com.meitaomart.cart.service.CartService&methods=updateCartPurchaseQuantity,addCart,mergeCart,getCartList,clearCartItem,deleteCartItem&pid=11964&side=provider&timeout=600000&timestamp=1537383107134}, dubbo version: 2.5.3, current host: 127.0.0.1
+
+
+[INFO ] 2018-09-19 22:11:41,839 method:org.I0Itec.zkclient.ZkEventThread.run(ZkEventThread.java:64)
+Starting ZkClient event thread.
+
+
+[INFO ] 2018-09-19 22:11:46,384 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:zookeeper.version=3.4.10-39d3a4f269333c922ed3db283be479f9deacaa0f, built on 03/23/2017 10:13 GMT
+
+
+[INFO ] 2018-09-19 22:11:46,386 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:host.name=LAPTOP-KL824SL2
+
+
+[INFO ] 2018-09-19 22:11:46,387 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.version=1.8.0_181
+
+
+[INFO ] 2018-09-19 22:11:46,387 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.vendor=Oracle Corporation
+
+
+[INFO ] 2018-09-19 22:11:46,388 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.home=C:\Program Files\Java\jdk1.8.0_181\jre
+
+
+[INFO ] 2018-09-19 22:11:46,388 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.class.path=E:\apache-maven-3.3.9\boot\plexus-classworlds-2.5.2.jar
+
+
+[INFO ] 2018-09-19 22:11:46,389 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.library.path=C:\Program Files\Java\jdk1.8.0_181\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jdk1.8.0_181/bin/../jre/bin/server;C:/Program Files/Java/jdk1.8.0_181/bin/../jre/bin;C:/Program Files/Java/jdk1.8.0_181/bin/../jre/lib/amd64;C:\Program Files\MySQL\MySQL Server 5.5\bin;C:\Program Files\Java\jdk1.8.0_181\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;;C:\WINDOWS\System32\OpenSSH\;C:\Users\anluo\AppData\Local\Microsoft\WindowsApps;;E:\;E:\SSH Secure Shell;C:\Program Files (x86)\SSH Communications Security\SSH Secure Shell;E:\eclipse;;.
+
+
+[INFO ] 2018-09-19 22:11:46,390 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.io.tmpdir=C:\Users\anluo\AppData\Local\Temp\
+
+
+[INFO ] 2018-09-19 22:11:46,392 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.compiler=<NA>
+
+
+[INFO ] 2018-09-19 22:11:46,395 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:os.name=Windows 10
+
+
+[INFO ] 2018-09-19 22:11:46,396 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:os.arch=amd64
+
+
+[INFO ] 2018-09-19 22:11:46,397 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:os.version=10.0
+
+
+[INFO ] 2018-09-19 22:11:46,398 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:user.name=anluo
+
+
+[INFO ] 2018-09-19 22:11:46,421 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:user.home=C:\Users\anluo
+
+
+[INFO ] 2018-09-19 22:11:46,421 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:user.dir=D:\meiTaoMart\meitao-search-web
+
+
+[INFO ] 2018-09-19 22:11:46,423 method:org.apache.zookeeper.ZooKeeper.<init>(ZooKeeper.java:438)
+Initiating client connection, connectString=192.168.1.211:2181 sessionTimeout=30000 watcher=org.I0Itec.zkclient.ZkClient@96e8e94
+
+
+[INFO ] 2018-09-19 22:11:46,460 method:org.apache.zookeeper.ClientCnxn$SendThread.logStartConnect(ClientCnxn.java:1032)
+Opening socket connection to server 192.168.1.211/192.168.1.211:2181. Will not attempt to authenticate using SASL (unknown error)
+
+
+[INFO ] 2018-09-19 22:11:46,463 method:org.apache.zookeeper.ClientCnxn$SendThread.primeConnection(ClientCnxn.java:876)
+Socket connection established to 192.168.1.211/192.168.1.211:2181, initiating session
+
+
+[INFO ] 2018-09-19 22:11:46,470 method:org.apache.zookeeper.ClientCnxn$SendThread.onConnected(ClientCnxn.java:1299)
+Session establishment complete on server 192.168.1.211/192.168.1.211:2181, sessionid = 0x165f329fda90038, negotiated timeout = 30000
+
+
+[INFO ] 2018-09-19 22:11:46,473 method:org.I0Itec.zkclient.ZkClient.processStateChanged(ZkClient.java:449)
+zookeeper state changed (SyncConnected)
+
+
+[INFO ] 2018-09-19 22:11:46,532 method:com.alibaba.dubbo.registry.support.AbstractRegistry.register(AbstractRegistry.java:302)
+ [DUBBO] Register: consumer://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=consumers&check=false&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=2008&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409501620, dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-19 22:11:46,598 method:com.alibaba.dubbo.registry.support.AbstractRegistry.subscribe(AbstractRegistry.java:325)
+ [DUBBO] Subscribe: consumer://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=providers,configurators,routers&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=2008&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409501620, dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-19 22:11:46,631 method:com.alibaba.dubbo.registry.support.AbstractRegistry.notify(AbstractRegistry.java:422)
+ [DUBBO] Notify urls for subscribe url consumer://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=providers,configurators,routers&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=2008&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409501620, urls: [dubbo://192.168.159.1:20882/com.meitaomart.search.service.SearchService?anyhost=true&application=meitao-search&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=14712&side=provider&timeout=600000&timestamp=1537408397346, empty://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=configurators&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=2008&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409501620, empty://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=routers&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=2008&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537409501620], dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-19 22:11:47,500 method:com.alibaba.dubbo.remoting.transport.AbstractClient.connect(AbstractClient.java:287)
+ [DUBBO] Successed connect to server /192.168.159.1:20882 from NettyClient 192.168.159.1 using dubbo version 2.5.3, channel is NettyChannel [channel=[id: 0x3d9bf589, /192.168.159.1:52270 => /192.168.159.1:20882]], dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-19 22:11:47,503 method:com.alibaba.dubbo.remoting.transport.AbstractClient.<init>(AbstractClient.java:105)
+ [DUBBO] Start NettyClient LAPTOP-KL824SL2/192.168.159.1 connect to the server /192.168.159.1:20882, dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-19 22:11:47,819 method:com.alibaba.dubbo.config.ReferenceConfig.createProxy(ReferenceConfig.java:423)
+ [DUBBO] Refer dubbo service com.meitaomart.search.service.SearchService from url zookeeper://192.168.1.211:2181/com.alibaba.dubbo.registry.RegistryService?anyhost=true&application=meitao-search-web&check=false&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=2008&revision=0.0.1-SNAPSHOT&side=consumer&timeout=600000&timestamp=1537409501620, dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-19 22:11:48,149 method:org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:527)
+Mapped "{[/search]}" onto public java.lang.String com.meitaomart.search.controller.SearchController.searchItemListByKeyWord(java.lang.String,java.lang.Integer,org.springframework.ui.Model) throws java.lang.Exception
+
+
+[INFO ] 2018-09-19 22:11:48,152 method:org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:527)
+Mapped "{[/category/{categoryId}]}" onto public java.lang.String com.meitaomart.search.controller.SearchController.searchItemListByCategory(org.springframework.ui.Model,java.lang.Long,java.lang.String) throws java.lang.Exception
+
+
+[INFO ] 2018-09-19 22:11:48,153 method:org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:527)
+Mapped "{[/category/{categoryId2}/{categoryId3}]}" onto public java.lang.String com.meitaomart.search.controller.SearchController.searchItemListByCategorys(org.springframework.ui.Model,java.lang.Long,java.lang.Long,java.lang.String) throws java.lang.Exception
+
+
+[INFO ] 2018-09-19 22:11:48,689 method:org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)
+Looking for @ControllerAdvice: WebApplicationContext for namespace 'meitao-search-web-servlet': startup date [Wed Sep 19 22:11:40 EDT 2018]; root of context hierarchy
+
+
+[INFO ] 2018-09-19 22:11:48,733 method:org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)
+Looking for @ControllerAdvice: WebApplicationContext for namespace 'meitao-search-web-servlet': startup date [Wed Sep 19 22:11:40 EDT 2018]; root of context hierarchy
+
+
+[INFO ] 2018-09-19 22:11:48,845 method:org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:508)
+FrameworkServlet 'meitao-search-web': initialization completed in 8344 ms
+
+
+[INFO ] 2018-09-20 09:30:23,327 method:org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:489)
+FrameworkServlet 'meitao-search-web': initialization started
+
+
+[INFO ] 2018-09-20 09:30:23,343 method:org.springframework.context.support.AbstractApplicationContext.prepareRefresh(AbstractApplicationContext.java:578)
+Refreshing WebApplicationContext for namespace 'meitao-search-web-servlet': startup date [Thu Sep 20 09:30:23 EDT 2018]; root of context hierarchy
+
+
+[INFO ] 2018-09-20 09:30:23,370 method:org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:317)
+Loading XML bean definitions from class path resource [spring/springmvc.xml]
+
+
+[INFO ] 2018-09-20 09:30:23,615 method:
+using logger: com.alibaba.dubbo.common.logger.log4j.Log4jLoggerAdapter
+
+
+[INFO ] 2018-09-20 09:30:23,709 method:org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(PropertiesLoaderSupport.java:172)
+Loading properties file from class path resource [conf/resource.properties]
+
+
+[INFO ] 2018-09-20 09:30:23,715 method:org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.<init>(AutowiredAnnotationBeanPostProcessor.java:153)
+JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+
+
+[INFO ] 2018-09-20 09:30:23,962 method:com.alibaba.dubbo.registry.support.AbstractRegistry.loadProperties(AbstractRegistry.java:232)
+ [DUBBO] Load registry store file C:\Users\anluo\.dubbo\dubbo-registry-192.168.1.211.cache, data: {com.meitaomart.search.service.SearchItemService=empty://192.168.159.1:20882/com.meitaomart.search.service.SearchItemService?anyhost=true&application=meitao-search&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchItemService&methods=importAllItems&pid=8732&side=provider&timeout=600000&timestamp=1537450109988, com.meitaomart.sso.service.TokenService=empty://192.168.159.1/com.meitaomart.sso.service.TokenService?application=meitao-order-web&category=configurators&dubbo=2.5.3&interface=com.meitaomart.sso.service.TokenService&methods=getUserByToken&pid=13372&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537410484671 empty://192.168.159.1/com.meitaomart.sso.service.TokenService?application=meitao-order-web&category=routers&dubbo=2.5.3&interface=com.meitaomart.sso.service.TokenService&methods=getUserByToken&pid=13372&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537410484671 dubbo://192.168.159.1:20883/com.meitaomart.sso.service.TokenService?anyhost=true&application=meitao-sso&dubbo=2.5.3&interface=com.meitaomart.sso.service.TokenService&methods=getUserByToken&pid=1620&side=provider&timeout=600000&timestamp=1537409451801, com.meitaomart.search.service.SearchService=empty://192.168.159.1:20882/com.meitaomart.search.service.SearchService?anyhost=true&application=meitao-search&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=8732&side=provider&timeout=600000&timestamp=1537450116696, 5.3&interface=com.meitaomart.sso.service.LoginService&methods=userLogin&pid=8872&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537383158537=dubbo://192.168.159.1:20883/com.meitaomart.sso.service.LoginService?anyhost=true&application=meitao-sso&dubbo=2.5.3&interface=com.meitaomart.sso.service.LoginService&methods=userLogin&pid=9980&side=provider&timeout=600000&timestamp=1537383031840, com.meitaomart.sso.service.LogoutService=empty://192.168.159.1:20883/com.meitaomart.sso.service.LogoutService?anyhost=true&application=meitao-sso&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.sso.service.LogoutService&methods=userLogout&pid=1620&side=provider&timeout=600000&timestamp=1537409451655, ut=30000&timestamp=1537383025757=, pid=9196&side=provider&timeout=30000&timestamp=1537332012697=, com.meitaomart.order.service.OrderService=empty://192.168.159.1:20885/com.meitaomart.order.service.OrderService?anyhost=true&application=meitao-order&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.order.service.OrderService&methods=createOrder,getOrderInfo&pid=14880&side=provider&timeout=600000&timestamp=1537450166686, com.meitaomart.sso.service.RegisterService=empty://192.168.159.1:20883/com.meitaomart.sso.service.RegisterService?anyhost=true&application=meitao-sso&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.sso.service.RegisterService&methods=checkData,register&pid=1620&side=provider&timeout=600000&timestamp=1537409445788, com.meitaomart.service.ItemCategoryService=empty://192.168.159.1:20880/com.meitaomart.service.ItemCategoryService?anyhost=true&application=meitao-manager&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.service.ItemCategoryService&methods=deleteItemCategory,addItemCategory,updateItemCategory,getItemCategoryList,getItemCategoryListWithChildrenList,getItemCategoryListEasyUI&pid=9816&side=provider&timeout=600000&timestamp=1537450044802, com.meitaomart.sso.service.LoginService=empty://192.168.159.1:20883/com.meitaomart.sso.service.LoginService?anyhost=true&application=meitao-sso&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.sso.service.LoginService&methods=userLogin&pid=1620&side=provider&timeout=600000&timestamp=1537409451550, com.meitaomart.service.ItemService=empty://192.168.159.1:20880/com.meitaomart.service.ItemService?anyhost=true&application=meitao-manager&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.service.ItemService&methods=getItemList,addItem,deleteItems,getItemById,getItemDescById&pid=9816&side=provider&timeout=600000&timestamp=1537450049808, com.meitaomart.cart.service.CartService=empty://192.168.159.1:20884/com.meitaomart.cart.service.CartService?anyhost=true&application=meitao-cart&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.cart.service.CartService&methods=updateCartPurchaseQuantity,addCart,mergeCart,deleteCartItem,getCartList,clearCartItem&pid=9060&side=provider&timeout=600000&timestamp=1537450154737, com.meitaomart.content.service.ContentService=empty://192.168.159.1:20881/com.meitaomart.content.service.ContentService?anyhost=true&application=meitao-content&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.content.service.ContentService&methods=getContentList,getContentListByCid,deleteContents,addContent&pid=14060&side=provider&timeout=30000&timestamp=1537450110033, com.meitaomart.content.service.ContentCategoryService=empty://192.168.159.1:20881/com.meitaomart.content.service.ContentCategoryService?anyhost=true&application=meitao-content&category=configurators&check=false&dubbo=2.5.3&interface=com.meitaomart.content.service.ContentCategoryService&methods=addContentCategory,updateContentCategory,deleteContentCategory,getContentCatList&pid=14060&side=provider&timeout=30000&timestamp=1537450101393}, dubbo version: 2.5.3, current host: 127.0.0.1
+
+
+[INFO ] 2018-09-20 09:30:23,974 method:org.I0Itec.zkclient.ZkEventThread.run(ZkEventThread.java:64)
+Starting ZkClient event thread.
+
+
+[INFO ] 2018-09-20 09:30:28,596 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:zookeeper.version=3.4.10-39d3a4f269333c922ed3db283be479f9deacaa0f, built on 03/23/2017 10:13 GMT
+
+
+[INFO ] 2018-09-20 09:30:28,598 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:host.name=LAPTOP-KL824SL2
+
+
+[INFO ] 2018-09-20 09:30:28,599 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.version=1.8.0_181
+
+
+[INFO ] 2018-09-20 09:30:28,599 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.vendor=Oracle Corporation
+
+
+[INFO ] 2018-09-20 09:30:28,600 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.home=C:\Program Files\Java\jdk1.8.0_181\jre
+
+
+[INFO ] 2018-09-20 09:30:28,600 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.class.path=E:\apache-maven-3.3.9\boot\plexus-classworlds-2.5.2.jar
+
+
+[INFO ] 2018-09-20 09:30:28,601 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.library.path=C:\Program Files\Java\jdk1.8.0_181\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jdk1.8.0_181/bin/../jre/bin/server;C:/Program Files/Java/jdk1.8.0_181/bin/../jre/bin;C:/Program Files/Java/jdk1.8.0_181/bin/../jre/lib/amd64;C:\Program Files\MySQL\MySQL Server 5.5\bin;C:\Program Files\Java\jdk1.8.0_181\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;;C:\WINDOWS\System32\OpenSSH\;C:\Users\anluo\AppData\Local\Microsoft\WindowsApps;;E:\;E:\SSH Secure Shell;C:\Program Files (x86)\SSH Communications Security\SSH Secure Shell;E:\eclipse;;.
+
+
+[INFO ] 2018-09-20 09:30:28,601 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.io.tmpdir=C:\Users\anluo\AppData\Local\Temp\
+
+
+[INFO ] 2018-09-20 09:30:28,602 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:java.compiler=<NA>
+
+
+[INFO ] 2018-09-20 09:30:28,603 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:os.name=Windows 10
+
+
+[INFO ] 2018-09-20 09:30:28,604 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:os.arch=amd64
+
+
+[INFO ] 2018-09-20 09:30:28,604 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:os.version=10.0
+
+
+[INFO ] 2018-09-20 09:30:28,605 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:user.name=anluo
+
+
+[INFO ] 2018-09-20 09:30:28,606 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:user.home=C:\Users\anluo
+
+
+[INFO ] 2018-09-20 09:30:28,606 method:org.apache.zookeeper.Environment.logEnv(Environment.java:100)
+Client environment:user.dir=D:\meiTaoMart\meitao-search-web
+
+
+[INFO ] 2018-09-20 09:30:28,608 method:org.apache.zookeeper.ZooKeeper.<init>(ZooKeeper.java:438)
+Initiating client connection, connectString=192.168.1.211:2181 sessionTimeout=30000 watcher=org.I0Itec.zkclient.ZkClient@514ce492
+
+
+[INFO ] 2018-09-20 09:30:28,696 method:org.apache.zookeeper.ClientCnxn$SendThread.logStartConnect(ClientCnxn.java:1032)
+Opening socket connection to server 192.168.1.211/192.168.1.211:2181. Will not attempt to authenticate using SASL (unknown error)
+
+
+[INFO ] 2018-09-20 09:30:28,703 method:org.apache.zookeeper.ClientCnxn$SendThread.primeConnection(ClientCnxn.java:876)
+Socket connection established to 192.168.1.211/192.168.1.211:2181, initiating session
+
+
+[INFO ] 2018-09-20 09:30:28,713 method:org.apache.zookeeper.ClientCnxn$SendThread.onConnected(ClientCnxn.java:1299)
+Session establishment complete on server 192.168.1.211/192.168.1.211:2181, sessionid = 0x165f329fda90048, negotiated timeout = 30000
+
+
+[INFO ] 2018-09-20 09:30:28,716 method:org.I0Itec.zkclient.ZkClient.processStateChanged(ZkClient.java:449)
+zookeeper state changed (SyncConnected)
+
+
+[INFO ] 2018-09-20 09:30:28,759 method:com.alibaba.dubbo.registry.support.AbstractRegistry.register(AbstractRegistry.java:302)
+ [DUBBO] Register: consumer://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=consumers&check=false&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=14304&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537450223901, dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-20 09:30:28,931 method:com.alibaba.dubbo.registry.support.AbstractRegistry.subscribe(AbstractRegistry.java:325)
+ [DUBBO] Subscribe: consumer://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=providers,configurators,routers&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=14304&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537450223901, dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-20 09:30:29,038 method:com.alibaba.dubbo.registry.support.AbstractRegistry.notify(AbstractRegistry.java:422)
+ [DUBBO] Notify urls for subscribe url consumer://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=providers,configurators,routers&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=14304&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537450223901, urls: [dubbo://192.168.159.1:20882/com.meitaomart.search.service.SearchService?anyhost=true&application=meitao-search&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=8732&side=provider&timeout=600000&timestamp=1537450116696, empty://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=configurators&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=14304&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537450223901, empty://192.168.159.1/com.meitaomart.search.service.SearchService?application=meitao-search-web&category=routers&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=14304&revision=0.0.1-SNAPSHOT&side=consumer&timestamp=1537450223901], dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-20 09:30:29,441 method:com.alibaba.dubbo.remoting.transport.AbstractClient.connect(AbstractClient.java:287)
+ [DUBBO] Successed connect to server /192.168.159.1:20882 from NettyClient 192.168.159.1 using dubbo version 2.5.3, channel is NettyChannel [channel=[id: 0x598b178a, /192.168.159.1:51499 => /192.168.159.1:20882]], dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-20 09:30:29,443 method:com.alibaba.dubbo.remoting.transport.AbstractClient.<init>(AbstractClient.java:105)
+ [DUBBO] Start NettyClient LAPTOP-KL824SL2/192.168.159.1 connect to the server /192.168.159.1:20882, dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-20 09:30:29,549 method:com.alibaba.dubbo.config.ReferenceConfig.createProxy(ReferenceConfig.java:423)
+ [DUBBO] Refer dubbo service com.meitaomart.search.service.SearchService from url zookeeper://192.168.1.211:2181/com.alibaba.dubbo.registry.RegistryService?anyhost=true&application=meitao-search-web&check=false&dubbo=2.5.3&interface=com.meitaomart.search.service.SearchService&methods=search&pid=14304&revision=0.0.1-SNAPSHOT&side=consumer&timeout=600000&timestamp=1537450223901, dubbo version: 2.5.3, current host: 192.168.159.1
+
+
+[INFO ] 2018-09-20 09:30:29,956 method:org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:527)
+Mapped "{[/search]}" onto public java.lang.String com.meitaomart.search.controller.SearchController.searchItemListByKeyWord(java.lang.String,java.lang.Integer,org.springframework.ui.Model) throws java.lang.Exception
+
+
+[INFO ] 2018-09-20 09:30:29,958 method:org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:527)
+Mapped "{[/category/{categoryId2}/{categoryId3}]}" onto public java.lang.String com.meitaomart.search.controller.SearchController.searchItemListByCategorys(org.springframework.ui.Model,java.lang.Long,java.lang.Long,java.lang.String) throws java.lang.Exception
+
+
+[INFO ] 2018-09-20 09:30:29,958 method:org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:527)
+Mapped "{[/category/{categoryId}]}" onto public java.lang.String com.meitaomart.search.controller.SearchController.searchItemListByCategory(org.springframework.ui.Model,java.lang.Long,java.lang.String) throws java.lang.Exception
+
+
+[INFO ] 2018-09-20 09:30:31,247 method:org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)
+Looking for @ControllerAdvice: WebApplicationContext for namespace 'meitao-search-web-servlet': startup date [Thu Sep 20 09:30:23 EDT 2018]; root of context hierarchy
+
+
+[INFO ] 2018-09-20 09:30:31,331 method:org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.initControllerAdviceCache(RequestMappingHandlerAdapter.java:532)
+Looking for @ControllerAdvice: WebApplicationContext for namespace 'meitao-search-web-servlet': startup date [Thu Sep 20 09:30:23 EDT 2018]; root of context hierarchy
+
+
+[INFO ] 2018-09-20 09:30:31,482 method:org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:508)
+FrameworkServlet 'meitao-search-web': initialization completed in 8152 ms

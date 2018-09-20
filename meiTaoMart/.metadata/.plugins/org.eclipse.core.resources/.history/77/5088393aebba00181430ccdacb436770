@@ -1,0 +1,175 @@
+package com.meitaomart.cart.builder;
+
+import java.util.Date;
+
+import com.meitaomart.cart.pojo.CartItem;
+
+public class CartItemBuilder {
+	private Long id;
+
+	private Long categoryId;
+
+	private String name;
+
+	private String caption;
+
+	private String brandName;
+
+	private String supplier;
+
+	private String sellPoint;
+
+	private Integer netWeight;
+
+	private Integer stockNumber;
+
+	private String barcode;
+
+	private String images;
+
+	private Byte status;
+
+	private Integer adminUserId;
+
+	private Date createdTime;
+
+	private Date updatedTime;
+
+	private Long cost;
+
+	private Long salePrice;
+
+	private Byte discount;
+
+	private String itemDesc;
+
+	private CartItemBuilder() {
+
+	}
+
+	public CartItemBuilder setId(Long id) {
+		this.id = id;
+		return this;
+	}
+
+	public CartItemBuilder setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+		return this;
+	}
+
+	public CartItemBuilder setName(String name) {
+		this.name = name;
+		return this;
+	}
+
+	public CartItemBuilder setCaption(String caption) {
+		this.caption = caption;
+		return this;
+	}
+
+	public CartItemBuilder setBrandName(String brandName) {
+		this.brandName = brandName;
+		return this;
+	}
+
+	public CartItemBuilder setSupplier(String supplier) {
+		this.supplier = supplier;
+		return this;
+	}
+
+	public CartItemBuilder setSellPoint(String sellPoint) {
+		this.sellPoint = sellPoint;
+		return this;
+	}
+
+	public CartItemBuilder setNetWeight(Integer netWeight) {
+		this.netWeight = netWeight;
+		return this;
+	}
+
+	public CartItemBuilder setStockNumber(Integer stockNumber) {
+		this.stockNumber = stockNumber;
+		return this;
+	}
+
+	public CartItemBuilder setBarcode(String barcode) {
+		this.barcode = barcode;
+		return this;
+	}
+
+	public CartItemBuilder setImages(String images) {
+		this.images = images;
+		return this;
+	}
+
+	public CartItemBuilder setStatus(Byte status) {
+		this.status = status;
+		return this;
+	}
+
+	public CartItemBuilder setAdminUserId(Integer adminUserId) {
+		this.adminUserId = adminUserId;
+		return this;
+	}
+
+	public CartItemBuilder setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
+		return this;
+	}
+
+	public CartItemBuilder setUpdatedTime(Date updatedTime) {
+		this.updatedTime = updatedTime;
+		return this;
+	}
+
+	public CartItemBuilder setCost(Long cost) {
+		this.cost = cost;
+		return this;
+	}
+
+	public CartItemBuilder setSalePrice(Long salePrice) {
+		this.salePrice = salePrice;
+		return this;
+	}
+
+	public CartItemBuilder setDiscount(Byte discount) {
+		this.discount = discount;
+		return this;
+	}
+
+	public CartItemBuilder setItemDesc(String itemDesc) {
+		this.itemDesc = itemDesc;
+		return this;
+	}
+
+	public CartItemBuilder setPurchaseQuantity(String itemDesc) {
+		this.itemDesc = itemDesc;
+		return this;
+	}
+
+	public CartItem build() {
+		CartItem cartItem = new CartItem();
+
+		cartItem.setId(this.id);
+		cartItem.setCategoryId(this.categoryId);
+		cartItem.setName(this.name);
+		cartItem.setCaption(this.caption);
+		cartItem.setBrandName(this.brandName);
+		cartItem.setSupplier(this.supplier);
+		cartItem.setSellPoint(this.sellPoint);
+		cartItem.setNetWeight(this.netWeight);
+		cartItem.setStockNumber(this.stockNumber);
+		cartItem.setBarcode(this.barcode);
+		cartItem.setImages(this.images);
+		cartItem.setStatus(this.status);
+		cartItem.setAdminUserId(this.adminUserId);
+		cartItem.setCreatedTime(this.createdTime);
+		cartItem.setUpdatedTime(this.updatedTime);
+		cartItem.setCost(this.cost);
+		cartItem.setSalePrice(this.salePrice);
+		cartItem.setDiscount(this.discount);
+		cartItem.setItemDesc(this.itemDesc);
+
+		return cartItem;
+	}
+}

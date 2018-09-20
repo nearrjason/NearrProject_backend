@@ -1,0 +1,10 @@
+192.168.1.8 - - [20/Sep/2018:09:32:32 -0400] "GET /js/global_index.js HTTP/1.1" 304 - http-bio-8082-exec-3 194
+192.168.1.8 - - [20/Sep/2018:09:32:32 -0400] "GET /js/e3mall.js HTTP/1.1" 304 - http-bio-8082-exec-4 109
+192.168.1.8 - - [20/Sep/2018:09:32:32 -0400] "GET / HTTP/1.1" 200 304917 http-bio-8082-exec-2 6074
+192.168.1.8 - - [20/Sep/2018:09:32:32 -0400] "GET /images/foot/logo.png HTTP/1.1" 404 991 http-bio-8082-exec-7 4
+192.168.1.8 - - [20/Sep/2018:09:32:43 -0400] "GET / HTTP/1.1" 200 304917 http-bio-8082-exec-8 914
+192.168.1.8 - - [20/Sep/2018:09:32:43 -0400] "GET /images/foot/logo.png HTTP/1.1" 404 991 http-bio-8082-exec-9 4
+192.168.1.8 - - [20/Sep/2018:09:32:43 -0400] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-8082-exec-10 4
+192.168.1.8 - - [20/Sep/2018:09:46:28 -0400] "GET / HTTP/1.1" 200 304917 http-bio-8082-exec-4 1050
+192.168.1.8 - - [20/Sep/2018:09:46:28 -0400] "GET /images/foot/logo.png HTTP/1.1" 404 991 http-bio-8082-exec-4 4
+192.168.1.8 - - [20/Sep/2018:09:46:29 -0400] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-8082-exec-4 3

@@ -1,0 +1,12 @@
+package com.meitaomart.search.service.test;
+
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.junit.Test;
+
+public class SolrTest {
+	@Test
+	public void addDocument() {
+		SolrServer solrserver = new HttpSolrServer("");
+	}
+}

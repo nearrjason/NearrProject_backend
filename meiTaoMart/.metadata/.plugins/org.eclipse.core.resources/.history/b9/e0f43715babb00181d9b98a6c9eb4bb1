@@ -1,0 +1,8 @@
+package com.meitaomart.cookie.test;
+
+public class CookieTest {
+	@Test
+	public void cartCookieTest() {
+		
+	}
+}

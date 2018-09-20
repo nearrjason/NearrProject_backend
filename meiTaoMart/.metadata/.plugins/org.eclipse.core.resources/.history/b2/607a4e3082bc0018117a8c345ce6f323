@@ -1,0 +1,11 @@
+package com.meitaomart.common.utils;
+
+public final class TaxUtils {
+	public static Integer getTaxFee(Long subtotal) {
+		return null;
+	}
+	
+	public static Integer getTaxFee() {
+		return null;
+	}
+}

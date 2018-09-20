@@ -1,0 +1,14 @@
+package com.meitaomart.order.builder;
+
+import com.meitaomart.common.builder.CartItemBuilder;
+
+public class OrderInfoBuilder {
+	private static OrderInfoBuilder orderInfoBuilder = new OrderInfoBuilder();
+	
+	private OrderInfoBuilder() {
+	}
+
+	public static OrderInfoBuilder getInstance() {
+		return orderInfoBuilder;
+	}
+}

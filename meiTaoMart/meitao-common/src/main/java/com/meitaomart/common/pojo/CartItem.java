@@ -1,0 +1,28 @@
+package com.meitaomart.common.pojo;
+
+import java.io.Serializable;
+
+import com.meitaomart.common.pojo.ItemInfo;
+
+public class CartItem extends ItemInfo implements Serializable{
+	private int purchaseQuantity;
+	private String oneImage;
+
+	public int getPurchaseQuantity() {
+		return purchaseQuantity;
+	}
+
+	public void setPurchaseQuantity(int purchaseQuantity) {
+		this.purchaseQuantity = purchaseQuantity;
+	}
+
+	public String getOneImage() {
+		return oneImage;
+	}
+
+	public void setOneImage(String oneImage) {
+		this.oneImage = oneImage;
+	}
+
+	
+}

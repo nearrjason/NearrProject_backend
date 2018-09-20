@@ -1,0 +1,30 @@
+package com.meitaomart.mapper;
+
+import com.meitaomart.pojo.MeitaoContentCategory;
+import com.meitaomart.pojo.MeitaoContentCategoryExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface MeitaoContentCategoryMapper {
+    int countByExample(MeitaoContentCategoryExample example);
+
+    int deleteByExample(MeitaoContentCategoryExample example);
+
+    int deleteByPrimaryKey(Long id);
+
+    int insert(@Param("record") MeitaoContentCategory record);
+
+    int insertSelective(MeitaoContentCategory record);
+
+    List<MeitaoContentCategory> selectByExample(MeitaoContentCategoryExample example);
+
+    MeitaoContentCategory selectByPrimaryKey(Long id);
+
+    int updateByExampleSelective(@Param("record") MeitaoContentCategory record, @Param("example") MeitaoContentCategoryExample example);
+
+    int updateByExample(@Param("record") MeitaoContentCategory record, @Param("example") MeitaoContentCategoryExample example);
+
+    int updateByPrimaryKeySelective(MeitaoContentCategory record);
+
+    int updateByPrimaryKey(MeitaoContentCategory record);
+}

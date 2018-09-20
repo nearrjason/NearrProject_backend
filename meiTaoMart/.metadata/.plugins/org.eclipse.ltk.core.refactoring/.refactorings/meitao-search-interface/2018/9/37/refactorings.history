@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;com.meitaomart.search.service&apos; to &apos;meitao-search-service/src/main/java&apos;&#x0D;&#x0A;- Original project: &apos;meitao-search-interface&apos;&#x0D;&#x0A;- Destination element: &apos;meitao-search-service/src/main/java&apos;&#x0D;&#x0A;- Original element: &apos;meitao-search-interface/src/main/java/com.meitaomart.search.service&apos;" description="Copy package" destination="=meitao-search-service/src\/main\/java" element1="/src\/main\/java&lt;com.meitaomart.search.service" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1536591517206" version="1.0"/>
+</session>

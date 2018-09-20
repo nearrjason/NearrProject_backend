@@ -1,0 +1,169 @@
+package com.meitaomart.common.builder;
+
+import java.util.Date;
+
+import com.meitaomart.common.pojo.ItemInfo;
+
+public class ItemInfoBuilder {
+	static class ItemInfoCreater {
+		private Long id;
+
+		private Long categoryId;
+
+		private String name;
+
+		private String caption;
+
+		private String brandName;
+
+		private String supplier;
+
+		private String sellPoint;
+
+		private Integer content;
+
+		private Integer stockNumber;
+
+		private String barcode;
+
+		private String images;
+
+		private Byte status;
+
+		private Integer adminUserId;
+
+		private Date createdTime;
+
+		private Date updatedTime;
+
+		private Long cost;
+
+		private Long salePrice;
+
+		private Byte discount;
+
+		private String itemDesc;
+
+		public ItemInfoCreater setId(Long id) {
+			this.id = id;
+			return this;
+		}
+
+		public ItemInfoCreater setCategoryId(Long categoryId) {
+			this.categoryId = categoryId;
+			return this;
+		}
+
+		public ItemInfoCreater setName(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public ItemInfoCreater setCaption(String caption) {
+			this.caption = caption;
+			return this;
+		}
+
+		public ItemInfoCreater setBrandName(String brandName) {
+			this.brandName = brandName;
+			return this;
+		}
+
+		public ItemInfoCreater setSupplier(String supplier) {
+			this.supplier = supplier;
+			return this;
+		}
+
+		public ItemInfoCreater setSellPoint(String sellPoint) {
+			this.sellPoint = sellPoint;
+			return this;
+		}
+
+		public ItemInfoCreater setContent(Integer content) {
+			this.content = content;
+			return this;
+		}
+
+		public ItemInfoCreater setStockNumber(Integer stockNumber) {
+			this.stockNumber = stockNumber;
+			return this;
+		}
+
+		public ItemInfoCreater setBarcode(String barcode) {
+			this.barcode = barcode;
+			return this;
+		}
+
+		public ItemInfoCreater setImages(String images) {
+			this.images = images;
+			return this;
+		}
+
+		public ItemInfoCreater setStatus(Byte status) {
+			this.status = status;
+			return this;
+		}
+
+		public ItemInfoCreater setAdminUserId(Integer adminUserId) {
+			this.adminUserId = adminUserId;
+			return this;
+		}
+
+		public ItemInfoCreater setCreatedTime(Date createdTime) {
+			this.createdTime = createdTime;
+			return this;
+		}
+
+		public ItemInfoCreater setUpdatedTime(Date updatedTime) {
+			this.updatedTime = updatedTime;
+			return this;
+		}
+
+		public ItemInfoCreater setCost(Long cost) {
+			this.cost = cost;
+			return this;
+		}
+
+		public ItemInfoCreater setSalePrice(Long salePrice) {
+			this.salePrice = salePrice;
+			return this;
+		}
+
+		public ItemInfoCreater setDiscount(Byte discount) {
+			this.discount = discount;
+			return this;
+		}
+
+		public ItemInfoCreater setItemDesc(String itemDesc) {
+			this.itemDesc = itemDesc;
+			return this;
+		}
+		
+		public ItemInfo build() {
+			ItemInfo itemInfo = new ItemInfo();
+			
+			itemInfo.setId(this.id);
+			itemInfo.setCategoryId(this.categoryId);
+			itemInfo.setName(this.name);
+			itemInfo.setCaption(this.caption);
+			itemInfo.setBrandName(this.brandName);
+			itemInfo.setSupplier(this.supplier);
+			itemInfo.setSellPoint(this.sellPoint);
+			itemInfo.setContent(this.content);
+			itemInfo.setStockNumber(this.stockNumber);
+			itemInfo.setBarcode(this.barcode);
+			itemInfo.setImages(this.images);
+			itemInfo.setStatus(this.status);
+			itemInfo.setAdminUserId(this.adminUserId);
+			itemInfo.setCreatedTime(this.createdTime);
+			itemInfo.setUpdatedTime(this.updatedTime);
+			itemInfo.setCost(this.cost);
+			itemInfo.setSalePrice(this.salePrice);
+			itemInfo.setDiscount(this.discount);
+			itemInfo.setItemDesc(this.itemDesc);
+			
+			return itemInfo;
+		}
+	}
+	
+}

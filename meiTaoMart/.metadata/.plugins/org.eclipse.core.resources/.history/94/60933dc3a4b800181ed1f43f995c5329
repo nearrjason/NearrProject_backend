@@ -1,0 +1,30 @@
+package com.meitaomart.mapper;
+
+import com.meitaomart.pojo.MeitaoAddress;
+import com.meitaomart.pojo.MeitaoAddressExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface MeitaoAddressMapper {
+    int countByExample(MeitaoAddressExample example);
+
+    int deleteByExample(MeitaoAddressExample example);
+
+    int deleteByPrimaryKey(Long id);
+
+    int insert(MeitaoAddress record);
+
+    int insertSelective(MeitaoAddress record);
+
+    List<MeitaoAddress> selectByExample(MeitaoAddressExample example);
+
+    MeitaoAddress selectByPrimaryKey(Long id);
+
+    int updateByExampleSelective(@Param("record") MeitaoAddress record, @Param("example") MeitaoAddressExample example);
+
+    int updateByExample(@Param("record") MeitaoAddress record, @Param("example") MeitaoAddressExample example);
+
+    int updateByPrimaryKeySelective(MeitaoAddress record);
+
+    int updateByPrimaryKey(MeitaoAddress record);
+}

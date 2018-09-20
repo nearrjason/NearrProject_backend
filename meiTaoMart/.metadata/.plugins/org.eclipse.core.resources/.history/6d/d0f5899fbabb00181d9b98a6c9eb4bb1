@@ -1,0 +1,10 @@
+package com.meitaomart.cookie.test;
+
+import org.junit.Test;
+
+public class CookieTest {
+	@Test
+	public void cartCookieTest() {
+		CookieUtils
+	}
+}
