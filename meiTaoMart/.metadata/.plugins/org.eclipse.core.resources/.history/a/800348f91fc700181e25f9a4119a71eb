@@ -1,0 +1,15 @@
+.orderDetailBox, #accountBox, #addressBox, #paymentBox, #ordersBox {
+    display: none;
+}
+
+.links li {
+    cursor: pointer;
+}
+
+body {
+	background-color:#f2f2f2;
+}
+
+.selected {
+	cursor: auto;
+}

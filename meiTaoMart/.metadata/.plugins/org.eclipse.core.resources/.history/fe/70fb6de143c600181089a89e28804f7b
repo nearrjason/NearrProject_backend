@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meitaomart.mapper.MeitaoBankingCardMapper">
+	<resultMap id="BaseResultMap" type="com.meitaomart.pojo.MeitaoBankingCard">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="card_number" property="cardNumber" jdbcType="BIGINT" />
+		<result column="year" property="year" jdbcType="VARCHAR" />
+		<result column="month" property="month" jdbcType="VARCHAR" />
+		<result column="card_type" property="cardType" jdbcType="TINYINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="is_main" property="isMain" jdbcType="BIT" />
+		<result column="first_name" property="firstName" jdbcType="VARCHAR" />
+		<result column="last_name" property="lastName" jdbcType="VARCHAR" />
+		<result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+		<result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, card_number, year, month, card_type, user_id, is_main, first_name,
+		last_name,
+		created_time, updated_time
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.meitaomart.pojo.MeitaoBankingCardExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from meitao_banking_card
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from meitao_banking_card
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from meitao_banking_card
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.meitaomart.pojo.MeitaoBankingCardExample">
+		delete from meitao_banking_card
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.meitaomart.pojo.MeitaoBankingCard">
+		insert into meitao_banking_card (id, card_number, year,
+		month, card_type, user_id,
+		is_main, first_name, last_name,
+		created_time, updated_time)
+		values (#{id,jdbcType=BIGINT}, #{cardNumber,jdbcType=BIGINT},
+		#{year,jdbcType=VARCHAR},
+		#{month,jdbcType=VARCHAR}, #{cardType,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT},
+		#{isMain,jdbcType=BIT}, #{firstName,jdbcType=VARCHAR},
+		#{lastName,jdbcType=VARCHAR},
+		#{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.meitaomart.pojo.MeitaoBankingCard">
+		insert into meitao_banking_card
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="cardNumber != null">
+				card_number,
+			</if>
+			<if test="year != null">
+				year,
+			</if>
+			<if test="month != null">
+				month,
+			</if>
+			<if test="cardType != null">
+				card_type,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="isMain != null">
+				is_main,
+			</if>
+			<if test="firstName != null">
+				first_name,
+			</if>
+			<if test="lastName != null">
+				last_name,
+			</if>
+			<if test="createdTime != null">
+				created_time,
+			</if>
+			<if test="updatedTime != null">
+				updated_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="cardNumber != null">
+				#{cardNumber,jdbcType=BIGINT},
+			</if>
+			<if test="year != null">
+				#{year,jdbcType=VARCHAR},
+			</if>
+			<if test="month != null">
+				#{month,jdbcType=VARCHAR},
+			</if>
+			<if test="cardType != null">
+				#{cardType,jdbcType=TINYINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="isMain != null">
+				#{isMain,jdbcType=BIT},
+			</if>
+			<if test="firstName != null">
+				#{firstName,jdbcType=VARCHAR},
+			</if>
+			<if test="lastName != null">
+				#{lastName,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				#{createdTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedTime != null">
+				#{updatedTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.meitaomart.pojo.MeitaoBankingCardExample"
+		resultType="java.lang.Integer">
+		select count(*) from meitao_banking_card
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update meitao_banking_card
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.cardNumber != null">
+				card_number = #{record.cardNumber,jdbcType=BIGINT},
+			</if>
+			<if test="record.year != null">
+				year = #{record.year,jdbcType=VARCHAR},
+			</if>
+			<if test="record.month != null">
+				month = #{record.month,jdbcType=VARCHAR},
+			</if>
+			<if test="record.cardType != null">
+				card_type = #{record.cardType,jdbcType=TINYINT},
+			</if>
+			<if test="record.userId != null">
+				user_id = #{record.userId,jdbcType=BIGINT},
+			</if>
+			<if test="record.isMain != null">
+				is_main = #{record.isMain,jdbcType=BIT},
+			</if>
+			<if test="record.firstName != null">
+				first_name = #{record.firstName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.lastName != null">
+				last_name = #{record.lastName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createdTime != null">
+				created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.updatedTime != null">
+				updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update meitao_banking_card
+		set id = #{record.id,jdbcType=BIGINT},
+		card_number = #{record.cardNumber,jdbcType=BIGINT},
+		year = #{record.year,jdbcType=VARCHAR},
+		month = #{record.month,jdbcType=VARCHAR},
+		card_type = #{record.cardType,jdbcType=TINYINT},
+		user_id = #{record.userId,jdbcType=BIGINT},
+		is_main = #{record.isMain,jdbcType=BIT},
+		first_name = #{record.firstName,jdbcType=VARCHAR},
+		last_name = #{record.lastName,jdbcType=VARCHAR},
+		created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+		updated_time = #{record.updatedTime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.meitaomart.pojo.MeitaoBankingCard">
+		update meitao_banking_card
+		<set>
+			<if test="cardNumber != null">
+				card_number = #{cardNumber,jdbcType=BIGINT},
+			</if>
+			<if test="year != null">
+				year = #{year,jdbcType=VARCHAR},
+			</if>
+			<if test="month != null">
+				month = #{month,jdbcType=VARCHAR},
+			</if>
+			<if test="cardType != null">
+				card_type = #{cardType,jdbcType=TINYINT},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="isMain != null">
+				is_main = #{isMain,jdbcType=BIT},
+			</if>
+			<if test="firstName != null">
+				first_name = #{firstName,jdbcType=VARCHAR},
+			</if>
+			<if test="lastName != null">
+				last_name = #{lastName,jdbcType=VARCHAR},
+			</if>
+			<if test="createdTime != null">
+				created_time = #{createdTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedTime != null">
+				updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.meitaomart.pojo.MeitaoBankingCard">
+		update meitao_banking_card
+		set card_number = #{cardNumber,jdbcType=BIGINT},
+		year = #{year,jdbcType=VARCHAR},
+		month = #{month,jdbcType=VARCHAR},
+		card_type = #{cardType,jdbcType=TINYINT},
+		user_id = #{userId,jdbcType=BIGINT},
+		is_main = #{isMain,jdbcType=BIT},
+		first_name = #{firstName,jdbcType=VARCHAR},
+		last_name = #{lastName,jdbcType=VARCHAR},
+		created_time = #{createdTime,jdbcType=TIMESTAMP},
+		updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<!-- self defined -->
+	<update id="setAsDefaultByPrimaryKey">
+		update meitao_address
+		set
+		is_main = #{is_main}
+		where id
+		= #{id}
+	</update>
+</mapper>

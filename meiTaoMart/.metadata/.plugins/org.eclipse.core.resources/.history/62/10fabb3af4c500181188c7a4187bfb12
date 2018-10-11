@@ -1,0 +1,5 @@
+package com.meitaomart.order.pojo;
+
+public class OrderItemInfo {
+
+}

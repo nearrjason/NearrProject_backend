@@ -1,0 +1,122 @@
+package com.meitaomart.search.controller;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.meitaomart.cart.service.CartService;
+import com.meitaomart.common.pojo.CartItem;
+import com.meitaomart.common.pojo.SearchItem;
+import com.meitaomart.common.pojo.SearchResult;
+import com.meitaomart.common.utils.CookieUtils;
+import com.meitaomart.common.utils.JsonUtils;
+import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.search.service.SearchService;
+import com.meitaomart.service.ItemCategoryService;
+
+/**
+ * 商品搜索Controller
+ * @author anluo
+ *
+ */
+
+@Controller
+public class SearchController {
+	@Autowired
+	private SearchService searchService;
+	@Autowired
+	private CartService cartService;
+	@Autowired
+	private ItemCategoryService itemCategoryService;
+	
+	@Value("${SEARCH_RESULT_ROWS}")
+	private Integer SEARCH_RESULT_ROWS;
+	
+	@RequestMapping("/search")
+	public String searchItemListByKeyWord(String keyword, 
+			@RequestParam(defaultValue = "1") Integer page, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (keyword == null || keyword.length() == 0) {
+			return "search_meitao";
+		}
+		
+		keyword = new String(keyword.getBytes("iso-8859-1"), "utf-8");
+		// 查询商品列表
+		SearchResult searchResult = searchService.search(keyword, page, SEARCH_RESULT_ROWS);
+		List<CartItem> cartItemList = getCartItemList(request, response);
+		
+		// 把结果传递给页面
+		model.addAttribute("query", keyword);
+		model.addAttribute("totalPages", searchResult.getTotalPages());
+		model.addAttribute("page", page);
+		model.addAttribute("recordCount", searchResult.getRecordCount());
+		model.addAttribute("itemList", searchResult.getItemList());
+		model.addAttribute("cartItemList", cartItemList);
+		// 异常测试
+		// 返回逻辑视图
+		return "search_meitao";
+	}
+	
+	@RequestMapping("/category/{categoryId}")
+	public String searchItemListByCategory(Model model, @PathVariable Long categoryId, @RequestParam String cn, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String categoryName = new String(cn.getBytes("iso-8859-1"), "utf-8");
+		SearchResult searchResult = searchService.search(categoryName, 1, SEARCH_RESULT_ROWS, "item_category_name");
+		List<CartItem> cartItemList = getCartItemList(request, response);
+		// 把结果传递给页面
+		model.addAttribute("query", categoryName);
+		model.addAttribute("totalPages", searchResult.getTotalPages());
+		model.addAttribute("page", 1);
+		model.addAttribute("recordCount", searchResult.getRecordCount());
+		model.addAttribute("itemList", searchResult.getItemList());
+		model.addAttribute("cartItemList", cartItemList);
+		return "search_meitao";
+	}
+	
+	@RequestMapping("/category/{categoryId2}/{categoryId3}")
+	public String searchItemListByCategorys(Model model, @PathVariable Long categoryId2, @PathVariable Long categoryId3, @RequestParam String cn, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return searchItemListByCategory(model, categoryId3, cn, request, response);
+	}
+	
+	private List<CartItem> getCartItemList(HttpServletRequest request, HttpServletResponse response) {
+		List<CartItem> cartItemList = getCartListFromCookie(request);
+		// 判断用户是否为登录状态
+		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
+		// 如果是登录状态
+		if (user != null) {
+			// 从cookie中取购物车列表
+			// 如果不为空，把cookie中的购物车商品和服务端的购物车商品合并。
+			cartService.mergeCart(user.getId(), cartItemList);
+			// 把cookie中的购物车删除
+			CookieUtils.deleteCookie(request, response, "cart");
+			// 从服务端取购物车列表
+			cartItemList = cartService.getCartList(user.getId(), false);
+
+		}
+		
+		return cartItemList;
+	}
+	
+	private List<CartItem> getCartListFromCookie(HttpServletRequest request) {
+		String json = CookieUtils.getCookieValue(request, "cart", true);
+		// 判断json是否为空
+		if (StringUtils.isBlank(json)) {
+			return new ArrayList<>();
+		}
+		// 把json转换成商品列表
+		List<CartItem> list = JsonUtils.jsonToList(json, CartItem.class);
+		return list;
+	}
+	
+}

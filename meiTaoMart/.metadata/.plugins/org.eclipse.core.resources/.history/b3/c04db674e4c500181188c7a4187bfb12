@@ -1,0 +1,15 @@
+package com.meitaomart.user.service;
+
+import java.util.List;
+
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.pojo.MeitaoAddress;
+import com.meitaomart.pojo.MeitaoUser;
+
+public interface UserService {
+	MeitaoResult changePassword(Long userId, String password);
+	MeitaoUser getUserByUserId(Long userId);
+	List<MeitaoAddress> getAddressListByUserId(Long userId);
+	MeitaoResult updateUser(MeitaoUser user, Long userId);
+	List<MeitaoAddress> getCardListByUserId(Long userId);
+}

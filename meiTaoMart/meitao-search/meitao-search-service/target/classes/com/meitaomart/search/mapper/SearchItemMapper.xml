@@ -14,6 +14,7 @@
     <result column="sale_price" property="salePrice" jdbcType="BIGINT" />
     <result column="discount" property="discount" jdbcType="TINYINT" />
     <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
   </resultMap>
 	<select id="getItemList" resultMap="BaseResultMap">
 		SELECT
@@ -26,7 +27,8 @@
 		a.images,
 		b.sale_price,
 		b.discount,
-		c.name as category_name
+		c.name as category_name,
+		a.category_id
 		FROM meitao_item a
 		 LEFT JOIN meitao_item_price b ON a.id = b.item_id
 		 LEFT JOIN meitao_item_category c ON a.category_id = c.id

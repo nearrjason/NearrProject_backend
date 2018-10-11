@@ -1,0 +1,9 @@
+package com.meitaomart.order.pojo;
+
+import java.io.Serializable;
+
+import com.meitaomart.pojo.MeitaoOrder;
+
+public class OrderItemInfo extends MeitaoOrder implements Serializable {
+	
+}

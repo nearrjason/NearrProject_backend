@@ -1,0 +1,22 @@
+package com.meitaomart.common.utils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public final class PaymentUtils {
+	private static final String stripeAPIKey = "sk_test_b3UJNAQLBEJbQ157oteZKLR6";
+
+	public static boolean addCard(String cardNumber, String month, String year, String cvc) {
+		Map<String, Object> cardParam = new HashMap<String, Object>();
+		cardParam.put("number", "4242424242424242");
+		cardParam.put("exp_month", "11");
+		cardParam.put("exp_year", "2022");
+		cardParam.put("cvc", "123");
+
+		// create token, otherwise Stripe will unhappy
+		Map<String, Object> tokenParam = new HashMap<String, Object>();
+		tokenParam.put("card", cardParam);
+
+		Token token = Token.create(tokenParam);
+	}
+}

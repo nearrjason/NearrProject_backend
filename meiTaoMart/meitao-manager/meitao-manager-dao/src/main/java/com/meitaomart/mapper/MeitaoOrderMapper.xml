@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.meitaomart.mapper.MeitaoOrderMapper" >
   <resultMap id="BaseResultMap" type="com.meitaomart.pojo.MeitaoOrder" >
-    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="BIGINT" />
     <result column="subtotal" property="subtotal" jdbcType="BIGINT" />
     <result column="payment_type" property="paymentType" jdbcType="TINYINT" />
     <result column="shipping_fee" property="shippingFee" jdbcType="BIGINT" />
@@ -16,10 +16,12 @@
     <result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
     <result column="shipping_name" property="shippingName" jdbcType="VARCHAR" />
     <result column="shipping_code" property="shippingCode" jdbcType="VARCHAR" />
+    <result column="shipping_method" property="shippingMethod" jdbcType="TINYINT" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="user_comment" property="userComment" jdbcType="VARCHAR" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="address_id" property="addressId" jdbcType="BIGINT" />
+    <result column="card_id" property="cardId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -80,9 +82,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    order_id, subtotal, payment_type, shipping_fee, tax_fee, status, created_time, updated_time, 
-    payment_time, consign_time, end_time, close_time, shipping_name, shipping_code, user_id, 
-    user_comment, username, address_id
+    id, subtotal, payment_type, shipping_fee, tax_fee, status, created_time, updated_time, 
+    payment_time, consign_time, end_time, close_time, shipping_name, shipping_code, shipping_method, 
+    user_id, user_comment, username, address_id, card_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.meitaomart.pojo.MeitaoOrderExample" >
     select
@@ -98,15 +100,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from meitao_order
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from meitao_order
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.meitaomart.pojo.MeitaoOrderExample" >
     delete from meitao_order
@@ -115,26 +117,26 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.meitaomart.pojo.MeitaoOrder" >
-    insert into meitao_order (order_id, subtotal, payment_type, 
+    insert into meitao_order (id, subtotal, payment_type, 
       shipping_fee, tax_fee, status, 
       created_time, updated_time, payment_time, 
       consign_time, end_time, close_time, 
-      shipping_name, shipping_code, user_id, 
-      user_comment, username, address_id
-      )
-    values (#{orderId,jdbcType=VARCHAR}, #{subtotal,jdbcType=BIGINT}, #{paymentType,jdbcType=TINYINT}, 
+      shipping_name, shipping_code, shipping_method, 
+      user_id, user_comment, username, 
+      address_id, card_id)
+    values (#{id,jdbcType=BIGINT}, #{subtotal,jdbcType=BIGINT}, #{paymentType,jdbcType=TINYINT}, 
       #{shippingFee,jdbcType=BIGINT}, #{taxFee,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, 
       #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{paymentTime,jdbcType=TIMESTAMP}, 
       #{consignTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
-      #{shippingName,jdbcType=VARCHAR}, #{shippingCode,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
-      #{userComment,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{addressId,jdbcType=BIGINT}
-      )
+      #{shippingName,jdbcType=VARCHAR}, #{shippingCode,jdbcType=VARCHAR}, #{shippingMethod,jdbcType=TINYINT}, 
+      #{userId,jdbcType=BIGINT}, #{userComment,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{addressId,jdbcType=BIGINT}, #{cardId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.meitaomart.pojo.MeitaoOrder" >
     insert into meitao_order
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="orderId != null" >
-        order_id,
+      <if test="id != null" >
+        id,
       </if>
       <if test="subtotal != null" >
         subtotal,
@@ -175,6 +177,9 @@
       <if test="shippingCode != null" >
         shipping_code,
       </if>
+      <if test="shippingMethod != null" >
+        shipping_method,
+      </if>
       <if test="userId != null" >
         user_id,
       </if>
@@ -187,10 +192,13 @@
       <if test="addressId != null" >
         address_id,
       </if>
+      <if test="cardId != null" >
+        card_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="orderId != null" >
-        #{orderId,jdbcType=VARCHAR},
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="subtotal != null" >
         #{subtotal,jdbcType=BIGINT},
@@ -231,6 +239,9 @@
       <if test="shippingCode != null" >
         #{shippingCode,jdbcType=VARCHAR},
       </if>
+      <if test="shippingMethod != null" >
+        #{shippingMethod,jdbcType=TINYINT},
+      </if>
       <if test="userId != null" >
         #{userId,jdbcType=BIGINT},
       </if>
@@ -243,6 +254,9 @@
       <if test="addressId != null" >
         #{addressId,jdbcType=BIGINT},
       </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=BIGINT},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.meitaomart.pojo.MeitaoOrderExample" resultType="java.lang.Integer" >
@@ -254,8 +268,8 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update meitao_order
     <set >
-      <if test="record.orderId != null" >
-        order_id = #{record.orderId,jdbcType=VARCHAR},
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.subtotal != null" >
         subtotal = #{record.subtotal,jdbcType=BIGINT},
@@ -296,6 +310,9 @@
       <if test="record.shippingCode != null" >
         shipping_code = #{record.shippingCode,jdbcType=VARCHAR},
       </if>
+      <if test="record.shippingMethod != null" >
+        shipping_method = #{record.shippingMethod,jdbcType=TINYINT},
+      </if>
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=BIGINT},
       </if>
@@ -308,6 +325,9 @@
       <if test="record.addressId != null" >
         address_id = #{record.addressId,jdbcType=BIGINT},
       </if>
+      <if test="record.cardId != null" >
+        card_id = #{record.cardId,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -315,7 +335,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update meitao_order
-    set order_id = #{record.orderId,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=BIGINT},
       subtotal = #{record.subtotal,jdbcType=BIGINT},
       payment_type = #{record.paymentType,jdbcType=TINYINT},
       shipping_fee = #{record.shippingFee,jdbcType=BIGINT},
@@ -329,10 +349,12 @@
       close_time = #{record.closeTime,jdbcType=TIMESTAMP},
       shipping_name = #{record.shippingName,jdbcType=VARCHAR},
       shipping_code = #{record.shippingCode,jdbcType=VARCHAR},
+      shipping_method = #{record.shippingMethod,jdbcType=TINYINT},
       user_id = #{record.userId,jdbcType=BIGINT},
       user_comment = #{record.userComment,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
-      address_id = #{record.addressId,jdbcType=BIGINT}
+      address_id = #{record.addressId,jdbcType=BIGINT},
+      card_id = #{record.cardId,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -379,6 +401,9 @@
       <if test="shippingCode != null" >
         shipping_code = #{shippingCode,jdbcType=VARCHAR},
       </if>
+      <if test="shippingMethod != null" >
+        shipping_method = #{shippingMethod,jdbcType=TINYINT},
+      </if>
       <if test="userId != null" >
         user_id = #{userId,jdbcType=BIGINT},
       </if>
@@ -391,8 +416,11 @@
       <if test="addressId != null" >
         address_id = #{addressId,jdbcType=BIGINT},
       </if>
+      <if test="cardId != null" >
+        card_id = #{cardId,jdbcType=BIGINT},
+      </if>
     </set>
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.meitaomart.pojo.MeitaoOrder" >
     update meitao_order
@@ -409,10 +437,12 @@
       close_time = #{closeTime,jdbcType=TIMESTAMP},
       shipping_name = #{shippingName,jdbcType=VARCHAR},
       shipping_code = #{shippingCode,jdbcType=VARCHAR},
+      shipping_method = #{shippingMethod,jdbcType=TINYINT},
       user_id = #{userId,jdbcType=BIGINT},
       user_comment = #{userComment,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
-      address_id = #{addressId,jdbcType=BIGINT}
-    where order_id = #{orderId,jdbcType=VARCHAR}
+      address_id = #{addressId,jdbcType=BIGINT},
+      card_id = #{cardId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

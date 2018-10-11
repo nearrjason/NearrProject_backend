@@ -1,0 +1,23 @@
+package com.meitaomart.order.pojo;
+
+import java.io.Serializable;
+
+import com.meitaomart.pojo.MeitaoAddress;
+import com.meitaomart.pojo.MeitaoBankingCard;
+
+public class FinalCheckoutMap implements Serializable{
+	private MeitaoAddress address;
+	private MeitaoBankingCard card;
+	public MeitaoAddress getAddress() {
+		return address;
+	}
+	public void setAddress(MeitaoAddress address) {
+		this.address = address;
+	}
+	public MeitaoBankingCard getCard() {
+		return card;
+	}
+	public void setCard(MeitaoBankingCard card) {
+		this.card = card;
+	}
+}

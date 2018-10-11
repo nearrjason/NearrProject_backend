@@ -1,0 +1,136 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="cardLength" value="${fn:length(cardList)}"></c:set>
+<input id="cardLength" type="hidden" value="${cardLength}" />
+
+
+<div class="keep-parallel">
+	<div class="cardinfo-show">
+		<div class="info-display" id="card-drop">
+			<div id="showPrimaryCard" class="show_primary_card">
+				<c:set var="primaryCard" value="${primaryCard}"></c:set>
+				<c:set var="primaryCardNumberStr"
+					value="${fn:trim(primaryCard.cardNumber)}"></c:set>
+				<div class="wrapper">
+					<form id="checkoutCard" class="checkoutCard" onsubmit="return false">
+						<div class="card-logo">
+							<c:if test="${primaryCard.cardType eq 3 }">
+								<img class="card-logo-img" src="/images_meitao/icons/amex.svg"
+									alt="">
+							</c:if>
+							<c:if test="${primaryCard.cardType eq 4 }">
+								<img class="card-logo-img" src="/images_meitao/icons/visa.svg"
+									alt="">
+							</c:if>
+							<c:if test="${primaryCard.cardType eq 5 }">
+								<img class="card-logo-img"
+									src="/images_meitao/icons/mastercard.svg" alt="">
+							</c:if>
+							<c:if test="${primaryCard.cardType eq 6 }">
+								<img class="card-logo-img"
+									src="/images_meitao/icons/discover.svg" alt="">
+							</c:if>
+						</div>
+						<div class="card-num-info">
+
+							<div class="card-num">
+								<b>****</b> &nbsp; <b>****</b> &nbsp; <b>****</b> &nbsp; <b
+									id="primaryCardNumber">${fn:substring(primaryCardNumberStr, 12, 16)}</b>
+								<input type="hidden" name="cardNumber"
+									value="${primaryCard.cardNumber}" />
+							</div>
+							<br>
+							<div class="card-info">
+								持卡人 &nbsp;
+								<div id="primaryCardFirstName">${primaryCard.firstName}&nbsp;</div>
+								<div id="primaryCardLastName">${primaryCard.lastName}</div>
+								<input type="hidden" name="firstName"
+									value="${primaryCard.firstName}" /> <input type="hidden"
+									name="lastName" value="${primaryCard.lastName}" />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 有效期 &nbsp;
+								<div id="primaryCardMonth">${primaryCard.month}</div>/
+								<div id="primaryCardYear">${primaryCard.year}</div>
+								<input type="hidden" name="year" value="${primaryCard.year}" />
+								<input type="hidden" name="month" value="${primaryCard.month}" />
+							</div>
+						</div>
+						<%-- <c:if test="${primaryCard.isMain eq true }">
+						<div class="card-default">默认卡</div>
+					</c:if> --%>
+						<div class="cvv">
+							<input type="text" name="cvv" placeholder="CVV" maxlength="3"
+								required>
+						</div>
+					</form>
+					<!-- dropdown address -->
+					<div class="dropdown-arrow2">
+						<img id="dropdown-img2" class="dropdown-img" onclick="selectCard()"
+							src="/images_meitao/chevron-down.svg" alt="">
+					</div>
+				</div>
+			</div>
+			<div id="noCardList" class="no-payment">
+				<h2>暂无支付方式</h2>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="add-card">
+		<img class="plus-img" src="/images_meitao/plus-symbol.svg" alt=""
+			onclick="openNewCardWindow()">
+	</div> -->
+</div>
+
+<div class="show-card-list">
+	<div class="info-display2">
+		<c:forEach items="${cardList}" var="card" varStatus="cardUtils">
+			<c:set var="cardNumberStr" value="${fn:trim(card.cardNumber)}"></c:set>
+			<div class="btn-click" onclick="selectShippingCard(this, ${card.id})">
+				<div class="keep-parallel">
+					<div class="card-brand">
+						<c:if test="${card.cardType eq 3 }">
+							<img class="card-logo-img" src="/images_meitao/icons/amex.svg"
+								alt="">
+						</c:if>
+						<c:if test="${card.cardType eq 4 }">
+							<img class="card-logo-img" src="/images_meitao/icons/visa.svg"
+								alt="">
+						</c:if>
+						<c:if test="${card.cardType eq 5 }">
+							<img class="card-logo-img"
+								src="/images_meitao/icons/mastercard.svg" alt="">
+						</c:if>
+						<c:if test="${card.cardType eq 6 }">
+							<img class="card-logo-img"
+								src="/images_meitao/icons/discover.svg" alt="">
+						</c:if>
+					</div>
+					<div class="card-num-info">
+						<div class="card-num">
+							<b>****</b> &nbsp; <b>****</b> &nbsp; <b>****</b> &nbsp; <b>${fn:substring(cardNumberStr, 12, 16)}</b>
+							<input type="hidden" value="${card.cardNumber}" />
+						</div>
+						<br>
+						<div class="card-info">
+							持卡人 &nbsp; ${card.firstName}&nbsp ${card.lastName} <input
+								type="hidden" value="${card.firstName}" /> <input type="hidden"
+								value="${card.lastName}" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 有效期 &nbsp;
+							${card.month}/${card.year} <input type="hidden"
+								value="${card.year}" /> <input type="hidden"
+								value="${card.month}" />
+						</div>
+					</div>
+					<c:if test="${card.isMain eq true }">
+						<div class="card-default" style="float: right;">默认卡</div>
+					</c:if>
+
+				</div>
+			</div>
+			<br>
+		</c:forEach>
+	</div>
+</div>

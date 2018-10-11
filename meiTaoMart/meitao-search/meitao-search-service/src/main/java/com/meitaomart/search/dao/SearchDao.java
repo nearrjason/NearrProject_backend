@@ -49,6 +49,7 @@ public class SearchDao {
 			searchItem.setStockNumber((Integer)solrDocument.get("item_stock_number"));
 			searchItem.setImages((String)solrDocument.get("item_images"));
 			searchItem.setSalePrice((Long)solrDocument.get("item_sale_price"));
+			searchItem.setCategoryId((Long)solrDocument.get("item_category_id"));
 			searchItem.setDiscount(((Integer)solrDocument.get("item_discount")).byteValue());
 			
 			List<String> list = highlighting.get((solrDocument).get("id")).get("item_name");

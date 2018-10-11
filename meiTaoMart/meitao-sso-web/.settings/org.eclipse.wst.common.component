@@ -13,6 +13,9 @@
         <dependent-module archiveName="meitao-common-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/meitao-common/meitao-common">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="meitao-user-interface-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/meitao-user-interface/meitao-user-interface">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="meitao-sso-web"/>
         <property name="java-output-path" value="/meitao-sso-web/target/classes"/>
     </wb-module>

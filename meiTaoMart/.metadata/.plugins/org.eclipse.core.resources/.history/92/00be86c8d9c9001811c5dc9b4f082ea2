@@ -1,0 +1,64 @@
+package com.meitaomart.portal.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.meitaomart.cart.service.CartService;
+import com.meitaomart.common.pojo.CartItem;
+import com.meitaomart.common.utils.CookieUtils;
+import com.meitaomart.common.utils.JsonUtils;
+import com.meitaomart.content.pojo.ItemCategoryList;
+import com.meitaomart.content.service.ContentService;
+import com.meitaomart.pojo.MeitaoContent;
+import com.meitaomart.pojo.MeitaoItemCategory;
+import com.meitaomart.service.ItemCategoryService;
+
+/**
+ * 首頁展示controller
+ * @author anluo
+ *
+ */
+@Controller
+public class IndexController {
+	
+	@Value("${CONTENT_LUNBO_ID}")
+	private Long CONTENT_LUNBO_ID;
+	
+	@Autowired
+	private ContentService contentService;
+	@Autowired
+	private ItemCategoryService itemCategoryService;
+	@Autowired
+	private CartService cartService;
+	
+	@RequestMapping("/index")
+	public String showIndex(Model model) {
+		// 查詢內容列表
+		List<MeitaoContent> ad1List = contentService.getContentListByCid(CONTENT_LUNBO_ID);
+		// 把結果傳遞給頁面
+		List<ItemCategoryList> itemCategoryList = itemCategoryService.getItemCategoryListWithChildrenList(0);
+ 		model.addAttribute("ad1List", ad1List);
+		model.addAttribute("itemCatList", itemCategoryList);
+		return "index";
+	}
+	
+	private List<CartItem> getCartListFromCookie(HttpServletRequest request) {
+		String json = CookieUtils.getCookieValue(request, "cart", true);
+		// 判断json是否为空
+		if (StringUtils.isBlank(json)) {
+			return new ArrayList<>();
+		}
+		// 把json转换成商品列表
+		List<CartItem> list = JsonUtils.jsonToList(json, CartItem.class);
+		return list;
+	}
+}

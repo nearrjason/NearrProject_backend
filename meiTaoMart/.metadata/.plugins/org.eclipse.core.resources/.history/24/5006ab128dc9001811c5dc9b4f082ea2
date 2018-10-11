@@ -1,0 +1,78 @@
+function comfirmUpdate(formId) {
+	console.log($(formId));
+	console.log($(formId).serialize());
+}
+
+function confirmDelete(e) {
+	var id = $(e + " input").attr("id");
+	var type = $(e + " input").attr("deleteType");
+	console.log(id);
+	console.log(type);
+	deleteOne(id, type);
+    //closepopup(e);
+}
+
+function openForm(e, index) {
+    $(e + "" + index).fadeIn(100);
+    $('#overlay').fadeIn(100);
+}
+
+function closeForm(e) {
+    $(e).fadeOut(100);
+    $('#overlay').fadeOut(100);
+}
+
+function popup(e, id) {
+	$(e + " input").attr("id", id);
+    $(e).fadeIn(100);
+    $('#overlay').fadeIn(100);
+}
+
+function closepopup(e) {
+    $(e).fadeOut(100);
+    $('#overlay').fadeOut(100);
+}
+
+function openAddForm(e) {
+    $(e).fadeIn(100);
+    $('#overlay').fadeIn(100);
+}
+
+function closeAddForm(e) {
+    $(e).fadeOut(100);
+    $('#overlay').fadeOut(100);
+}
+
+function openChangeForm() {
+    $('#changeForm').fadeIn(100);
+    $('#overlay').fadeIn(100);
+}
+
+function closeChangeForm() {
+    $('#changeForm').fadeOut(100);
+    $('#overlay').fadeOut(100);
+}
+
+
+
+
+
+
+function showCart() {
+    $('.cart-popup').fadeIn(50);
+}
+
+function unshowCart() {
+    $('.cart-popup').fadeOut(50);
+}
+
+var cart = document.getElementById("cart");
+cart.onmouseenter = function () {
+
+    showCart();
+};
+
+cart.onmouseleave = function () {
+
+    unshowCart();
+}

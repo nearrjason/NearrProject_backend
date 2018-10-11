@@ -1,0 +1,62 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<div class="header">
+	<div class="logo">
+		<a href=""><img src="/images_meitao/logo.svg" alt=""></a>
+	</div>
+
+	<div class="search">
+		<form class="search_form" action="http://192.168.1.100:8085/search.html" id="searchForm"
+			name="query" method="GET">
+			<input type="text" class="text" name="keyword" id="keyword" value=""
+				style="color: rgb(153, 153, 153);" autocomplete="off">
+			<button id="searchButton" class="submit-btn">
+				<img src="/images_meitao/icons/search.svg" alt="">
+			</button>
+		</form>
+	</div>
+
+	<div class="cart">
+		<div class="wrapper" id="cart">
+			<a href="http://192.168.1.100:8090/cart/cart.html"><img src="/images_meitao/icons/shopping-cart.svg" alt="">购物车&nbsp;
+				<span>28</span></a>
+			<!--shopping cart popup-->
+			<div class="cart-popup" id="cart-popup">
+				<div class="cart-view">
+					<div class="s-item">
+						<div class="div1">
+							<img src="/images_meitao/design1.png" alt="">
+						</div>
+						<div class="div2">
+							<p class="itemName">台湾联华食品 卡迪那 德州薯条 茄汁味 168g
+							</h2>
+							<p class="itemCount">数量：3</p>
+						</div>
+						<div class="div3">
+							<p class="itemPrice">$11.49</p>
+							<a href="">删除</a>
+						</div>
+					</div>
+					<hr>
+					<div class="s-item">
+						<div class="div1">
+							<img src="/images_meitao/design1.png" alt="">
+						</div>
+						<div class="div2">
+							<p class="itemName">台湾联华食品 卡迪那 德州薯条 茄汁味 168g
+							<p class="itemCount">数量：3</p>
+						</div>
+						<div class="div3">
+							<p class="itemPrice">$11.49</p>
+							<a href="">删除</a>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="check-cart">
+					<a href="">查看购物车</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

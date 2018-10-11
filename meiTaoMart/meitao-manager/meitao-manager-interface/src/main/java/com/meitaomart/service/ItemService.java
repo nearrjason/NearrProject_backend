@@ -11,9 +11,13 @@ import com.meitaomart.pojo.MeitaoItemPrice;
 
 public interface ItemService {
 	List<ItemInfo> getItemList();
+	List<ItemInfo> getRecentItemList(Integer days);
+	List<ItemInfo> getItemListByCategoryId(Long categoryId);
+	List<ItemInfo> getItemListByLimitNumber(Integer limitNumber, String column);
+	
 	EasyUIDataGridResult getItemList(int page, int rows);
 	MeitaoResult deleteItems(String ids);	
 	ItemInfo getItemById(long itemId);
-	MeitaoResult addItem(MeitaoItem item, MeitaoItemPrice itemPrices, String desc);
+	MeitaoResult addItem(MeitaoItem item, MeitaoItemPrice itemPrices, String desc, String descImages);
 	MeitaoItemDesc getItemDescById(long itemId);
 }

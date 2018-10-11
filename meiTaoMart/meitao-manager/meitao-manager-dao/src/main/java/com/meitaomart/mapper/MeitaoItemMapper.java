@@ -7,6 +7,10 @@ import org.apache.ibatis.annotations.Param;
 
 public interface MeitaoItemMapper {
     int countByExample(MeitaoItemExample example);
+    
+    Integer selectStockNumberByPrimaryKey(Long id);
+    
+    String selectItemNameByPrimaryKey(Long id);
 
     int deleteByExample(MeitaoItemExample example);
 

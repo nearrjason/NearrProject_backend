@@ -55,12 +55,12 @@ public class SearchServiceImpl implements SearchService {
 		SearchResult searchResult = searchDao.search(query);
 		// 计算总页数
 		long recordCount = searchResult.getRecordCount();
-		int totalPage = (int) recordCount / rows;
+		int totalPage = (int) (recordCount / rows);
 		if (recordCount % rows != 0) {
 			totalPage++;
 			// 添加到返回结果
-			searchResult.setTotalPages(totalPage);
 		}
+		searchResult.setTotalPages(totalPage);
 		// 返回结果
 		return searchResult;
 	}

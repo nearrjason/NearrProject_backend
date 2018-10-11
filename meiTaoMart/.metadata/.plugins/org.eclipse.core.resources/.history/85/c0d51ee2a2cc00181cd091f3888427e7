@@ -1,0 +1,84 @@
+package com.meitaomart.common.utils;
+
+import java.util.Random;
+
+public final class TaxUtils {
+	private static final String TAX_API_TOKEN = "fc160786287b446ea1165ea88edcb268";
+	private static final String FROM_COUNTRY = "US";
+	private static final String FROM_ZIPCODE = "07747";
+	private static final String FROM_STATE = "NJ";
+	private static final String FROM_CITY = "Matawan";
+	private static final String FROM_STREET = "3996 Highway 516";
+	
+	public static Taxjar getTaxjar() {
+		return new Taxjar(TAX_API_TOKEN);
+	}
+	
+	public static Map<String, Object> createParas(String toCountry, String toZipcode, String toState, )
+	
+	public static Long getTaxFee(String toStreet, String toCity, String toState, String toZipcode, int subtotal, int shippingFee ) {
+		double amount = subtotal / 100.0;
+		double shipping = shippingFee / 100.0;
+		
+		Taxjar client = new Taxjar(TAX_API_TOKEN);
+		try {
+            Map<String, Object> params = new HashMap<>();
+            //send item from
+            params.put("from_country", "US");
+            params.put("from_zip", "07747");
+            params.put("from_state", "NJ");
+            params.put("from_city", "Matawan");
+            params.put("from_street", "3996 Highway 516");
+			
+			
+            params.put("to_country", "US");
+            params.put("to_zip", "47803");
+            params.put("to_state", "IN");
+            params.put("to_city", "Terre Haute");
+            params.put("to_street", "5500 Wabash ave");
+            params.put("amount", 35);
+            params.put("shipping", 5.5);
+
+            List<Map> nexusAddresses = new ArrayList();
+            Map<String, Object> nexusAddress = new HashMap<>();
+            nexusAddress.put("country", "US");
+            nexusAddress.put("zip", "47803");
+            nexusAddress.put("state", "IN"); //收货地址      
+            nexusAddresses.add(nexusAddress);
+
+//            List<Map> lineItems = new ArrayList();
+//            Map<String, Object> lineItem = new HashMap<>();
+//            lineItem.put("id", 2);
+//            lineItem.put("quantity", 1);
+//            lineItem.put("product_tax_code", "30070");
+//            lineItem.put("unit_price", 15);
+//            lineItem.put("discount", 0);
+//            lineItems.add(lineItem);
+
+            params.put("nexus_addresses", nexusAddresses);
+           // params.put("line_items", lineItems);
+
+            TaxResponse res = client.taxForOrder(params);
+            
+            System.out.println("tax we charge: "+res.tax.getAmountToCollect());
+            float total=res.tax.getAmountToCollect()+res.tax.getOrderTotalAmount();
+            System.out.println("total amount we charge: "+total);
+        } catch (TaxjarException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public static Long getTaxFee(Long subtotal) {
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @return 税 (单位:分)
+	 */
+	public static Long getTaxFee() {
+		Random random = new Random();
+		long taxFee = random.nextInt(2000) + 1;
+		return taxFee;
+	}
+}

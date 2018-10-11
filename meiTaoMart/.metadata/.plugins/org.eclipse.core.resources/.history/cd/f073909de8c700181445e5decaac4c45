@@ -1,0 +1,371 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<section>
+	<div class="main-display">
+		<!-- order information -->
+
+		<div class="keep-parallel">
+			<div class="maintab-display">
+				<h1 class="subtitle">填写并核对订单信息</h1>
+				<div class="main">
+					<h3 class="customfont">收货地址</h3>
+
+					<div id="address_drop_list">
+						<jsp:include page="main/address_drop_list.jsp" />
+					</div>
+
+					<div class="address-list">
+						<div class="main2">
+							<form id="submitNewAddressForm" onsubmit="return false">
+								<div class="info-block">
+									<div class="add-desc">使用新地址</div>
+									<br> <br>
+									<div>
+										<div class="customfont">First Name</div>
+									</div>
+									<div>
+										<input type="text" name="firstName"
+											class="username-fill fillup" required>
+									</div>
+									<div>
+										<div class="customfont">Last Name</div>
+									</div>
+									<div>
+										<input type="text" name="lastName"
+											class="username-fill fillup" required>
+									</div>
+
+									<div class="email-phone">
+										<div class="email-get customfont">Phone</div>
+									</div>
+									<div class="email-phone-fill">
+										<input name="shippingPhone" class="emailaddr-fill fillup"
+											required>
+									</div>
+									<br>
+
+									<div class="home">Street</div>
+									<input type="text" name="street" class="address-fill fillup"
+										required>
+
+									<div class="city-state-zip keep-parallel">
+										<div class="city">City</div>
+										<div class="state">State</div>
+										<div class="zip">Zip Code</div>
+									</div>
+									<div class="city-state-zip-fill keep-parallel">
+										<input type="text" name="city" class="city-fill fillup"
+											required> <input type="text" name="state"
+											class="state-fill fillup" required> <input
+											type="text" name="zipcode" class="zip-fill fillup" required>
+									</div>
+									<br> <br>
+									<div class="saveaddr-save">
+										<!-- <span> <input id="saveAddressCheckBox" type="checkbox"
+											class="save-addr">保存地址
+										</span> <span> -->
+											<button class="submit-btn" onclick="submitNewAddress()">保存地址</button>
+
+										</span>
+
+									</div>
+								</div>
+							</form>
+
+							<br>
+						</div>
+					</div>
+
+					<div class="shipping-method">
+						<h3 class="customfont">
+							配送方式
+							</h2>
+							<div>
+								<ul class="select-list">
+									<li class="normalship" onclick="selectNormalShip()"><b>平邮</b></li>
+									<li class="fastship" onclick="selectFastShip()"><b>加急</b></li>
+								</ul>
+							</div>
+					</div>
+					<br> <br>
+
+				</div>
+
+				<br> <br> <br>
+
+				<!-- payment method -->
+				<div>
+					<h1 class="subtitle">支付方式</h1>
+					<!-- <h4 class="subtitle">选择支付方式</h4> -->
+					<div class="main">
+						<div class="creditcard-pay">
+							<!-- <input type="radio" name="paymethod" value="creditcart" onclick="chooseCreditPay()"> <img class="pay-img" src="/images_meitao/creditcard.svg">信用卡<br> -->
+							<div class="creditcard-list">
+
+								<div id="card_drop_list">
+									<jsp:include page="main/card_drop_list.jsp" />
+								</div>
+								<div class="add-card-info">
+									<form id="submitNewCardForm" onsubmit="return false">
+										<div class="info-block">
+											<div class="add-desc">请确保持卡人姓名及其他信息与卡片上的一致</div>
+											<br> <br>
+											<div>
+												<div class="customfont">First Name</div>
+											</div>
+											<div>
+												<input type="text" name="firstName"
+													class="username-fill fillup" required>
+											</div>
+											<div>
+												<div class="customfont">Last Name</div>
+											</div>
+											<div>
+												<input type="text" name="lastName"
+													class="username-fill fillup" required>
+											</div>
+											<div class="name-phone">
+												<div class="username">Card Number</div>
+											</div>
+											<div class="name-phone-fill">
+												<input type="text" name="cardNumber"
+													class="username-fill fillup">
+											</div>
+
+											<div class="home">Expiration</div>
+											<br>
+											<div class="home">Month</div>
+											<div>
+												<select name="month">
+													<option value="01">01</option>
+													<option value="02">02</option>
+													<option value="03">03</option>
+													<option value="04">04</option>
+													<option value="05">05</option>
+													<option value="06">06</option>
+													<option value="07">07</option>
+													<option value="08">08</option>
+													<option value="09">09</option>
+													<option value="10">10</option>
+													<option value="11">11</option>
+													<option value="12">12</option>
+												</select>
+											</div>
+											<br>
+											<div class="home">Year</div>
+											<div>
+												<input type="text" name="year" class="username-fill fillup">
+											</div>
+
+											<div class="savecard-save">
+												<!-- <span> <input id="saveCardCheckBox" type="checkbox"
+													class="save-addr">保存信用卡
+												</span> <span> -->
+													<button class="submit-btn" onclick="submitNewCard()">保存信用卡</button>
+												</span>
+
+											</div>
+										</div>
+									</form>
+								</div>
+
+
+								<div class="billing-info">
+									<div class="customfont">
+										<span>账单地址</span> 
+										<span class="useAddr"> 
+											使用当前收货地址作为账单地址
+										</span>
+										<input id="isUsingShippingAddressAsBillingAddress" type="hidden" value="false"></input>
+									</div>
+									<br>
+									<form id="billingAddressForm" submit="return false">
+										<div class="info-block">
+											<div>
+												<div class="customfont">First Name</div>
+											</div>
+											<div>
+												<input type="text" name="firstName"
+													class="username-fill fillup" required>
+											</div>
+											<div>
+												<div class="customfont">Last Name</div>
+											</div>
+											<div>
+												<input type="text" name="lastName"
+													class="username-fill fillup" required>
+											</div>
+
+											<div class="email-phone">
+												<div class="email-get customfont">Phone</div>
+											</div>
+											<div class="email-phone-fill">
+												<input name="shippingPhone" class="emailaddr-fill fillup"
+													required>
+											</div>
+											<br>
+
+											<div class="home">Street</div>
+											<input type="text" name="street" class="address-fill fillup"
+												required>
+
+											<div class="city-state-zip keep-parallel">
+												<div class="city">City</div>
+												<div class="state">State</div>
+												<div class="zip">Zip Code</div>
+											</div>
+											<div class="city-state-zip-fill keep-parallel">
+												<input type="text" name="city" class="city-fill fillup"
+													required> <input type="text" name="state"
+													class="state-fill fillup" required> <input
+													type="text" name="zipcode" class="zip-fill fillup" required>
+											</div>
+										</div>
+
+									</form>
+
+								</div>
+
+							</div>
+						</div>
+
+						<!-- <div class="zhifubao-pay">
+                                <input type="radio" name="paymethod" value="zhifubao" onclick="chooseZhifubaoPay()"> <img class="pay-img" src="/images_meitao/zhifubao.svg">支付宝<br>
+                                <div class="zhifubao-list">
+                                    
+                                </div>
+                            </div>
+                            <div>
+                                <input type="radio" name="paymethod" value="wechat" onclick="chooseWechatPay()"> <img class="pay-img" src="/images_meitao/wechat.svg">微信<br>  
+                                <div class="wechat-list">
+                                    
+                                </div>
+                            </div> -->
+					</div>
+				</div>
+
+
+				<br> <br>
+
+
+
+
+
+
+
+				<!-- 订单详情中的购物车列表 -->
+				<div class="wrap">
+					<table>
+						<tr class="t-header">
+							<td class="h-all">商品名称</td>
+							<td class="h-price">单价</td>
+							<td class="h-count">数量</td>
+							<td class="h-total">总计</td>
+							<td class="h-none"></td>
+						</tr>
+						<c:forEach items="${cartItemList}" var="cartItem"
+							varStatus="cartItemUtils">
+							<c:set var="subtotalPrice"
+								value="${ subtotalPrice + (cartItem.salePrice * cartItem.purchaseQuantity)}" />
+							<tr class="item">
+								<td>
+									<div class="item-info">
+										<img src="${cartItem.oneImage }" alt="">
+										<p>${cartItem.name }</p>
+									</div>
+								</td>
+								<td class="unit-price"><span
+									id="unitSalePrice${cartItemUtils.index}"
+									value="${cartItem.salePrice}"> $<fmt:formatNumber
+											value="${cartItem.salePrice / 100}" maxFractionDigits="2"
+											minFractionDigits="2" />
+								</span></td>
+								<td class="input-count">
+									<p>&times ${cartItem.purchaseQuantity }</p>
+								</td>
+
+								<td class="total"><span
+									id="singleTotalPrice${cartItemUtils.index}"
+									class="singleTotalPrices"
+									value="${cartItem.salePrice * cartItem.purchaseQuantity}">
+										$<fmt:formatNumber
+											value="${cartItem.salePrice / 100 * cartItem.purchaseQuantity}"
+											maxFractionDigits="2" minFractionDigits="2" />
+								</span></td>
+								<td><button type="button" class="d-item"
+										onclick="deleteItem(${cartItem.id})">
+										<img class="button" src="/images/icons/close.svg" alt="">
+									</button></td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+
+				<div class="back">
+					<a href=""><img src="/images/icons/left-arrow.svg" alt="">继续购物</a>
+				</div>
+
+				<div class="submit-form">
+					<button class="submit-btn" onclick="finalCheckout()">确认支付</button>
+				</div>
+			</div>
+
+			<c:set var="totalPrice"
+				value="${ orderInfo.subtotal + orderInfo.shippingFee + orderInfo.taxFee}" />
+			<div class="side-count">
+				<div class="total-price">
+					<span class="customfont"><b>合计</b></span> <span class="tprice">
+						$<fmt:formatNumber value="${orderInfo.subtotal / 100}"
+							maxFractionDigits="2" minFractionDigits="2" groupingUsed="true" />
+					</span>
+				</div>
+				<br>
+				<div class="ship-to">
+					<span class="customfont">配送至</span> <span class="sto">55750</span>
+				</div>
+				<br>
+				<div class="tax-price">
+					<span class="customfont">税费</span> <span class="tprice"> $<fmt:formatNumber
+							value="${orderInfo.taxFee / 100}" maxFractionDigits="2"
+							minFractionDigits="2" groupingUsed="true" />
+					</span>
+				</div>
+				<br>
+				<div class="ship-price">
+					<span class="customfont">邮费</span> <span class="sto"> $<fmt:formatNumber
+							value="${orderInfo.shippingFee / 100}" maxFractionDigits="2"
+							minFractionDigits="2" groupingUsed="true" />
+					</span>
+				</div>
+				<br>
+
+				<div class="cal-total-price">
+					<span class="customfont"><b>总计</b></span> <span class="ctprice">
+						$<fmt:formatNumber value="${totalPrice / 100}"
+							maxFractionDigits="2" minFractionDigits="2" groupingUsed="true" />
+					</span>
+				</div>
+			</div>
+		</div>
+		<form id="checkoutOrder" method="post">
+			<input type="hidden" name="subtotal" value="${orderInfo.subtotal }" />
+			<input type="hidden" name="shippingFee"
+				value="${orderInfo.shippingFee }" /> <input type="hidden"
+				name="taxFee" value="${orderInfo.taxFee }" />
+			<%-- <c:forEach items="${addressList }" var="addtress" varStatus="status">
+			</c:forEach> --%>
+		</form>
+		<form id="checkoutOrderItemList">
+			<c:forEach items="${cartItemList }" var="cartItem" varStatus="status">
+				<input type="hidden" name="itemId" value="${cartItem.id}" />
+				<input type="hidden" name="itemNumber"
+					value="${cartItem.purchaseQuantity }" />
+			</c:forEach>
+		</form>
+	</div>
+
+</section>

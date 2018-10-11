@@ -1,0 +1,75 @@
+.popup-box {
+    display: none;
+    position: absolute;
+    border: none;
+    z-index: 110;
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:300px;  /* adjust as per your needs */
+    height:200px;   /* adjust as per your needs */
+    margin-left:-150px;   /* negative half of width above */
+    margin-top:-90px;   /* negative half of height above */
+    background-color: #f2f2f2;
+}
+
+.popup-box p{
+    font-family: STXihei;
+    color: #707070;
+    font-size: 20px;
+    margin: 40px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#zip{
+    background-color: white;
+    width: 180px;
+    padding: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 15px;
+    outline: none;
+}
+
+.popup-box .bttn {
+    background-color: #e03c3c;
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    margin-bottom:10px;
+    opacity: 1;
+    border-radius: 30px;
+    margin-left: 100px;
+    margin-right: 100px;
+    outline: 0;
+  }
+  
+  /* Add a red background color to the cancel button */
+  .popup-box .not-confirm {
+    background-color: #707070;
+  }
+  
+  /* Add some hover effects to buttons */
+  .popup-box .confirm:hover, .not-confirm:hover {
+    opacity: 0.8;
+  }
+/*popup box css done*/
+
+
+
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(112,112,112,0.8); /* Black background with opacity */
+    z-index: 10; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}

@@ -1,0 +1,10 @@
+package com.meitaomart.email.test;
+
+import com.meitaomart.common.utils.TaxUtils;
+import com.meitaomart.common.utils.Taxjar;
+
+public class TaxTest {
+	public void taxTest() {
+		TaxUtils.getTaxFee("827 S Carpenter St", "Chicago", "IL", "60607", "123", "599")
+	}
+}

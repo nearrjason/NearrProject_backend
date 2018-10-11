@@ -1,0 +1,72 @@
+package com.meitaomart.user.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.meitaomart.order.pojo.OrderInfo;
+import com.meitaomart.order.service.OrderService;
+import com.meitaomart.pojo.MeitaoAddress;
+import com.meitaomart.pojo.MeitaoBankingCard;
+import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.user.service.UserService;
+
+@Controller
+public class UserCenterController {
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private OrderService orderService;
+	
+	@RequestMapping("/user/profile/orders")
+	public String getOrders(HttpServletRequest request) {
+		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
+		/*if (meitaoUser == null) {
+			return null;
+		}
+		
+		List<OrderInfo> orderInfoList = orderService.getOrderInfoListByUserId(meitaoUser.getId());
+		request.setAttribute("orderInfoList", orderInfoList);*/
+		request.setAttribute("type", "order");
+		return "user_center";
+	}
+	
+	@RequestMapping("/user/profile/account")
+	public String getAccount(HttpServletRequest request) {
+		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
+		if (meitaoUser == null) {
+			return null;
+		}
+		
+		request.setAttribute("user", meitaoUser);
+		request.setAttribute("type", "account");
+		return "user_center";
+	}
+	
+	@RequestMapping("/user/profile/addresses")
+	public String getAddresses(HttpServletRequest request) {
+		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
+		if (meitaoUser == null) {
+			return null;
+		}
+		List<MeitaoAddress> meitaoAddressList = userService.getAddressListByUserId(meitaoUser.getId());
+		request.setAttribute("addressList", meitaoAddressList);
+		request.setAttribute("type", "address");
+		return "user_center";
+	}
+	
+	@RequestMapping("/user/profile/cards")
+	public String getCards(HttpServletRequest request) {
+		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
+		if (meitaoUser == null) {
+			return null;
+		}
+		List<MeitaoBankingCard> meitaoCardList = userService.getCardListByUserId(meitaoUser.getId());
+		request.setAttribute("type", "card");
+		return "user_center";
+	}
+}

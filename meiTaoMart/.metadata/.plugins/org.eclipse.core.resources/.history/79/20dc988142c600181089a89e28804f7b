@@ -1,0 +1,30 @@
+package com.meitaomart.user.controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.user.service.UserService;
+
+@Controller
+public class UserCenterUpdateController {
+	@Autowired
+	private UserService userService;
+	
+	@RequestMapping(value="/user/profile/account", method=RequestMethod.POST)
+	@ResponseBody
+	public MeitaoResult updateAccount(MeitaoUser user, HttpServletRequest request) {
+		Long userId = ((MeitaoUser) request.getAttribute("user")).getId();
+		return userService.updateUser(user, userId);
+	}
+	
+	public MeitaoResult setAsDefault(Long id, String type) {
+		
+	}
+}

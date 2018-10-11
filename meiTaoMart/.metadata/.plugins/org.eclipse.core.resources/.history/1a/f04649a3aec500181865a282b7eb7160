@@ -1,0 +1,9 @@
+package com.meitaomart.common.utils;
+
+
+public final class PaymentUtils {
+	private static final String stripeAPIKey = "sk_test_b3UJNAQLBEJbQ157oteZKLR6";
+	public static void addCard() {
+		
+	}
+}

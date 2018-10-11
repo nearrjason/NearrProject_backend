@@ -1,3 +1,5 @@
+com\meitaomart\pojo\MeitaoBankingCard.class
+com\meitaomart\pojo\MeitaoBankingCardExample$Criteria.class
 com\meitaomart\pojo\MeitaoUserExample.class
 com\meitaomart\pojo\MeitaoAdminUserExample$GeneratedCriteria.class
 com\meitaomart\pojo\MeitaoOrderExample$Criterion.class
@@ -11,6 +13,7 @@ com\meitaomart\pojo\MeitaoContentExample.class
 com\meitaomart\pojo\MeitaoItemDescExample$Criteria.class
 com\meitaomart\pojo\MeitaoItemPriceExample$Criterion.class
 com\meitaomart\pojo\MeitaoItemCategoryExample$Criteria.class
+com\meitaomart\pojo\MeitaoBankingCardExample.class
 com\meitaomart\pojo\MeitaoContentCategoryExample$Criteria.class
 com\meitaomart\pojo\MeitaoItemPriceExample$Criteria.class
 com\meitaomart\pojo\MeitaoItemCategory.class
@@ -44,6 +47,7 @@ com\meitaomart\pojo\MeitaoContentExample$GeneratedCriteria.class
 com\meitaomart\pojo\MeitaoOrderExample$Criteria.class
 com\meitaomart\pojo\MeitaoAdminUser.class
 com\meitaomart\pojo\MeitaoAddressExample$Criteria.class
+com\meitaomart\pojo\MeitaoBankingCardExample$GeneratedCriteria.class
 com\meitaomart\pojo\MeitaoContentCategory.class
 com\meitaomart\pojo\MeitaoOrderItemExample$Criterion.class
 com\meitaomart\pojo\MeitaoItemDescExample$Criterion.class
@@ -53,3 +57,4 @@ com\meitaomart\pojo\MeitaoAdminUserExample$Criterion.class
 com\meitaomart\pojo\MeitaoAdminUserExample$Criteria.class
 com\meitaomart\pojo\MeitaoItemExample$Criterion.class
 com\meitaomart\pojo\MeitaoOrderExample.class
+com\meitaomart\pojo\MeitaoBankingCardExample$Criterion.class

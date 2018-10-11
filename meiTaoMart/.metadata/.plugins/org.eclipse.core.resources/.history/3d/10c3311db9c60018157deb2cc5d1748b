@@ -1,0 +1,47 @@
+package com.meitaomart.user.controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.meitaomart.common.utils.CookieUtils;
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.sso.service.TokenService;
+import com.meitaomart.user.service.UserService;
+
+@Controller
+public class UserCenterUpdateController {
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private TokenService tokenService;
+	
+	@RequestMapping(value="/user/profile/account", method=RequestMethod.POST)
+	@ResponseBody
+	public MeitaoResult updateAccount(MeitaoUser user, HttpServletRequest request) {
+		Long userId = ((MeitaoUser) request.getAttribute("user")).getId();
+		String token = CookieUtils.getCookieValue(request, "token");
+		MeitaoUser updatedUser = userService.updateUser(user, userId);
+		tokenService.updateUserByToken(token, updatedUser);
+		return MeitaoResult.ok();
+	}
+	
+	@RequestMapping(value="/user/profile/set_as_default", method=RequestMethod.POST)
+	@ResponseBody
+	public MeitaoResult setAsDefault(Long id, String type, HttpServletRequest request) {
+		Long userId = ((MeitaoUser) request.getAttribute("user")).getId();
+		return userService.setAsDefault(id, type, userId);
+	}
+	
+	@RequestMapping(value="/user/profile/set_as_default", method=RequestMethod.POST)
+	@ResponseBody
+	public MeitaoResult changePassword(String password, HttpServletRequest request) {
+		Long userId = ((MeitaoUser) request.getAttribute("user")).getId();
+	}
+}

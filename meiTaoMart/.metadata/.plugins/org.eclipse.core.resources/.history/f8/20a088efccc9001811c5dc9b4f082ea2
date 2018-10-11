@@ -1,0 +1,125 @@
+function confirmUpdate(formId, type) {
+	console.log($(formId).serialize());
+	if (type == "address") {
+		location.href = "/user/profile/update/address?" + $(formId).serialize();
+	} else if (type == "card"){
+		$.post(
+				"/user/profile/update/card",
+				$(formId).serialize(),
+				function(response) {
+					if (response.status == 200) {
+						location.href = "/user/profile/cards";
+					} else {
+						alert(response.msg);
+					}
+				}
+				
+		)
+	}
+	console.log(type);
+	console.log($(formId));
+	
+}
+
+function confirmAdd(formId, type) {
+	console.log($(formId).serialize());
+	console.log(type);
+	if (type == "address") {
+		closeError("user_address_method");
+		if (!addressInputValidation($("#submitNewAddressForm").serializeArray(), "user_address_method")) {
+			return;
+		}
+		location.href = "/user/profile/add/address?" + $(formId).serialize();
+	} else if (type == "card"){
+		closeError("user_address_method");
+		if (!addressInputValidation($("#submitNewAddressForm").serializeArray(), "user_address_method")) {
+			return;
+		}
+		$.post(
+				"/user/profile/add/card",
+				$(formId).serialize(),
+				function(response) {
+					if (response.status == 200) {
+						location.href = "/user/profile/cards";
+					} else {
+						alert(response.msg);
+					}
+				}
+				
+		)
+	}
+}
+
+function confirmDelete(e) {
+	var id = $(e + " input").attr("id");
+	var type = $(e + " input").attr("deleteType");
+	console.log(id);
+	console.log(type);
+	deleteOne(id, type);
+    //closepopup(e);
+}
+
+function openForm(e, index) {
+    $(e + "" + index).fadeIn(100);
+    $('#overlay').fadeIn(100);
+}
+
+function closeForm(e) {
+    $(e).fadeOut(100);
+    $('#overlay').fadeOut(100);
+}
+
+function popup(e, id) {
+	$(e + " input").attr("id", id);
+    $(e).fadeIn(100);
+    $('#overlay').fadeIn(100);
+}
+
+function closepopup(e) {
+    $(e).fadeOut(100);
+    $('#overlay').fadeOut(100);
+}
+
+function openAddForm(e) {
+    $(e).fadeIn(100);
+    $('#overlay').fadeIn(100);
+}
+
+function closeAddForm(e) {
+    $(e).fadeOut(100);
+    $('#overlay').fadeOut(100);
+}
+
+function openChangeForm() {
+    $('#changeForm').fadeIn(100);
+    $('#overlay').fadeIn(100);
+}
+
+function closeChangeForm() {
+    $('#changeForm').fadeOut(100);
+    $('#overlay').fadeOut(100);
+}
+
+
+
+
+
+
+function showCart() {
+    $('.cart-popup').fadeIn(50);
+}
+
+function unshowCart() {
+    $('.cart-popup').fadeOut(50);
+}
+
+var cart = document.getElementById("cart");
+cart.onmouseenter = function () {
+
+    showCart();
+};
+
+cart.onmouseleave = function () {
+
+    unshowCart();
+}

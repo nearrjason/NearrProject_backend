@@ -5,6 +5,7 @@
     <id column="item_id" property="itemId" jdbcType="BIGINT" />
     <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
     <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="desc_images" property="descImages" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.meitaomart.pojo.MeitaoItemDesc" extends="BaseResultMap" >
     <result column="item_desc" property="itemDesc" jdbcType="LONGVARCHAR" />
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    item_id, created_time, updated_time
+    item_id, created_time, updated_time, desc_images
   </sql>
   <sql id="Blob_Column_List" >
     item_desc
@@ -123,9 +124,9 @@
   </delete>
   <insert id="insert" parameterType="com.meitaomart.pojo.MeitaoItemDesc" >
     insert into meitao_item_desc (item_id, created_time, updated_time, 
-      item_desc)
+      desc_images, item_desc)
     values (#{itemId,jdbcType=BIGINT}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
-      #{itemDesc,jdbcType=LONGVARCHAR})
+      #{descImages,jdbcType=VARCHAR}, #{itemDesc,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.meitaomart.pojo.MeitaoItemDesc" >
     insert into meitao_item_desc
@@ -138,6 +139,9 @@
       </if>
       <if test="updatedTime != null" >
         updated_time,
+      </if>
+      <if test="descImages != null" >
+        desc_images,
       </if>
       <if test="itemDesc != null" >
         item_desc,
@@ -152,6 +156,9 @@
       </if>
       <if test="updatedTime != null" >
         #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="descImages != null" >
+        #{descImages,jdbcType=VARCHAR},
       </if>
       <if test="itemDesc != null" >
         #{itemDesc,jdbcType=LONGVARCHAR},
@@ -176,6 +183,9 @@
       <if test="record.updatedTime != null" >
         updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.descImages != null" >
+        desc_images = #{record.descImages,jdbcType=VARCHAR},
+      </if>
       <if test="record.itemDesc != null" >
         item_desc = #{record.itemDesc,jdbcType=LONGVARCHAR},
       </if>
@@ -189,6 +199,7 @@
     set item_id = #{record.itemId,jdbcType=BIGINT},
       created_time = #{record.createdTime,jdbcType=TIMESTAMP},
       updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      desc_images = #{record.descImages,jdbcType=VARCHAR},
       item_desc = #{record.itemDesc,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -198,7 +209,8 @@
     update meitao_item_desc
     set item_id = #{record.itemId,jdbcType=BIGINT},
       created_time = #{record.createdTime,jdbcType=TIMESTAMP},
-      updated_time = #{record.updatedTime,jdbcType=TIMESTAMP}
+      updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      desc_images = #{record.descImages,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -212,6 +224,9 @@
       <if test="updatedTime != null" >
         updated_time = #{updatedTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="descImages != null" >
+        desc_images = #{descImages,jdbcType=VARCHAR},
+      </if>
       <if test="itemDesc != null" >
         item_desc = #{itemDesc,jdbcType=LONGVARCHAR},
       </if>
@@ -222,13 +237,15 @@
     update meitao_item_desc
     set created_time = #{createdTime,jdbcType=TIMESTAMP},
       updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      desc_images = #{descImages,jdbcType=VARCHAR},
       item_desc = #{itemDesc,jdbcType=LONGVARCHAR}
     where item_id = #{itemId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.meitaomart.pojo.MeitaoItemDesc" >
     update meitao_item_desc
     set created_time = #{createdTime,jdbcType=TIMESTAMP},
-      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      desc_images = #{descImages,jdbcType=VARCHAR}
     where item_id = #{itemId,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -1,0 +1,79 @@
+function minusItem(button) {
+	var count = $(button).siblings("input");
+    var c = parseInt(count.val());
+    if (c <= 1) {
+        return;
+    }
+    count.val(c - 1);
+    var index = $(button).attr("index");
+    refreshSingleTotalPrice(count.attr("itemId"), index, $("#unitSalePrice" + index).attr("value"), count.val());
+}
+
+function addItem(button, stockNumber) {
+	var count = $(button).siblings("input");
+    var c = parseInt(count.val());
+    if (c >= stockNumber) {
+    	return;
+    }
+    count.val(c + 1);
+    var index = $(button).attr("index");
+    refreshSingleTotalPrice(count.attr("itemId"), index, $("#unitSalePrice" + index).attr("value"), count.val());
+}
+
+function updateQuantity(input, stockNumber) {
+	var index = $(input).attr("index");
+	var inputQuantity = Math.max(1, Math.min($(input).val(), stockNumber));
+	if (isNaN(inputQuantity)) {
+		inputQuantity = stockNumber;
+	}
+	refreshSingleTotalPrice($(input).attr("itemId"), index, $("#unitSalePrice" + index).attr("value"), parseInt(inputQuantity));
+}
+
+function refreshSingleTotalPrice(itemId, index, unitSalePrice, quantity) {
+	$.post("/cart/update/purchaseQuantity/"+ itemId +"/"+ quantity + ".action",function(response){
+		if (response) {
+			var updatedSingleTotalPrice = unitSalePrice * quantity;
+			$("#singleTotalPrice" + index).html(new Number(updatedSingleTotalPrice / 100).toFixed(2)).priceFormat({ // 价格格式化插件
+				 prefix: '$',
+				 thousandsSeparator: ',',
+				 centsLimit: 2
+			});
+			$("#purchaseQuantity" + index).val(quantity);
+			$("#singleTotalPrice" + index).attr("value", updatedSingleTotalPrice);
+			refreshSubtotalPrice();
+		}
+	});
+}
+
+function refreshSubtotalPrice() {
+	var subtotal = 0;
+	$(".singleTotalPrices").each(function(i,e){
+		subtotal += eval($(e).attr("value"));
+	});
+	$("#subtotalPrice").html(new Number(subtotal / 100).toFixed(2)).priceFormat({ // 价格格式化插件
+		 prefix: '$',
+		 thousandsSeparator: ',',
+		 centsLimit: 2
+	});
+}
+
+function deleteItem(itemId) {
+	location.href = "/cart/delete/" + itemId + ".html";
+	console.log(itemId);
+}
+
+function checkout() {
+	javascript:document.location.href="http://192.168.1.100:8092/order/checkout_page.html";
+}
+
+$(function () {
+	var cartLength = $("#cartLength").val();
+	console.log(cartLength);
+	if (cartLength > 0) {
+		$(".big-wrap").show();
+	} else {
+		$(".no-item").show();
+	}
+    $("tr:odd").addClass("item");
+    $("tr:even").addClass("item even");
+})

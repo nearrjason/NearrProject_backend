@@ -10,7 +10,7 @@ public interface CartService {
 
 	MeitaoResult addCart(long userId, long itemId, int purchaseQuantity);
 	MeitaoResult mergeCart(long userId, List<CartItem> itemList);
-	List<CartItem> getCartList(long userId);
+	List<CartItem> getCartList(long userId, boolean isFilterOOSItem);
 	MeitaoResult updateCartPurchaseQuantity(long userId, long itemId, int purchaseQuantity);
 	MeitaoResult deleteCartItem(long userId, long itemId);
 	MeitaoResult clearCartItem(long userId);

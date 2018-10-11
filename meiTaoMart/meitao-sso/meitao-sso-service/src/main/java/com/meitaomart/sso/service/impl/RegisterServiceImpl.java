@@ -1,15 +1,16 @@
 package com.meitaomart.sso.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import javax.imageio.spi.ServiceRegistry;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import com.meitaomart.common.utils.EmailUtils;
 import com.meitaomart.common.utils.MeitaoResult;
 import com.meitaomart.mapper.MeitaoUserMapper;
 import com.meitaomart.pojo.MeitaoUser;
@@ -43,13 +44,8 @@ public class RegisterServiceImpl implements RegisterService {
 		}
 		// 执行查询
 		List<MeitaoUser> list = meitaoUserMapper.selectByExample(example);
-		// 判断结果中是否包含数据
-		if (list != null && list.size() > 0) {
-			// 如果有数据返回false
-			return MeitaoResult.ok(false);
-		}
-		// 如果没有数据返回true
-		return MeitaoResult.ok(true);
+		// 判断结果中是否包含数据, 如果有数据返回true, 如果没有数据返回false
+		return list!= null && list.size() > 0 ? MeitaoResult.ok(true) : MeitaoResult.ok(false);
 	}
 
 	/**
@@ -64,11 +60,11 @@ public class RegisterServiceImpl implements RegisterService {
 		}
 		// 1：用户名 2：手机号 3：邮箱
 		MeitaoResult result = checkData(user.getUsername(), 1);
-		if (!(boolean) result.getData()) {
+		if ((boolean) result.getData()) {
 			return MeitaoResult.build(400, "此用户名已经被占用");
 		}
 		result = checkData(user.getEmail(), 3);
-		if (!(boolean) result.getData()) {
+		if ((boolean) result.getData()) {
 			return MeitaoResult.build(400, "邮箱已经被占用");
 		}
 		// 补全pojo的属性
@@ -78,9 +74,27 @@ public class RegisterServiceImpl implements RegisterService {
 		String md5Pass = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
 		user.setPassword(md5Pass);
 		// 把用户数据插入到数据库中
+		sendEmailToUser(user);
 		meitaoUserMapper.insert(user);
+
 		// 返回添加成功
 		return MeitaoResult.ok();
 	}
 
+	private MeitaoResult sendEmailToUser(MeitaoUser user) {
+		// TODO:customer email address
+		String toEmail = user.getEmail();
+		// set date
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		// subject/title
+		String subject = "Welcome to Meitaomart";
+		// body
+		String body = "Dear " + user.getUsername() + ":\n"
+				+ " Welcome to Meitaomart, you've successfully become a member of Meitaomart!\n" + "Best Wish\n"
+				+ "Meitao Team\n" + dateFormat.format(date);
+		// 发送邮件
+		EmailUtils.sendEmail(toEmail, subject, body);
+		return MeitaoResult.ok();
+	}
 }

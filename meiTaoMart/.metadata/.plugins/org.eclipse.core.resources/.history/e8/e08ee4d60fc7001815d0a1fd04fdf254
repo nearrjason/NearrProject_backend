@@ -1,0 +1,45 @@
+package com.meitaomart.sso.controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.sso.service.ForgetPasswordService;
+
+@Controller
+public class ForgetPasswordController {
+	@Autowired
+	private ForgetPasswordService forgetPasswordService;
+	
+	/*@RequestMapping(value="/page/forget_psw", method = RequestMethod.GET)
+	public String forgetPassword() {
+		return "forget-password";
+	}*/
+	
+	@RequestMapping(value="/page/forget_psw", method = RequestMethod.GET)
+	public String setNewPassword(String code, HttpServletRequest request) {
+		if (code != null && code.length() != 0) {
+			String emailAddress = forgetPasswordService.getEamilAddressByCode(code);
+			if (emailAddress != null && emailAddress.length() != 0) {
+				request.setAttribute("setPassword", true);
+				request.setAttribute("emailAddress", emailAddress);
+				return "forget-password";
+			} else {
+				System.out.println("此链接已过期");
+			}
+		}
+		return "forget-password";
+	}
+	
+	@RequestMapping(value="/page/forget_psw", method = RequestMethod.POST)
+	@ResponseBody
+	public MeitaoResult sendEmail(String emailAddress, HttpServletRequest request) {
+		MeitaoResult meitaoResult = forgetPasswordService.sendEmail(emailAddress);
+		return meitaoResult;
+	}
+}

@@ -17,8 +17,8 @@
 </head>
 <body>
 
-    <jsp:include page="commons/header1.jsp" />
-    <jsp:include page="commons/mainmenu.jsp" />
+    <jsp:include page="commons/header.jsp" />
+   <%--  <jsp:include page="commons/mainmenu.jsp" /> --%>
 	<!--main start-->
 	<div class="cartMain">
 		<div class="cartThead" style="margin: 50px 0px 50px 50px;">

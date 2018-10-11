@@ -1,7 +1,9 @@
 package com.meitaomart.common.pojo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 public class ItemInfo implements Serializable {
@@ -42,6 +44,8 @@ public class ItemInfo implements Serializable {
 	private Byte discount;
 
 	private String itemDesc;
+	
+	private String descImages;
 	
 	public Long getId() {
 		return id;
@@ -195,14 +199,49 @@ public class ItemInfo implements Serializable {
 		this.itemDesc = itemDesc;
 	}
 
+	public String getDescImages() {
+		return descImages;
+	}
+
+	public void setDescImages(String descImages) {
+		this.descImages = descImages;
+	}
+
 	public String getOneImage() {
-		if (this.images != null) {
+		if (this.images != null && this.images.length() != 0) {
 			String[] imageArray = images.split(",");
-			Random rand = new Random();
-			int index = rand.nextInt(imageArray.length);
-			return imageArray[index];
+			return imageArray[0];
 		}
 		
 		return null;
 	}
+	
+	public List<String> getImageList() {
+		List<String> list = new ArrayList<>();
+		if (this.images == null || this.images.length() == 0) {
+			return list;
+		}
+		
+		String[] imageArray = images.split(",");
+		for (String image : imageArray) {
+			list.add(image);
+		}
+		
+		return list;
+	}
+	
+	public List<String> getDescImageList() {
+		List<String> list = new ArrayList<>();
+		if (this.descImages == null || this.descImages.length() == 0) {
+			return list;
+		}
+		
+		String[] imageArray = descImages.split(",");
+		for (String image : imageArray) {
+			list.add(image);
+		}
+		
+		return list;
+	}
+	
 }

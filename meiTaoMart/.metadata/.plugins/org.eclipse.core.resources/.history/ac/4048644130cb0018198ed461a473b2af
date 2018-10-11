@@ -1,0 +1,43 @@
+var i = $('.block-ads').children().length;
+console.log(i);
+var width = 1200/i - 2.5;
+$('.block-ads a').css('width', width);
+$('.block-ads a img').css('width', width);
+
+
+
+
+$('.add-to-cart').mouseover(function(){
+	console.log("hahhahaha");
+    $(this).animate({deg: 180}, {
+        step: function(now, fx){
+            $(this).css({
+                 transform: "rotate(" + now + "deg)"
+            });
+        }
+    });
+});
+
+$('.add-to-cart').mouseleave(function(){
+    $(this).animate({deg: 0}, {
+        step: function(now, fx){
+            $(this).css({
+                 transform: "rotate(" + now + "deg)"
+            });
+        }
+    });
+});
+
+function addToCart(product_id) {
+	$.ajax({
+		url : "http://192.168.1.100:8090/cart/add/"+product_id+".action",
+		dataType : "jsonp",
+		jsonp: "callback",
+		type : "GET",
+		success : function(response){
+			if (response.status == 200) {
+				alert("添加购物车成功！");
+			}
+		}
+	});
+}

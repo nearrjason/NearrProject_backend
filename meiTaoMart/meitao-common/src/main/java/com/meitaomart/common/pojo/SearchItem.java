@@ -14,6 +14,8 @@ public class SearchItem implements Serializable {
 	private Long salePrice;
 	private Byte discount;
 	private String categoryName;
+	private String categoryNameLevelTwo;
+	private Long categoryId;
 
 	public Long getId() {
 		return id;
@@ -95,12 +97,26 @@ public class SearchItem implements Serializable {
 		this.categoryName = categoryName;
 	}
 	
+	public String getCategoryNameLevelTwo() {
+		return categoryNameLevelTwo;
+	}
+
+	public void setCategoryNameLevelTwo(String categoryNameLevelTwo) {
+		this.categoryNameLevelTwo = categoryNameLevelTwo;
+	}
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+
 	public String getOneImage() {
-		if (this.images != null) {
+		if (this.images != null && this.images.length() != 0) {
 			String[] imageArray = images.split(",");
-			Random rand = new Random();
-			int index = rand.nextInt(imageArray.length);
-			return imageArray[index];
+			return imageArray[0];
 		}
 		
 		return null;

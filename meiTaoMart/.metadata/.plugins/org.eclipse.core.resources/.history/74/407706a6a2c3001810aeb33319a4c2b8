@@ -1,0 +1,198 @@
+function selectNormalShip() {
+    $('.normalship').addClass('selected');
+    $('.normalship').off("click");
+    $('.fastship').removeClass('selected');
+    $('.fastship').on('click', selectFastShip);
+}
+
+function selectFastShip() {
+    $('.fastship').addClass('selected');
+    $('.fastship').off("click");
+    $('.normalship').removeClass('selected');
+    $('.normalship').on('click', selectNormalShip);
+}
+
+function selectShippingAddr() {
+    $('.ship-bar-plus').hide();
+    $('.ship-option').show();
+}
+
+
+function backMainTab() {
+    $('.ship-bar-plus').show();
+    $('.ship-option').hide();
+}
+
+
+// function chooseCreditPay() {
+//     $('.creditcard-list').show();
+//     $('.zhifubao-list').hide();
+//     $('.wechat-list').hide();
+// }
+
+
+// function chooseZhifubaoPay() {
+//     $('.zhifubao-list').show();
+//     $('.creditcard-list').hide();
+//     $('.wechat-list').hide();
+// }
+
+// function chooseWechatPay() {
+//     $('.wechat-list').show();
+//     $('.zhifubao-list').hide();
+//     $('.creditcard-list').hide();
+// }
+
+function addNewCard() {
+    $('.cardinfo-show').hide();
+    $('.add-card').hide();
+    $('.add-card-info').show();
+}
+
+function backToPay() {
+    $('.add-card-info').hide();
+    $('.cardinfo-show').show();
+    $('.add-card').show();
+}
+
+function backToPay2() {
+    $('.show-card-list').hide();
+    $('.cardinfo-show').show();
+    $('.add-card').show();
+}
+
+function selectCard() {
+    $('.cardinfo-show').hide();
+    $('.add-card').hide();
+    $('.show-card-list').show();
+}
+
+function showAddrList() {
+    /*$('.ship-info').hide();
+    $('.add-address').hide();*/
+	$("#address_drop_list").hide();
+    $('.address-list').show();
+}
+
+function submitNewAddress() {
+	var saveAddressChecked = $("#saveAddressCheckBox").is(":checked");
+	if (saveAddressChecked) {
+		$.post(
+			"/order/checkout_page/save_address.action",
+			$("#submitNewAddressForm").serialize(),
+			function(page) {
+				if (page) {
+					console.log(page);
+					$("#address_drop_list").html(page);
+					/*$('.ship-info').show();
+				    $('.add-address').show();*/
+					$("#address_drop_list").show();
+					$("#showPrimaryAddress").show();
+				    $('.address-list').hide();
+				}
+			}
+		)
+	} else {
+		changePrimaryAddress($("#submitNewAddressForm").serializeArray());
+	}
+}
+
+function newAddressInputValidation(meitaoAddress) {
+	
+}
+
+/**
+ * 将新建的地址添加到主支付地址(用于不走数据库时)
+ * @param meitaoAddress
+ * @returns
+ */
+function changePrimaryAddress(meitaoAddress) {
+	console.log(typeof meitaoAddress);
+	console.log(meitaoAddress);
+	
+	var firstName = meitaoAddress[0].value;
+	var lastName = meitaoAddress[1].value;
+	var shippingPhone = meitaoAddress[2].value;
+	var street = meitaoAddress[3].value;
+	var city = meitaoAddress[4].value;
+	var state = meitaoAddress[5].value;
+	var zipcode = meitaoAddress[6].value;
+	
+	console.log(firstName);
+	console.log(lastName);
+	console.log(shippingPhone);
+	console.log(street);
+	console.log(city);
+	console.log(state);
+	console.log(zipcode);
+	
+	// name
+	var primaryName = $("#primaryName input");
+	primaryName[0].value = firstName;
+	primaryName[1].value = lastName;
+	$("#primaryName").text(firstName + " " +lastName);
+	
+	$("#address_drop_list").show();
+    $('.address-list').hide();
+    
+    // shipping phone
+    var primaryShippingPhone = $("#primaryShippingPhone input");
+    primaryShippingPhone[0].value = shippingPhone;
+    $("#primaryShippingPhone").text(shippingPhone);
+    
+    // address (street, city, state)
+    var primaryShippingAddress = $("#primaryShippingAddress input");
+    primaryShippingAddress[0].value = street;
+    primaryShippingAddress[1].value = city;
+    primaryShippingAddress[2].value = state;
+    $("#primaryShippingAddress").text(street + "," + city + "," + state);
+    
+    // zipcode
+    var primaryZipcode = $("#primaryZipcode input");
+    primaryZipcode[0].value = zipcode;
+}
+
+$(function () {
+    $('.useAddr').on('click', hideBillAddr);
+    var addressLength = $("#addressLength").val();
+	console.log(addressLength);
+	if (addressLength > 0) {
+		console.log("show");
+		$("#showPrimaryAddress").show();
+	} else {
+		console.log("no");
+		$("#noAddressList").show();
+	}
+});
+
+function hideBillAddr() {
+    $('.info-block').hide();
+    $('.useAddr').html('手动填写账单地址');
+    $('.useAddr').off('click').on('click', showBillAddr);
+    console.log($('.useAddr').attr('onclick'));
+}
+
+function showBillAddr() {
+    $('.info-block').show();
+    $('.useAddr').html('使用当前收货地址作为账单地址');
+    $('.useAddr').off('click').on('click', hideBillAddr);
+}
+
+// function selectShippingAddr() {
+//     document.getElementById("myDropdown").classList.toggle("show");
+// }
+
+// Close the dropdown if the user clicks outside of it
+// window.onclick = function(event) {
+//     if (!event.target.matches('.dropdown-img')) {
+
+//         var dropdowns = document.getElementsByClassName("dropdown-content");
+//         var i;
+//         for (i = 0; i < dropdowns.length; i++) {
+//             var openDropdown = dropdowns[i];
+//             if (openDropdown.classList.contains('show')) {
+//                 openDropdown.classList.remove('show');
+//             }
+//         }
+//     }
+// }

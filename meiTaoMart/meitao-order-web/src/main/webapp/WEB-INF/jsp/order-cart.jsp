@@ -63,8 +63,37 @@
 				type="hidden" name="orderShipping.receiverDistrict" value="电信1区" />
 			<input type="hidden" name="orderShipping.receiverAddress" value="三里屯" />
 		</form> --%>
+
+		<form id="orderForm" action="/order/pay.html" method="post">
+			<c:forEach items="${cartItemList }" var="cartItem" varStatus="status">
+				<input type="hidden" name="orderItems[${status.index}].itemId"
+					value="${cartItem.id}" />
+				<input type="hidden" name="orderItems[${status.index}].itemNumber"
+					value="${cartItem.purchaseQuantity }" />
+			</c:forEach>
+			<input type="hidden" name="subtotal"
+				value="${orderInfo.subtotal }" />
+			<input type="hidden" name="shippingFee"
+				value="${orderInfo.shippingFee }" /> 
+			<input type="hidden"
+				name="taxFee" value="${orderInfo.taxFee }" />
+			<div>
+				street <input type="text" name="street" value=""
+					style="border: 1px solid" /> 
+				city <input type="text" name="city"
+					value="" style="border: 1px solid" /> 
+				state <input type="text"
+					name="state" value="" style="border: 1px solid" /> 
+				zipcode <input
+					type="text" name="zipcode" value="" style="border: 1px solid" />
+				country <input type="text" name="country" value=""
+					style="border: 1px solid" />
+			</div>
+			<%-- <c:forEach items="${addressList }" var="addtress" varStatus="status">
+			</c:forEach> --%>
+		</form>
 		<h3 class="orderHd">填写并核对订单信息</h3>
-		<div id="userAddrId" class="orderTbody ">
+		<!-- <div id="userAddrId" class="orderTbody ">
 			<h3 class="orderTitle">
 				收货人信息：<span class="addrAlter" style="display: inline;">[修改]</span>
 			</h3>
@@ -75,7 +104,7 @@
 					</ul>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div id="payDataId" class="orderTbody">
 			<h3 class="orderTitle">
 				支付及配送方式： <span class="addrAlter hide" style="display: inline;">[修改]</span>
@@ -169,7 +198,9 @@
 									</div>
 								</c:forEach>
 								<div class="orderPInfo order_xj">
-									<span class="sp1">运费小计：</span> <span class="sp2">${orderInfo.shippingFee / 100}</span>
+									<span class="sp1">运费小计：</span> <span class="sp2"><fmt:formatNumber
+											value="${orderInfo.shippingFee / 100}" maxFractionDigits="2"
+											minFractionDigits="2" groupingUsed="true" /></span>
 								</div>
 							</div>
 						</div>
@@ -194,11 +225,19 @@
 							</dd>
 							<dd>
 								<div>运费金额：</div>
-								<span class="priceArea">$<span id="shopping_price">${orderInfo.shippingFee / 100}</span></span>
+								<span class="priceArea">$<span id="shopping_price">
+										<fmt:formatNumber value="${orderInfo.shippingFee / 100}"
+											maxFractionDigits="2" minFractionDigits="2"
+											groupingUsed="true" />
+								</span></span>
 							</dd>
 							<dd>
 								<div>tax：</div>
-								<span class="priceArea">$<span id="shopping_price">${orderInfo.taxFee / 100}</span></span>
+								<span class="priceArea">$<span id="shopping_price">
+										<fmt:formatNumber value="${orderInfo.taxFee / 100}"
+											maxFractionDigits="2" minFractionDigits="2"
+											groupingUsed="true" />
+								</span></span>
 							</dd>
 							<dd>
 								<div>应付总额：</div>

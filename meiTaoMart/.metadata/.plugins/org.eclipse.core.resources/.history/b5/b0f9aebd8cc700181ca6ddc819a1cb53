@@ -1,0 +1,29 @@
+function searchKeyAndPage(key, page) {
+	location.href="/search.html?keyword=" + key + "&page=" + page;
+};
+
+function addToCart(product_id) {
+	var url = "http://192.168.1.100:8090/cart/add/"+product_id+".html";
+	$.get(
+		url,
+		function (response) {
+			console.log(response);
+		}
+	)
+	
+	$.ajax({
+		url : "http://192.168.1.100:8090/cart/add/"+product_id+".html",
+		dataType : "jsonp",
+		type : "GET",
+		success : function(data){
+			if(data.status == 200){
+				var username = data.data.username;
+				var html = username + "，欢迎来到美桃商城！<a href=\"http://192.168.1.100:8082/user/logout.html\" class=\"link-logout\">[退出登录]</a>";
+				$("#loginbar").html(html);
+			} else {
+				showNotLogin();
+			}
+		}
+	});
+	//location.href="http://192.168.1.100:8090/cart/add/"+product_id+".html";
+}

@@ -1,0 +1,123 @@
+package com.meitaomart.common.utils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Charge;
+import com.stripe.model.Customer;
+import com.stripe.model.Token;
+
+public final class PaymentUtils {
+	private static final String STRIPE_API_KEY_FOR_TEST = "sk_test_b3UJNAQLBEJbQ157oteZKLR6";
+	private static final String STRIPE_API_KEY = "sk_live_sSezdfIY8YDOoERbiTBopLpZ";
+	private static final String ERROR_MESSAGE = "支付失败! 请检查银行卡并重试!";
+	private static final String DEFAULT_CURRENCY = "usd";
+	
+	public static String checkCard(String cardNumber, String month, String year) {
+		Stripe.apiKey = STRIPE_API_KEY;
+		Map<String, Object> cardParam = new HashMap<String, Object>();
+		cardParam.put("number", cardNumber);
+		cardParam.put("exp_month", month);
+		cardParam.put("exp_year", year);
+		cardParam.put("cvc", null);
+
+		// create token, otherwise Stripe will unhappy
+		Map<String, Object> tokenParam = new HashMap<String, Object>();
+		tokenParam.put("card", cardParam);
+
+		try {
+			Token token = Token.create(tokenParam);
+		} catch (StripeException e) {
+			return e.getMessage();
+		}
+		
+		return "";
+	}
+	
+	public static String doPayment(String customerEmail, String cardNumber, String cardMonth, String cardYear, String cvc, String totalPrice) {
+		Customer customer = addCustomer(customerEmail);
+		if (customer == null) {
+			return ERROR_MESSAGE;
+		}
+		
+		return addCardAndPay(cardNumber, cardMonth, cardYear, cvc, customer, customerEmail, totalPrice);
+	}
+	
+	private static Customer addCustomer(String customerEmail) {
+		 Stripe.apiKey = STRIPE_API_KEY;
+		 Map<String, Object> customerParameter = new HashMap<String, Object>();
+         customerParameter.put("email", customerEmail); //todo: our customer's email
+         
+         Customer newCustomer = null;
+         Customer myCustomer = null;
+         
+         try {
+			newCustomer = Customer.create(customerParameter);
+			myCustomer = Customer.retrieve(newCustomer.getId());
+		} catch (StripeException e) {
+			// TODO Auto-generated catch block
+			String subject = "支付失败: 在strip中创建customer出现异常！";
+			String message = e.getMessage();
+			String body = message + "\n对应customer email: " + customerEmail;
+			
+			EmailUtils.groupSendEmail(subject, body);
+			return null;
+		}
+         
+        return myCustomer;
+	}
+	
+	private static String addCardAndPay(String cardNumber, String month, String year, String cvc, Customer myCustomer, String customerEmail, String totalPrice) {
+		Stripe.apiKey = STRIPE_API_KEY;
+		Map<String, Object> cardParam = new HashMap<String, Object>();
+		cardParam.put("number", cardNumber);
+		cardParam.put("exp_month", month);
+		cardParam.put("exp_year", year);
+		cardParam.put("cvc", cvc);
+
+		// create token, otherwise Stripe will unhappy
+		Map<String, Object> tokenParam = new HashMap<String, Object>();
+		tokenParam.put("card", cardParam);
+		Token token = null;
+		try {
+			token = Token.create(tokenParam);
+		} catch (StripeException e) {
+			// 这是验证银行卡信息，是可以返回给用户的;
+			return e.getMessage();
+		}
+		
+		
+		Map<String, Object> source = new HashMap<String, Object>();
+        source.put("source", token.getId());
+        try {
+			myCustomer.getSources().create(source);
+		} catch (StripeException e) {
+			String subject = "支付失败: 在strip中创建token时出现异常！";
+			String message = e.getMessage();
+			String body = message + "\n对应customer email: " + customerEmail;
+			
+			EmailUtils.groupSendEmail(subject, body);
+			return ERROR_MESSAGE;
+		}
+        
+        Map<String, Object> chargeParam = new HashMap<String, Object>();
+        chargeParam.put("amount", totalPrice);
+        chargeParam.put("currency", DEFAULT_CURRENCY);
+        chargeParam.put("customer", myCustomer.getId());
+        
+        try {
+			Charge.create(chargeParam);
+		} catch (StripeException e) {
+			String subject = "支付失败: 在strip中最终时出现异常！";
+			String message = e.getMessage();
+			String body = message + "\n对应customer email: " + customerEmail;
+			
+			EmailUtils.groupSendEmail(subject, body);
+			return ERROR_MESSAGE;
+		}
+		
+		return "";
+	}
+}

@@ -71,5 +71,4 @@ public class TokenController {
 		}
 		return result;
 	}
-	
 }

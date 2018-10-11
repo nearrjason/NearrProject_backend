@@ -20,6 +20,15 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<!-- 拦截器配置 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.meitaomart.portal.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+
 	<!-- 引用dubbo服务 -->
 	<dubbo:application name="meitao-portal-web" />
 	<dubbo:registry protocol="zookeeper" address="192.168.1.211:2181" />
@@ -27,6 +36,12 @@
 		id="contentService" />
 	<dubbo:reference interface="com.meitaomart.service.ItemCategoryService"
 		id="itemCategoryService" />
+	<dubbo:reference interface="com.meitaomart.service.ItemService"
+		id="itemService" />
 	<dubbo:reference interface="com.meitaomart.sso.service.LogoutService"
 		id="logoutService" />
+	<dubbo:reference interface="com.meitaomart.cart.service.CartService"
+		id="cartService" />
+	<dubbo:reference interface="com.meitaomart.sso.service.TokenService"
+		id="tokenService" />
 </beans>

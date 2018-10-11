@@ -6,6 +6,8 @@ import java.util.List;
 
 public class MeitaoItemExample {
     protected String orderByClause;
+    
+    protected Integer limitNumber;
 
     protected boolean distinct;
 
@@ -17,6 +19,10 @@ public class MeitaoItemExample {
 
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
+    }
+    
+    public void setLimitNumber(Integer limitNumber) {
+    	this.limitNumber = limitNumber;
     }
 
     public String getOrderByClause() {

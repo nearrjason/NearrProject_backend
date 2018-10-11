@@ -1,0 +1,32 @@
+package com.meitaomart.mapper;
+
+import com.meitaomart.pojo.MeitaoItem;
+import com.meitaomart.pojo.MeitaoItemExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface MeitaoItemMapper {
+    int countByExample(MeitaoItemExample example);
+    
+    int selectStockNumberByPrimaryKey(Long id);
+
+    int deleteByExample(MeitaoItemExample example);
+
+    int deleteByPrimaryKey(Long id);
+
+    int insert(MeitaoItem record);
+
+    int insertSelective(MeitaoItem record);
+
+    List<MeitaoItem> selectByExample(MeitaoItemExample example);
+
+    MeitaoItem selectByPrimaryKey(Long id);
+
+    int updateByExampleSelective(@Param("record") MeitaoItem record, @Param("example") MeitaoItemExample example);
+
+    int updateByExample(@Param("record") MeitaoItem record, @Param("example") MeitaoItemExample example);
+
+    int updateByPrimaryKeySelective(MeitaoItem record);
+
+    int updateByPrimaryKey(MeitaoItem record);
+}

@@ -64,8 +64,8 @@ public class CartServiceImpl implements CartService {
 	
 	private CartItem createCartItem(MeitaoItem meitaoItem, MeitaoItemPrice meitaoItemPrice,
 			Integer purchaseQuantity) {
-		CartItem cartItem = CartItemBuilder.getInstance().setId(meitaoItem.getId()).setName(meitaoItem.getName()).setSalePrice(meitaoItemPrice.getSalePrice())
-				.setNetWeight(meitaoItem.getNetWeight()).setImages(meitaoItem.getImages()).setOneImage(meitaoItem.getImages()).setPurchaseQuantity(purchaseQuantity).build();
+		CartItem cartItem = CartItemBuilder.getInstance().setId(meitaoItem.getId()).setName(meitaoItem.getName()).setStockNumber(meitaoItem.getStockNumber()).setSalePrice(meitaoItemPrice.getSalePrice())
+				.setDiscount(meitaoItemPrice.getDiscount()).setNetWeight(meitaoItem.getNetWeight()).setImages(meitaoItem.getImages()).setOneImage(meitaoItem.getImages()).setPurchaseQuantity(purchaseQuantity).build();
 
 		return cartItem;
 	}
@@ -85,17 +85,38 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public List<CartItem> getCartList(long userId) {
+	public List<CartItem> getCartList(long userId, boolean isFilterOOSItem) {
 		//根据用户id查询购车列表
 		List<String> jsonList = jedisClient.hvals(REDIS_CART_PRE + ":" + userId);
 		List<CartItem> cartItemList = new ArrayList<>();
 		for (String string : jsonList) {
 			//创建一个TbItem对象
 			CartItem cartItem = JsonUtils.jsonToPojo(string, CartItem.class);
-			//添加到列表
-			cartItemList.add(cartItem);
+			cartItemCheckUpdate(cartItem);
+			if (!Integer.valueOf(0).equals(cartItem.getStockNumber()) || !isFilterOOSItem) {
+				//添加到列表
+				cartItemList.add(cartItem);
+			}
 		}
 		return cartItemList;
+	}
+	
+	private void cartItemCheckUpdate(CartItem cartItem) {
+		Long itemId = cartItem.getId();
+		MeitaoItem item = meitaoItemMapper.selectByPrimaryKey(itemId);
+		cartItem.setStockNumber(item.getStockNumber());
+		cartItem.setPurchaseQuantity(Math.min(cartItem.getPurchaseQuantity(), cartItem.getStockNumber()));
+		cartItem.setStatus(item.getStatus());
+		
+		MeitaoItemPrice itemPrice = meitaoItemPriceMapper.selectByPrimaryKey(itemId);
+		Long salePrice = itemPrice.getSalePrice();
+		if (salePrice != null && !salePrice.equals(cartItem.getSalePrice())) {
+			cartItem.setSalePrice(salePrice);
+		}
+		Byte discount = itemPrice.getDiscount();
+		if (discount != null && !discount.equals(cartItem.getDiscount())) {
+			cartItem.setDiscount(discount);
+		}
 	}
 
 	@Override

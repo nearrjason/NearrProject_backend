@@ -3,7 +3,7 @@ package com.meitaomart.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class MeitaoUser implements Serializable {
+public class MeitaoUser implements Serializable{
     private Long id;
 
     private String username;
@@ -25,6 +25,8 @@ public class MeitaoUser implements Serializable {
     private Date createdTime;
 
     private Date updatedTime;
+
+    private Date birthday;
 
     public Long getId() {
         return id;
@@ -112,5 +114,13 @@ public class MeitaoUser implements Serializable {
 
     public void setUpdatedTime(Date updatedTime) {
         this.updatedTime = updatedTime;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 }

@@ -1,0 +1,246 @@
+package com.meitaomart.order.controller;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.meitaomart.cart.service.CartService;
+import com.meitaomart.common.pojo.CartItem;
+import com.meitaomart.common.utils.JsonUtils;
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.order.pojo.FinalCheckoutMap;
+import com.meitaomart.order.pojo.OrderInfo;
+import com.meitaomart.order.service.OrderService;
+import com.meitaomart.pojo.MeitaoAddress;
+import com.meitaomart.pojo.MeitaoBankingCard;
+import com.meitaomart.pojo.MeitaoItem;
+import com.meitaomart.pojo.MeitaoOrderItem;
+import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.user.service.UserService;
+
+/**
+ * 订单管理Controller
+ * 
+ * @version 1.0
+ */
+@Controller
+public class OrderController {
+
+	@Autowired
+	private CartService cartService;
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private UserService userService;
+
+	@RequestMapping("/order/order-cart")
+	public String showOrderCart1(HttpServletRequest request) {
+		// 取用户id
+		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
+		// 根据用户id取收货地址列表
+		// 使用静态数据
+		// 取支付方式列表
+		// 静态数据
+		// 根据用户id取购物车列表
+		List<CartItem> cartItemList = cartService.getCartList(meitaoUser.getId());
+		OrderInfo orderInfo = orderService.getOrderInfo(cartItemList, meitaoUser);
+		List<MeitaoAddress> addressList = userService.getAddressListByUserId(meitaoUser.getId());
+		// 把购物车列表传递给jsp
+		request.setAttribute("cartItemList", cartItemList);
+		request.setAttribute("user", meitaoUser);
+		request.setAttribute("orderInfo", orderInfo);
+		if (addressList != null && addressList.size() > 0) {
+			request.setAttribute("addressList", addressList);
+		}
+		// 返回页面
+		return "order-cart";
+	}
+
+	@RequestMapping("/order/checkout_page")
+	public String showOrderCart(HttpServletRequest request) {
+		// 取用户id
+		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
+		List<CartItem> cartItemList = cartService.getCartList(meitaoUser.getId());
+		OrderInfo orderInfo = orderService.getOrderInfo(cartItemList, meitaoUser);
+		List<MeitaoAddress> addressList = userService.getAddressListByUserId(meitaoUser.getId());
+		List<MeitaoBankingCard> cardList = userService.getCardListByUserId(meitaoUser.getId());
+		// 把购物车列表传递给jsp
+		request.setAttribute("cartItemList", cartItemList);
+		request.setAttribute("user", meitaoUser);
+		request.setAttribute("orderInfo", orderInfo);
+		if (addressList != null) {
+			request.setAttribute("addressList", addressList);
+			if (addressList.size() > 0) {
+				request.setAttribute("primaryAddress", addressList.get(0));
+			}
+		}
+		if (cardList != null) {
+			request.setAttribute("cardList", cardList);
+			if (cardList.size() > 0) {
+				request.setAttribute("primaryCard", cardList.get(0));
+			}
+		}
+		// 返回页面
+		return "order_checkout_meitao";
+	}
+
+	@RequestMapping(value = "/order/pay", method = RequestMethod.POST)
+	public String createOrder(OrderInfo orderInfo, MeitaoAddress address, HttpServletRequest request,
+			HttpSession session) {
+		// 取用户信息
+		if (orderInfo == null || address == null) {
+			return null;
+		}
+
+		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
+
+		// 调用服务生成订单
+		MeitaoResult meitaoResult = orderService.createOrder(orderInfo, address, user);
+
+		// 如果订单生成成功，需要删除购物车
+		if (meitaoResult.getStatus() == 200) {
+			// 清空购物车
+			cartService.clearCartItem(user.getId());
+			// 把订单号传递给页面
+			/*
+			 * request.setAttribute("orderId", meitaoResult.getData());
+			 * request.setAttribute("payment", orderInfo.getSubtotal());
+			 */
+			// 返回逻辑视图
+			return "success";
+		}
+
+		return meitaoResult.getMsg();
+	}
+
+	@RequestMapping(value = "/order/test", method = RequestMethod.POST)
+	public String test(FinalCheckoutMap map, HttpServletRequest request) {
+		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
+		MeitaoAddress shippingAddress = JsonUtils.jsonToPojo(map.getShippingAddress(), MeitaoAddress.class);
+		MeitaoBankingCard card = JsonUtils.jsonToPojo(map.getCard(), MeitaoBankingCard.class);
+		OrderInfo orderInfo = JsonUtils.jsonToPojo(map.getOrderInfo(), OrderInfo.class);
+		MeitaoAddress billingAddress = JsonUtils.jsonToPojo(map.getBillingAddress(), MeitaoAddress.class);
+		List<MeitaoOrderItem> orderItemList = JsonUtils.jsonToList(map.getOrderItems(), MeitaoOrderItem.class);
+		MeitaoResult meitaoResult = orderService.finalPaymentValidation(user, shippingAddress, billingAddress, card,
+				orderInfo, orderItemList);
+		return "";
+	}
+
+	@RequestMapping(value = "/order/checkout_page/save_address", method = RequestMethod.POST)
+	public String saveAddress(MeitaoAddress meitaoAddress, HttpServletRequest request) {
+		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
+		if (meitaoAddress == null || meitaoUser == null) {
+			return null;
+		}
+		MeitaoResult meitaoResult = orderService.addNewAddress(meitaoAddress, meitaoUser.getId());
+		if (meitaoResult.getStatus().equals(200)) {
+			List<MeitaoAddress> addressList = userService.getAddressListByUserId(meitaoUser.getId());
+			if (addressList != null) {
+				request.setAttribute("addressList", addressList);
+				if (addressList.size() > 0) {
+					for (int i = addressList.size() - 1; i >= 0; i--) {
+						MeitaoAddress address = addressList.get(i);
+						if (address != null) {
+							request.setAttribute("primaryAddress", address);
+							break;
+						}
+					}
+
+				}
+			}
+		}
+		return "commons_meitao/main/address_drop_list";
+	}
+
+	@RequestMapping(value = "/order/checkout_page/select_address")
+	public String selectAddress(Long addressId, HttpServletRequest request) {
+		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
+		if (meitaoUser == null) {
+			System.out.println("检测用户错误！");
+		}
+		
+		List<MeitaoAddress> addressList = userService.getAddressListByUserId(meitaoUser.getId());
+		if (addressList != null) {
+			request.setAttribute("addressList", addressList);
+			if (addressList.size() > 0) {
+				for (int i = addressList.size() - 1; i >= 0; i--) {
+					MeitaoAddress address = addressList.get(i);
+					if (address != null && address.getId().equals(addressId)) {
+						request.setAttribute("primaryAddress", address);
+						break;
+					}
+				}
+
+			}
+		}
+		return "commons_meitao/main/address_drop_list";
+	}
+
+	@RequestMapping(value = "/order/checkout_page/save_card", method = RequestMethod.POST)
+	@ResponseBody
+	public MeitaoResult saveCard(MeitaoBankingCard meitaoBankingCard, String cvvNumber, HttpServletRequest request) {
+		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
+		if (meitaoBankingCard == null || meitaoUser == null) {
+			return null;
+		}
+		MeitaoResult meitaoResult = orderService.addNewCard(meitaoBankingCard, meitaoUser.getId());
+		return meitaoResult;
+	}
+
+	@RequestMapping("/order/checkout_page/update_card_list")
+	public String updateCardList(HttpServletRequest request) {
+		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
+		List<MeitaoBankingCard> cardList = userService.getCardListByUserId(meitaoUser.getId());
+		if (cardList != null) {
+			request.setAttribute("cardList", cardList);
+			if (cardList.size() > 0) {
+				for (int i = cardList.size() - 1; i >= 0; i--) {
+					MeitaoBankingCard card = cardList.get(i);
+					if (card != null) {
+						request.setAttribute("primaryCard", card);
+						break;
+					}
+				}
+
+			}
+		}
+		return "commons_meitao/main/card_drop_list";
+	}
+	
+	@RequestMapping(value = "/order/checkout_page/select_card")
+	public String selectCard(Long cardId, HttpServletRequest request) {
+		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
+		if (meitaoUser == null) {
+			System.out.println("检测用户错误！");
+		}
+		
+		List<MeitaoBankingCard> cardList = userService.getCardListByUserId(meitaoUser.getId());
+		if (cardList != null) {
+			request.setAttribute("cardList", cardList);
+			if (cardList.size() > 0) {
+				for (int i = cardList.size() - 1; i >= 0; i--) {
+					MeitaoBankingCard card = cardList.get(i);
+					if (card != null && card.getId().equals(cardId)) {
+						request.setAttribute("primaryCard", card);
+						break;
+					}
+				}
+
+			}
+		}
+		return "commons_meitao/main/card_drop_list";
+	}
+}

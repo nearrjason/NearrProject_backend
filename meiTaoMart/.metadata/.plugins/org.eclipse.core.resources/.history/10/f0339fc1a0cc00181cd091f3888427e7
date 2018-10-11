@@ -1,0 +1,24 @@
+package com.meitaomart.common.utils;
+
+import java.util.Random;
+
+public final class TaxUtils {
+	private final String TAX_API_TOKEN = "fc160786287b446ea1165ea88edcb268";
+	
+	public static Taxjar getTaxjar() {
+		return new Taxjar(TAX_API_TOKEN);
+	}
+	public static Long getTaxFee(Long subtotal) {
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @return 税 (单位:分)
+	 */
+	public static Long getTaxFee() {
+		Random random = new Random();
+		long taxFee = random.nextInt(2000) + 1;
+		return taxFee;
+	}
+}

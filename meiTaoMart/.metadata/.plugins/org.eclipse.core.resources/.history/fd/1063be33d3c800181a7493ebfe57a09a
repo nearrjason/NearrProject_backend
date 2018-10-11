@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<div class="right" id="addressBox">
+	<h2>地址管理</h2>
+	<hr>
+	<div class="address">
+		<!--section for card info iteration-->
+		<c:forEach items="${addressList}" var="address"
+			varStatus="addressUtils">
+			<div class="address-detail">
+				<div class="recipient">
+					<h3>${address.firstName}${address.lastName}</h3>
+				</div>
+				<div class="street">
+					<p>
+						<img src="/images/icons/phone.svg" alt="">(123)123-1234
+					</p>
+					<p>
+						<img src="/images/icons/location.svg" alt="">${address.street},
+						${address.city}, ${address.state} ${address.zipcode}
+					</p>
+				</div>
+				<div class="address-edit">
+					<button type="submit" class="default-address" onclick="setAsDefault(${address.id}, 'address')">设为默认</button>
+					<button class="edits" onclick="openForm('#editAddressForm')">
+						<img src="/images/icons/edit.svg" alt="">
+					</button>
+					<button class="edits" onclick="popup('#deleteAddressForm')">
+						<img src="/images/icons/delete.svg" alt="">
+					</button>
+				</div>
+			</div>
+		</c:forEach>
+		<!--^^^^^^-->
+	</div>
+	<div class="add">
+		<button type="button" class="add-button"
+			onclick="openAddForm('#addAddressForm')">添加地址</button>
+	</div>
+</div>

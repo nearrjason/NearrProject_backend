@@ -1,0 +1,46 @@
+package com.meitaomart.portal.inteceptor;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.meitaomart.cart.service.CartService;
+import com.meitaomart.content.pojo.ItemCategoryList;
+import com.meitaomart.content.service.ContentService;
+import com.meitaomart.pojo.MeitaoContent;
+import com.meitaomart.pojo.MeitaoItemCategory;
+import com.meitaomart.service.ItemCategoryService;
+
+/**
+ * 首頁展示controller
+ * @author anluo
+ *
+ */
+@Controller
+public class IndexController {
+	
+	@Value("${CONTENT_LUNBO_ID}")
+	private Long CONTENT_LUNBO_ID;
+	
+	@Autowired
+	private ContentService contentService;
+	@Autowired
+	private ItemCategoryService itemCategoryService;
+	@Autowired
+	private CartService cartService;
+	
+	@RequestMapping("/index")
+	public String showIndex(Model model) {
+		// 查詢內容列表
+		List<MeitaoContent> ad1List = contentService.getContentListByCid(CONTENT_LUNBO_ID);
+		// 把結果傳遞給頁面
+		List<ItemCategoryList> itemCategoryList = itemCategoryService.getItemCategoryListWithChildrenList(0);
+ 		model.addAttribute("ad1List", ad1List);
+		model.addAttribute("itemCatList", itemCategoryList);
+		return "index";
+	}
+}

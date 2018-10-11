@@ -1,0 +1,14 @@
+$(function () {
+    $(".default-card").click(changeDefault);
+    $('.default-card.selected').off("click");
+});
+
+function changeDefault() {
+    $(this).off("click");
+    console.log("haha");
+    $('.default-card.selected').html("设为默认");
+    $('.default-card.selected').on('click', changeDefault);
+    $('.default-card.selected').removeClass("selected");
+    $(this).html("已设默认");
+    $(this).addClass("selected");
+}

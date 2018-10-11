@@ -1,6 +1,7 @@
 package com.meitaomart.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class MeitaoAddress implements Serializable{
     private Long id;
@@ -11,13 +12,23 @@ public class MeitaoAddress implements Serializable{
 
     private String state;
 
-    private Integer zipcode;
+    private String zipcode;
 
     private String country;
 
     private Long userId;
 
     private Boolean isMain;
+
+    private String shippingPhone;
+
+    private String firstName;
+
+    private String lastName;
+
+    private Date createdTime;
+
+    private Date updatedTime;
 
     public Long getId() {
         return id;
@@ -51,12 +62,12 @@ public class MeitaoAddress implements Serializable{
         this.state = state == null ? null : state.trim();
     }
 
-    public Integer getZipcode() {
+    public String getZipcode() {
         return zipcode;
     }
 
-    public void setZipcode(Integer zipcode) {
-        this.zipcode = zipcode;
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode == null ? null : zipcode.trim();
     }
 
     public String getCountry() {
@@ -81,5 +92,45 @@ public class MeitaoAddress implements Serializable{
 
     public void setIsMain(Boolean isMain) {
         this.isMain = isMain;
+    }
+
+    public String getShippingPhone() {
+        return shippingPhone;
+    }
+
+    public void setShippingPhone(String shippingPhone) {
+        this.shippingPhone = shippingPhone == null ? null : shippingPhone.trim();
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName == null ? null : firstName.trim();
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName == null ? null : lastName.trim();
+    }
+
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public Date getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(Date updatedTime) {
+        this.updatedTime = updatedTime;
     }
 }

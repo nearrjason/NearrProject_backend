@@ -31,8 +31,11 @@ var E3 = {
 	},
 	// 格式化时间
 	formatDateTime : function(val,row){
-		var now = new Date(val);
-    	return now.format("yyyy-MM-dd hh:mm:ss");
+		if (val != null) {
+			var now = new Date(val);
+	    	return now.format("yyyy-MM-dd hh:mm:ss");
+		}
+		return null;
 	},
 	// 格式化连接
 	formatUrl : function(val,row){
@@ -64,11 +67,11 @@ var E3 = {
     },
     // 初始化图片上传组件
     initPicUpload : function(data){
-    	$(".picFileUpload").each(function(i,e){
+    	$("#uploadItemPicture").each(function(i,e){
     		var _ele = $(e);
-    		_ele.siblings("div.pics").remove();
+    		_ele.siblings("div.picItem").remove();
     		_ele.after('\
-    			<div class="pics">\
+    			<div class="picItem">\
         			<ul></ul>\
         		</div>');
     		// 回显图片
@@ -76,12 +79,13 @@ var E3 = {
         		var imgs = data.pics.split(",");
         		for(var i in imgs){
         			if($.trim(imgs[i]).length > 0){
-        				_ele.siblings(".pics").find("ul").append("<li><a href='"+imgs[i]+"' target='_blank'><img src='"+imgs[i]+"' width='80' height='50' /></a></li>");
+        				_ele.siblings(".picItem").find("ul").append("<li><a href='"+imgs[i]+"' target='_blank'><img src='"+imgs[i]+"' width='80' height='50' /></a></li>");
         			}
         		}
         	}
         	//给“上传图片按钮”绑定click事件
         	$(e).click(function(){
+        		console.log(e);
         		var form = $(this).parentsUntil("form").parent("form");
         		//打开图片上传窗口
         		KindEditor.editor(E3.kingEditorParams).loadPlugin('multiimage',function(){
@@ -91,9 +95,47 @@ var E3 = {
 							var imgArray = [];
 							KindEditor.each(urlList, function(i, data) {
 								imgArray.push(data.url);
-								form.find(".pics ul").append("<li><a href='"+data.url+"' target='_blank'><img src='"+data.url+"' width='80' height='50' /></a></li>");
+								form.find(".picItem ul").append("<li><a href='"+data.url+"' target='_blank'><img src='"+data.url+"' width='80' height='50' /></a></li>");
 							});
 							form.find("[name=images]").val(imgArray.join(","));
+							editor.hideDialog();
+						}
+					});
+        		});
+        	});
+    	});
+    	
+    	$("#uploadItemDescPicture").each(function(i,e){
+    		var _ele = $(e);
+    		_ele.siblings("div.picItemDesc").remove();
+    		_ele.after('\
+    			<div class="picItemDesc">\
+        			<ul></ul>\
+        		</div>');
+    		// 回显图片
+        	if(data && data.pics){
+        		var imgs = data.pics.split(",");
+        		for(var i in imgs){
+        			if($.trim(imgs[i]).length > 0){
+        				_ele.siblings(".picItemDesc").find("ul").append("<li><a href='"+imgs[i]+"' target='_blank'><img src='"+imgs[i]+"' width='80' height='50' /></a></li>");
+        			}
+        		}
+        	}
+        	//给“上传图片按钮”绑定click事件
+        	$(e).click(function(){
+        		console.log(e);
+        		var form = $(this).parentsUntil("form").parent("form");
+        		//打开图片上传窗口
+        		KindEditor.editor(E3.kingEditorParams).loadPlugin('multiimage',function(){
+        			var editor = this;
+        			editor.plugin.multiImageDialog({
+						clickFn : function(urlList) {
+							var imgArray = [];
+							KindEditor.each(urlList, function(i, data) {
+								imgArray.push(data.url);
+								form.find(".picItemDesc ul").append("<li><a href='"+data.url+"' target='_blank'><img src='"+data.url+"' width='80' height='50' /></a></li>");
+							});
+							form.find("[name=descImages]").val(imgArray.join(","));
 							editor.hideDialog();
 						}
 					});
