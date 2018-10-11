@@ -1,0 +1,122 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!--change password popup-->
+<div class="changeForm" id="changeForm">
+	<form id="changePasswordForm" class="form-container">
+		<h1>设置新密码</h1>
+		<label for="oldPW">请输入旧密码</label> 
+		<input type="password"
+			placeholder="" name="oldpw" required style="width: 90%">&emsp;
+		<br> <label for="newPW">请输入新密码</label> 
+		<input type="password"
+			placeholder="密码须包含至少八位字符，并同时包含小写字母及数字" name="newpw" required
+			style="width: 90%">&emsp; <br> <label for="newPW-repeat">请重复新密码</label>
+		<input type="password" placeholder="" name="newpw-repeat" required
+			style="width: 90%">&emsp; <br>
+		<button type="button" class="btn cancel" onclick="closeChangeForm()">Cancel</button>
+		<button type="submit" class="btn" onclick="submitChangePassword()">Submit</button>
+	</form>
+</div>
+
+
+
+<!--Edit credit card-->
+<div class="form-popup" id="editCreditForm">
+	<form class="form-container">
+		<h1>请确保持卡姓名及其他信息与卡片上一致</h1>
+
+		<input type="text" placeholder="Enter Name" value="John Doe"
+			name="name" required style="width: 60%">&emsp; <br> <input
+			type="text" placeholder="Card Number" value="1234123412341234"
+			name="cardN" required style="width: 60%"> <br> <input
+			type="text" placeholder="Exp: MM/YY" value="12/18" name="Exp"
+			required style="width: 30%">&emsp; <br> <input
+			type="text" placeholder="Zip Code" value="12345" name="Zip Code"
+			required style="width: 20%">
+		<button type="button" class="btn cancel"
+			onclick="closeForm('#editCreditForm')">Cancel</button>
+		<button type="submit" class="btn">Submit</button>
+	</form>
+</div>
+
+<!--Add credit card-->
+<div class="addForm" id="addCreditForm">
+	<form class="form-container">
+		<h1>请确保持卡姓名及其他信息与卡片上一致</h1>
+
+		<input type="text" placeholder="Enter Name" name="name" required
+			style="width: 60%">&emsp; <br> <input type="text"
+			placeholder="Card Number" name="cardN" required style="width: 60%">
+		<br> <input type="text" placeholder="Exp: MM/YY" name="Exp"
+			required style="width: 30%">&emsp; <br> <input
+			type="text" placeholder="Zip Code" name="Zip Code" required
+			style="width: 20%">
+		<button type="button" class="btn cancel"
+			onclick="closeAddForm('#addCreditForm')">Cancel</button>
+		<button type="submit" class="btn">Submit</button>
+	</form>
+</div>
+
+<!--delete credit card popup-->
+<div class="popup-box" id="deleteCreditForm">
+	<p class="question">确定删除信用卡？</p>
+	<button type="submit" class="confirm bttn"
+		onclick="confirmDelete('#deleteCreditForm')">确认</button>
+	<button type="button" class="not-confirm bttn"
+		onclick="closepopup('#deleteCreditForm')">取消</button>
+</div>
+
+
+
+<!--Edit address card-->
+<div class="form-popup" id="editAddressForm">
+	<form class="form-container">
+		<h1>请勿输入P.O. Box</h1>
+
+		<input type="text" placeholder="Recipient Name:" value="John Doe"
+			name="name" required style="width: 60%">&emsp; <br> <input
+			type="text" placeholder="Street:" value="1234 Fake Street" name="st"
+			required style="width: 60%">&emsp; <br> <input
+			type="text" placeholder="City:" value="Manhattan" name="city"
+			required style="width: 30%">&emsp; <br> <input
+			type="text" placeholder="State: e.g. NJ" value="NY" name="state"
+			required style="width: 20%">&emsp; <br> <input
+			type="text" placeholder="Zip Code:" value="12345" name="Zip Code"
+			required style="width: 20%">
+		<button type="button" class="btn cancel"
+			onclick="closeForm('#editAddressForm')">Cancel</button>
+		<button type="submit" class="btn">Submit</button>
+	</form>
+</div>
+
+<!--Add address card-->
+<div class="addForm" id="addAddressForm">
+	<form class="form-container">
+		<h1>请勿输入P.O. Box</h1>
+
+		<input type="text" placeholder="Recipient Name:" name="name" required
+			style="width: 60%">&emsp; <br> <input type="text"
+			placeholder="Street:" name="st" required style="width: 60%">&emsp;
+		<br> <input type="text" placeholder="City:" name="city" required
+			style="width: 30%">&emsp; <br> <input type="text"
+			placeholder="State: e.g. NJ" name="state" required style="width: 20%">&emsp;
+		<br> <input type="text" placeholder="Zip Code:" name="Zip Code"
+			required style="width: 20%">
+		<button type="button" class="btn cancel"
+			onclick="closeAddForm('#addAddressForm')">Cancel</button>
+		<button type="submit" class="btn">Submit</button>
+	</form>
+</div>
+
+<!--Cancel button click popup-->
+<div class="popup-box" id="deleteAddressForm">
+	<p class="question">确定删除此地址？</p>
+	<button type="submit" class="confirm bttn"
+		onclick="confirmDelete('#deleteAddressForm')">确认</button>
+	<button type="button" class="not-confirm bttn"
+		onclick="closepopup('#deleteAddressForm')">取消</button>
+</div>

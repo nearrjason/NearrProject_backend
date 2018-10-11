@@ -1,0 +1,14 @@
+package com.meitaomart.email.test;
+
+import org.junit.Test;
+
+import com.meitaomart.common.utils.TaxUtils;
+import com.meitaomart.common.utils.Taxjar;
+
+public class TaxTest {
+	@Test
+	public void taxTest() {
+		Float taxFee = TaxUtils.getTaxFee("827 S Carpenter St", "Chicago", "IL", "60607", 123, 599);
+		System.out.println(taxFee);
+	}
+}

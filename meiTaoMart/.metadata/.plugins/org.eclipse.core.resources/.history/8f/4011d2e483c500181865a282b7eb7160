@@ -1,0 +1,6 @@
+package com.meitaomart.common.utils;
+
+private final String StripeAPIKey = "";
+public final class PaymentUtils {
+	
+}

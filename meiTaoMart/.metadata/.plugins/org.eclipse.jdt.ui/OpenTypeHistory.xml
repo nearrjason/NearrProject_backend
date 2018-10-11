@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
 <typeInfo handle="=meitao-sso-interface/src\/main\/java&lt;com.meitaomart.sso.service{LogoutService.java[LogoutService" modifiers="513" timestamp="1537208479003"/>
+<typeInfo handle="=meitao-sso-interface/src\/main\/java&lt;com.meitaomart.sso.service{ForgetPasswordService.java[ForgetPasswordService" modifiers="513" timestamp="1538573141044"/>
+<typeInfo handle="=meitao-user-web/D:\/meiTaoMart\/repository\/org\/springframework\/spring-webmvc\/4.2.4.RELEASE\/spring-webmvc-4.2.4.RELEASE.jar&lt;org.springframework.web.servlet(HandlerInterceptor.class[HandlerInterceptor" modifiers="1537" timestamp="1463390360000"/>
 </typeInfoHistroy>

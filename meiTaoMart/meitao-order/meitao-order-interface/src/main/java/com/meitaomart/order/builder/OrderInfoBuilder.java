@@ -17,7 +17,7 @@ public class OrderInfoBuilder {
 		return orderInfoBuilder;
 	}
 	
-	private String orderId;
+	private Long id;
 
     private Long subtotal;
 
@@ -51,10 +51,14 @@ public class OrderInfoBuilder {
 
     private String username;
     
+    private Long addressId;
+    
+    private Long cardId;
+    
     private List<MeitaoOrderItem> orderItems;
 
-	public OrderInfoBuilder setOrderId(String orderId) {
-		this.orderId = orderId;
+	public OrderInfoBuilder setOrderId(Long id) {
+		this.id = id;
 		return this;
 	}
 
@@ -143,10 +147,20 @@ public class OrderInfoBuilder {
 		return this;
 	}
 	
+	public OrderInfoBuilder setAddressId(Long addressId) {
+		this.addressId = addressId;
+		return this;
+	}
+	
+	public OrderInfoBuilder setCardId(Long cardId) {
+		this.cardId = cardId;
+		return this;
+	}
+	
 	public OrderInfo build() {
 		OrderInfo orderInfo = new OrderInfo();
 		
-		orderInfo.setOrderId(this.orderId);
+		orderInfo.setId(this.id);
 		orderInfo.setSubtotal(this.subtotal);
 		orderInfo.setPaymentType(this.paymentType);
 		orderInfo.setShippingFee(this.shippingFee);
@@ -164,6 +178,8 @@ public class OrderInfoBuilder {
 		orderInfo.setUserComment(this.userComment);
 		orderInfo.setUsername(this.username);
 		orderInfo.setOrderItems(this.orderItems);
+		orderInfo.setAddressId(this.addressId);
+		orderInfo.setCardId(this.cardId);
 		
 		return orderInfo;
 	}

@@ -1,3 +1,4 @@
 com\meitaomart\sso\controller\TokenController.class
+com\meitaomart\sso\controller\ForgetPasswordController.class
 com\meitaomart\sso\controller\LoginController.class
 com\meitaomart\sso\controller\RegitsterController.class

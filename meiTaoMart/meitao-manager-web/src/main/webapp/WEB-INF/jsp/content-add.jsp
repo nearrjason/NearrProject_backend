@@ -8,15 +8,15 @@
 	    <table cellpadding="5">
 	        <tr>
 	            <td>内容标题:</td>
-	            <td><input class="easyui-textbox" type="text" name="title" data-options="required:true" style="width: 280px;"></input></td>
+	            <td><input class="easyui-textbox" type="text" name="name" data-options="required:true" style="width: 280px;"></input></td>
 	        </tr>
 	        <tr>
 	            <td>内容子标题:</td>
-	            <td><input class="easyui-textbox" type="text" name="subTitle" style="width: 280px;"></input></td>
+	            <td><input class="easyui-textbox" type="text" name="caption" style="width: 280px;"></input></td>
 	        </tr>
 	        <tr>
 	            <td>内容描述:</td>
-	            <td><input class="easyui-textbox" name="titleDesc" data-options="multiline:true,validType:'length[0,150]'" style="height:60px;width: 280px;"></input>
+	            <td><input class="easyui-textbox" name="description" data-options="multiline:true,validType:'length[0,150]'" style="height:60px;width: 280px;"></input>
 	            </td>
 	        </tr>
 	         <tr>
@@ -26,21 +26,21 @@
 	        <tr>
 	            <td>图片:</td>
 	            <td>
-	                <input type="hidden" name="pic" />
+	                <input type="hidden" name="images" />
 	                <a href="javascript:void(0)" class="easyui-linkbutton onePicUpload">图片上传</a>
 	            </td>
 	        </tr>
-	        <tr>
+	        <!-- <tr>
 	            <td>图片2:</td>
 	            <td>
 	            	<input type="hidden" name="pic2" />
 	            	<a href="javascript:void(0)" class="easyui-linkbutton onePicUpload">图片上传</a>
 	            </td>
-	        </tr>
+	        </tr> -->
 	        <tr>
 	            <td>内容:</td>
 	            <td>
-	                <textarea style="width:800px;height:300px;visibility:hidden;" name="content"></textarea>
+	                <textarea style="width:800px;height:300px;visibility:hidden;" name="textArea"></textarea>
 	            </td>
 	        </tr>
 	    </table>
@@ -53,7 +53,7 @@
 <script type="text/javascript">
 	var contentAddEditor ;
 	$(function(){
-		contentAddEditor = E3.createEditor("#contentAddForm [name=content]");
+		contentAddEditor = E3.createEditor("#contentAddForm [name=textArea]");
 		E3.initOnePicUpload();
 		$("#contentAddForm [name=categoryId]").val($("#contentCategoryTree").tree("getSelected").id);
 	});

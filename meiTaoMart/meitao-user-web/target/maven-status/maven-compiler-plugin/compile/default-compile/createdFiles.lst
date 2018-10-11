@@ -1,0 +1,3 @@
+com\meitaomart\user\controller\UserCenterUpdateController.class
+com\meitaomart\user\interceptor\LoginInterceptor.class
+com\meitaomart\user\controller\UserCenterController.class

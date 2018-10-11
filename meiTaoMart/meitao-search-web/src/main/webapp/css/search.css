@@ -1,0 +1,279 @@
+.main {
+    margin-left: 10%;
+    margin-right: 10%;
+    min-width: 1100px;
+    font-family: STXihei;
+    color: #707070;
+    min-height: 500px;
+}
+
+.nav {
+    width: 100%;
+    height: fit-content;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    margin: 0px;
+    padding: 0px;
+    box-shadow: 1px 1px 0.1px #e0e0e0;
+}
+
+.nav-bar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+}
+
+.nav-bar li {
+    float: left;
+    display: block;
+    color: #707070;
+    text-align: center;
+    width: 80px;
+    padding: 10px;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.nav-bar img {
+    margin: 0%;
+    padding: 0%;
+    width: 8px;
+    height: 8px;
+    margin-left: 5px;
+}
+
+.nav-bar li.selected {
+    background-color: #f2f2f2;
+}
+
+#title {
+    width: 160px;
+    background-color: #e03c3c;
+    color: white;
+    text-align: left;
+    margin: 0;
+    padding: 8px;
+    padding-left: 30px;
+    padding-right: 10px;
+    font-size: 16px;
+}
+
+.content {
+    width: 100%;
+    height: fit-content;
+    border: #f2f2f2 1px solid;
+    border-top: none;
+}
+
+.category {
+    float: left;
+    margin: 0%;
+    padding: 0%;
+    background-color: white;
+    height: fit-content;
+    width: 17.5%;
+    box-shadow: 2px 2px 5px #e0e0e0;
+}
+
+.result {
+    float: right;
+    margin: 0%;
+    padding: 0%;
+    /* background-color: aquamarine; */
+    height: fit-content;
+    width: 82.5%;
+}
+
+
+.items {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 940px;
+}
+
+.single-item {
+    flex: 1 0 0;
+    max-width: 205px;
+    min-width: 205px;
+    width: 205px;
+    height: 280px;
+    background-color: white;
+    margin: 10px;
+    padding: 5px;
+    box-shadow: 2px 2px 5px #e0e0e0;
+    border-radius: 5px;
+}
+
+.single-item img {
+    width: 205px;
+    height: 205px;
+    margin: 0 auto;
+}
+
+.single-item a {
+	text-decoration: none;
+}
+
+.single-item a p {
+    margin: 0px;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 12px;
+    text-decoration:none;
+    color:#707070
+}
+
+.price {
+    float: left;
+    color: #e03c3c;
+}
+
+.single-item button {
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    margin: 0px;
+    margin-right: 5px;
+    padding: 0px;
+    float: right;
+    border: none;
+    outline: none;
+}
+
+.single-item button img {
+    width: 15px;
+    height: 15px;
+    margin: 0px;
+    padding: 2px;
+    background-color: white;
+}
+
+.single-item button img:hover {
+    transform: rotate(180deg);
+}
+
+.bottom {
+    display: flex;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.pagination {
+    display: inline-block;
+    margin: 40px;
+    width: 100%;
+    margin-left: 10%;
+    margin-right: 0px;
+}
+
+.pagination a {
+    color: #707070;
+    float: left;
+    padding: 8px 14px;
+    text-decoration: none;
+    background-color: white;
+    transition: background-color .3s;
+    border: none;
+    margin: 0 4px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px #e0e0e0;
+    font-size: 10px;
+}
+
+.pagination a img {
+    width: 8px;
+    height: 8px;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.pagination a.active {
+    background-color: transparent;
+    color: #e03c3c;
+    border: none;
+    box-shadow: none;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.pagination a:hover:not(.active) {background-color: #e0e0e0;}
+
+
+.total-pages {
+    margin: 7px;
+    margin-left: 30px;
+    font-size: 14px;
+    float: left;
+}
+
+.total-pages span {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.line_through {
+    text-decoration: line-through;
+    font-size: 12px;
+}
+
+.category-list {
+    margin: 5%;
+    margin-left: 15%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.secondlevel {
+    margin-bottom: 20px;
+}
+
+.little-wrap {
+    width: fit-content;
+}
+
+.secondlevel a {
+    text-decoration: none;
+    color: #707070;
+}
+
+.secondlevel button {
+    padding: 0;
+    margin: 0;
+    width: 12px;
+    height: 12px;
+    background-color: transparent;
+    border: none;
+    margin-left: 5px;
+    float: right;
+    margin-top: 3px;
+}
+
+.secondlevel button img {
+    padding: 0;
+    margin: 0;
+    width: 12px;
+    height: 12px;
+}
+
+.thirdlevel {
+    display: none;
+    margin: 0;
+    margin-top: 5px;
+}
+
+.thirdlevel li{
+    text-decoration: none;
+    list-style: none;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    text-align: left;
+    color: #707070;
+}
+
+.thirdlevel li a {
+    text-decoration: none;
+}

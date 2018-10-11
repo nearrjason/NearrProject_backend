@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class MeitaoOrder implements Serializable{
-    private String orderId;
+    private Long id;
 
     private Long subtotal;
 
@@ -32,6 +32,8 @@ public class MeitaoOrder implements Serializable{
 
     private String shippingCode;
 
+    private Byte shippingMethod;
+
     private Long userId;
 
     private String userComment;
@@ -40,12 +42,14 @@ public class MeitaoOrder implements Serializable{
 
     private Long addressId;
 
-    public String getOrderId() {
-        return orderId;
+    private Long cardId;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getSubtotal() {
@@ -152,6 +156,14 @@ public class MeitaoOrder implements Serializable{
         this.shippingCode = shippingCode == null ? null : shippingCode.trim();
     }
 
+    public Byte getShippingMethod() {
+        return shippingMethod;
+    }
+
+    public void setShippingMethod(Byte shippingMethod) {
+        this.shippingMethod = shippingMethod;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -182,5 +194,13 @@ public class MeitaoOrder implements Serializable{
 
     public void setAddressId(Long addressId) {
         this.addressId = addressId;
+    }
+
+    public Long getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
     }
 }

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;SearchItemMapper.xml&apos; to &apos;meitao-user-service/src/main/java/com.meitaomart.user.mapper&apos;&#x0D;&#x0A;- Original project: &apos;meitao-search-service&apos;&#x0D;&#x0A;- Destination element: &apos;meitao-user-service/src/main/java/com.meitaomart.user.mapper&apos;&#x0D;&#x0A;- Original element: &apos;SearchItemMapper.xml&apos;" description="Copy file" destination="=meitao-user-service/src\/main\/java&lt;com.meitaomart.user.mapper" element1="src/main/java/com/meitaomart/search/mapper/SearchItemMapper.xml" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1538016917943" units="0" version="1.0"/>
+</session>

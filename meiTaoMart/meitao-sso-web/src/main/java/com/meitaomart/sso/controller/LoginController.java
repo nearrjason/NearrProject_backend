@@ -32,16 +32,26 @@ public class LoginController {
 	private Integer COOKIE_EXPIRE;
 	
 	@RequestMapping("/page/login")
-	public String showLogin(String redirect, Model model) {
+	public String showLogin(HttpServletRequest request, String redirect, Model model) {
 		model.addAttribute("redirect", redirect);
-		return "login";
+		request.setAttribute("type", "login");
+		return "login-register";
 	}
+	
 	
 	@RequestMapping(value="/user/login", method=RequestMethod.POST)
 	@ResponseBody
-	public MeitaoResult login(String username, String password,
+	public MeitaoResult login(String usernameOrEmail, String password,
 			HttpServletRequest request, HttpServletResponse response) {
-		MeitaoResult meitaoResult = loginService.userLogin(username, password);
+		if (usernameOrEmail == null || usernameOrEmail.length() == 0) {
+			return MeitaoResult.build(304, "登录失败, 无法检测到用户名");
+		}
+		
+		if (password == null) {
+			return MeitaoResult.build(304, "登录失败, 无法检测密码");
+		}
+		
+		MeitaoResult meitaoResult = loginService.userLogin(usernameOrEmail, password);
 		//判断是否登录成功
 		if(meitaoResult.getStatus() == 200) {
 			String token = meitaoResult.getData().toString();

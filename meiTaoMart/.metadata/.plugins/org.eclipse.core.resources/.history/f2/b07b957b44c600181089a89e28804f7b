@@ -1,0 +1,121 @@
+package com.meitaomart.user.service.impl;
+
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
+
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.mapper.MeitaoAddressMapper;
+import com.meitaomart.mapper.MeitaoBankingCardMapper;
+import com.meitaomart.mapper.MeitaoUserMapper;
+import com.meitaomart.pojo.MeitaoAddress;
+import com.meitaomart.pojo.MeitaoAddressExample;
+import com.meitaomart.pojo.MeitaoAddressExample.Criteria;
+import com.meitaomart.pojo.MeitaoBankingCard;
+import com.meitaomart.pojo.MeitaoBankingCardExample;
+import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.pojo.MeitaoUserExample;
+import com.meitaomart.user.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService {
+	@Autowired
+	private MeitaoUserMapper meitaoUserMapper;
+	@Autowired
+	private MeitaoAddressMapper meitaoAddressMapper;
+	@Autowired
+	private MeitaoBankingCardMapper meitaoCardMapper;
+	
+	@Value("${ADDRESS_TYPE}")
+	private String ADDRESS_TYPE;
+	@Value("${CARD_TYPE}")
+	private String CARD_TYPE;
+
+	@Override
+	public MeitaoResult changePassword(Long userId, String password) {
+		// TODO Auto-generated method stub
+		String md5Pass = DigestUtils.md5DigestAsHex(password.getBytes());
+		return null;
+	}
+
+	@Override
+	public MeitaoUser getUserByUserId(Long userId) {
+		// TODO Auto-generated method stub
+		MeitaoUser meitaoUser = meitaoUserMapper.selectByPrimaryKey(userId);
+		return meitaoUser;
+	}
+
+	@Override
+	public List<MeitaoAddress> getAddressListByUserId(Long userId) {
+		// TODO Auto-generated method stub
+		MeitaoAddressExample example = new MeitaoAddressExample();
+		example.setOrderByClause("created_time");
+		Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(userId);
+		List<MeitaoAddress> list = meitaoAddressMapper.selectByExample(example);
+
+		// 把默认地址放在第一个
+		for (int i = 0; i < list.size(); i++) {
+			MeitaoAddress curAddress = list.get(i);
+			if (curAddress != null && Boolean.TRUE.equals(curAddress.getIsMain())) {
+				Collections.swap(list, i, 0);
+				break;
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public MeitaoResult updateUser(MeitaoUser user, Long userId) {
+		MeitaoUserExample example = new MeitaoUserExample();
+		com.meitaomart.pojo.MeitaoUserExample.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo(userId);
+
+		user.setUpdatedTime(new Date());
+		if (user.getPhone() != null && user.getPhone().length() == 0) {
+			user.setPhone(null);
+		}
+
+		meitaoUserMapper.updateByExampleSelective(user, example);
+		if (user.getSex() == null) {
+			meitaoUserMapper.updateSexByPrimaryKey(null, userId);
+		}
+		return MeitaoResult.ok();
+	}
+
+	@Override
+	public List<MeitaoBankingCard> getCardListByUserId(Long userId) {
+		MeitaoBankingCardExample example = new MeitaoBankingCardExample();
+		example.setOrderByClause("created_time");
+		com.meitaomart.pojo.MeitaoBankingCardExample.Criteria criteria = example.createCriteria();
+		criteria.andUserIdEqualTo(userId);
+		List<MeitaoBankingCard> list = meitaoCardMapper.selectByExample(example);
+
+		// 把默认地址放在第一个
+		for (int i = 0; i < list.size(); i++) {
+			MeitaoBankingCard curCard = list.get(i);
+			if (curCard != null && Boolean.TRUE.equals(curCard.getIsMain())) {
+				Collections.swap(list, i, 0);
+				break;
+			}
+		}
+
+		return list;
+	}
+
+	@Override
+	public MeitaoResult setAsDefault(Long id, String type) {
+		// TODO Auto-generated method stub
+		if (ADDRESS_TYPE.equals(type)) {
+			
+		} else if (CARD_TYPE.equals(type)) {
+			
+		}
+	}
+
+}

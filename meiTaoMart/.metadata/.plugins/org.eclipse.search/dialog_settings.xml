@@ -11,16 +11,16 @@
 	</section>
 	<section name="TextSearchPage">
 		<item value="12" key="HISTORY_SIZE"/>
-		<item value="true" key="CASE_SENSITIVE"/>
+		<item value="false" key="CASE_SENSITIVE"/>
 		<item value="false" key="REG_EX_SEARCH"/>
 		<item value="false" key="WHOLE_WORD"/>
 		<item value="false" key="SEARCH_DERIVED"/>
 		<item value="false" key="SEARCH_IN_BINARIES"/>
 		<section name="HISTORY6">
-			<item value="false" key="ignoreCase"/>
+			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="e3Result" key="textPattern"/>
+			<item value="selectCard" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -32,7 +32,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="/content/category/create" key="textPattern"/>
+			<item value="openShippingAddressList" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -41,10 +41,10 @@
 			</list>
 		</section>
 		<section name="HISTORY4">
-			<item value="false" key="ignoreCase"/>
+			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="totalPrice" key="textPattern"/>
+			<item value="shipping-method" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -56,7 +56,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="/user/register" key="textPattern"/>
+			<item value="primaryCardMonth" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -65,10 +65,10 @@
 			</list>
 		</section>
 		<section name="HISTORY5">
-			<item value="false" key="ignoreCase"/>
+			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="e3mall-32" key="textPattern"/>
+			<item value="addr-drop" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -78,12 +78,15 @@
 		</section>
 		<section name="EXTENSIONS">
 			<item value="*" key="0"/>
+			<item value="/images_meitao/icons" key="1"/>
+			<item value="" key="2"/>
+			<item value="/images/design1.png" key="3"/>
 		</section>
 		<section name="HISTORY11">
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="注册失败" key="textPattern"/>
+			<item value=".wrap" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -95,7 +98,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="/content/category/delete" key="textPattern"/>
+			<item value="addr1" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -107,7 +110,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="regForm_mod" key="textPattern"/>
+			<item value=".back" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -116,10 +119,10 @@
 			</list>
 		</section>
 		<section name="HISTORY2">
-			<item value="false" key="ignoreCase"/>
+			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="去支付" key="textPattern"/>
+			<item value="info-default" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -128,10 +131,10 @@
 			</list>
 		</section>
 		<section name="HISTORY3">
-			<item value="false" key="ignoreCase"/>
+			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="/order/create" key="textPattern"/>
+			<item value="substring" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -140,10 +143,10 @@
 			</list>
 		</section>
 		<section name="HISTORY0">
-			<item value="false" key="ignoreCase"/>
+			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="orderShipping" key="textPattern"/>
+			<item value="账单地址" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -152,10 +155,10 @@
 			</list>
 		</section>
 		<section name="HISTORY1">
-			<item value="false" key="ignoreCase"/>
+			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="total" key="textPattern"/>
+			<item value="city-state-zip-fill" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -189,13 +192,13 @@
 	</section>
 	<section name="ReplaceDialog2">
 		<list key="replace_with">
+			<item value="user_add_card"/>
+			<item value="user_add_address"/>
+			<item value="selectShippingAddress"/>
+			<item value="openShippingAddressList"/>
+			<item value="/images/design1.png"/>
 			<item value="meitaoResult"/>
 			<item value="192.168.1.100"/>
-			<item value="192.168.1.213"/>
-			<item value="192.168.1.211"/>
-			<item value="192.168.1.4"/>
-			<item value="192.168.1.2"/>
-			<item value="categoryId"/>
 		</list>
 	</section>
 	<section name="SearchDialog">
@@ -205,7 +208,11 @@
 		<item value="653" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="465" key="DIALOG_HEIGHT"/>
-		<item value="442" key="DIALOG_X_ORIGIN"/>
-		<item value="63" key="DIALOG_Y_ORIGIN"/>
+		<item value="579" key="DIALOG_X_ORIGIN"/>
+		<item value="123" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="org.eclipse.wst.jsdt.ui.JavaSearchResultPage">
+		<item value="1000" key="org.eclipse.wst.jsdt.search.resultpage.limit"/>
+		<item value="TRUE" key="org.eclipse.wst.jsdt.search.resultpage.limit_enabled"/>
 	</section>
 </section>

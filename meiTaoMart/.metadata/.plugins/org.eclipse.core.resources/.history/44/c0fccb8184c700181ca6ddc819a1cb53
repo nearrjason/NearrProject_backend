@@ -1,0 +1,22 @@
+function searchKeyAndPage(key, page) {
+	/*$.ajax({
+		url : '/search.html',
+		data : {
+			keyword : key,
+			page : page
+		},
+		type : 'GET',
+		// dataType: 'json',
+		success : function(response) {
+			if (response) {
+				$("html").html(response);
+			}
+			
+		},
+		error : function() {
+			alert("翻页错误!");
+			return false;
+		}
+	});*/
+	location.href="/search.html?keyword=" + key + "&page=" + page + ".html";
+};

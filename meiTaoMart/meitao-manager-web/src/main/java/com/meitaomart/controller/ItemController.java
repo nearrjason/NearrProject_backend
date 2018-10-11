@@ -54,8 +54,11 @@ public class ItemController {
 	 */
 	@RequestMapping(value = "/item/save", method = RequestMethod.POST)
 	@ResponseBody
-	public MeitaoResult addItem(MeitaoItem item, MeitaoItemPrice itemPrices, String desc) {
-		MeitaoResult result = itemService.addItem(item, itemPrices, desc);
+	public MeitaoResult addItem(MeitaoItem item, MeitaoItemPrice itemPrices, String desc, String descImages, Long specialCategory) {
+		if (!Long.valueOf(0).equals(specialCategory)) {
+			item.setCategoryId(specialCategory);
+		}
+		MeitaoResult result = itemService.addItem(item, itemPrices, desc, descImages);
 		return result;
 	}
 

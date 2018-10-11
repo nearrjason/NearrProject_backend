@@ -1,0 +1,157 @@
+.slide_show{width:100%;height:480px;position:relative;z-index:29;}
+.slide_wrap{height:480px; width:1100px;position:relative;overflow:hidden;z-index:30; margin-left:200px;}
+.slide_show ol{height:480px;position:absolute;left:0;top:0;}
+.slide_show ol li{float:left;width:1100px;height:480px;}
+.slide_show ol .cur{position:relative;}
+.slide_show ol li .fore_pic{float:left;width:1100px;height:480px;display:block;}
+.slide_show ol li .fore_pic img{width:1100px;height:480px;}
+.slide_show ul{position:absolute;z-index:99;left:50%;margin-left:-130px;bottom:10px;}
+.slide_show ul li{height:25px;width:25px;float:left;cursor:pointer;margin-right:10px;_display:inline;background-color:#646464;text-align:center;line-height:25px;border-radius:50px;color:white; font-size:14px;filter:alpha(opacity=80);-moz-opacity:0.8;opacity:0.8;}
+.slide_show ul li.cur{background-color:#fa9600;cursor:default;}
+.slide_show a.show_next,.slide_show a.show_pre{width:39px;height:50px;display:block;position:absolute;top:207px;display:none; z-index:32;}
+.slide_show a.show_next{left:50%; margin-left:301px;}
+.slide_show a.show_pre{left:50%; margin-left:-401px;}
+.slide_show a.show_next s{background:url(../images/indexsprite.png) no-repeat -40px -256px;width:39px;height:50px;display:block;cursor:pointer;filter:alpha(opacity=60);opacity:0.6;}
+.slide_show a.show_pre s{background:url(../images/indexsprite.png) no-repeat 0px -256px;width:39px;height:50px;display:block;cursor:pointer;filter:alpha(opacity=60);opacity:0.6;}
+.slide_show a.show_next:hover s,.slide_show a.show_pre:hover s{filter:alpha(opacity=80);opacity:0.8;-moz-opacity:0.8;}
+.none{display:none;}
+.indexbg{width:100%;height:480px; position: absolute; z-index:0; top:0;}
+.indexbg dl{ position:absolute; top:0; left:0;height:480px;overflow:hidden;}
+.indexbg dd{height:480px;float:left;}
+.rSide{width:260px; position:absolute; top:0; margin-left:940px;z-index:999;}
+.rSide .a-img{ position: relative; display:block;}
+.rSide a{display:block;float:left}
+.rSide .r-img1{width:260px;height:185px;margin-top:15px;} 
+.rSide .r-img1 img{width:260px;height:185px;}
+.rSide .r-img2,.rSide .r-img3{width:260px;height:130px;margin-top:1px;}
+.rSide .r-img2 img,.rSide .r-img3 img{width:260px;height:130px;}
+.rSide .rmask{ cursor:pointer; position:absolute;left:0;top:0; background-color:#F0F0F0;width:100%;-moz-opacity:0;opacity:0;filter:alpha(opacity=0);}
+.rSide .r-img1 .rmask{ height:185px;}
+.rSide .r-img2 .rmask,.rSide .r-img3 .rmask{ height:130px;}
+.hover .rmask{background:#646464;-moz-opacity:.1;opacity:.1;filter:alpha(opacity=10);cursor:pointer;}
+.hover .layer .rmask{ -moz-opacity:0;opacity:0;filter:alpha(opacity=0);}
+
+
+
+
+
+.main-block {
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.main-block h2 {
+    font-family: STXihei;
+    color: #707070;
+}
+
+.newItem {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.bestbuy {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.block-ads {
+    display: flex;
+    width: 100%;
+}
+
+.block-ads a {
+    width: 295px;
+    height: 360px;
+    /* margin: 2.5px; */
+    margin:0 auto;
+    padding: 0px;
+    box-shadow: 2px 2px 5px #e0e0e0;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.block-ads a img {
+    width: inherit;
+    height: 360px;
+    border-radius: 5px;
+}
+
+.single-item {
+    flex: 1 0 0;
+    max-width: 205px;
+    min-width: 205px;
+    width: 205px;
+    height: 280px;
+    background-color: white;
+    margin: 10px;
+    padding: 7.5px;
+    box-shadow: 2px 2px 5px #e0e0e0;
+    border-radius: 5px;
+}
+
+.single-item img {
+    width: 205px;
+    height: 205px;
+    margin: 0 auto;
+}
+
+.single-item p {
+    margin: 0px;
+    margin-left: 10px;
+    margin-top: 10px;
+    /* margin-bottom: 10px; */
+    font-size: 12px;
+}
+
+.price {
+    float: left;
+    color: #e03c3c;
+}
+
+.single-item button {
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    margin: 0px;
+    margin-right: 5px;
+    padding: 0px;
+    float: right;
+    border: none;
+    outline: none;
+}
+
+.single-item button img {
+    width: 15px;
+    height: 15px;
+    margin: 0px;
+    padding: 2px;
+    background-color: white;
+}
+
+.single-item button img:hover {
+    transform: rotate(180deg);
+}
+
+
+
+
+.banner {
+    width: 100%;
+    height: 150px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.banner a {
+    width: 100%;
+    height: 100%;
+}
+
+.banner a img {
+    width: 100%;
+    height: 100%;
+}

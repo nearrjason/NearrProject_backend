@@ -1,0 +1,114 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<div class="main">
+	<c:set var="cartLength" value="${fn:length(cartItemList)}"></c:set>
+	<input id="cartLength" type="hidden" value="${cartLength}" />
+	<div class="sub-header">
+		<h2 class="title">购物车</h2>
+		<p class="cart-count">${cartLength}</p>
+	</div>
+	<div class="big-wrap">
+		<!-- <div class="back">
+                <a href=""><img src="../../icons/left-arrow.svg" alt="">继续购物</a>
+            </div> -->
+
+		<div class="wrap">
+			<table>
+				<tr class="t-header">
+					<td class="h-all">商品名称</td>
+					<td class="h-price">单价</td>
+					<td class="h-count">数量</td>
+					<td class="h-count">库存</td>
+					<td class="h-total">总计</td>
+					<td class="h-none"></td>
+				</tr>
+				<c:forEach items="${cartItemList}" var="cartItem"
+					varStatus="cartItemUtils">
+					<c:set var="realPrice" <fmt:formatNumber value="${cartItem.salePrice * (100 - cartItem.discount) / 100}" maxFractionDigits="2"
+						minFractionDigits="2" />/>
+					<c:set var="subtotalPrice"
+						value="${ subtotalPrice + (realPrice * cartItem.purchaseQuantity)}" />
+					<tr class="item">
+						<td>
+							<div class="item-info">
+								<img src="${cartItem.oneImage }" alt="">
+								<p>${cartItem.name }</p>
+							</div>
+						</td>
+						<td class="unit-price"><span
+							id="unitSalePrice${cartItemUtils.index}"
+							value="${realPrice}"> $<fmt:formatNumber
+									value="${realPrice / 100}" maxFractionDigits="2"
+									minFractionDigits="2" />
+						</span></td>
+						<td class="input-count"><c:if
+								test="${cartItem.stockNumber != 0 }">
+								<button type="button" class="less" onclick="minusItem(this)"
+									index="${cartItemUtils.index}">
+									<img class="button" src="/images/icons/minus-symbol.svg" alt="">
+								</button>
+								<input type="text" name=""
+									id="purchaseQuantity${cartItemUtils.index}"
+									class="purchaseQuantityInput"
+									value="${cartItem.purchaseQuantity }" itemId="${cartItem.id }"
+									index="${cartItemUtils.index}"
+									onblur="updateQuantity(this, ${cartItem.stockNumber})">
+								<button type="button" class="more"
+									index="${cartItemUtils.index}"
+									onclick="addItem(this, ${cartItem.stockNumber})">
+									<img class="button" src="/images/icons/plus-symbol.svg" alt="">
+								</button>
+							</c:if></td>
+
+						<td class="total"><c:if test="${cartItem.stockNumber != 0 }">
+								<span id=""
+									value="${cartItem.stockNumber}"> ${cartItem.stockNumber}
+								</span>
+							</c:if> <c:if test="${cartItem.stockNumber == 0 }">
+								<span id=""
+									value="${cartItem.stockNumber}"> 已售完 </span>
+							</c:if></td>
+
+						<td class="total"><c:if test="${cartItem.stockNumber != 0 }">
+								<span id="singleTotalPrice${cartItemUtils.index}"
+									class="singleTotalPrices"
+									value="${realPrice * cartItem.purchaseQuantity}">
+									$<fmt:formatNumber
+										value="${realPrice * cartItem.purchaseQuantity / 100}"
+										maxFractionDigits="2" minFractionDigits="2" />
+								</span>
+							</c:if></td>
+						<td><button type="button" class="d-item"
+								onclick="deleteItem(${cartItem.id})">
+								<img class="button" src="/images/icons/close.svg" alt="">
+							</button></td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+
+		<!-- <div class="back">
+                <a href=""><img src="/images/icons/left-arrow.svg" alt="">继续购物</a>
+            </div> -->
+
+		<div class="checkout">
+			<p class="t-total">
+				合计： <span id="subtotalPrice"> $<fmt:formatNumber
+						value="${subtotalPrice / 100}" maxFractionDigits="2"
+						minFractionDigits="2" />
+				</span>
+			</p>
+			<button type="submit" onclick="checkout()">去结算</button>
+		</div>
+	</div>
+	<div class="no-item">
+		<h2>购物车暂无商品</h2>
+		<p>
+			<a href="http://192.168.1.100:8082">去商城逛逛</a>
+		</p>
+	</div>
+</div>

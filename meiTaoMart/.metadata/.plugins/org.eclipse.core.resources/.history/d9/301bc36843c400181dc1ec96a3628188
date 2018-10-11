@@ -1,0 +1,148 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="addressLength" value="${fn:length(addressList)}"></c:set>
+<input id="addressLength" type="hidden" value="${addressLength}" />
+
+
+<div class="keep-parallel">
+	<div class="cardinfo-show">
+		<div class="info-display">
+			<div class="wrapper">
+				<div class="card-logo">
+					<img class="card-logo-img" src="/images_meitao/mastercard.svg"
+						alt="">
+				</div>
+				<div class="card-num-info">
+					<div class="card-num">
+						<b>****</b> &nbsp; <b>****</b> &nbsp; <b>****</b> &nbsp; <b>8888</b>
+					</div>
+					<br>
+					<div class="card-info">持卡人 &nbsp; Anne Sparrow
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 有效期 &nbsp; 09/10</div>
+				</div>
+				<div class="card-default">默认卡</div>
+
+				<!-- dropdown address -->
+				<div class="dropdown-arrow2">
+					<img class="dropdown-img" onclick="selectCard()"
+						src="/images_meitao/chevron-down.svg" alt="">
+				</div>
+			</div>
+			<div class="no-payment">
+				<h2>暂无支付方式</h2>
+			</div>
+		</div>
+	</div>
+	<div class="add-card">
+		<img class="plus-img" src="/images_meitao/plus-symbol.svg" alt=""
+			onclick="addNewCard()">
+	</div>
+</div>
+
+<div class="show-card-list">
+	<div class="info-display2">
+		<c:forEach items="${cardList}" var="card"
+			varStatus="cardUtils">
+
+			<div class="addr1" onclick="selectCard(this)">
+				<form index="${addressUtils.index }" onsubmit="return false">
+					<div class="info-name">
+						${address.firstName}${address.lastName} <input type="hidden"
+							name="firstName" value="${address.firstName}" /> <input
+							type="hidden" name="lastName" value="${address.lastName}" />
+					</div>
+					<div class="info-phone-loc">
+						<div class="info-phone">
+							<span><img class="phone-img"
+								src="/images_meitao/phone.svg" alt=""></span> <span
+								class="phone-num">${address.shippingPhone}</span> <input
+								type="hidden" name="shippingPhone"
+								value="${address.shippingPhone}" />
+						</div>
+						<br>
+						<div class="info-loc">
+							<span><img class="loc-img"
+								src="/images_meitao/location.svg" alt=""></span> <span
+								class="loc-name"> ${address.street}, ${address.city},
+								${address.state} </span> <input type="hidden" name="street"
+								value="${address.street}" /> <input type="hidden" name="city"
+								value="${address.city}" /> <input type="hidden" name="state"
+								value="${address.state}" />
+						</div>
+						<div class="zipc">
+							<span class="zipc-num">Zip: ${address.zipcode}</span> <input
+								type="hidden" name="zipcode" value="${address.zipcode}" />
+						</div>
+					</div>
+					<div class="edit-pen">
+						<img class="pen-img" src="/images_meitao/edit.svg" alt="">
+					</div>
+				</form>
+			</div>
+			<br>
+		</c:forEach>
+
+
+		<div class="btn-click" onclick="backToPay2()">
+			<div class="keep-parallel">
+				<div class="card-brand">
+					<img class="card-logo-img" src="/images_meitao/mastercard.svg"
+						alt="">
+				</div>
+				<div class="card-num-info">
+					<div class="card-num">
+						<b>****</b> &nbsp; <b>****</b> &nbsp; <b>****</b> &nbsp; <b>8888</b>
+					</div>
+					<br>
+					<div class="card-info">
+						持卡人 &nbsp; ${card.firstName} ${card.lastName}
+						<input type="hidden"
+							name="firstName" value="${card.firstName}" />
+						<input
+							type="hidden" name="lastName" value="${card.lastName}" />
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 有效期 &nbsp; 09/10
+					</div>
+				</div>
+				<div class="card-default" style="float: right;">默认卡</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="btn-click" onclick="backToPay2()">
+			<div class="keep-parallel">
+				<div class="card-brand">
+					<img class="card-logo-img" src="/images_meitao/visa.svg" alt="">
+				</div>
+				<div class="card-num-info">
+					<div class="card-num">
+						<b>****</b> &nbsp; <b>****</b> &nbsp; <b>****</b> &nbsp; <b>8888</b>
+					</div>
+					<br>
+					<div class="card-info">持卡人 &nbsp; Anne Sparrow
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 有效期 &nbsp; 09/10</div>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="btn-click" onclick="backToPay2()">
+			<div class="keep-parallel">
+				<div class="card-brand">
+					<img class="card-logo-img" src="/images_meitao/amex.svg" alt="">
+				</div>
+				<div class="card-num-info">
+					<div class="card-num">
+						<b>****</b> &nbsp; <b>****</b> &nbsp; <b>****</b> &nbsp; <b>8888</b>
+					</div>
+					<br>
+					<div class="card-info">持卡人 &nbsp; Anne Sparrow
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 有效期 &nbsp; 09/10</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

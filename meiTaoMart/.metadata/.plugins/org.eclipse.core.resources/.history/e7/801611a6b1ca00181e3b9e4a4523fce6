@@ -1,0 +1,28 @@
+var i = $('.block-ads').children().length;
+console.log(i);
+var width = 1200/i - 2.5;
+$('.block-ads a').css('width', width);
+$('.block-ads a img').css('width', width);
+
+
+
+
+$('.add-to-cart').mouseover(function(){
+    $(this).animate({deg: 180}, {
+        step: function(now, fx){
+            $(this).css({
+                 transform: "rotate(" + now + "deg)"
+            });
+        }
+    });
+});
+
+$('.add-to-cart').mouseleave(function(){
+    $(this).animate({deg: 0}, {
+        step: function(now, fx){
+            $(this).css({
+                 transform: "rotate(" + now + "deg)"
+            });
+        }
+    });
+});

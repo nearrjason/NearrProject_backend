@@ -1,0 +1,14 @@
+function searchKeyAndPage(key, page) {
+	location.href="/search.html?keyword=" + key + "&page=" + page;
+};
+
+function addToCart(product_id) {
+	var url = "http://192.168.1.100:8090/cart/add/"+product_id+".html";
+	$.get(
+		url,
+		function (response) {
+			console.log(response);
+		}
+	)
+	//location.href="http://192.168.1.100:8090/cart/add/"+product_id+".html";
+}

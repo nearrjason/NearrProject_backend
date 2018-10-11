@@ -1,0 +1,136 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:forEach items="${orderInfoList}" var="orderInfo" varStatus="status">
+	<div class="rdRight orderDetailBox" id="orderDetailBox${status.index }">
+		<h2>
+			<a id="allOrders">我的订单</a>&emsp;>&emsp;订单详情
+		</h2>
+		<hr>
+		<c:set var="totalPrice"
+			value="${ orderInfo.subtotal + orderInfo.shippingFee + orderInfo.taxFee}" />
+		<c:set var="cardNumberStr"
+			value="${fn:trim(orderInfo.orderCard.cardNumber)}"></c:set>
+		<c:set var="orderAddress" value="${orderInfo.orderAddress }"></c:set>
+		<div class="rdorder">
+			<div class="rdorders-info">
+				<p class="rdtime">
+					<span>${orderInfo.createdTime}</span>
+				</p>
+				<p class="rdorder-number">
+					订单号： <span>${orderInfo.id}</span>
+				</p>
+				<p class="rdtracking">
+					追踪码： <a href="">1Z9999999999999999</a>
+				</p>
+				<p class="rdtotal-p">
+					合计总额： <span>$<fmt:formatNumber value="${totalPrice / 100}"
+							maxFractionDigits="2" minFractionDigits="2" /></span>
+				</p>
+			</div>
+			<div class="rdrecipient-info">
+				<p class="rdseller">
+					发货商： <br> <span>美桃网</span>
+				</p>
+				<p class="rdshipping-method">
+					配送方式： <br> <span>UPS Ground Shipping</span>
+				</p>
+				<p class="rdaddress">
+					收货信息： <br> <span>${orderAddress}
+						${orderAddress.lastName} <br>
+					</span> <span> ${orderInfo.orderAddress.street},
+						${orderInfo.orderAddress.city} ${orderInfo.orderAddress.state}
+						${orderInfo.orderAddress.zipcode}</span>
+				</p>
+				<p class="rdpayment">
+					支付方式： <br> <span><img src="../../icons/visa.svg" alt=""><br>****
+						**** **** ${fn:substring(cardNumberStr, 12, 16)} </span>
+				</p>
+			</div>
+			<div class="rditems">
+				<table>
+					<tr class="rdt-header">
+						<td class="rdh-all">商品名称</td>
+						<td class="rdh-price">单价</td>
+						<td class="rdh-count">数量</td>
+						<td class="rdh-total">总计</td>
+					</tr>
+					<c:forEach items="${orderInfo.orderItemsInfo}" var="orderItemInfo"
+						varStatus="orderInfoUtils">
+						<tr class="rditem">
+							<td>
+								<div class="rditem-info">
+									<img src="/images/design1.png" alt="">
+									<p>${orderItemInfo.name }</p>
+								</div>
+							</td>
+							<td class="rdunit-price">$<fmt:formatNumber
+									value="${orderItemInfo.salePrice / 100}" maxFractionDigits="2"
+									minFractionDigits="2" />
+							</td>
+							<c:forEach items="${orderInfo.orderItems}" var="orderItem">
+								<c:if test="${orderItemInfo.id eq orderItem.itemId }">
+									<td class="rdinput-count">
+										<p class="amount">&times; ${orderItem.itemNumber }</p>
+									</td>
+									<td class="rdtotal">$<fmt:formatNumber
+											value="${orderItemInfo.salePrice * orderItem.itemNumber / 100}"
+											maxFractionDigits="2" minFractionDigits="2" />
+									</td>
+								</c:if>
+							</c:forEach>
+						</tr>
+					</c:forEach>
+
+					<!-- <tr class="rditem even">
+						<td>
+							<div class="rditem-info">
+								<img src="../../design1.png" alt="">
+								<p>item 1 item 1</p>
+							</div>
+						</td>
+						<td class="rdunit-price">$37.89</td>
+						<td class="rdinput-count">
+							<p id="count">&times;3</p>
+						</td>
+						<td class="rdtotal">999.99</td>
+					</tr>
+
+					<tr class="rditem">
+						<td>
+							<div class="rditem-info">
+								<img src="../../design1.png" alt="">
+								<p>item 1 item 1</p>
+							</div>
+						</td>
+						<td class="rdunit-price">$37.89</td>
+						<td class="rdinput-count">
+							<p id="count">&times;3</p>
+						</td>
+						<td class="rdtotal">999.99</td>
+					</tr>
+
+					<tr class="rditem even">
+						<td>
+							<div class="rditem-info">
+								<img src="../../design1.png" alt="">
+								<p>item 1 item 1</p>
+							</div>
+						</td>
+						<td class="rdunit-price">$37.89</td>
+						<td class="rdinput-count">
+							<p id="count">&times;3</p>
+						</td>
+						<td class="rdtotal">999.99</td>
+					</tr> -->
+				</table>
+			</div>
+
+			<div class="rdtotal"></div>
+		</div>
+
+	</div>
+</c:forEach>

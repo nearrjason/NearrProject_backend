@@ -15,10 +15,10 @@ COMSTATIC.mail_preg = function(mail) {
     }
     return false;
 }
-$("div.item").live("mouseover",function(){
+$(document).on("mouseover", "div.item",function(){
     $(this).addClass("hover");
 });
-$("div.item").live("mouseleave",function(){
+$(document).on("mouseleave", "div.item",function(){
 	$(this).removeClass("hover");
 });
 
@@ -38,7 +38,7 @@ $("div.item").live("mouseleave",function(){
 	var elements=this;
 	
 	if("scroll"==settings.event){
-		$(settings.container).bind("scroll", function(event){
+		$(settings.container).on("scroll", function(event){
 			var counter=0;
 			elements.each(function(){
 				if($.abovethetop(this,settings)||$.leftofbegin(this,settings))
@@ -74,7 +74,7 @@ $("div.item").live("mouseleave",function(){
 		
 		$(self).one("appear", function(){
 			if(!this.loaded || 1 == 1){
-				$("<img />").bind("load", function(){
+				$("<img />").on("load", function(){
 					$(self).hide().attr("src", $(self).attr("data"))[settings.effect](settings.effectspeed);
 					self.loaded=true;
 				}).attr("src", $(self).attr("data"));
@@ -82,7 +82,7 @@ $("div.item").live("mouseleave",function(){
 		});
 		
 		if("scroll"!=settings.event){
-			$(self).bind(settings.event, function(event){
+			$(self).on(settings.event, function(event){
 			if(!self.loaded){
 				$(self).trigger("appear");
 			}
@@ -370,18 +370,11 @@ function setCookie(name, value, expires, path, domain, secure)
 $(function(){
 	
 	$(".pList li").each(function(){
-		$(this).sfHover({
-			hoverEvent: function(){
-				if ($(this).find(".gWindow").length > 0){
-					$(this).find(".gBtn").hide();
-				}else{
-					$(this).find(".gBtn").show();
-					$(this).find(".gBtn").animate({top:"136px"},200);
-				}	
-			},
-			outEvent: function(){
-			    $(this).find(".gBtn").animate({top:"161px"},300);
-			}   
+		$(this).hover(function(){
+			$(this).find(".gBtn").animate({top:"136px"},300);
+		},
+		function(){
+			$(this).find(".gBtn").animate({top:"160px"},300);
 		});	
 	});
 
@@ -401,7 +394,7 @@ $(function(){
 		});	
 	});
 	
-	$(".rHot dd").live("mouseenter",function(){
+	$(document).on("mouseenter", ".rHot dd",function(){
     	if ($(this).find(".gWindow").length > 0){
 			$(this).find(".hBtn").hide();
 		}else{
@@ -409,13 +402,13 @@ $(function(){
 		}
 		$(this).find("a.pname").addClass("ddHover");
 	});
-	$(".rHot dd").live("mouseleave",function(){
+	$(document).on("mouseleave", ".rHot dd",function(){
 		$(this).find(".hBtn").hide();
 		$(this).find("a.pname").removeClass("ddHover");
 	});
 	
 	SFbest.Slide.init();
-	$(".ajaxdata_index li").live("mouseenter",function(){
+	$(document).on("mouseenter", ".ajaxdata_index li",function(){
     	if ($(this).find(".gWindow").length > 0){
 			$(this).find(".gBtn").hide();
 		}else{
@@ -423,7 +416,7 @@ $(function(){
 			$(this).find(".gBtn").animate({top:"150px"},200);
 		}	
 	});
-	$(".ajaxdata_index li").live("mouseleave",function(){
+	$(document).on("mouseleave", ".ajaxdata_index li",function(){
 		$(this).find(".gBtn").animate({top:"184px"},300);
 	});
 })
@@ -927,10 +920,10 @@ var SFbest = {};
 			if( $.alerts.repositionOnResize ) {
 				switch(status) {
 					case true:
-						$(window).bind('resize', $.alerts._reposition);
+						$(window).on('resize', $.alerts._reposition);
 					break;
 					case false:
-						$(window).unbind('resize', $.alerts._reposition);
+						$(window).off('resize', $.alerts._reposition);
 					break;
 				}
 			}
@@ -975,7 +968,7 @@ var SFbest = {};
 		});
 	},
 	result: function(handler) {
-		return this.bind("result", handler);
+		return this.on("result", handler);
 	},
 	search: function(handler) {
 		return this.trigger("search", [handler]);
@@ -1022,7 +1015,7 @@ $.Autocompleter = function(input, options) {
 	var blockSubmit;
 	
 	// prevent form submit in opera when selecting with return key
-	$.browser.opera && $(input.form).bind("submit.autocomplete", function() {
+	$.browser.opera && $(input.form).on("submit.autocomplete", function() {
 		if (blockSubmit) {
 			blockSubmit = false;
 			return false;
@@ -1030,7 +1023,7 @@ $.Autocompleter = function(input, options) {
 	});
 	
 	// only opera doesn't trigger keydown multiple times while pressed, others don't work with keypress at all
-	$input.bind(($.browser.opera ? "keypress" : "keydown") + ".autocomplete", function(event) {
+	$input.on(($.browser.opera ? "keypress" : "keydown") + ".autocomplete", function(event) {
 		// a keypress means the input has focus
 		// avoids issue where input had focus before the autocomplete was applied
 		hasFocus = 1;
@@ -1110,7 +1103,7 @@ $.Autocompleter = function(input, options) {
 		if ( hasFocus++ > 1 && !select.visible() ) {
 			onChange(0, true);
 		}
-	}).bind("search", function() {
+	}).on("search", function() {
 		// TODO why not just specifying both arguments?
 		var fn = (arguments.length > 1) ? arguments[1] : null;
 		function findValueCallback(q, data) {
@@ -1129,18 +1122,18 @@ $.Autocompleter = function(input, options) {
 		$.each(trimWords($input.val()), function(i, value) {
 			request(value, findValueCallback, findValueCallback);
 		});
-	}).bind("flushCache", function() {
+	}).on("flushCache", function() {
 		cache.flush();
-	}).bind("setOptions", function() {
+	}).on("setOptions", function() {
 		$.extend(options, arguments[1]);
 		// if we've updated the data, repopulate
 		if ( "data" in arguments[1] )
 			cache.populate();
-	}).bind("unautocomplete", function() {
-		select.unbind();
-		$input.unbind();
-		$(input.form).unbind(".autocomplete");
-	}).bind("input",function(){ //修复firefox下中文输入法首次收入不提示的bug
+	}).on("unautocomplete", function() {
+		select.off();
+		$input.off();
+		$(input.form).off(".autocomplete");
+	}).on("input",function(){ //修复firefox下中文输入法首次收入不提示的bug
 		hasFocus = 1;
 		clearTimeout(timeout);
 		timeout = setTimeout(onChange, options.delay);
@@ -1807,6 +1800,11 @@ function checkWord(len,fromName){
 	$('.keyword','#'+fromName).val(showstr);
 }
 
+function search_keys(formName){
+   checkWord(60,formName);
+   $('#'+formName).submit();
+}
+
 function getAllPrice(id, css_id){
 	var p_ids = '';
 	var e_ids = '';
@@ -1835,15 +1833,15 @@ function getAllPrice(id, css_id){
                 	var e_id = str[i]['eid'];
 					if(parseFloat(str[i].sfprice) == parseFloat(str[i].price)){
 						if(css_id == 'priceK_'){
-							$("#"+css_id+e_id).html('<span><sup>$</sup></span>'+ str[i]['sfprice']);
+							$("#"+css_id+e_id).html('<span><sup>￥</sup></span>'+ str[i]['sfprice']);
 						}else{
-							$("#"+css_id+e_id).html('<b>$'+ str[i]['sfprice'] +'</b>');
+							$("#"+css_id+e_id).html('<b>￥'+ str[i]['sfprice'] +'</b>');
 						}
 					}else{
 						if(css_id == 'priceK_'){
-							$("#"+css_id+e_id).html('<span><sup>$</sup></span>'+ str[i]['price']);
+							$("#"+css_id+e_id).html('<span><sup>￥</sup></span>'+ str[i]['price']);
 						}else{
-							$("#"+css_id+e_id).html('<b>$'+ str[i]['price'] + '</b>');
+							$("#"+css_id+e_id).html('<b>￥'+ str[i]['price'] + '</b>');
 						}
 					}
 					//if($.trim(str[i].tag_img) != '' && (css_id == 'priceL_')){
@@ -1851,9 +1849,9 @@ function getAllPrice(id, css_id){
 					//}
 					if ( typeof(str[i].presell) !== 'undefined'){
 						if(css_id == 'priceK_'){
-							$("#"+css_id+e_id).html('<span><sup>$</sup></span>'+ str[i].presell.price);
+							$("#"+css_id+e_id).html('<span><sup>￥</sup></span>'+ str[i].presell.price);
 						}else{
-							$("#"+css_id+e_id).html('<b>$'+ str[i].presell.price + '</b>');	
+							$("#"+css_id+e_id).html('<b>￥'+ str[i].presell.price + '</b>');	
 						}
 						$("#cx_"+e_id).find(".gBtn").remove();
 					}
@@ -1949,7 +1947,7 @@ $(document).ready(function(){
 			var st = $(document).scrollTop();
 			(st > 0) ? $(".s-top").css("display","block") : $(".s-top").css("display","none");
 		};
-		$(window).bind("scroll", bToTop);
+		$(window).on("scroll", bToTop);
 		bToTop();
 	}
 	//滚屏BANNER
@@ -1970,12 +1968,12 @@ function timeFun(){
 	//倒计时
 	if(nowtimes >= 1414944000000 && nowtimes<=1415203199000){
 		$(".q_ticket").css("background","url(http://p.e3mall.cn/gold/images/20141105/20141105153125147.jpg) no-repeat center");
-		$(".q_ticket a").attr('href','http://192.168.1.100:8082/html/activity/1414059663.html');
+		$(".q_ticket a").attr('href','http://www.e3mall.cn/html/activity/1414059663.html');
 		$(".q_ticket").show();
 		ssytimechange(1415203199000);
 	}else if(nowtimes >= 1415462400000 && nowtimes<=1415807999000){
 		$(".q_ticket").css("background","url(http://p.e3mall.cn/gold/images/20141110/20141110183526651.jpg) no-repeat center");
-		$(".q_ticket a").attr('href','http://192.168.1.100:8082/html/activity/1414059592.html');
+		$(".q_ticket a").attr('href','http://www.e3mall.cn/html/activity/1414059592.html');
 		$(".q_ticket").show();
 		ssytimechange(1415807999000);
 	}
@@ -2173,11 +2171,11 @@ function qiangGouIndex(){
 						$nowCon += "<li id='cx_q_"+temp.product_id+"' eid='q_"+temp.product_id+"' goods='"+temp.product_id+"'>";
 						$nowCon += '<div class="pImg"><a title="'+temp.title+'" target="_blank" href="'+temp.url + trackref + '"><img onerror="this.src=\'http://i.e3mall.cn/html/images/150pic.jpg\'" alt="'+temp.title+'" src="'+temp.img+'"/></a></div>';
 						$nowCon += '<div class="title-a"><a title="'+temp.title+'" target="_blank" href="'+temp.url+ trackref +'">'+temp.title+'</a></div>';
-						$nowCon += '<div class="price"><b>$'+temp.qgprice+'</b><span><a class="rushBuy" href="javascript:void(0);" data_url="'+temp.img+'" pid="'+temp.product_id+'">抢购</a></span></div>';
+						$nowCon += '<div class="price"><b>￥'+temp.qgprice+'</b><span><a class="rushBuy" href="javascript:void(0);" data_url="'+temp.img+'" pid="'+temp.product_id+'">抢购</a></span></div>';
 					}else{
 						$nowCon += '<li class="tbover"><div><a title="'+temp.title+'" target="_blank" href="'+temp.url + trackref + '"><img onerror="this.src=\'http://i.e3mall.cn/html/images/150pic.jpg\'" alt="'+temp.title+'" src="'+temp.img+'"/><span class="yover"></span></a></div>';
 						$nowCon += '<div class="title-a"><a title="'+temp.title+'" target="_blank" href="'+temp.url+ trackref +'">'+temp.title+'</a></div>';
-						$nowCon += '<div class="price"><b>$'+temp.qgprice+'</b><span>抢购</span></div>';
+						$nowCon += '<div class="price"><b>￥'+temp.qgprice+'</b><span>抢购</span></div>';
 					}
 					$nowCon += '</li>';
 					$nowCon += '<script>timechange("now",'+ temp.stopTime +');</script>';
@@ -2207,7 +2205,7 @@ function qiangGouIndex(){
 					$nextCon += "<li>";
 					$nextCon += '<div class="pImg"><a title="'+temp.title+'" target="_blank" href="'+temp.url+trackref+'"><img onerror="this.src=\'http://i.e3mall.cn/html/images/150pic.jpg\'" alt="'+temp.title+'" src="'+temp.img+'"></a></div>';
 					$nextCon += '<div class="title-a"><a title="'+temp.title+'" target="_blank" href="'+temp.url+trackref+'">'+temp.title+'</a></div>';
-					$nextCon += '<div class="price"><b>$'+temp.qgprice+'</b><span class="yulan"><a target="_blank" href="'+temp.url+trackref+'">看看</a></span></div>';
+					$nextCon += '<div class="price"><b>￥'+temp.qgprice+'</b><span class="yulan"><a target="_blank" href="'+temp.url+trackref+'">看看</a></span></div>';
                     $nextCon += '</li>';
 					$nextCon += '<script>timechange("next",'+ temp.startTime +');</script>';
 				}else{
@@ -2361,20 +2359,20 @@ function getkeyword(isproduct,wwwurl,formName){
 $(document).ready(function(){
 	$("#store-selector1").mouseover(function(){$(this).addClass("hover");});
 	$("#store-selector1").hover(function(){$("#store-selector1").removeClass("hover");});
-	$("#footermail").bind("focus",function(){
+	$("#footermail").on("focus",function(){
 		$("#emailMsg").hide();
 		if($(this).val()=='请填写邮箱订阅促销'){
 			$(this).val('');
 			return;
 		}
 	});
-	$("#footermail").bind("blur",function(){
+	$("#footermail").on("blur",function(){
 		if($(this).val()==''){
 			$(this).val('请填写邮箱订阅促销');
 			return;
 		}
 	});
-	$("#emailval").bind("focus",function(){
+	$("#emailval").on("focus",function(){
 		if($(this).val()=='请输入邮箱地址'){
 			$(this).val('');
 		}
@@ -2474,7 +2472,7 @@ $.fn.dropdown = function(b, c) {
 			var b = null,
 				f = null,
 				g = !1;
-			$(this).bind(d.event, function() {
+			$(this).on(d.event, function() {
 				if (g) clearTimeout(f);
 				else {
 					var e = $(this);
@@ -2482,7 +2480,7 @@ $.fn.dropdown = function(b, c) {
 						e.addClass(d.current), g = !0, c && c(e)
 					}, d.delay)
 				}
-			}).bind(e, function() {
+			}).on(e, function() {
 				if (g) {
 					var c = $(this);
 					f = setTimeout(function() {
@@ -2496,11 +2494,11 @@ $.fn.dropdown = function(b, c) {
 function imgAnimate(t) {
     var e = $(t);
 	var i = e.find(".a-img");
-	i.bind("mouseenter", function() {
+	i.on("mouseenter", function() {
 		$(this).find("img").stop(!0).animate({
 			left: "-10px"
 		}, 300)
-	}).bind("mouseleave", function() {
+	}).on("mouseleave", function() {
 		$(this).find("img").stop(!0).animate({
 			left: "0px"
 		}, 300)
@@ -2550,7 +2548,7 @@ if($(".floatBar").length > 0){
 		(floatBarTop > startTop) ? $(".floatBar").removeClass("hide") : $(".floatBar").addClass("hide");
 		(floatBarTop > startTop) ? $(".flads").removeClass("hide") : $(".flads").addClass("hide");
 	};
-	$(window).bind("scroll", floatBar);
+	$(window).on("scroll", floatBar);
 	floatBar();
 }
 0 !== $(".rTopImg").length && imgAnimate(".rTopImg");
@@ -2696,38 +2694,26 @@ $(function(){
 })
  //口碑甄选
   $(function(){
+
 	$(".bbig li").each(function(){
-		$(this).sfHover({
-			hoverEvent: function(){
-				if ($(this).find(".gWindow").length > 0){
-					$(this).find(".gBtn").hide();
-				}else{
-					$(this).find(".gBtn").show();
-					$(this).find(".gBtn").animate({top:"225px"},200);
-				}	
+		$(this).hover(function(){
+				$(this).find(".bbtn").animate({marginTop:"0px"},300);
 			},
-			outEvent: function(){
-			    $(this).find(".gBtn").animate({top:"260px"},300);
+			function(){
+			    $(this).find(".bbtn").animate({marginTop:"40px"},300);
 			}   
-		});	
+		);	
 	});
 	
 	$(".bsmall li").each(function(){
-		$(this).sfHover({
-			hoverEvent: function(){
-				if ($(this).find(".gWindow").length > 0){
-					$(this).find(".gBtn").hide();
-				}else{
-					$(this).find(".gBtn").show();
-					$(this).find(".gBtn").animate({top:"168px"},200);
-				}	
-			},
-			outEvent: function(){
-			    $(this).find(".gBtn").animate({top:"210px"},300);
-			}   
+		$(this).hover(function(){
+			$(this).find(".bbtn").animate({marginTop:"0px"},300);
+		},
+		function(){
+			$(this).find(".bbtn").animate({marginTop:"40px"},300);
 		});	
 	});
-	})
+})
 //右边楼层图片
 $(function(){
 	$(".rimg").mouseover(function(){

@@ -1,0 +1,266 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!--change password popup-->
+<div class="changeForm" id="changeForm">
+	<form id="changePasswordForm" class="form-container"
+		onsubmit="return false">
+		<h1>设置新密码</h1>
+		<label for="oldPW">请输入旧密码</label> <input type="password"
+			placeholder="" name="oldPassword" required style="width: 90%">&emsp;
+		<br> <label for="newPW">请输入新密码</label> <input type="password"
+			placeholder="密码须包含至少八位字符，并同时包含小写字母及数字" name="newPassword" required
+			style="width: 90%">&emsp; <br> <label for="newPW-repeat">请重复新密码</label>
+		<input type="password" placeholder="" name="newPasswordRepeat"
+			required style="width: 90%">&emsp; <br>
+		<p id="reset_password_error_message" class="error_message"></p>
+		<button type="button" class="btn cancel" onclick="closeChangeForm()">Cancel</button>
+		<button type="submit" class="btn" onclick="submitChangePassword()">Submit</button>
+	</form>
+</div>
+
+
+
+<!--Edit credit card-->
+<c:forEach items="${cardList}" var="card" varStatus="status">
+	<div class="form-popup" id="editCreditForm${status.index }">
+		<form id="editCreditFormSubmit${status.index }" class="form-container"
+			onsubmit="return false">
+			<h1>请确保持卡姓名及其他信息与卡片上一致</h1>
+			<input type="hidden" name="cardId" value="${card.id }"> <input
+				type="text" placeholder="First Name" value="${card.firstName}"
+				name="firstName" style="width: 60%">&emsp; <br> <input
+				type="text" placeholder="Last Name" value="${card.lastName}"
+				name="lastName" style="width: 60%">&emsp; <br> <input
+				type="text" placeholder="Card Number" value="${card.cardNumber}"
+				name="cardNumber" required style="width: 60%"> <br>
+
+			<div>Month</div>
+			<select name="month">
+				<option value="01"
+					${card.month == "01" ? 'selected="selected"' : ''}>01</option>
+				<option value="02"
+					${card.month == "02" ? 'selected="selected"' : ''}>02</option>
+				<option value="03"
+					${card.month == "03" ? 'selected="selected"' : ''}>03</option>
+				<option value="04"
+					${card.month == "04" ? 'selected="selected"' : ''}>04</option>
+				<option value="05"
+					${card.month == "05" ? 'selected="selected"' : ''}>05</option>
+				<option value="06"
+					${card.month == "06" ? 'selected="selected"' : ''}>06</option>
+				<option value="07"
+					${card.month == "07" ? 'selected="selected"' : ''}>07</option>
+				<option value="08"
+					${card.month == "08" ? 'selected="selected"' : ''}>08</option>
+				<option value="09"
+					${card.month == "09" ? 'selected="selected"' : ''}>09</option>
+				<option value="10"
+					${card.month == "10" ? 'selected="selected"' : ''}>10</option>
+				<option value="11"
+					${card.month == "11" ? 'selected="selected"' : ''}>11</option>
+				<option value="12"
+					${card.month == "12" ? 'selected="selected"' : ''}>12</option>
+			</select>
+
+			<div>Year</div>
+			<select name="year">
+				<option value="2018"
+					${card.year == "2018" ? 'selected="selected"' : ''}>2018</option>
+				<option value="2019"
+					${card.year == "2019" ? 'selected="selected"' : ''}>2019</option>
+				<option value="2020"
+					${card.year == "2020" ? 'selected="selected"' : ''}>2020</option>
+				<option value="2021"
+					${card.year == "2021" ? 'selected="selected"' : ''}>2021</option>
+				<option value="2022"
+					${card.year == "2022" ? 'selected="selected"' : ''}>2022</option>
+				<option value="2023"
+					${card.year == "2023" ? 'selected="selected"' : ''}>2023</option>
+				<option value="2024"
+					${card.year == "2024" ? 'selected="selected"' : ''}>2024</option>
+				<option value="2025"
+					${card.year == "2025" ? 'selected="selected"' : ''}>2025</option>
+				<option value="2026"
+					${card.year == "2026" ? 'selected="selected"' : ''}>2026</option>
+				<option value="2027"
+					${card.year == "2027" ? 'selected="selected"' : ''}>2027</option>
+				<option value="2028"
+					${card.year == "2028" ? 'selected="selected"' : ''}>2028</option>
+				<option value="2029"
+					${card.year == "2029" ? 'selected="selected"' : ''}>2029</option>
+				<option value="2030"
+					${card.year == "2030" ? 'selected="selected"' : ''}>2030</option>
+				<option value="2031"
+					${card.year == "2031" ? 'selected="selected"' : ''}>2031</option>
+				<option value="2032"
+					${card.year == "2032" ? 'selected="selected"' : ''}>2032</option>
+				<option value="2033"
+					${card.year == "2033" ? 'selected="selected"' : ''}>2033</option>
+				<option value="2034"
+					${card.year == "2034" ? 'selected="selected"' : ''}>2034</option>
+				<option value="2035"
+					${card.year == "2035" ? 'selected="selected"' : ''}>2035</option>
+				<option value="2036"
+					${card.year == "2036" ? 'selected="selected"' : ''}>2036</option>
+				<option value="2037"
+					${card.year == "2037" ? 'selected="selected"' : ''}>2037</option>
+				<option value="2038"
+					${card.year == "2038" ? 'selected="selected"' : ''}>2038</option>
+			</select>
+
+			<button type="button" class="btn cancel"
+				onclick="closeForm('#editCreditForm${status.index }')">Cancel</button>
+			<button
+				onclick="confirmUpdate('#editCreditFormSubmit${status.index }', 'card')"
+				type="submit" class="btn">Submit</button>
+		</form>
+	</div>
+</c:forEach>
+
+<!--Add credit card-->
+<div class="addForm" id="addCreditForm">
+	<form id="addCardFormSubmit" class="form-container"
+		onsubmit="return false">
+		<h1>请确保持卡姓名及其他信息与卡片上一致</h1>
+
+		<input type="text" placeholder="First Name" name="firstName"
+			style="width: 60%">&emsp; <br> <input type="text"
+			placeholder="Last Name" name="lastName" style="width: 60%">&emsp;
+		<br> <input type="text" placeholder="Card Number"
+			name="cardNumber" style="width: 60%">
+
+		<div>Month</div>
+		<div>
+			<select name="month">
+				<option value="01">01</option>
+				<option value="02">02</option>
+				<option value="03">03</option>
+				<option value="04">04</option>
+				<option value="05">05</option>
+				<option value="06">06</option>
+				<option value="07">07</option>
+				<option value="08">08</option>
+				<option value="09">09</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+			</select>
+		</div>
+		<br>
+		<div>Year</div>
+		<div>
+			<select name="year">
+				<option value="2018">2018</option>
+				<option value="2019">2019</option>
+				<option value="2020">2020</option>
+				<option value="2021">2021</option>
+				<option value="2022">2022</option>
+				<option value="2023">2023</option>
+				<option value="2024">2024</option>
+				<option value="2025">2025</option>
+				<option value="2026">2026</option>
+				<option value="2027">2027</option>
+				<option value="2028">2028</option>
+				<option value="2029">2029</option>
+				<option value="2030">2030</option>
+				<option value="2031">2031</option>
+				<option value="2032">2032</option>
+				<option value="2033">2033</option>
+				<option value="2034">2034</option>
+				<option value="2035">2035</option>
+				<option value="2036">2036</option>
+				<option value="2037">2037</option>
+				<option value="2038">2038</option>
+			</select>
+		</div>
+
+
+
+
+
+		<button type="button" class="btn cancel"
+			onclick="closeAddForm('#addCreditForm')">Cancel</button>
+		<button onclick="confirmAdd('#addCardFormSubmit', 'address')"
+			type="submit" class="btn">Submit</button>
+	</form>
+</div>
+
+<!--delete credit card popup-->
+<div class="popup-box" id="deleteCreditForm">
+	<p class="question">确定删除信用卡？</p>
+	<input id="" type="hidden" deleteType="card">
+	<button type="submit" class="confirm bttn"
+		onclick="confirmDelete('#deleteCreditForm')">确认</button>
+	<button type="button" class="not-confirm bttn"
+		onclick="closepopup('#deleteCreditForm')">取消</button>
+</div>
+
+
+
+<!--Edit address card-->
+<c:forEach items="${addressList}" var="address" varStatus="status">
+	<div class="form-popup" id="editAddressForm${status.index }">
+		<form id="editAddressFormSubmit${status.index }"
+			class="form-container" onsubmit="return false">
+			<h1>请勿输入P.O. Box</h1>
+
+			<input type="hidden" name="addressId" value="${address.id }">
+			<input type="text" placeholder="First Name:" name="firstName"
+				style="width: 60%" value="${address.firstName }">&emsp; <br>
+			<input type="text" placeholder="Last Name:" name="lastName"
+				style="width: 60%" value="${address.lastName }">&emsp; <br>
+			<input type="text" placeholder="Street:" name="street"
+				style="width: 60%" value="${address.street }">&emsp; <br>
+			<input type="text" placeholder="City:" name="city" style="width: 30%"
+				value="${address.city }">&emsp; <br> <input type="text"
+				placeholder="State: e.g. NJ" name="state" style="width: 20%"
+				value="${address.state }">&emsp; <br> <input
+				type="text" placeholder="Zip Code:" name="zipcode"
+				style="width: 20%" value="${address.zipcode }">
+			<button type="button" class="btn cancel"
+				onclick="closeAddForm('#editAddressForm${status.index }')">Cancel</button>
+			<button
+				onclick="confirmUpdate('#editAddressFormSubmit${status.index }', 'address')"
+				type="submit" class="btn">Submit</button>
+		</form>
+	</div>
+</c:forEach>
+
+
+<!--Add address card-->
+<div class="addForm" id="addAddressForm">
+	<form id="addAddressFormSubmit" class="form-container"
+		onsubmit="return false">
+		<h1>请勿输入P.O. Box</h1>
+
+		<input type="text" placeholder="First Name:" name="firstName"
+			style="width: 60%">&emsp; <br> <input type="text"
+			placeholder="Last Name:" name="lastName" style="width: 60%">&emsp;
+		<br> <input type="text" placeholder="Street:" name="street"
+			style="width: 60%">&emsp; <br> <input type="text"
+			placeholder="City:" name="city" required style="width: 30%">&emsp;
+		<br> <input type="text" placeholder="State: e.g. NJ" name="state"
+			required style="width: 20%">&emsp; <br> <input
+			type="text" placeholder="Zip Code:" name="zipcode" required
+			style="width: 20%">
+		<p id="user_address_method" class="error_message"></p>
+		<button type="button" class="btn cancel"
+			onclick="closeAddForm('#addAddressForm')">Cancel</button>
+		<button type="submit"
+			onclick="confirmAdd('#addAddressFormSubmit', 'address')" class="btn">Submit</button>
+	</form>
+</div>
+
+<!--Cancel button click popup-->
+<div class="popup-box" id="deleteAddressForm">
+	<p class="question">确定删除此地址？</p>
+	<input id="" type="hidden" deleteType="address">
+	<button type="submit" class="confirm bttn"
+		onclick="confirmDelete('#deleteAddressForm')">确认</button>
+	<button type="button" class="not-confirm bttn"
+		onclick="closepopup('#deleteAddressForm')">取消</button>
+</div>

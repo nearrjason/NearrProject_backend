@@ -7,21 +7,11 @@
 		<list key="name">
 		</list>
 		<list key="artifactId">
-			<item value="meitao-order-web"/>
+			<item value="meitao-user-web"/>
 			<item value="meitao-parent"/>
-			<item value="meitao-order-service"/>
-			<item value="meitao-order"/>
-			<item value="meitao-order-interface"/>
-			<item value="meitao-cart-web"/>
-			<item value="meitao-cart-interface"/>
-			<item value="meitao-cart"/>
-			<item value="meitao-cart-service"/>
-			<item value="meitao-sso-web"/>
-			<item value="meitao-sso-service"/>
-			<item value="meitao-sso"/>
-			<item value="meitao-sso-interface"/>
-			<item value="meitao-item-web"/>
-			<item value="meitao-search-web"/>
+			<item value="meitao-user-service"/>
+			<item value="meitao-user"/>
+			<item value="meitao-user-interface"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -59,6 +49,8 @@
 	</section>
 	<section name="MavenModuleWizardParentPage">
 		<list key="moduleName">
+			<item value="meitao-user-service"/>
+			<item value="meitao-user-interface"/>
 			<item value="meitao-order-service"/>
 			<item value="meitao-order-interface"/>
 			<item value="meitao-cart-interface"/>
@@ -72,7 +64,6 @@
 			<item value="meitao-manager-pojo"/>
 			<item value="meitao-manager-dao"/>
 			<item value="meitao-manager-service"/>
-			<item value="meitao-manager-interface"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -85,6 +76,9 @@
 	</section>
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="D:\meiTaoMart\meitao-user"/>
+			<item value="D:\meiTaoMart\meitao-common"/>
+			<item value="D:\meiTaoMart\meitao-order\pom.xml"/>
 			<item value="D:\meiTaoMart\meitao-parent"/>
 			<item value="D:\meiTaoMart\meitao-sso"/>
 			<item value="D:\meiTaoMart\meitao-content\meitao-content-interface"/>

@@ -50,6 +50,8 @@ public class ItemInfoBuilder {
 	private Byte discount;
 
 	private String itemDesc;
+	
+	private String descImages;
 
 	public ItemInfoBuilder setId(Long id) {
 		this.id = id;
@@ -145,6 +147,11 @@ public class ItemInfoBuilder {
 		this.itemDesc = itemDesc;
 		return this;
 	}
+	
+	public ItemInfoBuilder setDescImages(String descImages) {
+		this.descImages = descImages;
+		return this;
+	}
 
 	public ItemInfo build() {
 		ItemInfo itemInfo = new ItemInfo();
@@ -168,6 +175,7 @@ public class ItemInfoBuilder {
 		itemInfo.setSalePrice(this.salePrice);
 		itemInfo.setDiscount(this.discount);
 		itemInfo.setItemDesc(this.itemDesc);
+		itemInfo.setDescImages(this.descImages);
 
 		return itemInfo;
 	}

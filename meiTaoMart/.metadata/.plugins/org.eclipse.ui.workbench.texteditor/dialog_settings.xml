@@ -2,37 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="orderMapper" key="selection"/>
+		<item value=".back" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="orderMapper"/>
-			<item value="orderItemMapper"/>
-			<item value="827"/>
-			<item value="运费小计"/>
-			<item value="totalPrice"/>
-			<item value="void"/>
-			<item value="insert"/>
-			<item value="update"/>
+			<item value=".back"/>
+			<item value="zip-fill"/>
+			<item value="city-state"/>
+			<item value="card-bran"/>
+			<item value="info-d"/>
+			<item value="card-de"/>
+			<item value="默认地址"/>
+			<item value="zip"/>
 		</list>
 		<list key="replacehistory">
-			<item value="OrderInfoBuilder"/>
-			<item value="name"/>
-			<item value="salePrice"/>
-			<item value="purchaseQuantity"/>
-			<item value="cartItem."/>
-			<item value="cartItemList"/>
-			<item value="oneImage"/>
-			<item value="CartItemBuilder"/>
+			<item value=""/>
+			<item value="optimizedItem"/>
+			<item value="/images_meitao"/>
+			<item value="/images_meitao/icons"/>
+			<item value="/js_meitao"/>
+			<item value="/css_meitao"/>
+			<item value="/images_meitao/"/>
+			<item value="/css"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="284" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="391" key="DIALOG_HEIGHT"/>
-		<item value="1063" key="DIALOG_X_ORIGIN"/>
-		<item value="114" key="DIALOG_Y_ORIGIN"/>
+		<item value="1055" key="DIALOG_X_ORIGIN"/>
+		<item value="160" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

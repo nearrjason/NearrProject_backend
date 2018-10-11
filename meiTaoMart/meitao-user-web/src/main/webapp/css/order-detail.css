@@ -1,0 +1,258 @@
+    .rdmain {
+        margin-left: 10%;
+        margin-right: 10%;
+        min-width: 1100px;
+        font-family: STXihei;
+        color: #707070;
+    }
+
+    .rdmain-box {
+        display: flex;
+    }
+
+    .rdmain h1 {
+        font-family: STXihei;
+        font-size: 200%;
+        color: #707070;
+    }
+
+    .rdleft {
+        margin: 2%;
+        margin-left: 2%;
+        /* margin-right: 10%; */
+        flex: 0 0 15%;
+        height: fit-content;;
+    }
+
+    .rdRight{
+        position: relative;
+        margin: 2%;
+        margin-right: 2%;
+        flex: 1;
+        background-color: white;
+        box-shadow: 2px 2px 5px #e0e0e0;
+        
+    }
+
+    .rdRight h2 {
+        font-family: STXihei;
+        color: #707070;
+        margin: 2%;
+        font-size: 16px;
+    }
+
+    .rdRight h2 a {
+        text-decoration: none;
+        color: #707070;
+        font-size: 20px;
+    }
+
+    .rdRight hr {
+        width: 98%;
+        border-color: #fefefe;
+    }
+
+    .rdusername {
+        background-color: white;
+        height: fit-content;
+        padding: 10%;
+        background-color: white;
+        box-shadow: 2px 2px 5px #e0e0e0
+    }
+
+    .rdusername img {
+        display:block;
+        width: 60px;
+        height: 60px;
+        margin: auto;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
+    .rdusername p {
+        text-align: center;
+        font-family: STXihei;
+        color: #707070;
+    }
+
+    .rdlinks {
+        padding-top: 10%;
+        padding-bottom: 10%;
+        background-color: white;
+        margin-top: 10%;
+        background-color: white;
+        box-shadow: 2px 2px 5px #e0e0e0
+    }
+
+    .rdlinks ul {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .rdlinks li{
+        text-decoration: none;
+        list-style: none;
+        padding-top: 10%;
+        padding-bottom: 10%;
+        text-align: left;
+        padding-left: 20%;
+    }
+
+    .rdlinks li:hover {
+        background-color: #fdf6f6;
+    }
+
+    .rdlinks a {
+        text-decoration: none;
+        color: #707070;
+        font-family: STXihei;
+    }
+
+    .rdlinks li.rdselected {
+        background: linear-gradient(to right, #e03c3c 3%, #fce9e9 3%) !important;
+    }
+
+    .rdorder {
+        width: 100%;
+        height: fit-content;
+    }
+
+    .rdorders-info {
+        display: flex;
+        margin: 10%;
+        margin-top: 2%;
+        margin-bottom: 0%;
+    }
+
+    .rdorders-info p {
+        font-size: 12px;
+    }
+
+    .rdtime, .rdorder-number, .rdtotal-p {
+        flex: 2;
+    }
+
+    .rdtracking {
+        flex: 3;
+    }
+
+    .rdorders-info p span {
+        font-size: 16px;
+    }
+
+    .rdorders-info p a {
+        /* text-decoration: none; */
+        color: #707070;
+        font-size: 16px;
+    }
+
+    .rdrecipient-info {
+        display: flex;
+        margin: 10%;
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+
+    .rdseller {
+        flex: 1;
+    }
+
+    .rdshipping-method {
+        flex: 2;
+    }
+
+    .rdaddress {
+        flex: 2;
+    }
+
+    .rdpayment {
+        flex: 2;
+    }
+
+    .rdpayment span {
+        height: fit-content;
+    }
+
+    .rdrecipient-info p {
+        font-size: 12px;
+    }
+
+    .rdrecipient-info p span {
+        font-size: 16px;
+    }
+
+    .rdrecipient-info p span img {
+        height:30px;
+    }
+
+    .rdorder hr {
+        width: 80%;
+    }
+
+
+
+    .rditems {
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 50px;
+    }
+
+    table {
+        width: 100%;
+        height: fit-content;
+        border-collapse: collapse;
+    }
+
+    tr th {
+        background-color: #f2f2f2;
+    }
+
+    tr td {
+        padding: 10px;
+        background-color: white;
+    }
+
+    .rditem.even td {
+        background-color: #f2f2f2;
+    }
+
+    .rdt-header td{
+        border-bottom: #707070 1px solid !important;
+        height: fit-content;
+        background-color: #f2f2f2 !important;
+    }
+
+    .rditem-info {
+        display: flex;
+    }
+
+    .rditem-info img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .rditem-info p {
+        width: 100px;
+        margin-right: 0px;
+        margin-left: 5px;
+        margin-top: 11px;
+        margin-bottom: 11px;
+    }
+
+    .rdunit-price {
+        color: #e03c3c;
+
+    }
+
+    #s-item {
+        border: solid 1px #707070;
+    }
+
+    .rdbutton {
+        width: 10px;
+        height: 10px;
+    }
+
+    .rdtotal {
+        color: #e03c3c;
+    }

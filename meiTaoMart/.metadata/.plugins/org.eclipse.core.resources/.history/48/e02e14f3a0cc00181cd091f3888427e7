@@ -1,0 +1,7 @@
+package com.meitaomart.email.test;
+
+public class TaxTest {
+	public void taxTest() {
+		
+	}
+}

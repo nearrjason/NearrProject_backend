@@ -93,10 +93,25 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+    <if test="limitNumber != null" >
+      limit ${limitNumber}
+    </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
+    from meitao_item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectStockNumberByPrimaryKey" resultType="java.lang.Integer" parameterType="java.lang.Long" >
+    select 
+    stock_number
+    from meitao_item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectItemNameByPrimaryKey" resultType="java.lang.String" parameterType="java.lang.Long" >
+    select 
+    name
     from meitao_item
     where id = #{id,jdbcType=BIGINT}
   </select>

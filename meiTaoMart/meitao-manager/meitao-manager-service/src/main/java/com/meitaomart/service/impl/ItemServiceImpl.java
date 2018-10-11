@@ -12,6 +12,7 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
@@ -67,6 +68,8 @@ public class ItemServiceImpl implements ItemService {
 	private String REDIS_ITEM_DESC_PRE;
 	@Value("${ITEM_CACHE_EXPIRE}")
 	private Integer ITEM_CACHE_EXPIRE;
+	@Value("${OPTIMIZED_CATEGORY_ID}")
+	private Long OPTIMIZED_CATEGORY_ID;
 
 	@Resource
 	private Destination topicDestination;
@@ -78,27 +81,17 @@ public class ItemServiceImpl implements ItemService {
 	public List<ItemInfo> getItemList() {
 		MeitaoItemExample itemExample = new MeitaoItemExample();
 		List<MeitaoItem> itemList = itemMapper.selectByExample(itemExample);
-
-		MeitaoItemPriceExample itemPriceExample = new MeitaoItemPriceExample();
-		List<MeitaoItemPrice> itemPriceList = itemPriceMapper.selectByExample(itemPriceExample);
-
-		MeitaoItemDescExample itemDescExample = new MeitaoItemDescExample();
-		List<MeitaoItemDesc> itemDescList = itemDescMapper.selectByExample(itemDescExample);
-
 		List<ItemInfo> resultList = new ArrayList<>();
 
-		int size = itemList.size();
-		if (size != itemPriceList.size() || size != itemDescList.size()
-				|| itemPriceList.size() != itemDescList.size()) {
-			// Report to kibana in the future
-			System.out.println("商品信息不一致，请检查数据库");
+		for (MeitaoItem item : itemList) {
+			MeitaoItemPrice itemPrice = itemPriceMapper.selectByPrimaryKey(item.getId());
+			MeitaoItemDesc itemDesc = itemDescMapper.selectByPrimaryKey(item.getId());
+			if (itemPrice != null && itemDesc != null) {
+				ItemInfo itemInfo = createItemInfo(item, itemPrice, itemDesc);
+				resultList.add(itemInfo);
+			}
+			
 		}
-
-		for (int i = 0; i < size; i++) {
-			ItemInfo itemInfo = createItemInfo(itemList.get(i), itemPriceList.get(i), itemDescList.get(i));
-			resultList.add(itemInfo);
-		}
-
 		return resultList;
 	}
 
@@ -113,7 +106,7 @@ public class ItemServiceImpl implements ItemService {
 				.setAdminUserId(meitaoItem.getAdminUserId()).setCreatedTime(meitaoItem.getCreatedTime())
 				.setUpdatedTime(meitaoItem.getUpdatedTime()).setCost(meitaoItemPrice.getCost())
 				.setSalePrice(meitaoItemPrice.getSalePrice()).setDiscount(meitaoItemPrice.getDiscount())
-				.setItemDesc(meitaoItemDesc.getItemDesc()).build();
+				.setItemDesc(meitaoItemDesc.getItemDesc()).setDescImages(meitaoItemDesc.getDescImages()).build();
 
 		return itemInfo;
 	}
@@ -260,7 +253,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public MeitaoResult addItem(MeitaoItem item, MeitaoItemPrice itemPrices, String desc) {
+	public MeitaoResult addItem(MeitaoItem item, MeitaoItemPrice itemPrices, String desc, String descImages) {
 		/**
 		 * 商品表插入
 		 */
@@ -292,6 +285,7 @@ public class ItemServiceImpl implements ItemService {
 		// 补全属性
 		itemDesc.setItemId(itemId);
 		itemDesc.setItemDesc(desc);
+		itemDesc.setDescImages(descImages);
 		itemDesc.setCreatedTime(new Date());
 		itemDesc.setUpdatedTime(new Date());
 
@@ -335,6 +329,78 @@ public class ItemServiceImpl implements ItemService {
 		}
 
 		return itemDesc;
+	}
+
+	@Override
+	public List<ItemInfo> getRecentItemList(Integer days) {
+		List<ItemInfo> resultList = new ArrayList<>();
+		// TODO Auto-generated method stub
+		DateTime dateTime = new DateTime();
+		Date daysAgodate = dateTime.minusDays(days).toDate();
+
+		MeitaoItemExample itemExample = new MeitaoItemExample();
+		Criteria itemCriteria = itemExample.createCriteria();
+
+		itemCriteria.andCreatedTimeGreaterThan(daysAgodate).andCategoryIdNotEqualTo(OPTIMIZED_CATEGORY_ID);;
+
+		List<MeitaoItem> itemList = itemMapper.selectByExample(itemExample);
+		if (itemList != null && itemList.size() == 0) {
+			return resultList;
+		}
+
+		for (MeitaoItem item : itemList) {
+			MeitaoItemPrice itemPrice = itemPriceMapper.selectByPrimaryKey(item.getId());
+			MeitaoItemDesc itemDesc = itemDescMapper.selectByPrimaryKey(item.getId());
+			ItemInfo itemInfo = createItemInfo(item, itemPrice, itemDesc);
+			resultList.add(itemInfo);
+		}
+		return resultList;
+	}
+
+	@Override
+	public List<ItemInfo> getItemListByCategoryId(Long categoryId) {
+		List<ItemInfo> resultList = new ArrayList<>();
+
+		MeitaoItemExample itemExample = new MeitaoItemExample();
+		Criteria itemCriteria = itemExample.createCriteria();
+		itemCriteria.andCategoryIdEqualTo(categoryId);
+
+		List<MeitaoItem> itemList = itemMapper.selectByExample(itemExample);
+		if (itemList != null && itemList.size() == 0) {
+			return resultList;
+		}
+
+		for (MeitaoItem item : itemList) {
+			MeitaoItemPrice itemPrice = itemPriceMapper.selectByPrimaryKey(item.getId());
+			MeitaoItemDesc itemDesc = itemDescMapper.selectByPrimaryKey(item.getId());
+			ItemInfo itemInfo = createItemInfo(item, itemPrice, itemDesc);
+			resultList.add(itemInfo);
+		}
+		return resultList;
+	}
+
+	@Override
+	public List<ItemInfo> getItemListByLimitNumber(Integer limitNumber, String column) {
+		List<ItemInfo> resultList = new ArrayList<>();
+
+		MeitaoItemExample itemExample = new MeitaoItemExample();
+		Criteria itemCriteria = itemExample.createCriteria();
+		itemCriteria.andCategoryIdNotEqualTo(OPTIMIZED_CATEGORY_ID);
+		itemExample.setLimitNumber(limitNumber);
+		itemExample.setOrderByClause(column + " DESC");
+
+		List<MeitaoItem> itemList = itemMapper.selectByExample(itemExample);
+		if (itemList != null && itemList.size() == 0) {
+			return resultList;
+		}
+
+		for (MeitaoItem item : itemList) {
+			MeitaoItemPrice itemPrice = itemPriceMapper.selectByPrimaryKey(item.getId());
+			MeitaoItemDesc itemDesc = itemDescMapper.selectByPrimaryKey(item.getId());
+			ItemInfo itemInfo = createItemInfo(item, itemPrice, itemDesc);
+			resultList.add(itemInfo);
+		}
+		return resultList;
 	}
 
 }

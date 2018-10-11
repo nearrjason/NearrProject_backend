@@ -5,3 +5,4 @@ com\meitaomart\controller\ItemController.class
 com\meitaomart\controller\PageController.class
 com\meitaomart\controller\PictureController.class
 com\meitaomart\controller\ContentController.class
+com\meitaomart\controller\OrderController.class

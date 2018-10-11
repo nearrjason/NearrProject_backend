@@ -1,0 +1,33 @@
+package com.meitaomart.common.utils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.stripe.exception.StripeException;
+import com.stripe.model.Token;
+
+public final class PaymentUtils {
+	private static final String STRIPE_API_KEY = "sk_test_b3UJNAQLBEJbQ157oteZKLR6";
+
+	public static boolean addCard(String cardNumber, String month, String year, String cvc) {
+		Stripe.apiKey = s
+		Map<String, Object> cardParam = new HashMap<String, Object>();
+		cardParam.put("number", cardNumber);
+		cardParam.put("exp_month", month);
+		cardParam.put("exp_year", year);
+		cardParam.put("cvc", cvc);
+
+		// create token, otherwise Stripe will unhappy
+		Map<String, Object> tokenParam = new HashMap<String, Object>();
+		tokenParam.put("card", cardParam);
+
+		try {
+			Token token = Token.create(tokenParam);
+		} catch (StripeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+}

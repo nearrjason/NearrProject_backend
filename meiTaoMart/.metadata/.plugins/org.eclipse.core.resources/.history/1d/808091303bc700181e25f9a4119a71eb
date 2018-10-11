@@ -1,0 +1,19 @@
+package com.meitaomart.service;
+
+import java.util.List;
+
+import com.meitaomart.common.pojo.EasyUIDataGridResult;
+import com.meitaomart.common.pojo.ItemInfo;
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.pojo.MeitaoItem;
+import com.meitaomart.pojo.MeitaoItemDesc;
+import com.meitaomart.pojo.MeitaoItemPrice;
+
+public interface ItemService {
+	List<ItemInfo> getItemList();
+	EasyUIDataGridResult getItemList(int page, int rows);
+	MeitaoResult deleteItems(String ids);	
+	ItemInfo getItemById(long itemId);
+	MeitaoResult addItem(MeitaoItem item, MeitaoItemPrice itemPrices, String desc);
+	MeitaoItemDesc getItemDescById(long itemId);
+}

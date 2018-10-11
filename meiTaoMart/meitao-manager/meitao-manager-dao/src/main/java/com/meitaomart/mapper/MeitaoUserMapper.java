@@ -27,4 +27,8 @@ public interface MeitaoUserMapper {
     int updateByPrimaryKeySelective(MeitaoUser record);
 
     int updateByPrimaryKey(MeitaoUser record);
+    
+    int updateSexByPrimaryKey(@Param("sex") Boolean sex, @Param("id") Long userId);
+    
+    int updatePasswordByPrimaryKey(@Param("password") String password, @Param("id") Long userId);
 }

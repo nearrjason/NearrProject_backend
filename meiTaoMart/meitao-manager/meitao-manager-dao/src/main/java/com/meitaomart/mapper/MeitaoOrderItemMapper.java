@@ -10,7 +10,7 @@ public interface MeitaoOrderItemMapper {
 
     int deleteByExample(MeitaoOrderItemExample example);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(MeitaoOrderItem record);
 
@@ -18,7 +18,7 @@ public interface MeitaoOrderItemMapper {
 
     List<MeitaoOrderItem> selectByExample(MeitaoOrderItemExample example);
 
-    MeitaoOrderItem selectByPrimaryKey(String id);
+    MeitaoOrderItem selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") MeitaoOrderItem record, @Param("example") MeitaoOrderItemExample example);
 

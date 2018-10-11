@@ -1,0 +1,55 @@
+package com.meitaomart.search.interceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.meitaomart.cart.service.CartService;
+import com.meitaomart.common.utils.CookieUtils;
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.sso.service.TokenService;
+
+public class LoginInterceptor implements HandlerInterceptor{
+	@Autowired
+	private TokenService tokenService;
+	@Autowired
+	private CartService  cartService;
+	
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		String token = CookieUtils.getCookieValue(request, "token");
+		if (StringUtils.isBlank(token)) {
+			return true;
+		}
+		
+		MeitaoResult meitaoResult = tokenService.getUserByToken(token);
+		if (meitaoResult.getStatus() != 200) {
+			return true;
+		}
+		
+		MeitaoUser user = (MeitaoUser) meitaoResult.getData();
+		request.setAttribute("user", user);
+		return true;
+	}
+
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

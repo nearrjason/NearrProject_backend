@@ -1,3 +1,4 @@
+com\meitaomart\sso\service\ForgetPasswordService.class
 com\meitaomart\sso\service\LoginService.class
 com\meitaomart\sso\service\TokenService.class
 com\meitaomart\sso\service\RegisterService.class

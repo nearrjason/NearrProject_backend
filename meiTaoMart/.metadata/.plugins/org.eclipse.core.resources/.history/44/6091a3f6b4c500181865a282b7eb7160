@@ -1,0 +1,12 @@
+package com.meitaomart.email.test;
+
+import org.junit.Test;
+
+import com.meitaomart.common.utils.PaymentUtils;
+
+public class PaymentTest {
+	@Test
+	public void paymentTest() {
+		PaymentUtils.addCard("5262261057699308", "11", "2018", "");
+	}
+}

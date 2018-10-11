@@ -1,0 +1,116 @@
+$(function() {
+	$('#addrLink').on('click', goToAddr);
+	$('#creditLink').on('click', goToPayment);
+	$('#accLink').on('click', goToAcc);
+	$('#orderLink').on('click', goToOrders);
+	var showType = $("#showType").val();
+	console.log(showType)
+	switch (showType) {
+	case "order":
+		showOrders();
+		break;
+	case "account":
+		showAccount();
+		break;
+	case "address":
+		showAddress();
+		break;
+	case "card":
+		showCards();
+	}
+	
+	/*$(".address tr:odd").addClass("address-detail");
+	$(".address tr:even").addClass("address-detail even");*/
+});
+
+function showOrders() {
+	if (!$('#orderLink').hasClass('selected')) {
+		$('.links li').removeClass('selected');
+		$('#orderLink').addClass('selected');
+		$('.right').fadeOut(1);
+		$('#orderDetailBox').fadeOut(1);
+		$('#ordersBox').fadeIn(300);
+		$('#orderLink').off('click');
+		$('#addrLink').off('click').on('click', goToAddr);
+		$('#creditLink').off('click').on('click', goToPayment);
+		$('#accLink').off('click').on('click', goToAcc);
+	}
+}
+
+function goToOrders() {
+	location.href = "/user/profile/orders";
+	showOrders();
+}
+
+function showAddress() {
+	if (!$('#addrLink').hasClass('selected')) {
+		$('.links li').removeClass('selected');
+		$('#addrLink').addClass('selected');
+		$('.right').fadeOut(1);
+		$('#orderDetailBox').fadeOut(1);
+		$('#addressBox').fadeIn(300);
+		$('#addrLink').off('click');
+		$('#orderLink').off('click').on('click', goToOrders);
+		$('#creditLink').off('click').on('click', goToPayment);
+		$('#accLink').off('click').on('click', goToAcc);
+	}
+}
+
+function goToAddr() {
+	location.href = "/user/profile/addresses";
+	showAddress();
+}
+
+function showCards() {
+	if (!$('#creditLink').hasClass('selected')) {
+		$('.links li').removeClass('selected');
+		$('#creditLink').addClass('selected');
+		$('.right').fadeOut(1);
+		$('#orderDetailBox').fadeOut(1);
+		$('#paymentBox').fadeIn(300);
+		$('#creditLink').off('click');
+		$('#addrLink').off('click').on('click', goToAddr);
+		$('#orderLink').off('click').on('click', goToOrders);
+		$('#accLink').off('click').on('click', goToAcc);
+	}
+}
+
+function goToPayment() {
+	location.href = "/user/profile/cards";
+	showCards();
+}
+
+function showAccount() {
+	if (!$('#accLink').hasClass('selected')) {
+		$('.links li').removeClass('selected');
+		$('#accLink').addClass('selected');
+		$('.right').fadeOut(1);
+		$('#orderDetailBox').fadeOut(1);
+		$('#accountBox').fadeIn(300);
+		$('#accLink').off('click');
+		$('#addrLink').off('click').on('click', goToAddr);
+		$('#creditLink').off('click').on('click', goToPayment);
+		$('#orderLink').off('click').on('click', goToOrders);
+	}
+}
+
+function goToAcc() {
+	location.href = "/user/profile/account";
+	showAccount();
+}
+
+function setAsDefault(id, type) {
+	$.post(
+		"/user/profile/set_as_default"
+	)
+}
+
+$('.order-detail').on('click', function() {
+	$('.right').fadeOut(1);
+	$('#orderDetailBox').fadeIn(300);
+});
+
+$('#allOrders').on('click', function() {
+	$('#orderDetailBox').fadeOut(1);
+	$('.orders-info').fadeIn(300);
+});

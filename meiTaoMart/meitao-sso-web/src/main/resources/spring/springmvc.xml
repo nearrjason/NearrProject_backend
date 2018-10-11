@@ -28,4 +28,6 @@
 	<dubbo:reference interface="com.meitaomart.sso.service.RegisterService" id="registerService" />
 	<dubbo:reference interface="com.meitaomart.sso.service.LoginService" id="loginService" />
 	<dubbo:reference interface="com.meitaomart.sso.service.TokenService" id="tokenService" />
+	<dubbo:reference interface="com.meitaomart.user.service.UserService" id="userService" />
+	<dubbo:reference interface="com.meitaomart.sso.service.ForgetPasswordService" id="forgetPasswordService"/>
 </beans>

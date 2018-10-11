@@ -1,0 +1,8 @@
+package com.meitaomart.email.test;
+
+public class PaymentTest {
+	@Test
+	public void paymentTest() {
+		
+	}
+}

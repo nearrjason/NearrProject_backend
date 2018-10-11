@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,16 +45,24 @@ public class CartController {
 	private CartService cartService;
 	
 	@RequestMapping("/cart/add/{itemId}")
-	public String addCart(@PathVariable Long itemId, @RequestParam(defaultValue = "1") Integer purchaseQuantity,
-			HttpServletRequest request, HttpServletResponse response) {
+	@ResponseBody
+	public Object addCart(@PathVariable Long itemId, @RequestParam(defaultValue = "1") Integer purchaseQuantity,
+			String callback, HttpServletRequest request, HttpServletResponse response) {
 		// 判断用户是否登录
 		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
+		MeitaoResult result = MeitaoResult.ok();
 		// 如果是登录状态，把购物车写入redis
 		if (user != null) {
 			// 保存到服务端
 			cartService.addCart(user.getId(), itemId, purchaseQuantity);
+			if (StringUtils.isNotBlank(callback)) {
+				//把结果封装成一个js语句响应
+				MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(result);
+				mappingJacksonValue.setJsonpFunction(callback);
+				return mappingJacksonValue;
+			}
 			// 返回逻辑视图
-			return "cartSuccess";
+			return result;
 		}
 		// 如果未登录使用cookie
 		// 从cookie中取购物车列表
@@ -82,7 +91,13 @@ public class CartController {
 		// 写入cookie
 		CookieUtils.setCookie(request, response, "cart", JsonUtils.objectToJson(cartItemList), COOKIE_CART_EXPIRE, true);
 		// 返回添加成功页面
-		return "cartSuccess";
+		if (StringUtils.isNotBlank(callback)) {
+			//把结果封装成一个js语句响应
+			MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(result);
+			mappingJacksonValue.setJsonpFunction(callback);
+			return mappingJacksonValue;
+		}
+		return result;
 	}
 
 	/**
@@ -134,7 +149,7 @@ public class CartController {
 			// 把cookie中的购物车删除
 			CookieUtils.deleteCookie(request, response, "cart");
 			// 从服务端取购物车列表
-			cartItemList = cartService.getCartList(user.getId());
+			cartItemList = cartService.getCartList(user.getId(), false);
 
 		}
 		// 把列表传递给页面

@@ -7,7 +7,7 @@ import java.util.Random;
  * 
  */
 public class IDUtils {
-
+	private static String str="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	/**
 	 * 图片名生成
 	 */
@@ -40,8 +40,18 @@ public class IDUtils {
 		return id;
 	}
 	
+	public static String genPasswordCode() {
+		Random random = new Random();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < 100; i++) {
+			int index = random.nextInt(62);
+			sb.append(str.charAt(index));
+		}
+		
+		return sb.toString();
+	}
+	
 	public static void main(String[] args) {
-		for(int i=0;i< 100;i++)
-		System.out.println(genItemId());
+		System.out.println(genPasswordCode());
 	}
 }

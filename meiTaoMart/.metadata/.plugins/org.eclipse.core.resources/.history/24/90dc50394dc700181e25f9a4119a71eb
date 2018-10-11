@@ -1,0 +1,43 @@
+var maxAmount = 20;
+
+$(function(){
+	// 查看是否已经登录，如果已经登录查询登录信息
+	MEITAOMART.checkLogin();
+});
+
+function descClick() {
+    $('.description').addClass('selected');
+    $('.description').off("click");
+    $('.content-info').removeClass('selected');
+    $('.content-info').on('click',contentClick);
+    $('.i-d').fadeIn(1);
+    $('.i-c').fadeOut(1);
+}
+
+function contentClick() {
+    $('.content-info').addClass('selected');
+    $('.content-info').off("click");
+    $('.description').removeClass('selected');
+    $('.description').on('click',descClick);
+    $('.i-c').fadeIn(1);
+    $('.i-d').fadeOut(1);
+}
+
+function minusItem() {
+    var c = parseInt($('#count').val());
+    if (c > 1) {
+        $('#count').val(c-1);
+    }
+}
+
+function addItem() {
+    var c = parseInt($('#count').val());
+    if (c < maxAmount) {
+        $('#count').val(c+1);
+    }
+}
+
+$('.small-pic a').on('click',function() {
+    var image = $(this).html();
+    $('.focus-pic').html(image);
+})

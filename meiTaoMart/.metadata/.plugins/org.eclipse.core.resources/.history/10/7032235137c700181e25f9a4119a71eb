@@ -1,0 +1,105 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<div class="main">
+	<div class="item">
+		<div class="item-pics">
+			<div class="focus-pic">
+				<img src="${item.oneImage}" alt="">
+				<!-- <a href=""><img src="../../icons/back.svg" alt=""></a>
+                    <a href=""><img src="../../icons/next.svg" alt=""></a> -->
+			</div>
+
+			<div class="small-pic">
+				<c:forEach items="${item.imageList }" var="image">
+					<a><img src="${image}" alt=""></a>
+				</c:forEach>
+			</div>
+		</div>
+
+		<div class="item-info">
+			<h2 class="i-name">${item.name }</h2>
+			<p class="i-from">
+				由 <span>美桃网/span> 销售和配送
+			</p>
+			<div class="i-numbers">
+				<div class="price">
+					<p class="og-price">
+						价格：<span>
+							$<fmt:formatNumber value="${item.salePrice / 100}" maxFractionDigits="2" minFractionDigits="2" />
+						</span>
+					</p>
+					<div class="total-sale">
+						<p>累计销量: 1024</p>
+					</div>
+					<p class="disc-price">
+						<c:if test="${status.index==0 }">cur</c:if>
+						$<fmt:formatNumber value="${item.salePrice * item.discount / 10000}" maxFractionDigits="2" minFractionDigits="2" />
+					$1.99/已售完 ${discount price}
+					</p>
+				</div>
+				<div class="area-code">
+					<p>
+						配送至：
+						<button type="button" class="area-selection" onclick="popup()">${user zip code}</button>
+					</p>
+				</div>
+			</div>
+			<p class="content">
+				净含量：<span class="weight">${item content}</span>g
+			</p>
+			<div class="i-count">
+				<span> 数量：
+					<button type="button" class="less">
+						<img src="../../icons/minus-symbol.svg" alt=""
+							onclick="minusItem()">
+					</button> <input type="text" name="" id="count" value="1">
+					<button type="button" class="more">
+						<img src="../../icons/plus-symbol.svg" alt="" onclick="addItem()">
+					</button>
+					<p>
+						每人限购<span>${item limit sell}</span>
+					</p>
+				</span>
+			</div>
+			<div class="i-op">
+				<button type="submit" class="add-cart">加入购物车</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="item-desc">
+		<ul>
+			<li class="description selected">商品介绍</li>
+			<li class="content-info" onclick="contentClick()">规格包装</li>
+		</ul>
+		<div class="i-d">
+			<c:forEach items="${itemList }" var="item">
+				<a><img src="${item desc 1}" alt=""></a>
+				<a><img src="${item desc 2}" alt=""></a>
+				<a><img src="${item desc 3}" alt=""></a>
+				<a><img src="${item desc 4}" alt=""></a>
+			</c:forEach>
+		</div>
+		<div class="i-c">
+			规格包装<br> 各种数据<br>
+			<c:forEach items="${itemList }" var="item">
+				<a><img src="${item content 1}" alt=""></a>
+				<a><img src="${item content 2}" alt=""></a>
+				<a><img src="${item content 3}" alt=""></a>
+				<a><img src="${item content 4}" alt=""></a>
+			</c:forEach>
+		</div>
+	</div>
+</div>
+<!--Main ends here-->
+
+<!--Cancel button click popup-->
+<div class="popup-box" id="popup">
+	<p class="question">请输入配送地区邮编</p>
+	<input type="text" name="zip" id="zip" maxlength="5">
+	<button type="text" class="confirm bttn" onclick="confirmZip()">确认</button>
+</div>

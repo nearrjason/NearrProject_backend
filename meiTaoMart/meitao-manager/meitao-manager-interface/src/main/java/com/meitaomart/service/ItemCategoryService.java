@@ -15,4 +15,6 @@ public interface ItemCategoryService {
 	
 	List<MeitaoItemCategory> getItemCategoryList(long parentId);
 	List<ItemCategoryList> getItemCategoryListWithChildrenList(long parentId);
+	
+	Long getParentCategoryId(Long categoryId);
 }

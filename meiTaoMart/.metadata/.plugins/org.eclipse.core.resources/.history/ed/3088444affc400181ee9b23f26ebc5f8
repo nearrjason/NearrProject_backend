@@ -1,0 +1,13 @@
+package com.meitaomart.order.pojo;
+
+import java.io.Serializable;
+
+import com.meitaomart.pojo.MeitaoAddress;
+import com.meitaomart.pojo.MeitaoBankingCard;
+
+public class FinalCheckoutMap implements Serializable{
+	private String shippingAddress;
+	private String card;
+	
+	
+}

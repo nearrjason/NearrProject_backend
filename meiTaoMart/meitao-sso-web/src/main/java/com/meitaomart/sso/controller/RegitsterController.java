@@ -1,5 +1,11 @@
 package com.meitaomart.sso.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +28,9 @@ public class RegitsterController {
 	private RegisterService registerService;
 
 	@RequestMapping("/page/register")
-	public String showRegister() {
-		return "register";
+	public String showRegister(HttpServletRequest request) {
+		request.setAttribute("type", "register");
+		return "login-register";
 	}
 	
 	@RequestMapping("/user/check/{param}/{type}")

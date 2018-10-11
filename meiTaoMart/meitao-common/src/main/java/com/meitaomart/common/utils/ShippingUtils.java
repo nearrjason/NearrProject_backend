@@ -1,11 +1,19 @@
 package com.meitaomart.common.utils;
 
-import java.util.Random;
-
 public final class ShippingUtils {
-	public static Long getShippingFee() {
-		Random random = new Random();
-		long shippingFee = random.nextInt(2000) + 1;
-		return shippingFee;
+	private static final long GROUND_SHIPPING = 599L;
+	private static final long EXPRESS_SHIPPING = 1999L;
+	private static final long FREE_SHIPPING_TRESHOLD = 4900L;
+	
+	public static Long getShippingFee(long subtotal, boolean isExpress) {
+		if (isExpress) {
+			return EXPRESS_SHIPPING;
+		}
+		
+		return subtotal >= FREE_SHIPPING_TRESHOLD ? 0L : GROUND_SHIPPING;
+	}
+	
+	public static Long getShippingFee(long subtotal) {
+		return getShippingFee(subtotal, false);
 	}
 }

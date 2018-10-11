@@ -1,0 +1,14 @@
+function addToCart(product_id) {
+	var purchaseQuantity = $("#number_" + product_id).val();
+	$.ajax({
+		url : "http://192.168.1.100:8090/cart/add/"+product_id+".action?purchaseQuantity=" + purchaseQuantity,
+		dataType : "jsonp",
+		jsonp: "callback",
+		type : "GET",
+		success : function(response){
+			if (response.status == 200) {
+				alert("添加购物车成功！");
+			}
+		}
+	});
+}

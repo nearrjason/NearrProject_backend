@@ -1,0 +1,22 @@
+.orderDetailBox, #accountBox, #addressBox, #paymentBox, #ordersBox {
+    display: none;
+}
+
+.links li {
+    cursor: pointer;
+}
+
+body {
+	background-color:#f2f2f2;
+}
+
+.selected {
+	cursor: auto;
+}
+.error_message {
+    font-size: 12px;
+    display: none;
+    color: #e03c3c;
+    margin: 5px;
+    margin-left: 10%;
+}

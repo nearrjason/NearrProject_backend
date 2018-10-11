@@ -1,0 +1,7 @@
+package com.meitaomart.order.pojo;
+
+import java.io.Serializable;
+
+public class FinalCheckoutMap implements Serializable{
+
+}

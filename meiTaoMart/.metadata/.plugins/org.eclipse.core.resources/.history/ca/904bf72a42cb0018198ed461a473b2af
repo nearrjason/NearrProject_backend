@@ -1,0 +1,2 @@
+#每页返回的商品数
+SEARCH_RESULT_ROWS=18

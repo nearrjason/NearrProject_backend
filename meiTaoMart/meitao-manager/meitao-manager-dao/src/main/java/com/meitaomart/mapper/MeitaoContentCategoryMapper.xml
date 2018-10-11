@@ -102,6 +102,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  <!-- self -->
   <insert id="insert" parameterType="com.meitaomart.pojo.MeitaoContentCategory" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into meitao_content_category (id, parent_id, name, 
       status, sort_order, is_parent, 

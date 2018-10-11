@@ -37,10 +37,12 @@
 		id="itemService" />
 	<dubbo:reference interface="com.meitaomart.service.ItemCategoryService"
 		id="itemCategoryService" />
-	<dubbo:reference interface="com.meitaomart.content.service.ContentCategoryService"
-		id="contentCategoryService" />
+	<dubbo:reference
+		interface="com.meitaomart.content.service.ContentCategoryService" id="contentCategoryService" />
 	<dubbo:reference interface="com.meitaomart.content.service.ContentService"
 		id="contentService" />
 	<dubbo:reference interface="com.meitaomart.search.service.SearchItemService"
 		id="searchItemService" />
+	<dubbo:reference interface="com.meitaomart.order.service.OrderService"
+		id="orderService" />
 </beans>

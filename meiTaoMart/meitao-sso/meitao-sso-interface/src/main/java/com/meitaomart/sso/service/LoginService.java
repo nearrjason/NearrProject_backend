@@ -15,5 +15,5 @@ public interface LoginService {
 	 * 6、把token返回
 	 */
 	//返回值：MeitaoResult，其中包含token信息
-	MeitaoResult userLogin(String username, String password);
+	MeitaoResult userLogin(String usernameOrEmail, String password);
 }

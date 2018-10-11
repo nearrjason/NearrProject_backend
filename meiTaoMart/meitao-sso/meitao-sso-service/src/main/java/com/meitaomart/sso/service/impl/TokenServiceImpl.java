@@ -39,4 +39,11 @@ public class TokenServiceImpl implements TokenService {
 		return MeitaoResult.ok(user);
 	}
 
+	@Override
+	public MeitaoResult updateUserByToken(String token, MeitaoUser user) {
+		user.setPassword(null);
+		jedisClient.set("SESSION:" + token, JsonUtils.objectToJson(user));
+		return MeitaoResult.ok();
+	}
+
 }
