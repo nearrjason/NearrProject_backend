@@ -1,0 +1,7 @@
+192.168.1.8 - - [12/Oct/2018:16:03:24 -0400] "GET /css/footer.css HTTP/1.1" 200 1094 http-bio-8086-exec-3 145
+192.168.1.8 - - [12/Oct/2018:16:03:24 -0400] "GET /css/item.css HTTP/1.1" 200 3688 http-bio-8086-exec-5 144
+192.168.1.8 - - [12/Oct/2018:16:03:24 -0400] "GET /css/topbar.css HTTP/1.1" 200 963 http-bio-8086-exec-1 145
+192.168.1.8 - - [12/Oct/2018:16:03:24 -0400] "GET /css/popup.css HTTP/1.1" 200 1780 http-bio-8086-exec-6 145
+192.168.1.8 - - [12/Oct/2018:16:03:24 -0400] "GET /css/cart-popup.css HTTP/1.1" 200 1345 http-bio-8086-exec-4 145
+192.168.1.8 - - [12/Oct/2018:16:03:24 -0400] "GET /css/header.css HTTP/1.1" 200 2356 http-bio-8086-exec-2 145
+192.168.1.8 - - [12/Oct/2018:16:03:24 -0400] "GET /css/loading.css HTTP/1.1" 200 1518 http-bio-8086-exec-11 22

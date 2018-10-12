@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.io.InputStream"/>
-<fullyQualifiedTypeName name="java.io.BufferedInputStream"/>
-<fullyQualifiedTypeName name="com.meitaomart.common.utils.IDUtils"/>
-<fullyQualifiedTypeName name="com.meitaomart.sso.service.ForgetPasswordService"/>
-<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
-<fullyQualifiedTypeName name="com.meitaomart.mapper.MeitaoAddressMapper"/>
-<fullyQualifiedTypeName name="com.meitaomart.pojo.MeitaoAddressExample"/>
-<fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
-<fullyQualifiedTypeName name="com.meitaomart.pojo.MeitaoOrderItemExample"/>
 <fullyQualifiedTypeName name="com.meitaomart.order.service.OrderService"/>
 <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
@@ -51,13 +42,22 @@
 <fullyQualifiedTypeName name="com.meitaomart.common.utils.EmailUtils"/>
 <fullyQualifiedTypeName name="com.stripe.model.Customer"/>
 <fullyQualifiedTypeName name="com.stripe.model.Charge"/>
-<fullyQualifiedTypeName name="java.util.Map"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="com.taxjar.model.taxes.TaxResponse"/>
-<fullyQualifiedTypeName name="com.taxjar.exception.TaxjarException"/>
-<fullyQualifiedTypeName name="org.junit.Test"/>
 <fullyQualifiedTypeName name="com.meitaomart.common.utils.ErrorMessageUtils"/>
 <fullyQualifiedTypeName name="com.meitaomart.common.utils.TaxUtils"/>
+<fullyQualifiedTypeName name="org.junit.Test"/>
+<fullyQualifiedTypeName name="com.shippo.Shippo"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="com.meitaomart.common.pojo.ShippingInfo"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.shippo.model.Shipment"/>
+<fullyQualifiedTypeName name="com.shippo.model.Rate"/>
+<fullyQualifiedTypeName name="java.text.DecimalFormat"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="com.shippo.model.Transaction"/>
+<fullyQualifiedTypeName name="com.meitaomart.common.builder.ShippingInfoBuilder"/>
+<fullyQualifiedTypeName name="com.meitaomart.pojo.MeitaoItem"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.taxjar.model.taxes.TaxResponse"/>
+<fullyQualifiedTypeName name="com.taxjar.exception.TaxjarException"/>
 </qualifiedTypeNameHistroy>

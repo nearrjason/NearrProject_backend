@@ -1,0 +1,5 @@
+package com.meitaomart.common.pojo;
+
+public class ShippingInfo {
+
+}

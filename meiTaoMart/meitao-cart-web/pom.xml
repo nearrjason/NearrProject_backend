@@ -13,12 +13,17 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.meitaomart</groupId>
-			<artifactId>meitao-cart-interface</artifactId>
+			<artifactId>meitao-manager-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.meitaomart</groupId>
-			<artifactId>meitao-manager-interface</artifactId>
+			<artifactId>meitao-content-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.meitaomart</groupId>
+			<artifactId>meitao-search-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -26,6 +31,22 @@
 			<artifactId>meitao-sso-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.meitaomart</groupId>
+			<artifactId>meitao-cart-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.meitaomart</groupId>
+			<artifactId>meitao-order-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.meitaomart</groupId>
+			<artifactId>meitao-user-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>

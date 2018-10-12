@@ -28,7 +28,16 @@
 				value="${ totalQuantity + cartItem.purchaseQuantity}" />
 			</c:forEach>
 			<a href="http://192.168.1.100:8090/cart/cart.html"><img
-				src="/images/icons/shopping-cart.svg" alt="">购物车&nbsp; <span>${totalQuantity}</span></a>
+				src="/images/icons/shopping-cart.svg" alt="">购物车&nbsp; 
+				<span>
+					<c:if test="${fn:length(cartItemList) > 0}">
+						${totalQuantity}
+					</c:if>
+					<c:if test="${fn:length(cartItemList) == 0}">
+						0
+					</c:if>
+				</span>
+			</a>
 			<!--shopping cart popup-->
 			<c:if test="${fn:length(cartItemList) > 0}">
 				<div class="cart-popup" id="cart-popup">

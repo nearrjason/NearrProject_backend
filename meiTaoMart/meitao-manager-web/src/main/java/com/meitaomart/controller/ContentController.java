@@ -36,7 +36,6 @@ public class ContentController {
 	@RequestMapping(value="/content/delete", method=RequestMethod.POST)
 	@ResponseBody
 	public MeitaoResult deleteContent(String ids) {
-		// 調用服務把內容數據保存到數據庫
 		MeitaoResult meitaoResult = contentService.deleteContents(ids);
 		return meitaoResult;
 	}
@@ -44,7 +43,6 @@ public class ContentController {
 	@RequestMapping(value="/content/query/list", method=RequestMethod.GET)
 	@ResponseBody
 	public EasyUIDataGridResult getContentList(Long categoryId, Integer page, Integer rows) {
-		// 調用服務把內容數據保存到數據庫
 		EasyUIDataGridResult result = contentService.getContentList(categoryId, page, rows);
 		return result;
 	}

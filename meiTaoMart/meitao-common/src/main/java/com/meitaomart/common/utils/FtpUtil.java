@@ -17,7 +17,6 @@ import org.apache.commons.net.ftp.FTPReply;
  * ftp上传下载工具类
  */
 public class FtpUtil {
-
 	/** 
 	 * Description: 向FTP服务器上传文件 
 	 * @param host FTP服务器hostname 

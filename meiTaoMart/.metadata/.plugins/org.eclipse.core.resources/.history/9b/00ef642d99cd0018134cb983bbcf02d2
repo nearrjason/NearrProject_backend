@@ -1,0 +1,10 @@
+package com.meitaomart.email.test;
+
+import org.junit.Test;
+
+public class UpsTest {
+	@Test
+	public void testUps() {
+		
+	}
+}

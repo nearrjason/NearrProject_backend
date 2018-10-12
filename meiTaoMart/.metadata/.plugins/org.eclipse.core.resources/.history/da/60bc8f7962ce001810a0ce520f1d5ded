@@ -1,0 +1,60 @@
+package com.meitaomart.app.cart;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.meitaomart.cart.service.CartService;
+import com.meitaomart.common.pojo.CartItem;
+import com.meitaomart.common.utils.CookieUtils;
+import com.meitaomart.common.utils.JsonUtils;
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.service.ItemService;
+
+public class UpdateCart {
+	@Value("${COOKIE_CART_EXPIRE}")
+    private Integer COOKIE_CART_EXPIRE;
+
+    @Autowired
+    private ItemService itemService;
+    @Autowired
+    private CartService cartService;
+
+
+    /**
+     * ResponseBody
+     */
+    @RequestMapping("/cart/update/purchaseQuantity/{itemId}/{purchaseQuantity}")
+    @ResponseBody
+    public MeitaoResult updateCartPurchaseQuantity(@PathVariable Long itemId, @PathVariable Integer purchaseQuantity, HttpServletRequest request,
+                                                   HttpServletResponse response) {
+        // 判断用户是否为登录状态
+        MeitaoUser user = (MeitaoUser) request.getAttribute("user");
+        if (user != null) {
+            cartService.updateCartPurchaseQuantity(user.getId(), itemId, purchaseQuantity);
+            return MeitaoResult.ok();
+        }
+        // 从cookie中取购物车列表
+        List<CartItem> cartItemList = getCartListFromCookie(request);
+        // 遍历商品列表找到对应的商品
+        for (CartItem cartItem : cartItemList) {
+            if (cartItem.getId().longValue() == itemId) {
+                // 更新数量
+                cartItem.setPurchaseQuantity(purchaseQuantity);
+                break;
+            }
+        }
+        // 把购物车列表写回cookie
+        CookieUtils.setCookie(request, response, "cart", JsonUtils.objectToJson(cartItemList), COOKIE_CART_EXPIRE, true);
+        // 返回成功
+        return MeitaoResult.ok();
+    }
+}

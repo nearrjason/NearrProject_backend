@@ -8,6 +8,7 @@ D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\utils\IDUtils.ja
 D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\utils\TaxUtils.java
 D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\pojo\ItemInfo.java
 D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\pojo\EasyUITreeNode.java
+D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\builder\ShippingInfoBuilder.java
 D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\pojo\SearchResult.java
 D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\builder\ItemInfoBuilder.java
 D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\utils\ErrorMessageUtils.java
@@ -18,5 +19,6 @@ D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\utils\JsonUtils.
 D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\utils\PaymentUtils.java
 D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\pojo\EasyUIDataGridResult.java
 D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\utils\ShippingUtils.java
+D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\pojo\ShippingInfo.java
 D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\utils\CookieUtils.java
 D:\meiTaoMart\meitao-common\src\main\java\com\meitaomart\common\utils\MeitaoResult.java

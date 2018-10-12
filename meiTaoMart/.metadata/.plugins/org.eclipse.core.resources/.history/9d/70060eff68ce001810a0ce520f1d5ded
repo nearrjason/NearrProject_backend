@@ -1,0 +1,8 @@
+package com.meitaomart.app.pojo;
+
+public class Snippet {
+	public static void main(String[] args) {
+		FinalCheckoutMap.java
+	}
+}
+

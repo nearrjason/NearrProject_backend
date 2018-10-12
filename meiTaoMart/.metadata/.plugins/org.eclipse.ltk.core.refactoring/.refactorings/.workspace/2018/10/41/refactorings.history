@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;meitao-app-web-interface&apos; to &apos;meitao-app-web&apos;" description="Rename resource &apos;meitao-app-web-interface&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/meitao-app-web-interface" name="meitao-app-web" stamp="1539377382271" updateReferences="true"/>
+</session>

@@ -19,10 +19,12 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.meitaomart.common.builder.ShippingInfoBuilder;
 import com.meitaomart.common.jedis.JedisClient;
 import com.meitaomart.common.pojo.CartItem;
 import com.meitaomart.common.pojo.EasyUIDataGridResult;
 import com.meitaomart.common.pojo.ItemInfo;
+import com.meitaomart.common.pojo.ShippingInfo;
 import com.meitaomart.common.utils.EmailUtils;
 import com.meitaomart.common.utils.ErrorMessageUtils;
 import com.meitaomart.common.utils.JsonUtils;
@@ -44,12 +46,14 @@ import com.meitaomart.pojo.MeitaoAddressExample;
 import com.meitaomart.pojo.MeitaoAddressExample.Criteria;
 import com.meitaomart.pojo.MeitaoBankingCard;
 import com.meitaomart.pojo.MeitaoBankingCardExample;
+import com.meitaomart.pojo.MeitaoItem;
 import com.meitaomart.pojo.MeitaoItemPrice;
 import com.meitaomart.pojo.MeitaoOrder;
 import com.meitaomart.pojo.MeitaoOrderExample;
 import com.meitaomart.pojo.MeitaoOrderItem;
 import com.meitaomart.pojo.MeitaoOrderItemExample;
 import com.meitaomart.pojo.MeitaoUser;
+import com.shippo.model.Transaction;
 import com.taxjar.exception.TaxjarException;
 
 /**
@@ -85,110 +89,52 @@ public class OrderServiceImpl implements OrderService {
 	private String DEFAULT_COUNTRY;
 	@Value("${REDIS_CART_PRE}")
 	private String REDIS_CART_PRE;
-	
-	
-
-	private MeitaoResult orderValidation(OrderInfo orderInfo, MeitaoAddress address) {
-		// 1.orderInfo信息校验
-		if (orderInfo.getUserId() == null) {
-			return MeitaoResult.build(303, "无法检测到用户信息，请重新登录");
-		}
-		if (orderInfo.getPaymentType() == null) {
-			return MeitaoResult.build(303, "支付方式错误，请重新选择支付方式");
-		}
-		if (orderInfo.getOrderItems() == null || orderInfo.getOrderItems().size() == 0) {
-			return MeitaoResult.build(303, "购物车为空，请添加商品");
-		}
-
-		// 2.address信息校验
-		if (address.getStreet() == null) {
-			return MeitaoResult.build(303, "无 street 信息");
-		}
-		if (address.getCity() == null) {
-			return MeitaoResult.build(303, "无 city 信息");
-		}
-		if (address.getState() == null) {
-			return MeitaoResult.build(303, "无 state 信息");
-		}
-		if (address.getZipcode() == null) {
-			return MeitaoResult.build(303, "无 zipcode 信息");
-		}
-
-		// 3.价格验证
-		if (!priceValidation(orderInfo)) {
-			
-			return MeitaoResult.build(403, "无法支付， 请稍候重试！");
-		}
-
-		return MeitaoResult.ok();
-	}
-
-	private boolean priceValidation(OrderInfo orderInfo) {
-		int subtotalFromDatabase = 0;
-		List<MeitaoOrderItem> orderItemList = orderInfo.getOrderItems();
-		for (MeitaoOrderItem orderItem : orderItemList) {
-			MeitaoItemPrice meitaoItemPrice = itemPriceMapper.selectByPrimaryKey(orderItem.getItemId());
-			Long realPrice = (meitaoItemPrice.getSalePrice() * (100 - meitaoItemPrice.getDiscount()) + 50) / 100;
-			subtotalFromDatabase += realPrice * orderItem.getItemNumber();
-		}
-		return orderInfo.getSubtotal() != null && subtotalFromDatabase == orderInfo.getSubtotal();
-	}
 
 	@Override
 	public OrderInfo getOrderInfo(List<CartItem> cartItemList, MeitaoUser meitaoUser, MeitaoAddress primaryAddress) {
-		// TODO Auto-generated method stub
+		return getOrderInfo(cartItemList, meitaoUser, primaryAddress, false);
+	}
+
+	@Override
+	public OrderInfo getOrderInfo(List<CartItem> cartItemList, MeitaoUser meitaoUser, MeitaoAddress primaryAddress,
+			Boolean isExpressShipping) {
+
 		Long subtotal = 0L;
 
 		for (CartItem cartItem : cartItemList) {
 			Long realPrice = (cartItem.getSalePrice() * (100 - cartItem.getDiscount()) + 50) / 100;
 			subtotal += realPrice * cartItem.getPurchaseQuantity();
 		}
-		
+
 		Long taxFee = TaxUtils.getTaxFee();
-		Long shippingFee = ShippingUtils.getShippingFee(subtotal);
-		
+		Long shippingFee = ShippingUtils.getShippingFee(subtotal, isExpressShipping);
+		Byte shippingMethod = isExpressShipping != null && isExpressShipping.booleanValue() ? Byte.valueOf((byte) 2)
+				: Byte.valueOf((byte) 1);
+
 		if (primaryAddress != null) {
 			Float updatedTaxFee = null;
 			try {
-				updatedTaxFee = TaxUtils.getTaxFee(primaryAddress.getStreet(), primaryAddress.getCity(), primaryAddress.getState(), primaryAddress.getZipcode(), subtotal, shippingFee);
+				updatedTaxFee = TaxUtils.getTaxFee(primaryAddress.getStreet(), primaryAddress.getCity(),
+						primaryAddress.getState(), primaryAddress.getZipcode(), subtotal, shippingFee);
 			} catch (TaxjarException e) {
 				String subject = "tax fee获取异常！";
-				String message = "某用户在生成商品详情页面时出现tax fee无法获取异常，请检查tax接口或者用户的地址信息\n该用户所填地址如下\n"
-						+ "\nstreet: " + primaryAddress.getStreet() + "\ncity: " + primaryAddress.getCity() + "\nstate: " + primaryAddress.getState() + "\nzipcode: " + primaryAddress.getZipcode() + "\n详情如下:\n" + e.getMessage() + "\n\n对应用户id: ";
+				String message = "某用户在生成商品详情页面时出现tax fee无法获取异常，请检查tax接口或者用户的地址信息\n该用户所填地址如下\n" + "\nstreet: "
+						+ primaryAddress.getStreet() + "\ncity: " + primaryAddress.getCity() + "\nstate: "
+						+ primaryAddress.getState() + "\nzipcode: " + primaryAddress.getZipcode() + "\n详情如下:\n"
+						+ e.getMessage() + "\n\n对应用户id: ";
 				reportAdminByEmail(subject, message, meitaoUser.getId());
 			}
 			if (updatedTaxFee != null) {
-				taxFee = Long.valueOf((long)(updatedTaxFee * 100));
+				taxFee = Long.valueOf((long) (updatedTaxFee * 100));
 			}
 		}
 
 		OrderInfo orderInfo = OrderInfoBuilder.getInstance().setSubtotal(subtotal).setShippingFee(shippingFee)
-				.setTaxFee(taxFee).setUserId(meitaoUser.getId()).setUsername(meitaoUser.getUsername()).build();
+				.setShippingMethod(shippingMethod).setTaxFee(taxFee).setUserId(meitaoUser.getId())
+				.setUsername(meitaoUser.getUsername()).build();
+
 		return orderInfo;
 	}
-
-	/*
-	@Override
-	public List<MeitaoAddress> getAddressList(Long userId) {
-		// TODO Auto-generated method stub
-		MeitaoAddressExample example = new MeitaoAddressExample();
-		example.setOrderByClause("created_time");
-		Criteria criteria = example.createCriteria();
-		criteria.andUserIdEqualTo(userId);
-		List<MeitaoAddress> list = addressMapper.selectByExample(example);
-
-		// 把默认地址放在第一个
-		for (int i = 0; i < list.size(); i++) {
-			MeitaoAddress curAddress = list.get(i);
-			if (curAddress != null && Boolean.TRUE.equals(curAddress.getIsMain())) {
-				Collections.swap(list, i, 0);
-				break;
-			}
-		}
-
-		return list;
-	}
-	*/
 
 	@Override
 	public List<MeitaoOrder> getOrderList() {
@@ -243,6 +189,50 @@ public class OrderServiceImpl implements OrderService {
 		return result;
 	}
 
+	@Override
+	public MeitaoResult goToPay(MeitaoUser user, MeitaoAddress shippingAddress, MeitaoAddress billingAddress,
+			MeitaoBankingCard card, OrderInfo orderInfo, List<MeitaoOrderItem> orderItemList, String cvv) {
+		MeitaoResult result = finalPaymentValidation(user, shippingAddress, billingAddress, card, orderInfo,
+				orderItemList);
+		if (!Integer.valueOf(200).equals(result.getStatus())) {
+			return result;
+		}
+
+		String totalPrice = String
+				.valueOf(orderInfo.getSubtotal() + orderInfo.getShippingFee() + orderInfo.getTaxFee());
+
+		String finalPaymentMessage = PaymentUtils.doPayment(user.getEmail(), card.getCardNumber().toString(),
+				card.getMonth(), card.getYear(), cvv, "50");
+
+		if (finalPaymentMessage.length() > 0) {
+			return MeitaoResult.build(401, finalPaymentMessage);
+		}
+
+		String subject = "支付成功！";
+		String body = "某用户购买商品支付成功!\n用户信息:" + "\n\nuser id: " + user.getId() + "\nName: "
+				+ shippingAddress.getFirstName() + " " + shippingAddress.getLastName() + "\nusername: "
+				+ user.getUsername() + "\nuser email: " + user.getEmail();
+		EmailUtils.groupSendEmail(subject, body);
+
+		// 创建订单！
+		orderInfo.setOrderItems(orderItemList);
+		Long orderId = (Long) createOrder(orderInfo, shippingAddress, card, user).getData();
+
+		// 创建ups
+		Transaction transaction = goToShipping(user, shippingAddress, orderItemList, orderId);
+		if (transaction != null && orderId != null) {
+			// 将tracking number加入数据库
+			MeitaoOrder orderWithShippingCode = new MeitaoOrder();
+			orderWithShippingCode.setShippingCode((String) transaction.getTrackingNumber());
+			MeitaoOrderExample example = new MeitaoOrderExample();
+			com.meitaomart.pojo.MeitaoOrderExample.Criteria criteria = example.createCriteria();
+			criteria.andIdEqualTo(orderId);
+			orderMapper.updateByExampleSelective(orderWithShippingCode, example);
+		}
+
+		return result;
+	}
+
 	private OrderInfo createOrderInfo(MeitaoOrder meitaoOrder, List<MeitaoOrderItem> meitaoOrderItemList) {
 		OrderInfo orderInfo = OrderInfoBuilder.getInstance().setOrderId(meitaoOrder.getId())
 				.setSubtotal(meitaoOrder.getSubtotal()).setPaymentType(meitaoOrder.getPaymentType())
@@ -253,12 +243,14 @@ public class OrderServiceImpl implements OrderService {
 				.setCloseTime(meitaoOrder.getCloseTime()).setShippingName(meitaoOrder.getShippingName())
 				.setShippingCode(meitaoOrder.getShippingCode()).setUserId(meitaoOrder.getUserId())
 				.setUserComment(meitaoOrder.getUserComment()).setUsername(meitaoOrder.getUsername())
-				.setOrderItems(meitaoOrderItemList).setAddressId(meitaoOrder.getAddressId()).setCardId(meitaoOrder.getCardId()).build();
+				.setOrderItems(meitaoOrderItemList).setAddressId(meitaoOrder.getAddressId())
+				.setCardId(meitaoOrder.getCardId()).build();
 		return orderInfo;
 	}
 
 	private List<MeitaoOrder> getOrderListByUserId(Long userId) {
 		MeitaoOrderExample example = new MeitaoOrderExample();
+		example.setOrderByClause("created_time DESC");
 		com.meitaomart.pojo.MeitaoOrderExample.Criteria criteria = example.createCriteria();
 		criteria.andUserIdEqualTo(userId);
 		List<MeitaoOrder> list = orderMapper.selectByExample(example);
@@ -273,53 +265,38 @@ public class OrderServiceImpl implements OrderService {
 		return list;
 	}
 
-	
-
-	/*
-	@Override
-	public List<MeitaoBankingCard> getCardList(Long userId) {
-		MeitaoBankingCardExample example = new MeitaoBankingCardExample();
-		example.setOrderByClause("created_time");
-		com.meitaomart.pojo.MeitaoBankingCardExample.Criteria criteria = example.createCriteria();
-		criteria.andUserIdEqualTo(userId);
-		List<MeitaoBankingCard> list = cardMapper.selectByExample(example);
-
-		// 把默认地址放在第一个
-		for (int i = 0; i < list.size(); i++) {
-			MeitaoBankingCard curCard = list.get(i);
-			if (curCard != null && Boolean.TRUE.equals(curCard.getIsMain())) {
-				Collections.swap(list, i, 0);
-				break;
+	private Transaction goToShipping(MeitaoUser user, MeitaoAddress address, List<MeitaoOrderItem> orderItemList,
+			Long orderId) {
+		int totalWeight = 0;
+		for (MeitaoOrderItem orderItem : orderItemList) {
+			MeitaoItem item = itemMapper.selectByPrimaryKey(orderItem.getItemId());
+			if (item != null && item.getNetWeight() != null) {
+				totalWeight += item.getNetWeight();
 			}
 		}
 
-		return list;
-	}
-	*/
+		ShippingInfo shippingInfo = ShippingInfoBuilder.getInstance().setFirstName(address.getFirstName())
+				.setLastName(address.getLastName()).setPhoneNumber(address.getShippingPhone())
+				.setEmailAddress(user.getEmail()).setStreet(address.getStreet()).setCity(address.getCity())
+				.setState(address.getState()).setZip(address.getZipcode()).setTotalWeight(totalWeight)
+				.setOrderId(orderId).build();
+		Transaction transaction = ShippingUtils.getShippingInfo(shippingInfo);
+		String subject = null;
+		String body = null;
+		if (transaction != null) {
+			subject = "创建shipping infomation成功!";
+			body = "label url: " + transaction.getLabelUrl() + "\ntracking number: " + transaction.getTrackingNumber()
+					+ "\norder id: " + orderId + "\n\nuser id: " + user.getId() + "\nName: " + address.getFirstName()
+					+ " " + address.getLastName() + "\nusername: " + user.getUsername() + "\nuser email: "
+					+ user.getEmail();
+			EmailUtils.groupSendEmail(subject, body);
+		}
 
-	@Override
-	public MeitaoResult goToPay(MeitaoUser user, MeitaoAddress shippingAddress, MeitaoAddress billingAddress,
-			MeitaoBankingCard card, OrderInfo orderInfo, List<MeitaoOrderItem> orderItemList, String cvv) {
-		MeitaoResult result = finalPaymentValidation(user, shippingAddress, billingAddress, card, orderInfo, orderItemList);
-		if (!Integer.valueOf(200).equals(result.getStatus())) {
-			return result;
-		}
-		
-		//  TODO： ups 和 tax
-		String finalPaymentMessage = PaymentUtils.doPayment(user.getEmail(), card.getCardNumber().toString(), card.getMonth(), card.getYear(), "658", "50" );
-		if (finalPaymentMessage.length() > 0) {
-			return MeitaoResult.build(201, finalPaymentMessage);
-		}
-		
-		String subject = "支付成功！";
-		String body = "某用户购买商品支付成功!\n用户id: ";
-		
-		// TODO: 创建订单
-		return result;
+		return transaction;
 	}
-	
-	@Override
-	public MeitaoResult createOrder(OrderInfo orderInfo, MeitaoAddress address, MeitaoUser user) {
+
+	private MeitaoResult createOrder(OrderInfo orderInfo, MeitaoAddress address, MeitaoBankingCard card,
+			MeitaoUser user) {
 		/**
 		 * orderInfo信息完善
 		 */
@@ -333,8 +310,7 @@ public class OrderServiceImpl implements OrderService {
 		orderInfo.setId(orderId);
 		// 1、未发货，2、已发货
 		orderInfo.setStatus((byte) 1);
-		// 1、2、3
-		orderInfo.setPaymentType((byte) 1);
+
 		orderInfo.setCreatedTime(new Date());
 		orderInfo.setUpdatedTime(new Date());
 		// 第一期我们认为， 产生订单即支付
@@ -353,19 +329,23 @@ public class OrderServiceImpl implements OrderService {
 			address.setCountry(DEFAULT_COUNTRY);
 		}
 
-		MeitaoResult meitaoResult = orderValidation(orderInfo, address);
-		if (!Integer.valueOf(200).equals(meitaoResult.getStatus())) {
-			return meitaoResult;
-		}
-
 		// address加入数据库
-		if (address.getId() == null) {
-			addressMapper.insert(address);
-		}
 		Long addressId = address.getId();
-		if (addressId != null) {
-			orderInfo.setAddressId(addressId);
+		if (addressId == null) {
+			String subject = "某用户地址id丢失";
+			String body = "某用户支付成功却无法得到地址id, 请立即检查，否则会影响订单创建， 对应用户id: ";
+			reportAdminByEmail(subject, body, user.getId());
 		}
+		orderInfo.setAddressId(addressId);
+
+		// card加入数据库
+		Long cardId = card.getId();
+		if (cardId == null) {
+			String subject = "某用户银行卡id丢失";
+			String body = "某用户支付成功却无法得到银行卡id, 请立即检查，否则会影响订单创建， 对应用户id: ";
+			reportAdminByEmail(subject, body, user.getId());
+		}
+		orderInfo.setCardId(cardId);
 
 		// 订单加入数据库
 		orderMapper.insert(orderInfo);
@@ -382,31 +362,66 @@ public class OrderServiceImpl implements OrderService {
 			orderItemMapper.insert(meitaoOrderItem);
 		}
 
-		
 		// 返回MeitaoResult，包含订单号
 		return MeitaoResult.ok(orderId);
 	}
-	
+
 	private MeitaoResult finalPaymentValidation(MeitaoUser user, MeitaoAddress shippingAddress,
 			MeitaoAddress billingAddress, MeitaoBankingCard card, OrderInfo orderInfo,
 			List<MeitaoOrderItem> orderItemList) {
+		if (user == null || shippingAddress == null || billingAddress == null || card == null || orderInfo == null
+				|| orderItemList == null) {
+			String subject = "美桃服务器错误！";
+			String body = "某用户在支付时出现空指针，请立即检查！对应用户id(若无法检测到用户，则不显示): ";
+			reportAdminByEmail(subject, body, user != null ? user.getId() : null);
+			return MeitaoResult.build(500, ErrorMessageUtils.ERROR_MEESAGE_FOR_MEITAO_SYSTEM_EXCEPTION);
+		}
+
+		if (shippingAddress.getLastName() == null || shippingAddress.getLastName().length() == 0
+				|| shippingAddress.getFirstName() == null || shippingAddress.getFirstName().length() == 0
+				|| shippingAddress.getShippingPhone() == null || shippingAddress.getShippingPhone().length() == 0
+				|| shippingAddress.getStreet() == null || shippingAddress.getStreet().length() == 0
+				|| shippingAddress.getCity() == null || shippingAddress.getCity().length() == 0
+				|| shippingAddress.getState() == null || shippingAddress.getState().length() == 0
+				|| shippingAddress.getZipcode() == null || shippingAddress.getZipcode().length() == 0) {
+			String subject = "地址检测错误！";
+			String body = "某用户在支付时出现地址信息不完全，请立即检查！对应用户id(若无法检测到用户，则不显示): ";
+			reportAdminByEmail(subject, body, user != null ? user.getId() : null);
+			return MeitaoResult.build(201, "地址信息不完整！");
+		}
+
+		if (card.getCardNumber() == null || card.getFirstName() == null || card.getFirstName().length() == 0
+				|| card.getLastName() == null || card.getLastName().length() == 0 || card.getMonth() == null
+				|| card.getMonth().length() == 0 || card.getYear() == null || card.getYear().length() == 0) {
+			String subject = "银行卡检测错误！";
+			String body = "某用户在支付时出现银行卡信息不完全，请立即检查！对应用户id(若无法检测到用户，则不显示): ";
+			reportAdminByEmail(subject, body, user != null ? user.getId() : null);
+			return MeitaoResult.build(201, "银行卡信息不完整！");
+		}
+
+		if (orderInfo.getSubtotal() == null || orderInfo.getTaxFee() == null || orderInfo.getShippingFee() == null) {
+			String subject = "美桃服务器错误！";
+			String body = "某用户在支付时价格为空，请立即检查！对应用户id： ";
+			reportAdminByEmail(subject, body, user.getId());
+			return MeitaoResult.build(500, ErrorMessageUtils.ERROR_MEESAGE_FOR_MEITAO_SYSTEM_EXCEPTION);
+		}
 
 		MeitaoResult orderItemListValidationResult = orderItemListValidation(orderItemList, user);
 		if (!Integer.valueOf(200).equals(orderItemListValidationResult.getStatus())) {
 			return orderItemListValidationResult;
 		}
-		
+
 		if (!priceValidation(orderItemList, orderInfo.getSubtotal())) {
 			String subject = "用户支付时出现商品价格与数据库价格不一致！";
 			String message = "如果近期没有价格调整，可能涉及有人修改价格以及数据安全问题！请立即检查\n对应用户id: ";
 			reportAdminByEmail(subject, message, user.getId());
-			
+
 			return MeitaoResult.build(201, "对不起! 您支付的商品中存在近期价格调整！请返回购物车确认商品价格并重新提交！");
 		}
 
 		return MeitaoResult.ok();
 	}
-	
+
 	private boolean priceValidation(List<MeitaoOrderItem> orderItemList, Long subtotalFromOrder) {
 		Long subtotalFromDatabase = 0L;
 		for (MeitaoOrderItem orderItem : orderItemList) {
@@ -414,7 +429,8 @@ public class OrderServiceImpl implements OrderService {
 			Long realPrice = (meitaoItemPrice.getSalePrice() * (100 - meitaoItemPrice.getDiscount()) + 50) / 100;
 			subtotalFromDatabase += realPrice * orderItem.getItemNumber();
 		}
-		return subtotalFromDatabase != null && subtotalFromOrder != null && subtotalFromOrder.equals(subtotalFromDatabase);
+		return subtotalFromDatabase != null && subtotalFromOrder != null
+				&& subtotalFromOrder.equals(subtotalFromDatabase);
 	}
 
 	/**
@@ -476,7 +492,7 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return MeitaoResult.ok();
 	}
-	
+
 	private boolean itemLastComparator(List<CartItem> cartItemList, List<MeitaoOrderItem> orderItemList) {
 		Map<Long, Integer> mapFromIdToQuantity = new HashMap<>();
 		for (CartItem cartItem : cartItemList) {
@@ -486,7 +502,7 @@ public class OrderServiceImpl implements OrderService {
 				mapFromIdToQuantity.put(cartItem.getId(), purchaseQuantity);
 			}
 		}
-		
+
 		for (MeitaoOrderItem orderItem : orderItemList) {
 			Integer purchaseQuantity = mapFromIdToQuantity.get(orderItem.getItemId());
 			if (purchaseQuantity == null || !purchaseQuantity.equals(orderItem.getItemNumber())) {
@@ -494,7 +510,7 @@ public class OrderServiceImpl implements OrderService {
 			}
 			mapFromIdToQuantity.remove(orderItem.getItemId());
 		}
-		
+
 		return mapFromIdToQuantity.size() == 0;
 	}
 
@@ -510,7 +526,7 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return cartItemList;
 	}
-	
+
 	private void reportAdminByEmail(String subject, String message, Long id) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();

@@ -93,6 +93,7 @@ public class CartServiceImpl implements CartService {
 			//创建一个TbItem对象
 			CartItem cartItem = JsonUtils.jsonToPojo(string, CartItem.class);
 			cartItemCheckUpdate(cartItem);
+			jedisClient.hset(REDIS_CART_PRE + ":" + userId, cartItem.getId() + "", JsonUtils.objectToJson(cartItem));
 			if (!Integer.valueOf(0).equals(cartItem.getStockNumber()) || !isFilterOOSItem) {
 				//添加到列表
 				cartItemList.add(cartItem);

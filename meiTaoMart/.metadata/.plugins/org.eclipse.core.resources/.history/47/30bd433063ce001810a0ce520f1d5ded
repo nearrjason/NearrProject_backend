@@ -1,0 +1,11 @@
+package com.meitaomart.app.forgetpwd;
+
+public class SetNewPassword {
+	// ResponseBody
+	@RequestMapping(value = "/page/forget_psw/change_password", method = RequestMethod.POST)
+	@ResponseBody
+	public MeitaoResult setNewPassword(String emailAddress, String password, HttpServletRequest request) {
+		MeitaoResult result = userService.changePassword(emailAddress, password);
+		return result;
+	}
+}

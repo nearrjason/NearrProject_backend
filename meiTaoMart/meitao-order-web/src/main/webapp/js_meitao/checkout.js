@@ -1,7 +1,10 @@
 function showError(inputId, error_message) {
-	var errorElement = $("#" + inputId);
-	errorElement.fadeIn(1);
-	errorElement.html(error_message);
+	if (inputId) {
+		var errorElement = $("#" + inputId);
+		errorElement.fadeIn(1);
+		errorElement.html(error_message);
+	}
+
 }
 
 function closeError(inputId) {
@@ -9,61 +12,83 @@ function closeError(inputId) {
 	errorElement.fadeOut(1);
 }
 
-function selectNormalShip() {
+function selectGroudShipping() {
+	var primaryAddressId = $("#primaryAddressId").val();
 	$("#shippingMethodInput").val(1);
 	$('.normalship').addClass('selected');
 	$('.normals hip').off("click");
 	$('.fastship').removeClass('selected');
-	$('.fastship').on('click', selectFastShip);
+	if (primaryAddressId) {
+		updateFinalOrderInfo(primaryAddressId);
+	}
+
+	// $('.fastship').on('click', selectFastShip);
 }
 
-function selectFastShip() {
+function selectExpressShipping() {
+	var primaryAddressId = $("#primaryAddressId").val();
 	$("#shippingMethodInput").val(2);
 	$('.fastship').addClass('selected');
 	$('.fastship').off("click");
 	$('.normalship').removeClass('selected');
-	$('.normalship').on('click', selectNormalShip);
+	updateFinalOrderInfo(primaryAddressId);
+	// $('.normalship').on('click', selectGroudShipping);
 }
 
 function openShippingAddressList() {
-	//$('.ship-bar-plus').hide();
-	/*$('.ship-option').slideDown();*/
+	// $('.ship-bar-plus').hide();
+	/* $('.ship-option').slideDown(); */
 	if ($('.ship-option:visible').length == 0) {
-        $('.ship-option').slideDown(120);
-        $('#dropdown-img1').animate({deg: 180}, {
-            step: function(now, fx){
-                $('#dropdown-img1').css({
-                     transform: "rotate(" + now + "deg)"
-                });
-            }
-        });
-    } else {
-        $('.ship-option').slideUp(120);
-        $('#dropdown-img1').animate({deg: 0}, {
-            step: function(now, fx){
-                $('#dropdown-img1').css({
-                     transform: "rotate(" + now + "deg)"
-                });
-            }
-        });
-    }
+		$('.ship-option').slideDown(120);
+		$('#dropdown-img1').animate({
+			deg : 180
+		}, {
+			step : function(now, fx) {
+				$('#dropdown-img1').css({
+					transform : "rotate(" + now + "deg)"
+				});
+			}
+		});
+	} else {
+		$('.ship-option').slideUp(120);
+		$('#dropdown-img1').animate({
+			deg : 0
+		}, {
+			step : function(now, fx) {
+				$('#dropdown-img1').css({
+					transform : "rotate(" + now + "deg)"
+				});
+			}
+		});
+	}
 }
 
-function selectShippingAddress(element, addressId, finalZipCode) {
+function selectShippingAddress(element, addressId) {
 	$.get("/order/checkout_page/select_address.action", {
 		addressId : addressId
 	}, function(page) {
 		if (page) {
 			$("#address_drop_list").html(page);
-			console.log("ahhaha");
-			$("#finalZipCode").html(finalZipCode);
-
+			console.log("select: " + $("#shippingMethodInput").val());
 			$("#address_drop_list").show();
 			$("#showPrimaryAddress").show();
 			$('.address-list').hide();
-			
-			//TODO
+
+			updateFinalOrderInfo(addressId);
+			// $("#finalZipCode").html(finalZipCode);
 		}
+	})
+}
+
+function updateFinalOrderInfo(primaryAddressId) {
+	console.log("update: " + $("#shippingMethodInput").val());
+	var isExpressShipping = $("#shippingMethodInput").val() == 2;
+	$.get("/order/checkout_page/update_order_info.action", {
+		primaryAddressId : primaryAddressId,
+		isExpressShipping : isExpressShipping
+	}, function(page) {
+		$("#final_prices_block").html(page);
+
 	})
 }
 
@@ -106,29 +131,34 @@ function backToPay2() {
 }
 
 function selectCard() {
-	/*$('.cardinfo-show').hide();
-	$('.add-card').hide();*/
-	/*$('.show-card-list').slideDown();*/
+	/*
+	 * $('.cardinfo-show').hide(); $('.add-card').hide();
+	 */
+	/* $('.show-card-list').slideDown(); */
 	if ($('.show-card-list:visible').length == 0) {
-        $('.show-card-list').slideDown(120);
-        $('#dropdown-img2').animate({deg: 180}, {
-            step: function(now, fx){
-                $('#dropdown-img2').css({
-                     transform: "rotate(" + now + "deg)"
-                });
-            }
-        });
-    } else {
-        $('.show-card-list').slideUp(120);
-        $('#dropdown-img2').animate({deg: 0}, {
-            step: function(now, fx){
-                $('#dropdown-img2').css({
-                     transform: "rotate(" + now + "deg)"
-                });
-            }
-        });
-    }
-	
+		$('.show-card-list').slideDown(120);
+		$('#dropdown-img2').animate({
+			deg : 180
+		}, {
+			step : function(now, fx) {
+				$('#dropdown-img2').css({
+					transform : "rotate(" + now + "deg)"
+				});
+			}
+		});
+	} else {
+		$('.show-card-list').slideUp(120);
+		$('#dropdown-img2').animate({
+			deg : 0
+		}, {
+			step : function(now, fx) {
+				$('#dropdown-img2').css({
+					transform : "rotate(" + now + "deg)"
+				});
+			}
+		});
+	}
+
 }
 
 function openNewCardWindow() {
@@ -155,8 +185,8 @@ function submitNewCard() {
 	}
 
 	var cardNumberValue = submitNewCardFormArray[2].value;
-	var params =  $("#submitNewCardForm").serialize();
-	
+	var params = $("#submitNewCardForm").serialize();
+
 	if (validateAmex(cardNumberValue)) {
 		params += "&cardType=3";
 	} else if (validateVisa(cardNumberValue)) {
@@ -166,7 +196,7 @@ function submitNewCard() {
 	} else if (validateDiscovercard(cardNumberValue)) {
 		params += "&cardType=6";
 	}
-	
+
 	$.post("/order/checkout_page/save_card.action", params, function(result) {
 		if (result) {
 			console.log(result);
@@ -191,6 +221,7 @@ function submitNewCard() {
 
 function cardInputValidation(submitFormArray, cardId) {
 	closeError(cardId);
+	console.log(submitFormArray);
 	var firstNameValue = submitFormArray[0].value;
 	var lastNameValue = submitFormArray[1].value;
 	var cardNumberValue = submitFormArray[2].value;
@@ -236,38 +267,38 @@ function submitNewAddress() {
 		if (result) {
 			console.log(result);
 			if (result.status == 200) {
-				$.get("/order/checkout_page/update_address_list.html", function(
-						page) {
-					if (page) {
-						$("#address_drop_list").html(page);
+				$.get("/order/checkout_page/update_address_list.html",
+						function(page) {
+							if (page) {
+								$("#address_drop_list").html(page);
 
-						$("#address_drop_list").show();
-						$("#showPrimaryAddress").show();
-						$('.address-list').hide();
-					}
-				})
+								$("#address_drop_list").show();
+								$("#showPrimaryAddress").show();
+								$('.address-list').hide();
+
+								updateFinalOrderInfo($("#primaryAddressId")
+										.val());
+							}
+						})
 			} else {
 				showError("order_shipping_address", result.msg);
 			}
 		}
-		
-		
-		
-		/*if (page) {
-			$("#address_drop_list").html(page);
 
-			$('.ship-info').show();
-			$('.add-address').show();
-
-			$("#address_drop_list").show();
-			$("#showPrimaryAddress").show();
-			$('.address-list').hide();
-		}*/
+		/*
+		 * if (page) { $("#address_drop_list").html(page);
+		 * 
+		 * $('.ship-info').show(); $('.add-address').show();
+		 * 
+		 * $("#address_drop_list").show(); $("#showPrimaryAddress").show();
+		 * $('.address-list').hide(); }
+		 */
 	})
 }
 
 function addressInputValidation(submitFormArray, addressId) {
 	closeError(addressId);
+	console.log(submitFormArray);
 	var firstNameValue = submitFormArray[0].value;
 	var lastNameValue = submitFormArray[1].value;
 	var shippingPhoneValue = submitFormArray[2].value;
@@ -293,7 +324,7 @@ function addressInputValidation(submitFormArray, addressId) {
 		showError(addressId, "Phone Number 格式不正确！");
 		return false;
 	}
-	
+
 	if (streetValue == "" || cityValue == "" || stateValue == ""
 			|| zipcodeValue == "") {
 		showError(addressId, "地址信息缺失！");
@@ -309,6 +340,10 @@ function addressInputValidation(submitFormArray, addressId) {
 
 function finalCheckout() {
 	closeError("cvv_check");
+	if (!addressInputValidation($("#checkoutAddress").serializeArray())) {
+		alert("地址信息不完整，请检查！");
+		return;
+	}
 	
 	var shippingAddress = convertUrlToJson($("#checkoutAddress").serialize());
 	var card = convertUrlToJson($("#checkoutCard").serialize());
@@ -320,10 +355,10 @@ function finalCheckout() {
 	var cvv = $("#cvvInput").val();
 	if (!validateCVV(cvv)) {
 		showError("cvv_check", "cvv 格式不正确！");
-		alert("信息错误或不完整，请检查！");
+		alert("银行卡信息不完整，请检查！");
 		return;
 	}
-		
+
 	var isUsingShippingAddressAsBillingAddress = $(
 			"#isUsingShippingAddressAsBillingAddress").val();
 	if (!eval(isUsingShippingAddressAsBillingAddress)) {
@@ -342,8 +377,8 @@ function finalCheckout() {
 
 	$("#loadingImage").fadeIn(100);
 	$("#overlay").show();
-	
-	$.post("/order/test.action", {
+
+	$.post("/order/final_payment.action", {
 		shippingAddress : JSON.stringify(shippingAddress),
 		card : JSON.stringify(card),
 		orderInfo : JSON.stringify(orderInfo),
@@ -352,7 +387,7 @@ function finalCheckout() {
 		cvv : cvv
 	}, function(response) {
 		if (response.status == 200) {
-			location.href = "/order/success.html";
+			location.href = "http://192.168.1.100:8094/user/profile/orders";
 		} else if (response.status == 202) {
 			// 商品信息不一致选择对话框
 			$("#loadingImage").fadeOut(100);
@@ -407,8 +442,6 @@ $(function() {
 		$("#noCardList").show();
 	}
 
-	selectNormalShip();
-
 	$('.phonenum-fill').keyup(function() {
 		if ($(this).val().length == $(this).attr("maxlength")) {
 			$(this).nextAll("input").first().focus();
@@ -432,6 +465,8 @@ $(function() {
 							event.preventDefault();
 						}
 					});
+	
+	selectGroudShipping();
 
 });
 
@@ -451,31 +486,41 @@ function showBillAddr() {
 	$("#isUsingShippingAddressAsBillingAddress").attr("value", false);
 }
 
-$(document).on("click", function (e) {
-    var target = $(e.target);
-    if ($('.ship-option:visible').length != 0 && target.closest("#addr-drop").length == 0) {
-        if(target.closest(".ship-option").length == 0){  		
-            $('.ship-option').slideUp(120);  
-            $('#dropdown-img1').animate({deg: 0}, {
-                step: function(now, fx){
-                    $('#dropdown-img1').css({
-                         transform: "rotate(" + now + "deg)"
-                    });
-                }
-            });      	
-        };     	
-        e.stopPropagation();
-    } else if ($('.show-card-list:visible').length != 0 && target.closest("#card-drop").length == 0) {
-        if(target.closest(".show-card-list").length == 0){  		
-            $('.show-card-list').slideUp(120);  
-            $('#dropdown-img2').animate({deg: 0}, {
-                step: function(now, fx){
-                    $('#dropdown-img2').css({
-                         transform: "rotate(" + now + "deg)"
-                    });
-                }
-            });      	
-        };     	
-        e.stopPropagation();
-    }
-})
+$(document).on(
+		"click",
+		function(e) {
+			var target = $(e.target);
+			if ($('.ship-option:visible').length != 0
+					&& target.closest("#addr-drop").length == 0) {
+				if (target.closest(".ship-option").length == 0) {
+					$('.ship-option').slideUp(120);
+					$('#dropdown-img1').animate({
+						deg : 0
+					}, {
+						step : function(now, fx) {
+							$('#dropdown-img1').css({
+								transform : "rotate(" + now + "deg)"
+							});
+						}
+					});
+				}
+				;
+				e.stopPropagation();
+			} else if ($('.show-card-list:visible').length != 0
+					&& target.closest("#card-drop").length == 0) {
+				if (target.closest(".show-card-list").length == 0) {
+					$('.show-card-list').slideUp(120);
+					$('#dropdown-img2').animate({
+						deg : 0
+					}, {
+						step : function(now, fx) {
+							$('#dropdown-img2').css({
+								transform : "rotate(" + now + "deg)"
+							});
+						}
+					});
+				}
+				;
+				e.stopPropagation();
+			}
+		})

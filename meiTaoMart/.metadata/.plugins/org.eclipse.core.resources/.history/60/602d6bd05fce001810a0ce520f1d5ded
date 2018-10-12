@@ -1,0 +1,5 @@
+package com.meitaomart.app.interceptor;
+
+public class LoginInterceptor {
+
+}

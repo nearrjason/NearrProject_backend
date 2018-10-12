@@ -28,7 +28,7 @@
 	
 	<script src="/js/jquery-2.1.0.min.js" type="text/javascript"></script>
     <script src="/js/popup.js" type="text/javascript"></script>
-    <script src="/js/global_index.js" type="text/javascript"></script>
+    <!-- <script src="/js/global_index.js" type="text/javascript"></script> -->
     <script src="/js/jquery.cookie.js" type="text/javascript"></script>
     <script src="/js/cookie.js" type="text/javascript"></script>
     <script src="/js/header.js" type="text/javascript"></script>

@@ -79,5 +79,10 @@
 			<artifactId>taxjar-java</artifactId>
 			<version>1.2.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.goshippo</groupId>
+			<artifactId>shippo-java-client</artifactId>
+			<version>2.1.2</version>
+		</dependency>
 	</dependencies>
 </project>

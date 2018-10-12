@@ -40,6 +40,4 @@ public class OrderInfo extends MeitaoOrder implements Serializable {
 	public void setOrderCard(MeitaoBankingCard orderCard) {
 		this.orderCard = orderCard;
 	}
-	
-	
 }

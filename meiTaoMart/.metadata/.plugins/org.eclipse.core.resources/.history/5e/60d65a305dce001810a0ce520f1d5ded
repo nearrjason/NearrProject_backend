@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="meitao-app-web-interface">
+        <property name="context-root" value="meitao-app-web-interface"/>
+    </wb-module>
+</project-modules>

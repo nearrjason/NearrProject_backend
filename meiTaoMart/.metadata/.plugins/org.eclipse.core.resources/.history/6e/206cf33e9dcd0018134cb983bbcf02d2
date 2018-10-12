@@ -1,0 +1,11 @@
+package com.meitaomart.common.builder;
+
+public class ShippingInfoBuilder {
+	private static ShippingInfoBuilder shippingInfoBuilder = new ShippingInfoBuilder();
+	
+	private ShippingInfoBuilder() {}
+	
+	public static ShippingInfoBuilder getInstance() {
+		return shippingInfoBuilder;
+	}
+}

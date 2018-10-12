@@ -13,9 +13,11 @@
 				<!-- primary address -->
 				<div id="showPrimaryAddress" class="show_primary_address">
 					<c:set var="primaryAddress" value="${primaryAddress}"></c:set>
+					
 					<div id="primaryAddress" class="wrapper">
 						<form id="checkoutAddress" class="checkoutAddress"
 							onsubmit="return false">
+							
 							<div id="primaryName" class="info-name">
 								${primaryAddress.firstName}&nbsp;${primaryAddress.lastName}
 								<input type="hidden" name="firstName"
@@ -59,6 +61,7 @@
 									</div>
 								</div>
 							</div>
+							<input id="primaryAddressId" name="id" type="hidden" value="${primaryAddress.id}">
 						</form>
 
 						<!-- <div class="info-default">默认地址</div> -->
@@ -94,7 +97,7 @@
 				varStatus="addressUtils">
 
 				<div class="addr1"
-					onclick="selectShippingAddress(this, ${address.id}, ${address.zipcode  })">
+					onclick="selectShippingAddress(this, ${address.id})">
 					<%-- <form index="${addressUtils.index }" onsubmit="return false"> --%>
 					<div class="info-name">
 						${address.firstName}&nbsp;${address.lastName} <input type="hidden"

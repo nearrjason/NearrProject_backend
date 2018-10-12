@@ -43,16 +43,27 @@
 
 					<div class="price">
 						<p class="label">总金额</p>
-						<p>$${totalPrice / 100}</p>
+						<p>
+							$
+							<fmt:formatNumber value="${totalPrice / 100}"
+								maxFractionDigits="2" minFractionDigits="2" groupingUsed="true" />
+						</p>
 					</div>
 
 					<div class="tracking">
 						<p>追踪号</p>
-						<a href=""><p>1Z9999999999999999</p></a>
+						<a href=""> <c:if test="${orderInfo. shippingCode != null}">
+								<p>${orderInfo. shippingCode}</p>
+							</c:if> <c:if test="${orderInfo. shippingCode == null}">
+								<p>未发货</p>
+							</c:if>
+
+						</a>
 					</div>
 
 					<div class="detail">
-						<a class="order-detail" index="${orderInfoUtils.index}" href="javascript:void(0)" onclick="checkOrderDetail(this)"><p>查看详情</p></a>
+						<a class="order-detail" index="${orderInfoUtils.index}"
+							href="javascript:void(0)" onclick="checkOrderDetail(this)"><p>查看详情</p></a>
 					</div>
 				</div>
 			</div>

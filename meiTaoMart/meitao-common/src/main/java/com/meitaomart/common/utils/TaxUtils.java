@@ -55,7 +55,8 @@ public final class TaxUtils {
 		// params.put("line_items", lineItems);
 
 		TaxResponse res = client.taxForOrder(params);
-		return res.tax.getAmountToCollect();
+		
+		return res != null && res.tax != null ? res.tax.getAmountToCollect() : null;
 	}
 
 	public static String validateAddress(String toStreet, String toCity, String toState, String toZipcode,

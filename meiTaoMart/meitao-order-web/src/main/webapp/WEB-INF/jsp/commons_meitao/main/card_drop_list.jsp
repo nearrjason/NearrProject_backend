@@ -17,6 +17,7 @@
 					value="${fn:trim(primaryCard.cardNumber)}"></c:set>
 				<div class="wrapper">
 					<form id="checkoutCard" class="checkoutCard" onsubmit="return false">
+						<input type="hidden" name="id" value="${primaryCard.id}">
 						<div class="card-logo">
 							<c:if test="${primaryCard.cardType eq 3 }">
 								<img class="card-logo-img" src="/images_meitao/icons/amex.svg"
@@ -34,6 +35,8 @@
 								<img class="card-logo-img"
 									src="/images_meitao/icons/discover.svg" alt="">
 							</c:if>
+							<input type="hidden" name="cardType"
+									value="${primaryCard.cardType}" />
 						</div>
 						<div class="card-num-info">
 

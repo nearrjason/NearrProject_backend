@@ -12,7 +12,8 @@ import com.stripe.model.Token;
 public final class PaymentUtils {
 	private static final String STRIPE_API_KEY_FOR_TEST = "sk_test_b3UJNAQLBEJbQ157oteZKLR6";
 	private static final String STRIPE_API_KEY = "sk_live_sSezdfIY8YDOoERbiTBopLpZ";
-	private static final String ERROR_MESSAGE = "支付失败! 请检查银行卡并重试!";
+	private static final String ERROR_MESSAGE = "支付失败: 请检查银行卡并重试!";
+	private static final String ERROR_MESSAGE_PRE = "支付失败: ";
 	private static final String DEFAULT_CURRENCY = "usd";
 	
 	public static String checkCard(String cardNumber, String month, String year) {
@@ -57,7 +58,6 @@ public final class PaymentUtils {
 			newCustomer = Customer.create(customerParameter);
 			myCustomer = Customer.retrieve(newCustomer.getId());
 		} catch (StripeException e) {
-			// TODO Auto-generated catch block
 			String subject = "支付失败: 在strip中创建customer出现异常！";
 			String message = e.getMessage();
 			String body = message + "\n对应customer email: " + customerEmail;
@@ -85,7 +85,7 @@ public final class PaymentUtils {
 			token = Token.create(tokenParam);
 		} catch (StripeException e) {
 			// 这是验证银行卡信息，是可以返回给用户的;
-			return e.getMessage();
+			return ERROR_MESSAGE_PRE + e.getMessage();
 		}
 		
 		
@@ -99,7 +99,7 @@ public final class PaymentUtils {
 			String body = message + "\n对应customer email: " + customerEmail;
 			
 			EmailUtils.groupSendEmail(subject, body);
-			return ERROR_MESSAGE;
+			return ERROR_MESSAGE_PRE + e.getMessage();
 		}
         
         Map<String, Object> chargeParam = new HashMap<String, Object>();
@@ -115,7 +115,7 @@ public final class PaymentUtils {
 			String body = message + "\n对应customer email: " + customerEmail;
 			
 			EmailUtils.groupSendEmail(subject, body);
-			return ERROR_MESSAGE;
+			return ERROR_MESSAGE_PRE + e.getMessage();
 		}
 		
 		return "";

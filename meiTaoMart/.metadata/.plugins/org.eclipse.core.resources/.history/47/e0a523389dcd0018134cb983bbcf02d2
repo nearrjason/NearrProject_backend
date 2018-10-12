@@ -1,0 +1,5 @@
+package com.meitaomart.common.builder;
+
+public class ShippingInfoBuilder {
+
+}

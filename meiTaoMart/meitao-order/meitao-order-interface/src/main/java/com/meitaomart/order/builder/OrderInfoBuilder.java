@@ -44,6 +44,8 @@ public class OrderInfoBuilder {
     private String shippingName;
 
     private String shippingCode;
+    
+    private Byte shippingMethod;
 
     private Long userId;
 
@@ -126,6 +128,11 @@ public class OrderInfoBuilder {
 		this.shippingCode = shippingCode;
 		return this;
 	}
+	
+	public OrderInfoBuilder setShippingMethod(Byte shippingMethod) {
+		this.shippingMethod = shippingMethod;
+		return this;
+	}
 
 	public OrderInfoBuilder setUserId(Long userId) {
 		this.userId = userId;
@@ -174,6 +181,7 @@ public class OrderInfoBuilder {
 		orderInfo.setCloseTime(this.closeTime);
 		orderInfo.setShippingName(this.shippingName);
 		orderInfo.setShippingCode(this.shippingCode);
+		orderInfo.setShippingMethod(this.shippingMethod);
 		orderInfo.setUserId(this.userId);
 		orderInfo.setUserComment(this.userComment);
 		orderInfo.setUsername(this.username);

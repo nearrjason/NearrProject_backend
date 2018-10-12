@@ -1,0 +1,58 @@
+package com.meitaomart.app.item;
+
+public class RefreshCart {
+	@Autowired
+    private CartService cartService;
+
+    // 刷新后的购物车列表
+    @RequestMapping("/refresh/cart/cartItemList")
+    @ResponseBody
+    public List<CartItem> refreshCart(HttpServletRequest request, HttpServletResponse response) {
+        List<CartItem> cartItemList = getCartListFromCookie(request);
+        // 判断用户是否为登录状态
+        MeitaoUser user = (MeitaoUser) request.getAttribute("user");
+        // 如果是登录状态
+        if (user != null) {
+            // 从cookie中取购物车列表
+            // 如果不为空，把cookie中的购物车商品和服务端的购物车商品合并。
+            cartService.mergeCart(user.getId(), cartItemList);
+            // 把cookie中的购物车删除
+            CookieUtils.deleteCookie(request, response, "cart");
+            // 从服务端取购物车列表
+            cartItemList = cartService.getCartList(user.getId(), false);
+
+        }
+        // 把列表传递给页面
+        return cartItemList;
+    }
+
+    private List<CartItem> getCartItemList(HttpServletRequest request, HttpServletResponse response) {
+        List<CartItem> cartItemList = getCartListFromCookie(request);
+        // 判断用户是否为登录状态
+        MeitaoUser user = (MeitaoUser) request.getAttribute("user");
+        // 如果是登录状态
+        if (user != null) {
+            // 从cookie中取购物车列表
+            // 如果不为空，把cookie中的购物车商品和服务端的购物车商品合并。
+            cartService.mergeCart(user.getId(), cartItemList);
+            // 把cookie中的购物车删除
+            CookieUtils.deleteCookie(request, response, "cart");
+            // 从服务端取购物车列表
+            cartItemList = cartService.getCartList(user.getId(), false);
+
+        }
+
+        return cartItemList;
+    }
+
+    private List<CartItem> getCartListFromCookie(HttpServletRequest request) {
+        String json = CookieUtils.getCookieValue(request, "cart", true);
+        // 判断json是否为空
+        if (StringUtils.isBlank(json)) {
+            return new ArrayList<>();
+        }
+        // 把json转换成商品列表
+        List<CartItem> list = JsonUtils.jsonToList(json, CartItem.class);
+        return list;
+    }
+}

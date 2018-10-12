@@ -2,30 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value=".back" key="selection"/>
+		<item value="cartItemCheckUpdate" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value=".back"/>
-			<item value="zip-fill"/>
-			<item value="city-state"/>
-			<item value="card-bran"/>
-			<item value="info-d"/>
-			<item value="card-de"/>
-			<item value="默认地址"/>
-			<item value="zip"/>
+			<item value="cartItemCheckUpdate"/>
+			<item value="card"/>
+			<item value="Gr"/>
+			<item value="ground"/>
+			<item value="update"/>
+			<item value="updateFinalOrderInfo"/>
+			<item value="fin"/>
+			<item value="${orderInfo"/>
 		</list>
 		<list key="replacehistory">
+			<item value="shipping"/>
+			<item value="ShippingInfoBuilder"/>
 			<item value=""/>
 			<item value="optimizedItem"/>
 			<item value="/images_meitao"/>
 			<item value="/images_meitao/icons"/>
 			<item value="/js_meitao"/>
 			<item value="/css_meitao"/>
-			<item value="/images_meitao/"/>
-			<item value="/css"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

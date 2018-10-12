@@ -23,7 +23,13 @@
 					订单号： <span>${orderInfo.id}</span>
 				</p>
 				<p class="rdtracking">
-					追踪码： <a href="">1Z9999999999999999</a>
+					追踪码： <a href=""> <c:if
+							test="${orderInfo. shippingCode != null}">
+							<p>${orderInfo. shippingCode}</p>
+						</c:if> <c:if test="${orderInfo. shippingCode == null}">
+							<p>未发货</p>
+						</c:if>
+					</a>
 				</p>
 				<p class="rdtotal-p">
 					合计总额： <span>$<fmt:formatNumber value="${totalPrice / 100}"
@@ -35,7 +41,14 @@
 					发货商： <br> <span>美桃网</span>
 				</p>
 				<p class="rdshipping-method">
-					配送方式： <br> <span>UPS Ground Shipping</span>
+					配送方式： <br> 
+					<c:if test="${orderInfo.shippingMethod == 1 }">
+						<span>UPS Ground Shipping</span>
+					</c:if>
+					<c:if test="${ orderInfo.shippingMethod == 2}">
+						<span>UPS Express Shipping</span>
+					</c:if>
+					
 				</p>
 				<p class="rdaddress">
 					收货信息： <br> <span>${orderInfo.orderAddress.firstName}

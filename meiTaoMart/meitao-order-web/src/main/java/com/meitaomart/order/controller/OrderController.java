@@ -1,21 +1,14 @@
 package com.meitaomart.order.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.meitaomart.cart.service.CartService;
 import com.meitaomart.common.pojo.CartItem;
@@ -26,7 +19,6 @@ import com.meitaomart.order.pojo.OrderInfo;
 import com.meitaomart.order.service.OrderService;
 import com.meitaomart.pojo.MeitaoAddress;
 import com.meitaomart.pojo.MeitaoBankingCard;
-import com.meitaomart.pojo.MeitaoItem;
 import com.meitaomart.pojo.MeitaoOrderItem;
 import com.meitaomart.pojo.MeitaoUser;
 import com.meitaomart.user.service.UserService;
@@ -45,11 +37,6 @@ public class OrderController {
 	private OrderService orderService;
 	@Autowired
 	private UserService userService;
-
-	@RequestMapping("/order/success")
-	public String orderSuccess(HttpServletRequest request) {
-		return "success";
-	}
 
 	@RequestMapping("/order/checkout_page")
 	public String showCheckoutPage(HttpServletRequest request) {
@@ -84,38 +71,9 @@ public class OrderController {
 		return "order_checkout_meitao";
 	}
 
-	@RequestMapping(value = "/order/pay", method = RequestMethod.POST)
-	public String createOrder(OrderInfo orderInfo, MeitaoAddress address, HttpServletRequest request,
-			HttpSession session) {
-		// 取用户信息
-		if (orderInfo == null || address == null) {
-			return null;
-		}
-
-		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
-
-		// 调用服务生成订单
-		MeitaoResult meitaoResult = orderService.createOrder(orderInfo, address, user);
-
-		// 如果订单生成成功，需要删除购物车
-		if (meitaoResult.getStatus() == 200) {
-			// 清空购物车
-			cartService.clearCartItem(user.getId());
-			// 把订单号传递给页面
-			/*
-			 * request.setAttribute("orderId", meitaoResult.getData());
-			 * request.setAttribute("payment", orderInfo.getSubtotal());
-			 */
-			// 返回逻辑视图
-			return "success";
-		}
-
-		return meitaoResult.getMsg();
-	}
-
-	@RequestMapping(value = "/order/test", method = RequestMethod.POST)
+	@RequestMapping(value = "/order/final_payment", method = RequestMethod.POST)
 	@ResponseBody
-	public MeitaoResult test(FinalCheckoutMap map, HttpServletRequest request) {
+	public MeitaoResult finalPayment(FinalCheckoutMap map, HttpServletRequest request) {
 		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
 		MeitaoAddress shippingAddress = JsonUtils.jsonToPojo(map.getShippingAddress(), MeitaoAddress.class);
 		MeitaoBankingCard card = JsonUtils.jsonToPojo(map.getCard(), MeitaoBankingCard.class);
@@ -124,6 +82,10 @@ public class OrderController {
 		List<MeitaoOrderItem> orderItemList = JsonUtils.jsonToList(map.getOrderItems(), MeitaoOrderItem.class);
 		String cvv = map.getCvv();
 		MeitaoResult meitaoResult = orderService.goToPay(user, shippingAddress, billingAddress, card, orderInfo, orderItemList, cvv);
+		if (meitaoResult.getStatus() == 200) {
+			// 清空购物车
+			cartService.clearCartItem(user.getId());
+		}
 		return meitaoResult;
 	}
 
@@ -138,29 +100,7 @@ public class OrderController {
 		return meitaoResult;
 	}
 
-	@RequestMapping(value = "/order/checkout_page/select_address")
-	public String selectAddress(Long addressId, HttpServletRequest request) {
-		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
-		if (meitaoUser == null) {
-			System.out.println("检测用户错误！");
-		}
-		
-		List<MeitaoAddress> addressList = userService.getAddressListByUserId(meitaoUser.getId());
-		if (addressList != null) {
-			request.setAttribute("addressList", addressList);
-			if (addressList.size() > 0) {
-				for (int i = addressList.size() - 1; i >= 0; i--) {
-					MeitaoAddress address = addressList.get(i);
-					if (address != null && address.getId().equals(addressId)) {
-						request.setAttribute("primaryAddress", address);
-						break;
-					}
-				}
-
-			}
-		}
-		return "commons_meitao/main/address_drop_list";
-	}
+	
 
 	@RequestMapping(value = "/order/checkout_page/save_card", method = RequestMethod.POST)
 	@ResponseBody
@@ -213,6 +153,30 @@ public class OrderController {
 		return "commons_meitao/main/card_drop_list";
 	}
 	
+	@RequestMapping(value = "/order/checkout_page/select_address")
+	public String selectAddress(Long addressId, HttpServletRequest request) {
+		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
+		if (meitaoUser == null) {
+			System.out.println("检测用户错误！");
+		}
+		
+		List<MeitaoAddress> addressList = userService.getAddressListByUserId(meitaoUser.getId());
+		if (addressList != null) {
+			request.setAttribute("addressList", addressList);
+			if (addressList.size() > 0) {
+				for (int i = addressList.size() - 1; i >= 0; i--) {
+					MeitaoAddress address = addressList.get(i);
+					if (address != null && address.getId().equals(addressId)) {
+						request.setAttribute("primaryAddress", address);
+						break;
+					}
+				}
+
+			}
+		}
+		return "commons_meitao/main/address_drop_list";
+	}
+	
 	@RequestMapping(value = "/order/checkout_page/select_card")
 	public String selectCard(Long cardId, HttpServletRequest request) {
 		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
@@ -235,5 +199,21 @@ public class OrderController {
 			}
 		}
 		return "commons_meitao/main/card_drop_list";
+	}
+	
+	@RequestMapping(value = "/order/checkout_page/update_order_info")
+	public String updateOrderInfo(HttpServletRequest request, Long primaryAddressId, Boolean isExpressShipping) {
+		if (primaryAddressId != null) {
+			MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
+			List<CartItem> cartItemList = cartService.getCartList(meitaoUser.getId(), true);
+			MeitaoAddress primaryAddress = userService.getAddressByPrimaryId(primaryAddressId);
+			if (primaryAddress != null) {
+				OrderInfo orderInfo = orderService.getOrderInfo(cartItemList, meitaoUser, primaryAddress, isExpressShipping);
+				request.setAttribute("orderInfo", orderInfo);
+				request.setAttribute("primaryAddress", primaryAddress);
+			}
+		}
+		
+		return "commons_meitao/main/final_prices_block";
 	}
 }

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="UpsTest.testUps1" project="meitao-common" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testcase name="testUps1" classname="com.meitaomart.email.test.UpsTest" time="9.857"/>
+</testrun>

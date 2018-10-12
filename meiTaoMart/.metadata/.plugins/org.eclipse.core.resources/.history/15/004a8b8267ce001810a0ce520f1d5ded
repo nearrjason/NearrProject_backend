@@ -1,0 +1,52 @@
+package com.meitaomart.app.login;
+
+public class Login {
+	@Autowired
+    private LoginService loginService;
+
+    @Value("${TOKEN_KEY}")
+    private String TOKEN_KEY;
+
+    @Value("${COOKIE_EXPIRE}")
+    private Integer COOKIE_EXPIRE;
+
+    /*
+        map
+        参数：
+            redirect, 非空代表重定向到登录之前的界面
+            type, 值为login代表显示登录界面，值为register代表显示注册界面
+     */
+    @RequestMapping("/page/login")
+    @ResponseBody
+    public Map<String, Object> showLogin(HttpServletRequest request, String redirect, Model model) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("redirect", redirect);
+        map.put("type", "login");
+        return map;
+    }
+
+    // ResponseBody
+    @RequestMapping(value="/user/login", method=RequestMethod.POST)
+    @ResponseBody
+    public MeitaoResult login(String usernameOrEmail, String password,
+                              HttpServletRequest request, HttpServletResponse response) {
+        if (usernameOrEmail == null || usernameOrEmail.length() == 0) {
+            return MeitaoResult.build(304, "登录失败, 无法检测到用户名");
+        }
+
+        if (password == null) {
+            return MeitaoResult.build(304, "登录失败, 无法检测密码");
+        }
+
+        MeitaoResult meitaoResult = loginService.userLogin(usernameOrEmail, password);
+        //判断是否登录成功
+        if(meitaoResult.getStatus() == 200) {
+            String token = meitaoResult.getData().toString();
+            //如果登录成功需要把token写入cookie
+            System.out.println(token);
+            CookieUtils.setCookie(request, response, TOKEN_KEY, token, COOKIE_EXPIRE, true);
+        }
+        //返回结果
+        return meitaoResult;
+    }
+}

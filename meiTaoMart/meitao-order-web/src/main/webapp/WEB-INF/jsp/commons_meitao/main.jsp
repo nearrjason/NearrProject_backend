@@ -158,9 +158,11 @@
 
 							<div>
 								<ul class="select-list">
-									<li class="normalship" onclick="selectNormalShip()"><b>平邮</b></li>
-									<li class="fastship" onclick="selectFastShip()"><b>加急</b></li>
+									<li class="normalship"
+										onclick="selectGroudShipping(${primaryAddress.id})"><b>平邮</b></li>
+									<li class="fastship" onclick="selectExpressShipping()"><b>加急</b></li>
 								</ul>
+								
 							</div>
 						</div>
 					</form>
@@ -432,7 +434,7 @@
 				</div>
 			</div>
 
-			
+
 			<div class="side-count container">
 				<h3>订单摘要</h3>
 
@@ -445,8 +447,8 @@
 				</div>
 			</div>
 		</div>
-		
-		
+
+
 	</div>
 
 </section>

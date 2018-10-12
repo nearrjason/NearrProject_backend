@@ -1,0 +1,77 @@
+package com.meitaomart.app.cart;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.meitaomart.cart.service.CartService;
+import com.meitaomart.common.pojo.CartItem;
+import com.meitaomart.common.utils.CookieUtils;
+import com.meitaomart.common.utils.JsonUtils;
+import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.service.ItemService;
+
+public class DeleteCart {
+	@Value("${COOKIE_CART_EXPIRE}")
+    private Integer COOKIE_CART_EXPIRE;
+
+    @Autowired
+    private ItemService itemService;
+    @Autowired
+    private CartService cartService;
+
+    /**
+     * 删除后的购物车列表
+     */
+    @RequestMapping("/cart/delete/{itemId}")
+    @ResponseBody
+    public List<CartItem> deleteCartItem(@PathVariable Long itemId, HttpServletRequest request, HttpServletResponse response) {
+        MeitaoUser user = (MeitaoUser) request.getAttribute("user");
+        // 从cookie中取购物车列表
+        List<CartItem> cartItemList = getCartListFromCookie(request);
+        cartItemList = deleteCartItemHelper(itemId, user, cartItemList);
+        // 把购物车列表写入cookie
+        CookieUtils.setCookie(request, response, "cart", JsonUtils.objectToJson(cartItemList), COOKIE_CART_EXPIRE, true);
+        // 返回逻辑视图
+        return cartItemList;
+    }
+
+    private List<CartItem> deleteCartItemHelper(Long itemId, MeitaoUser user, List<CartItem> cartItemList) {
+        // 判断用户是否为登录状态
+        if (user != null) {
+            cartService.deleteCartItem(user.getId(), itemId);
+        } else {
+            // 遍历列表，找到要删除的商品
+            for (CartItem cartItem : cartItemList) {
+                if (cartItem.getId().longValue() == itemId) {
+                    // 删除商品
+                    cartItemList.remove(cartItem);
+                    // 跳出循环
+                    break;
+                }
+            }
+        }
+
+        return cartItemList;
+    }
+    
+    private List<CartItem> getCartListFromCookie(HttpServletRequest request) {
+        String json = CookieUtils.getCookieValue(request, "cart", true);
+        // 判断json是否为空
+        if (StringUtils.isBlank(json)) {
+            return new ArrayList<>();
+        }
+        // 把json转换成商品列表
+        List<CartItem> list = JsonUtils.jsonToList(json, CartItem.class);
+        return list;
+    }
+}

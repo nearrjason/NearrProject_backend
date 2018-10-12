@@ -12,11 +12,13 @@ import com.meitaomart.pojo.MeitaoBankingCard;
 import com.meitaomart.pojo.MeitaoOrder;
 import com.meitaomart.pojo.MeitaoOrderItem;
 import com.meitaomart.pojo.MeitaoUser;
+import com.shippo.model.Transaction;
 
 public interface OrderService {
 
-	MeitaoResult createOrder(OrderInfo orderInfo, MeitaoAddress address, MeitaoUser user);
+	//MeitaoResult createOrder(OrderInfo orderInfo, MeitaoAddress address, MeitaoUser user);
 	OrderInfo getOrderInfo(List<CartItem> cartItemList, MeitaoUser user, MeitaoAddress primaryAddress);
+	OrderInfo getOrderInfo(List<CartItem> cartItemList, MeitaoUser user, MeitaoAddress primaryAddress, Boolean isExpressShipping);
 	//List<MeitaoAddress> getAddressList(Long userId);
 	//List<MeitaoBankingCard> getCardList(Long userId);
 	List<MeitaoOrder> getOrderList();
@@ -26,4 +28,5 @@ public interface OrderService {
 	List<OrderInfo> getOrderInfoListByUserId(Long userId);
 	
 	MeitaoResult goToPay(MeitaoUser user, MeitaoAddress shippingAddress, MeitaoAddress billingAddress, MeitaoBankingCard card, OrderInfo orderInfo, List<MeitaoOrderItem> orderItemList, String cvv);
+	
 }

@@ -1,0 +1,86 @@
+package com.meitaomart.app.order;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.meitaomart.cart.service.CartService;
+import com.meitaomart.common.utils.JsonUtils;
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.order.pojo.OrderInfo;
+import com.meitaomart.order.service.OrderService;
+import com.meitaomart.pojo.MeitaoAddress;
+import com.meitaomart.pojo.MeitaoBankingCard;
+import com.meitaomart.pojo.MeitaoOrderItem;
+import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.user.service.UserService;
+
+public class Order {
+	@Autowired
+    private CartService cartService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private UserService userService;
+
+
+    @RequestMapping("/order/success")
+    public String orderSuccess(HttpServletRequest request) {
+        return "success";
+    }
+
+
+    // ResponseBody
+    @RequestMapping(value = "/order/pay", method = RequestMethod.POST)
+    @ResponseBody
+    public MeitaoResult createOrder(OrderInfo orderInfo, MeitaoAddress address, HttpServletRequest request,
+                              HttpSession session) {
+        // 取用户信息
+        if (orderInfo == null || address == null) {
+            return null;
+        }
+
+        MeitaoUser user = (MeitaoUser) request.getAttribute("user");
+
+        // 调用服务生成订单
+        MeitaoResult meitaoResult = orderService.createOrder(orderInfo, address, user);
+
+        // 如果订单生成成功，需要删除购物车
+        if (meitaoResult.getStatus() == 200) {
+            // 清空购物车
+            cartService.clearCartItem(user.getId());
+            // 把订单号传递给页面
+            /*
+             * request.setAttribute("orderId", meitaoResult.getData());
+             * request.setAttribute("payment", orderInfo.getSubtotal());
+             */
+            // 返回逻辑视图
+//            return "success";
+//            return meitaoResult;
+        }
+
+        return meitaoResult;
+    }
+
+
+    // ResponseBody
+    @RequestMapping(value = "/order/test", method = RequestMethod.POST)
+    @ResponseBody
+    public MeitaoResult test(FinalCheckoutMap map, HttpServletRequest request) {
+        MeitaoUser user = (MeitaoUser) request.getAttribute("user");
+        MeitaoAddress shippingAddress = JsonUtils.jsonToPojo(map.getShippingAddress(), MeitaoAddress.class);
+        MeitaoBankingCard card = JsonUtils.jsonToPojo(map.getCard(), MeitaoBankingCard.class);
+        OrderInfo orderInfo = JsonUtils.jsonToPojo(map.getOrderInfo(), OrderInfo.class);
+        MeitaoAddress billingAddress = JsonUtils.jsonToPojo(map.getBillingAddress(), MeitaoAddress.class);
+        List<MeitaoOrderItem> orderItemList = JsonUtils.jsonToList(map.getOrderItems(), MeitaoOrderItem.class);
+        String cvv = map.getCvv();
+        MeitaoResult meitaoResult = orderService.goToPay(user, shippingAddress, billingAddress, card, orderInfo, orderItemList, cvv);
+        return meitaoResult;
+    }
+}

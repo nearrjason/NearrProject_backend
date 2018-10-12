@@ -1,0 +1,62 @@
+package com.meitaomart.common.builder;
+
+public class ShippingInfoBuilder {
+	private static ShippingInfoBuilder shippingInfoBuilder = new ShippingInfoBuilder();
+	
+	private ShippingInfoBuilder() {}
+	
+	public static ShippingInfoBuilder getInstance() {
+		return shippingInfoBuilder;
+	}
+	
+	private String firstName;
+	private String lastName;
+	private String emailAddress;
+	private String phoneNumber;
+	private String street;
+	private String city;
+	private String state;
+	private String zip;
+	private Long orderId;
+	private Integer totalWeight;
+	
+	public ShippingInfoBuilder setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	public ShippingInfoBuilder setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public ShippingInfoBuilder setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+	
+	public ShippingInfoBuilder setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	
+	public ShippingInfoBuilder setStreet(String street) {
+		this.street = street;
+	}
+	
+	public ShippingInfoBuilder setCity(String city) {
+		this.city = city;
+	}
+	
+	public ShippingInfoBuilder setState(String state) {
+		this.state = state;
+	}
+	
+	public ShippingInfoBuilder setZip(String zip) {
+		this.zip = zip;
+	}
+	
+	public ShippingInfoBuilder setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+	
+	public ShippingInfoBuilder setTotalWeight(Integer totalWeight) {
+		this.totalWeight = totalWeight;
+	}
+}

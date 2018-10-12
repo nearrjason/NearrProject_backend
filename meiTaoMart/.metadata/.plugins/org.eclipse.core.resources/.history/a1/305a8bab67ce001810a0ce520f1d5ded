@@ -1,0 +1,20 @@
+package com.meitaomart.app.logout;
+
+@Controller
+public class Logout {
+	@Autowired
+    private LogoutService logoutService;
+
+    @Value("${TOKEN_KEY}")
+    private String TOKEN_KEY;
+
+    // logout后返回主页的url
+    @RequestMapping("/user/logout")
+    @ResponseBody
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        CookieUtils.deleteCookie(request, response, TOKEN_KEY);
+        String token = CookieUtils.getCookieValue(request, TOKEN_KEY, true);
+        logoutService.userLogout(token);
+        return "redirect:/index.html";
+    }
+}

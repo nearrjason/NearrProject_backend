@@ -1,0 +1,45 @@
+package com.meitaomart.app.forgetpwd;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.meitaomart.sso.service.ForgetPasswordService;
+import com.meitaomart.user.service.UserService;
+
+public class SetNewPasswordPage {
+	@Autowired
+	private ForgetPasswordService forgetPasswordService;
+
+	/*
+	 * @RequestMapping(value="/page/forget_psw", method = RequestMethod.GET)
+	 * public String forgetPassword() { return "forget-password"; }
+	 */
+
+	/*
+	 * 返回map 参数 setPassword, true表示返回填写新密码的页面 emailAddress, 邮箱
+	 * passwordCodeExpire, true表示找回密码连接已过期
+	 */
+	@RequestMapping(value = "/page/forget_psw", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> setNewPasswordPage(String code, HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<>();
+		if (code != null && code.length() != 0) {
+			String emailAddress = forgetPasswordService.getEmailAddressByCode(code);
+			if (emailAddress != null && emailAddress.length() != 0) {
+				map.put("setPassword", true);
+				map.put("emailAddress", emailAddress);
+			} else {
+				System.out.println("此链接已过期");
+				map.put("passwordCodeExpire", true);
+			}
+		}
+		return map;
+	}
+}
