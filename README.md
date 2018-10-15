@@ -20,7 +20,7 @@ meitao-order-web: _结算中心_
 meitao-user-web: _个人中心_
 
 
-###Service层：
+### Service层：
 
 meitao-manager: _商品和商品分类的代码逻辑，所依赖其它的服务: redis_
 
@@ -38,7 +38,7 @@ meitao-user: _个人中心的代码逻辑，所依赖其它的服务: redis_
 
 
 
-###目前所用的域名：192.168.1.100 (如果测试，请全局替换成自己的域名)
+### 目前所用的域名：192.168.1.100 (如果测试，请全局替换成自己的域名)
 
 **启动顺序如下（括号内为每个服务的端口号）：**
 
@@ -52,7 +52,7 @@ meitao-manager (8080) -> meitao-content (8083) -> meitao-search (8084) -> meitao
 meitao-manager-web (8081) -> meitao-portal-web (8082) -> meitao-search-web (8085) -> meitao-item-web (8086) -> meitao-sso-web (8088) -> meitao-cart-web (8090)-> meitao-order-web (8092) -> meitao-user-web (8094)
 ```
 
-###后台管理系统使用说明：
+### 后台管理系统使用说明：
 **默认url和端口： http://192.168.1.100:8081**
 
 第一类：
@@ -70,7 +70,7 @@ meitao-manager-web (8081) -> meitao-portal-web (8082) -> meitao-search-web (8085
    - 订单管理（查看所有订单）
 
 
-##第二部分：
+## 第二部分：
 1. ZooKeeper
    - 当前ip地址： 192.168.1.211 (测试请全局替换成自己的ip地址)。
    - 测试请全局替换成自己的ip地址，每个服务包括service和web层，都在这个文件下：/src/main/resources/spring/applicationContext-service.xml， 注意所有的zookeeper地址必须保持一致。
