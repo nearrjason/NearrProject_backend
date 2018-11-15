@@ -12,7 +12,7 @@ import com.taxjar.model.taxes.TaxResponse;
 public class TaxTest {
 	@Test
 	public void taxTest() {
-		System.out.println( "=================MeiTaoMart TaxJar Service================ " );
+		/*System.out.println( "=================MeiTaoMart TaxJar Service================ " );
         System.out.println( "===============Test start===============" );
         System.out.println( "===============Test start===============" );     
         System.out.println( "===============Let's BURN IT OUT!===============" );
@@ -23,19 +23,19 @@ public class TaxTest {
         //fc160786287b446ea1165ea88edcb268
         
         
-        /**
+        *//**
          * List all tax categories
-         */
+         *//*
         
 //        try {
 //            CategoryResponse res = client.categories();
 //        } catch (TaxjarException e) {
-//            e.printStackTrace();
+//            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 //        }
         
-        /**
+        *//**
          * List tax rates for a location by zip/postal code
-         */
+         *//*
         
 //        try {
 //            Map<String, String> params = new HashMap<>();
@@ -45,12 +45,12 @@ public class TaxTest {
 //            RateResponse res = client.ratesForLocation("07747", params);
 //            System.out.println("rate for location: "+res.rate.getCountryRate());
 //        } catch (TaxjarException e) {
-//            e.printStackTrace();
+//            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 //        }
         
-        /**
+        *//**
          * Calculate sales tax for an order
-         */
+         *//*
         
         try {
             Map<String, Object> params = new HashMap<>();
@@ -93,7 +93,7 @@ public class TaxTest {
             float total=res.tax.getAmountToCollect()+res.tax.getOrderTotalAmount();
             System.out.println("total amount we charge: "+total);
         } catch (TaxjarException e) {
-            e.printStackTrace();
-        }
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
+        }*/
 	}
 }

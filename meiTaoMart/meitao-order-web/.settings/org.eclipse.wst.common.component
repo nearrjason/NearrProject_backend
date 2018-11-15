@@ -13,6 +13,9 @@
         <dependent-module archiveName="meitao-common-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/meitao-common/meitao-common">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="meitao-search-interface-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/meitao-search-interface/meitao-search-interface">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="meitao-cart-interface-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/meitao-cart-interface/meitao-cart-interface">
             <dependency-type>uses</dependency-type>
         </dependent-module>

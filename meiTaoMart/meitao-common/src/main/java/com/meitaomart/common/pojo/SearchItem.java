@@ -11,6 +11,7 @@ public class SearchItem implements Serializable {
 	private Integer netWeight;
 	private Integer stockNumber;
 	private String images;
+	private Byte status;
 	private Long salePrice;
 	private Byte discount;
 	private String categoryName;
@@ -71,6 +72,14 @@ public class SearchItem implements Serializable {
 
 	public void setImages(String images) {
 		this.images = images;
+	}
+
+	public Byte getStatus() {
+		return status;
+	}
+
+	public void setStatus(Byte status) {
+		this.status = status;
 	}
 
 	public Long getSalePrice() {

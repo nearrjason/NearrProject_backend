@@ -1,5 +1,6 @@
 package com.meitaomart.common.jedis;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface JedisClient {
@@ -15,4 +16,5 @@ public interface JedisClient {
 	Boolean hexists(String key, String field);
 	public List<String> hvals(String key);
 	public long del(String key);
+	public void close() throws IOException;
 }

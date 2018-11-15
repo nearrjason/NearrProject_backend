@@ -15,13 +15,18 @@
     <link rel="stylesheet" href="/css/cart.css"/>
     <link rel="stylesheet" href="/css/footer.css"/>
     <link rel="stylesheet" href="/css/cart-popup.css"/> 
-    <link rel="stylesheet" href="/css/loading.css"/> 
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 	<jsp:include page="commons/topbar.jsp" />
-	<jsp:include page="commons/header.jsp" />
+	<div id="headerPage" class="headerPage">
+    	<jsp:include page="commons/header.jsp" />
+    </div>
 	<jsp:include page="commons/main.jsp" />
-	<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+	<div class="footerPage">
+		<jsp:include page="commons/footer.jsp" />
+	</div>
+	<script src="/js/constants.js" type="text/javascript"></script>
     <script src="/js/cart.js" type="text/javascript"></script>
     <script src="/js/popup.js" type="text/javascript"></script>
     <script src="/js/meitaomart.js" type="text/javascript"></script>

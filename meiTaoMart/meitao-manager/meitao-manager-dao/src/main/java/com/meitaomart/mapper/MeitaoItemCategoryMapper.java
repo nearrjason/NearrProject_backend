@@ -19,6 +19,8 @@ public interface MeitaoItemCategoryMapper {
     List<MeitaoItemCategory> selectByExample(MeitaoItemCategoryExample example);
 
     MeitaoItemCategory selectByPrimaryKey(Long id);
+    
+    String selectItemCategoryNameByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") MeitaoItemCategory record, @Param("example") MeitaoItemCategoryExample example);
 

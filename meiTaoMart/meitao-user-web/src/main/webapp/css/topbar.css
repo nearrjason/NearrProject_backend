@@ -13,6 +13,7 @@ body {
     margin: 0px;
     min-width: 1000px;
     color: #707070;
+    box-shadow: 2px 2px 2px #e0e0e0;
 }
 
 .shortcut {

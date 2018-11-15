@@ -1,275 +1,296 @@
-.main {
-    margin-left: 10%;
-    margin-right: 10%;
-    min-width: 1100px;
-}
-
 .main-box {
-    display: flex;
+	display: flex;
 }
 
 .main h1 {
-    font-family: STXihei;
-    font-size: 200%;
-    color: #707070;
+	font-family: STXihei;
+	font-size: 200%;
+	color: #707070;
 }
 
 .left {
-    margin: 2%;
-    margin-left: 2%;
-    /* margin-right: 10%; */
-    flex: 0 0 15%;
-    height: fit-content;;
+	margin: 2%;
+	margin-left: 2%;
+	/* margin-right: 10%; */
+	flex: 0 0 15%;
+	height: fit-content;;
 }
 
-.right{
-    position: relative;
-    margin: 2%;
-    margin-right: 2%;
-    flex: 1;
-    background-color: white;
-    box-shadow: 2px 2px 5px #e0e0e0;
-    
+.right {
+	position: relative;
+	margin: 2%;
+	margin-right: 2%;
+	flex: 1;
+	background-color: white;
+	box-shadow: 2px 2px 5px #e0e0e0;
 }
 
 .right h2 {
-    font-family: STXihei;
-    color: #707070;
-    margin: 2%;
-    font-size: 20px;
-    display: inline-block;
+	font-family: STXihei;
+	color: #707070;
+	margin: 2%;
+	font-size: 20px;
+	display: inline-block;
 }
 
 .pwChange {
-    display: inline-block;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: #707070;
-    background-color: white;
-    border-radius: 20px;
-    outline: none;
+	display: inline-block;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #707070;
+	background-color: white;
+	border-radius: 20px;
+	outline: none;
 }
 
 .right hr {
-    width: 98%;
-    border-color: #fefefe;
+	width: 98%;
+	border-color: #fefefe;
 }
 
 .username {
-    background-color: white;
-    height: fit-content;
-    padding: 10%;
-    background-color: white;
-    box-shadow: 2px 2px 5px #e0e0e0
+	background-color: white;
+	height: fit-content;
+	padding: 10%;
+	background-color: white;
+	box-shadow: 2px 2px 5px #e0e0e0
 }
 
 .username img {
-    display:block;
-    width: 60px;
-    height: 60px;
-    margin: auto;
-    margin-top: 5%;
-    margin-bottom: 5%;
+	display: block;
+	width: 60px;
+	height: 60px;
+	margin: auto;
+	margin-top: 5%;
+	margin-bottom: 5%;
 }
 
 .username p {
-    text-align: center;
-    font-family: STXihei;
-    color: #707070;
+	text-align: center;
+	font-family: STXihei;
+	color: #707070;
 }
 
 .links {
-    padding-top: 10%;
-    padding-bottom: 10%;
-    background-color: white;
-    margin-top: 10%;
-    background-color: white;
-    box-shadow: 2px 2px 5px #e0e0e0
+	padding-top: 10%;
+	padding-bottom: 10%;
+	background-color: white;
+	margin-top: 10%;
+	background-color: white;
+	box-shadow: 2px 2px 5px #e0e0e0
 }
 
 .links ul {
-    padding: 0px;
-    margin: 0px;
+	padding: 0px;
+	margin: 0px;
 }
 
-.links li{
-    text-decoration: none;
-    list-style: none;
-    padding-top: 10%;
-    padding-bottom: 10%;
-    text-align: left;
-    padding-left: 20%;
+.links li {
+	text-decoration: none;
+	list-style: none;
+	padding-top: 10%;
+	padding-bottom: 10%;
+	text-align: left;
+	padding-left: 20%;
 }
 
 .links li:hover {
-    background-color: #fdf6f6;
+	background-color: #fdf6f6;
 }
 
 .links a {
-    text-decoration: none;
-    color: #707070;
-    font-family: STXihei;
+	text-decoration: none;
+	color: #707070;
+	font-family: STXihei;
 }
 
 .links li.selected {
-    background: linear-gradient(to right, #e03c3c 3%, #fce9e9 3%) !important;
+	background: linear-gradient(to right, #e03c3c 3%, #fce9e9 3%) !important;
 }
 
 .user-info {
-    padding-left: 3%;
-    padding-right: 3%;
-    padding-bottom: 5%;
-    margin-bottom: 50px;
-    height: fit-content;
+	padding-left: 3%;
+	padding-right: 3%;
+	padding-bottom: 5%;
+	margin-bottom: 50px;
+	height: fit-content;
 }
 
 .form_container {
-    position: relative;
-    width: 100%;
-    height: fit-content;
+	position: relative;
+	width: 100%;
+	height: fit-content;
 }
 
 .form_container div {
-    position: relative;
-    margin: 2%;
-    margin-bottom: 5%;
-    margin-top: 5%;
-    height: fit-content;
+	position: relative;
+	margin: 2%;
+	margin-bottom: 5%;
+	margin-top: 5%;
+	height: fit-content;
 }
 
 .form_container label {
-    font-family: STXihei;
-    font-size: 16px;
-    color: #707070;
-    margin-left: 1%;
+	font-family: STXihei;
+	font-size: 16px;
+	color: #707070;
+	margin-left: 1%;
 }
 
 .form_container input, select, textarea {
-    position: relative;
-    font-family: STXihei;
-    font-size: 14px;
-    color: #707070;
-    border: none;
-    background-color: #f2f2f2;
-    outline: none;
-    height: 30px;
-    width: 100%;
-    padding: 1%;
-    margin: 1%;
+	position: relative;
+	font-family: STXihei;
+	font-size: 14px;
+	color: #707070;
+	border: none;
+	background-color: #f2f2f2;
+	outline: none;
+	height: 30px;
+	width: 100%;
+	padding: 1%;
+	margin: 1%;
 }
 
 .form_container textarea {
-    resize: none;
-    height: 100px;
+	resize: none;
+	height: 100px;
 }
 
-.userID, .gender, .email, .dob, .phone, .info{
-    display: inline-block;
+.userID, .gender, .email, .dob, .phone, .info {
+	display: inline-block;
 }
 
 .userID {
-    width: 40%;
+	width: 40%;
 }
 
 .gender {
-    width: 40%;
+	width: 40%;
 }
 
 .email {
-    width: 40%;
+	width: 40%;
 }
 
 .email .veri-btn {
-    position: relative;
-    display: inline-block;
-    outline: none;
-    border: none;
-    border-radius: 10px;
-    background-color: #e03c3c;
-    color: white;
-    padding: 2px;
-    padding-left: 8px;
-    padding-right: 8px;
-    margin:0px;
-    margin-left: 2%;
-    font-size: 10px;
-    vertical-align: top;
-    cursor: pointer;
+	position: relative;
+	display: inline-block;
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	background-color: #e03c3c;
+	color: white;
+	padding: 2px;
+	padding-left: 8px;
+	padding-right: 8px;
+	margin: 0px;
+	margin-left: 2%;
+	font-size: 10px;
+	vertical-align: top;
+	cursor: pointer;
 }
 
 .email .veri-btn:hover {
-    opacity: 0.8;
+	opacity: 0.8;
 }
 
 .email .veri-await {
-    position: relative;
-    display: inline-block;
-    outline: none;
-    border: none;
-    border-radius: 10px;
-    background-color: #707070;
-    color: white;
-    padding: 2px;
-    padding-left: 8px;
-    padding-right: 8px;
-    margin:0px;
-    margin-left: 2%;
-    font-size: 10px;
-    vertical-align: top;
+	position: relative;
+	display: inline-block;
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	background-color: #707070;
+	color: white;
+	padding: 2px;
+	padding-left: 8px;
+	padding-right: 8px;
+	margin: 0px;
+	margin-left: 2%;
+	font-size: 10px;
+	vertical-align: top;
 }
 
 .email .veri-pass {
-    position: relative;
-    display: inline-block;
-    outline: none;
-    border: none;
-    border-radius: 10px;
-    background-color: aquamarine;
-    color: #18cc66;
-    padding: 2px;
-    padding-left: 8px;
-    padding-right: 8px;
-    margin:0px;
-    margin-left: 2%;
-    font-size: 10px;
-    vertical-align: top;
+	position: relative;
+	display: inline-block;
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	background-color: aquamarine;
+	color: #18cc66;
+	padding: 2px;
+	padding-left: 8px;
+	padding-right: 8px;
+	margin: 0px;
+	margin-left: 2%;
+	font-size: 10px;
+	vertical-align: top;
 }
 
 .dob {
-    width: 40%;
+	width: 40%;
 }
 
 .phone {
-    width: 40%;
+	width: 40%;
 }
 
 .info {
-    width: 83%;
+	width: 83%;
+}
+
+.dob input::-webkit-inner-spin-button, .dob input::-webkit-outer-spin-button
+	{
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.dob input {
+	-moz-appearance: textfield;
 }
 
 .save {
-    position: relative;
-    left: -5%;
-    bottom: 0;
-    text-align: center;
-    width: 100%;
-    height: 50px;
-    margin-top: 50px;
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	width: 100%;
+	height: 50px;
+	margin-top: 50px;
 }
 
 .submit-button {
-    cursor: pointer;
-    background-color: #e03c3c;
-    width: 12%;
-    height: 60%;
-    text-align: center;
-    color: white;
-    border-radius: 30px;
-    outline: 0;
-    opacity: 1;
+	cursor: pointer;
+	background-color: #e03c3c;
+	width: 12%;
+	height: 60%;
+	text-align: center;
+	color: white;
+	border-radius: 30px;
+	outline: 0;
+	opacity: 1;
 }
 
 .submit-button:hover {
-    opacity: 0.8;
+	opacity: 0.8;
+}
+
+.pwChange {
+	float: left;
+	margin: 20px;
+	margin-top: 20px;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: none;
+	background-color: #f2f2f2;
+	border-radius: 10px;
+	box-shadow: 2px 2px 5px #e0e0e0;
+	outline: none;
+}
+
+.pwChange:hover {
+	opacity: 0.5;
 }

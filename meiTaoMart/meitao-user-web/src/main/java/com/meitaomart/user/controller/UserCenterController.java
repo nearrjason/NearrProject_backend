@@ -1,6 +1,9 @@
 package com.meitaomart.user.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,7 +79,11 @@ public class UserCenterController {
 		
 		MeitaoUser meitaoUser = userService.getUserByPrimaryId(user.getId());
 		List<CartItem> cartItemList = getCartItemList(request, response);
-		
+		Date birthday = meitaoUser.getBirthday();
+		if (birthday != null) {
+			String birthdayString = new SimpleDateFormat("yyyy-MM-dd").format(birthday);
+			request.setAttribute("birthday", birthdayString);
+		}
 		request.setAttribute("cartItemList", cartItemList);
 		request.setAttribute("user", meitaoUser);
 		request.setAttribute("type", "account");
@@ -114,7 +121,7 @@ public class UserCenterController {
 	}
 	
 	private List<CartItem> getCartItemList(HttpServletRequest request, HttpServletResponse response) {
-		List<CartItem> cartItemList = getCartListFromCookie(request);
+		List<CartItem> cartItemList = getCartListByCartToken(request);
 		// 判断用户是否为登录状态
 		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
 		// 如果是登录状态
@@ -132,14 +139,14 @@ public class UserCenterController {
 		return cartItemList;
 	}
 	
-	private List<CartItem> getCartListFromCookie(HttpServletRequest request) {
-		String json = CookieUtils.getCookieValue(request, "cart", true);
+	private List<CartItem> getCartListByCartToken(HttpServletRequest request) {
+		String cartToken = CookieUtils.getCookieValue(request, "cart", true);
 		// 判断json是否为空
-		if (StringUtils.isBlank(json)) {
+		if (StringUtils.isBlank(cartToken)) {
 			return new ArrayList<>();
 		}
 		// 把json转换成商品列表
-		List<CartItem> list = JsonUtils.jsonToList(json, CartItem.class);
+		List<CartItem> list = cartService.getCartListByToken(cartToken, false);
 		return list;
 	}
 }

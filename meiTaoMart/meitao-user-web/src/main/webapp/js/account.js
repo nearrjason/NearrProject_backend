@@ -13,3 +13,15 @@ function updateUserInfo() {
 	);
 }
 
+$(function () {
+    $("#phoneNumberInput").keydown(function (event) {
+        var key = event.keyCode || event.which;
+        if (65 <= key && key <= 90) {
+            event.preventDefault();
+        }
+        if ($(this).val().length == $(this).attr("maxlength") && ((48 <= key && key <= 57) || (65 <= key && key <= 90))) {
+            event.preventDefault();
+        }
+    });
+});
+

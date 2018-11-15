@@ -90,8 +90,7 @@
 
 			<div class="i-op">
 				<c:if test="${item.stockNumber == 0 }">
-					<button type="submit" class="add-cart2"
-						onclick="">加入购物车</button>
+					<button type="submit" class="add-cart2" onclick="">加入购物车</button>
 				</c:if>
 				<c:if test="${item.stockNumber != 0 }">
 					<button type="submit" class="add-cart"
@@ -124,9 +123,11 @@
 </div>
 <!--Main ends here-->
 
-<!--Cancel button click popup-->
-<div class="popup-box" id="popup">
-	<p class="question">请输入配送地区邮编</p>
-	<input type="text" name="zip" id="zip" maxlength="5">
-	<button type="text" class="confirm bttn" onclick="confirmZip()">确认</button>
+<div id="snackbar">商品成功加入购物车</div>
+
+<div class="popup" id="snackbar-fail">
+	<p class="cause"></p>
+	<button type="submit" class="toast-close" onclick="refreshPage()">
+		<img src="/images/icons/close-white.svg" alt="">
+	</button>
 </div>

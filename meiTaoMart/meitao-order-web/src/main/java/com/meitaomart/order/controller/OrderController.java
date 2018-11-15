@@ -1,5 +1,7 @@
 package com.meitaomart.order.controller;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.meitaomart.cart.service.CartService;
 import com.meitaomart.common.pojo.CartItem;
+import com.meitaomart.common.utils.EmailUtils;
 import com.meitaomart.common.utils.JsonUtils;
 import com.meitaomart.common.utils.MeitaoResult;
 import com.meitaomart.order.pojo.FinalCheckoutMap;
@@ -21,6 +24,7 @@ import com.meitaomart.pojo.MeitaoAddress;
 import com.meitaomart.pojo.MeitaoBankingCard;
 import com.meitaomart.pojo.MeitaoOrderItem;
 import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.search.service.SearchItemService;
 import com.meitaomart.user.service.UserService;
 
 /**
@@ -37,10 +41,11 @@ public class OrderController {
 	private OrderService orderService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private SearchItemService searchItemService;
 
 	@RequestMapping("/order/checkout_page")
 	public String showCheckoutPage(HttpServletRequest request) {
-		
 		MeitaoUser meitaoUser = (MeitaoUser) request.getAttribute("user");
 		List<CartItem> cartItemList = cartService.getCartList(meitaoUser.getId(), true);
 		
@@ -68,7 +73,7 @@ public class OrderController {
 		
 		OrderInfo orderInfo = orderService.getOrderInfo(cartItemList, meitaoUser, primaryAddress);
 		request.setAttribute("orderInfo", orderInfo);
-		return "order_checkout_meitao";
+		return "order_checkout";
 	}
 
 	@RequestMapping(value = "/order/final_payment", method = RequestMethod.POST)
@@ -84,7 +89,24 @@ public class OrderController {
 		MeitaoResult meitaoResult = orderService.goToPay(user, shippingAddress, billingAddress, card, orderInfo, orderItemList, cvv);
 		if (meitaoResult.getStatus() == 200) {
 			// 清空购物车
-			cartService.clearCartItem(user.getId());
+			try {
+				cartService.clearCartItem(user.getId());
+				Object data = meitaoResult.getData();
+				if (data instanceof List<?>) {
+					@SuppressWarnings("unchecked")
+					List<Long> itemIdList = (List<Long>)data;
+					searchItemService.updatePartialItems(itemIdList);
+				}
+			} catch(Exception e) {
+				StringWriter sw = new StringWriter();
+				PrintWriter pw = new PrintWriter(sw);
+				e.printStackTrace(pw);
+				
+				String subject = "系统出现异常";
+				String body = sw.toString();
+				EmailUtils.groupSendEmail(subject, body);
+			}
+			
 		}
 		return meitaoResult;
 	}
@@ -130,7 +152,7 @@ public class OrderController {
 
 			}
 		}
-		return "commons_meitao/main/address_drop_list";
+		return "commons/main/address_drop_list";
 	}
 
 	@RequestMapping("/order/checkout_page/update_card_list")
@@ -150,7 +172,7 @@ public class OrderController {
 
 			}
 		}
-		return "commons_meitao/main/card_drop_list";
+		return "commons/main/card_drop_list";
 	}
 	
 	@RequestMapping(value = "/order/checkout_page/select_address")
@@ -174,7 +196,7 @@ public class OrderController {
 
 			}
 		}
-		return "commons_meitao/main/address_drop_list";
+		return "commons/main/address_drop_list";
 	}
 	
 	@RequestMapping(value = "/order/checkout_page/select_card")
@@ -198,7 +220,7 @@ public class OrderController {
 
 			}
 		}
-		return "commons_meitao/main/card_drop_list";
+		return "commons/main/card_drop_list";
 	}
 	
 	@RequestMapping(value = "/order/checkout_page/update_order_info")
@@ -214,6 +236,6 @@ public class OrderController {
 			}
 		}
 		
-		return "commons_meitao/main/final_prices_block";
+		return "commons/main/final_prices_block";
 	}
 }

@@ -23,6 +23,4 @@ public class CartItem extends ItemInfo implements Serializable{
 	public void setOneImage(String oneImage) {
 		this.oneImage = oneImage;
 	}
-
-	
 }

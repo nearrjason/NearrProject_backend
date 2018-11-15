@@ -63,14 +63,23 @@
 								</button>
 							</c:if></td>
 
-						<td class="total"><c:if test="${cartItem.stockNumber != 0 }">
+						<td class="total">
+							<c:if test="${cartItem.status == 1 }">
+								<c:if test="${cartItem.stockNumber != 0 }">
+									<span id=""
+										value="${cartItem.stockNumber}"> ${cartItem.stockNumber}
+									</span>
+								</c:if> 
+								<c:if test="${cartItem.stockNumber == 0 }">
+									<span id=""
+										value="${cartItem.stockNumber}"> 已售完 </span>
+								</c:if>
+							</c:if>
+							<c:if test="${cartItem.status == 0 }">
 								<span id=""
-									value="${cartItem.stockNumber}"> ${cartItem.stockNumber}
-								</span>
-							</c:if> <c:if test="${cartItem.stockNumber == 0 }">
-								<span id=""
-									value="${cartItem.stockNumber}"> 已售完 </span>
-							</c:if></td>
+										value=""> 已下架 </span>
+							</c:if>
+						</td>
 
 						<td class="total"><c:if test="${cartItem.stockNumber != 0 }">
 								<span id="singleTotalPrice${cartItemUtils.index}"
@@ -107,17 +116,9 @@
 	<div class="no-item">
 		<h2>购物车暂无商品</h2>
 		<p>
-			<a href="http://192.168.1.100:8082">去商城逛逛</a>
+			<a href="http://192.168.1.100">去商城逛逛</a>
 		</p>
 	</div>
 	
-	
-	<div id="loadingImage" class="loading">
-		正在生成订单详情页面，请稍候！
-		<div class="spinner">
-			<div class="double-bounce1"></div>
-			<div class="double-bounce2"></div>
-		</div>
-	</div>
 	<div id="overlay"></div>
 </div>

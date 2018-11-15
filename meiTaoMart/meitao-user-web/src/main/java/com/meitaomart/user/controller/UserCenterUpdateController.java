@@ -52,7 +52,8 @@ public class UserCenterUpdateController {
 		}
 		
 		user.setBirthday(birthday);
-		MeitaoUser updatedUser = userService.updateUser(user, userId);
+		MeitaoResult meitaoResult = userService.updateUser(user, userId);
+		MeitaoUser updatedUser = (MeitaoUser)meitaoResult.getData();
 		if (updatedUser == null) {
 			return MeitaoResult.build(201, "保存信息失败！");
 		}
@@ -75,30 +76,28 @@ public class UserCenterUpdateController {
 		return result;
 	}
 	
+	
 	@RequestMapping("/user/profile/delete")
 	public String deleteOne(Long id, String type, HttpServletRequest request) {
 		Long userId = ((MeitaoUser) request.getAttribute("user")).getId();
-		MeitaoResult result = userService.deleteOne(id, type, userId);
-		if (result != null && Integer.valueOf(200).equals(result.getStatus())) {
-			return ADDRESS_TYPE.equals(type) ? "redirect:/user/profile/addresses" : "redirect:/user/profile/cards";
-		}
-		
-		return null;
+		userService.deleteOne(id, type, userId);
+		return ADDRESS_TYPE.equals(type) ? "redirect:/user/profile/addresses" : "redirect:/user/profile/cards";
 	}
 	
 	@RequestMapping("/user/profile/update/address")
-	public String updateAddress(MeitaoAddress address, Long addressId, HttpServletRequest request) {
+	@ResponseBody
+	public MeitaoResult updateAddress(MeitaoAddress address, Long addressId, HttpServletRequest request) {
 		Long userId = ((MeitaoUser) request.getAttribute("user")).getId();
 		MeitaoResult result = userService.updateAddress(address, addressId, userId);
-		if (Integer.valueOf(200).equals(result.getStatus())) {
-			return "redirect:/user/profile/addresses";
-		}
-		return null;
+		return result;
 	}
 	
 	@RequestMapping("/user/profile/update/card")
 	@ResponseBody
 	public MeitaoResult updateCard(MeitaoBankingCard card, Long cardId, HttpServletRequest request) {
+		if (cardId == null) {
+			return MeitaoResult.build(400, "更新银行卡失败: card id 为空！");
+		}
 		Long userId = ((MeitaoUser) request.getAttribute("user")).getId();
 		MeitaoResult result = userService.updateCard(card, cardId, userId);
 		return result;
@@ -106,7 +105,7 @@ public class UserCenterUpdateController {
 	
 	@RequestMapping("/user/profile/add/address")
 	@ResponseBody
-	public MeitaoResult addAddress(MeitaoAddress address, Long addressId, HttpServletRequest request) {
+	public MeitaoResult addAddress(MeitaoAddress address, HttpServletRequest request) {
 		Long userId = ((MeitaoUser) request.getAttribute("user")).getId();
 		MeitaoResult result = userService.addNewAddress(address, userId);
 		return result;
@@ -114,7 +113,7 @@ public class UserCenterUpdateController {
 	
 	@RequestMapping("/user/profile/add/card")
 	@ResponseBody
-	public MeitaoResult addCard(MeitaoBankingCard card, Long cardId, HttpServletRequest request) {
+	public MeitaoResult addCard(MeitaoBankingCard card, HttpServletRequest request) {
 		Long userId = ((MeitaoUser) request.getAttribute("user")).getId();
 		MeitaoResult result = userService.addNewCard(card, userId);
 		return result;

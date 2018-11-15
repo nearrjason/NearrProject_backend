@@ -8,15 +8,9 @@
 	<div class="nav">
 		<ul class="nav-bar">
 			<li id="title">相关商品分类</li>
-			<li id="overall" class="selected">综合<img
-				src="/images/icons/descend.svg" alt=""></li>
-			<li id="sale-amount">销量<img
-				src="/images/icons/descend.svg" alt=""></li>
-			<li id="pricing">价格<img class="p-img"
-				src="/images/icons/sort.svg" alt=""></li>
-			<li id="on-market">上架时间<img
-				src="/images/icons/descend.svg" alt=""></li>
+			<li><p>共&nbsp;${recordCount }&nbsp;条搜索结果</p></li>
 		</ul>
+
 	</div>
 
 	<div class="content">
@@ -25,15 +19,21 @@
 				<c:forEach items="${itemCategoryList }" var="itemCategory2">
 					<div class="secondlevel">
 						<div class="little-wrap">
-							<a href="http://192.168.1.100:8085/category/${itemCategory2.id}.html?cn=${itemCategory2.name}">${itemCategory2.name}</a>
-							<button id="cat-drop" onclick="categoryDrop(this)"><img
-								src="/images/icons/down-arrow.svg" alt=""></button>
+
+							<a
+								href="http://192.168.1.100:8085/category.html?cn=${itemCategory2.name}">${itemCategory2.name}</a>
+
+							<!-- <button id="cat-drop" onclick="categoryDrop(this)">
+								<img src="/images/icons/down-arrow.svg" alt="">
+							</button> -->
 						</div>
-						<ul class="thirdlevel">
-							<c:forEach items="${itemCategory2.childrenList }" var="itemCategory3">
-								<li><a href="http://192.168.1.100:8085/category/${itemCategory3.id}.html?cn=${itemCategory3.name}">${itemCategory3.name}</a></li>
+						<%-- <ul class="thirdlevel">
+							<c:forEach items="${itemCategory2.childrenList }"
+								var="itemCategory3">
+								<li><a
+									href="">${itemCategory3.name}</a></li>
 							</c:forEach>
-						</ul>
+						</ul> --%>
 					</div>
 				</c:forEach>
 			</div>
@@ -90,8 +90,8 @@
 					<a id="first">首页</a> <a id="previous"><img
 						src="/images/icons/back.svg" alt=""></a>
 					<div id="pag"></div>
-					<a id="next"><img src="/images/icons/next.svg" alt=""></a>
-					<a id="last">尾页</a>
+					<a id="next"><img src="/images/icons/next.svg" alt=""></a> <a
+						id="last">尾页</a>
 					<p class="total-pages">
 						共<span></span>页
 					</p>
@@ -99,7 +99,20 @@
 						<%-- value="${totalPages }" --%> type="hidden"></input> <input
 						id="currentKeyword" value="${query }" type="hidden"></input> <input
 						id="currentPage" value="${page }" type="hidden"></input>
+					<input id="currentCategoryName" value="${cn }" type="hidden"></input>
+					<input id="searchType" type="hidden" value="${searchType }">
 				</div>
+			</div>
+
+
+
+			<div id="snackbar">商品成功加入购物车</div>
+
+			<div class="popup" id="snackbar-fail">
+				<p class="cause"></p>
+				<button type="submit" class="toast-close" onclick="refreshPage()">
+					<img src="/images/icons/close-white.svg" alt="">
+				</button>
 			</div>
 		</div>
 	</div>

@@ -56,16 +56,29 @@ public class RegisterServiceImpl implements RegisterService {
 		// 数据有效性校验
 		if (StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword())
 				|| StringUtils.isBlank(user.getEmail())) {
-			return MeitaoResult.build(400, "用户数据不完整，注册失败");
+			return MeitaoResult.build(400, "用户数据不完整，注册失败！");
 		}
+		
+		if (user.getUsername().length() > 20) {
+			return MeitaoResult.build(400, "用户名不能超过20位！");
+		}
+		
+		if (!user.getEmail().matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}")) {
+			return MeitaoResult.build(400, "邮箱格式不正确，请输入正确的邮箱格式!");
+		}
+		
+		if (!user.getUsername().matches("[a-zA-Z0-9@._]*")) {
+			return MeitaoResult.build(400, "用户名格式不正确: 用户名只能包括:英文字母、数字、下划线或邮箱格式!");
+		}
+		
 		// 1：用户名 2：手机号 3：邮箱
 		MeitaoResult result = checkData(user.getUsername(), 1);
 		if ((boolean) result.getData()) {
-			return MeitaoResult.build(400, "此用户名已经被占用");
+			return MeitaoResult.build(400, "此用户名已经被占用！", user);
 		}
 		result = checkData(user.getEmail(), 3);
 		if ((boolean) result.getData()) {
-			return MeitaoResult.build(400, "邮箱已经被占用");
+			return MeitaoResult.build(400, "邮箱已经被占用！", user);
 		}
 		// 补全pojo的属性
 		user.setCreatedTime(new Date());
@@ -78,7 +91,7 @@ public class RegisterServiceImpl implements RegisterService {
 		meitaoUserMapper.insert(user);
 
 		// 返回添加成功
-		return MeitaoResult.ok();
+		return MeitaoResult.ok(user);
 	}
 
 	private MeitaoResult sendEmailToUser(MeitaoUser user) {

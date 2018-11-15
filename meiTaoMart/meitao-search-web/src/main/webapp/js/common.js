@@ -1,6 +1,27 @@
 function searchKeyAndPage(key, page) {
-	location.href="/search.html?keyword=" + key + "&page=" + page;
+	if ($("#searchType").val() == "keyword") {
+		location.href="/search.html?keyword=" + key + "&page=" + page;
+	} else if ($("#searchType").val() == "categoryName") {
+		location.href="/category.html?cn=" + key + "&page=" + page;
+	}
+	
 };
+
+function toast(message, id) {
+    // Get the snackbar DIV
+    var x = document.getElementById(id);
+    $("#snackbar-fail p").html(message);
+    // Add the "show" class to DIV
+    x.className = "show";
+    console.log(id);
+    if (id == "snackbar") {
+    	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+}
+
+function refreshPage() {
+	location.reload();
+}
 
 function addToCart(product_id) {
 	$.ajax({
@@ -10,13 +31,15 @@ function addToCart(product_id) {
 		type : "GET",
 		success : function(response){
 			if (response.status == 200) {
-				/*alert("添加购物车成功！");*/
+				toast("", "snackbar");
 				$.get(
 					"/refresh/cart.html",
 					function(page) {
 						$("#headerPage").html(page);
 					}
 				)
+			} else {
+				toast(response.msg, "snackbar-fail");
 			}
 		}
 	});

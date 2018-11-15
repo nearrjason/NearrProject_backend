@@ -5,6 +5,8 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
+import com.meitaomart.common.utils.EmailUtils;
+
 public class MyMessageListener implements MessageListener {
 
 	@Override
@@ -16,7 +18,7 @@ public class MyMessageListener implements MessageListener {
 			System.out.println(text);
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		}
 	}
 

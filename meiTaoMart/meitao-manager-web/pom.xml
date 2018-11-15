@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -108,8 +108,40 @@
 			<artifactId>commons-fileupload</artifactId>
 		</dependency>
 	</dependencies>
+	<profiles>
+		<profile>
+			<!-- 本地开发环境 -->
+			<id>local</id>
+			<properties>
+				<profiles.active>local</profiles.active>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<!-- 生产环境 -->
+			<id>product</id>
+			<properties>
+				<profiles.active>product</profiles.active>
+			</properties>
+		</profile>
+	</profiles>
+
 	<!-- 配置tomcat插件 -->
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>product/*</exclude>
+					<exclude>local/*</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources/${profiles.active}</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
@@ -117,6 +149,9 @@
 				<configuration>
 					<path>/</path>
 					<port>8081</port>
+					<url>http://3.16.66.89/manager/text</url>
+					<username>nearrTomcat</username>
+					<password>Nearr123!</password>
 				</configuration>
 			</plugin>
 		</plugins>

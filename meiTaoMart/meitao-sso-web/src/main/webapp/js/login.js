@@ -27,7 +27,7 @@ var LOGIN = {
 		    function(data) {
 				if (data.status == 200) {
 					if (redirectUrl == "") {
-						location.href = "http://192.168.1.100:8082";
+						location.href = "http://192.168.1.100";
 					} else {
 						location.href = redirectUrl;
 					}

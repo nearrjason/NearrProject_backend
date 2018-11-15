@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="/css/forget-password.css">
 	<link rel="stylesheet" href="/css/login-register.css">
 	<link rel="stylesheet" href="/css/footer.css">
+	<script src="/js/constants.js" type="text/javascript"></script>
 </head>
 <body>
 	<!--Header starts here-->

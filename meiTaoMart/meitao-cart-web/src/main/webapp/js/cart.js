@@ -33,6 +33,13 @@ function updateQuantity(input, stockNumber) {
 function refreshSingleTotalPrice(itemId, index, unitSalePrice, quantity) {
 	$.post("/cart/update/purchaseQuantity/"+ itemId +"/"+ quantity + ".action",function(response){
 		if (response) {
+			$.get(
+				"/refresh/cart.html",
+				function(page) {
+					// $("#overlay").hide();
+					$("#headerPage").html(page);
+				}
+			)
 			var updatedSingleTotalPrice = unitSalePrice * quantity;
 			$("#singleTotalPrice" + index).html(new Number(updatedSingleTotalPrice / 100).toFixed(2)).priceFormat({ // 价格格式化插件
 				 prefix: '$',
@@ -65,7 +72,7 @@ function deleteItem(itemId) {
 function checkout() {
 	$("#loadingImage").fadeIn(100);
 	$("#overlay").show();
-	javascript:document.location.href="http://192.168.1.100:8092/order/checkout_page.html";
+	javascript:document.location.href = URL_PREFIX + ORDER_URL + "/order/checkout_page.html";
 }
 
 $(function () {

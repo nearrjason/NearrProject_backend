@@ -14,6 +14,7 @@ import com.github.pagehelper.PageInfo;
 import com.meitaomart.common.jedis.JedisClient;
 import com.meitaomart.common.pojo.EasyUIDataGridResult;
 import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.common.utils.EmailUtils;
 import com.meitaomart.common.utils.JsonUtils;
 import com.meitaomart.content.service.ContentService;
 import com.meitaomart.mapper.MeitaoContentMapper;
@@ -81,7 +82,7 @@ public class ContentServiceImpl implements ContentService {
 				return list;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		}
 		
 		//查询数据库
@@ -94,7 +95,7 @@ public class ContentServiceImpl implements ContentService {
 		try {
 			jedisClient.hset(CONTENT_LIST, categoryId + "", JsonUtils.objectToJson(list));
 		} catch (Exception e) {
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		}
 		
 		return null;
@@ -117,7 +118,7 @@ public class ContentServiceImpl implements ContentService {
 			try {
 				jedisClient.hdel(key, id);
 			} catch (Exception e) {
-				e.printStackTrace();
+				EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 			}
 		}
 	}

@@ -1,12 +1,13 @@
 D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoAdminUserMapper.java
 D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoItemDescMapper.java
-D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoOrderItemMapper.java
 D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoAddressMapper.java
-D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoBankingCardMapper.java
 D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoContentMapper.java
 D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoItemCategoryMapper.java
-D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoContentCategoryMapper.java
 D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoItemPriceMapper.java
 D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoUserMapper.java
+D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoOrderItemMapper.java
+D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoBankingCardMapper.java
+D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoStockRecordMapper.java
+D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoContentCategoryMapper.java
 D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoItemMapper.java
 D:\meiTaoMart\meitao-manager\meitao-manager-dao\src\main\java\com\meitaomart\mapper\MeitaoOrderMapper.java

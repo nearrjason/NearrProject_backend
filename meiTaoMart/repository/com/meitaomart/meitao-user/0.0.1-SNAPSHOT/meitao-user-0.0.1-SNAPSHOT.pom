@@ -29,6 +29,9 @@
 				<configuration>
 					<path>/</path>
 					<port>8093</port>
+					<url>http://18.222.229.198:8093/manager/text</url>
+					<username>tomcat</username>
+					<password>tomcat</password>
 				</configuration>
 			</plugin>
 		</plugins>

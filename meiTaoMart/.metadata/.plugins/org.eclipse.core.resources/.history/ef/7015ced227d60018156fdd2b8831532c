@@ -1,0 +1,57 @@
+package com.meitaomart.app.sso;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.meitaomart.common.utils.MeitaoResult;
+import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.sso.service.RegisterService;
+
+@Controller
+public class Register {
+	@Autowired
+	private RegisterService registerService;
+
+	@RequestMapping("/page/register")
+	@ResponseBody
+	public Map<String, Object> showRegister(HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("type", "register");
+		return map;
+	}
+	
+	/**
+	 * 检查用户名或邮箱是否存在 param 为邮箱或者用户名，type = 1 表示用户名 type = 3表示邮箱
+	 * 返回true表示存在，false表示不存在
+	 * @param param
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping("/user/check/{param}/{type}")
+	@ResponseBody
+	public MeitaoResult checkData(@PathVariable String param, @PathVariable Integer type) {
+		MeitaoResult meitaoResult = registerService.checkData(param, type);
+		return meitaoResult;
+	}
+	
+	/**
+	 * 
+	 * @param email, username, password
+	 * @return
+	 */
+	@RequestMapping(value="/do/register", method=RequestMethod.POST)
+	@ResponseBody
+	public MeitaoResult register(MeitaoUser user) {
+		MeitaoResult meitaoResult = registerService.register(user);
+		return meitaoResult;
+	}
+}

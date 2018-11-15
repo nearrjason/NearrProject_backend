@@ -15,6 +15,11 @@
 			<artifactId>meitao-sso-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.meitaomart</groupId>
+			<artifactId>meitao-user-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -96,6 +101,9 @@
 				<configuration>
 					<path>/</path>
 					<port>8088</port>
+					<url>http://18.223.156.69:8088/manager/text</url>
+					<username>tomcat</username>
+					<password>tomcat</password>
 				</configuration>
 			</plugin>
 		</plugins>

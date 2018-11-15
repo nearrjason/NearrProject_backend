@@ -1,5 +1,7 @@
 package com.meitaomart.sso.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -54,7 +56,8 @@ public class LoginController {
 		MeitaoResult meitaoResult = loginService.userLogin(usernameOrEmail, password);
 		//判断是否登录成功
 		if(meitaoResult.getStatus() == 200) {
-			String token = meitaoResult.getData().toString();
+			Map<String, Object> map = (Map<String, Object>) meitaoResult.getData();
+			String token = map.get("token").toString();
 			//如果登录成功需要把token写入cookie
 			System.out.println(token);
 			CookieUtils.setCookie(request, response, TOKEN_KEY, token, COOKIE_EXPIRE, true);

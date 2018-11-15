@@ -13,7 +13,7 @@ import org.junit.Test;
 public class SolrCloudTest {
 	@Test
 	public void addDocument() throws Exception {
-		/*CloudSolrServer solrServer = new CloudSolrServer("192.168.1.213:2181,192.168.1.213:2182,192.168.1.213:2183");
+		/*CloudSolrServer solrServer = new CloudSolrServer("${zookeeper.url}:${zookeeper.port},172.31.38.206:2182,172.31.38.206:2183");
 		// 设置一个defaultCollection属性
 		solrServer.setDefaultCollection("collection2");
 		// 创建一个文档对象
@@ -37,7 +37,7 @@ public class SolrCloudTest {
 	public void search() throws Exception {
 		/*// 创建一个CloudSolrServer对象
 		CloudSolrServer cloudSolrServer = new CloudSolrServer(
-				"192.168.1.213:2181,192.168.1.213:2182,192.168.1.213:2183");
+				"${zookeeper.url}:${zookeeper.port},172.31.38.206:2182,172.31.38.206:2183");
 		// 设置默认的Collection
 		cloudSolrServer.setDefaultCollection("collection2");
 		// 创建一个查询对象

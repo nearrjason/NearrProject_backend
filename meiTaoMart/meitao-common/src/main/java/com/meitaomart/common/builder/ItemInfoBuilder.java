@@ -16,6 +16,12 @@ public class ItemInfoBuilder {
 	private Long id;
 
 	private Long categoryId;
+	
+	private String categoryName;
+	
+	private Integer specialCategoryId;
+	
+	private String specialCategoryName;
 
 	private String name;
 
@@ -36,6 +42,8 @@ public class ItemInfoBuilder {
 	private String images;
 
 	private Byte status;
+	
+	private String statusName;
 
 	private Integer adminUserId;
 
@@ -60,6 +68,21 @@ public class ItemInfoBuilder {
 
 	public ItemInfoBuilder setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+		return this;
+	}
+	
+	public ItemInfoBuilder setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+		return this;
+	}
+	
+	public ItemInfoBuilder setSpecialCategoryId(Integer specialCategoryId) {
+		this.specialCategoryId = specialCategoryId;
+		return this;
+	}
+	
+	public ItemInfoBuilder setSpecialCategoryName(String specialCategoryName) {
+		this.specialCategoryName = specialCategoryName;
 		return this;
 	}
 
@@ -112,6 +135,11 @@ public class ItemInfoBuilder {
 		this.status = status;
 		return this;
 	}
+	
+	public ItemInfoBuilder setStatusName(String statusName) {
+		this.statusName = statusName;
+		return this;
+	}
 
 	public ItemInfoBuilder setAdminUserId(Integer adminUserId) {
 		this.adminUserId = adminUserId;
@@ -158,6 +186,9 @@ public class ItemInfoBuilder {
 
 		itemInfo.setId(this.id);
 		itemInfo.setCategoryId(this.categoryId);
+		itemInfo.setCategoryName(this.categoryName);
+		itemInfo.setSpecialCategoryId(this.specialCategoryId);
+		itemInfo.setSpecialCategoryName(this.specialCategoryName);
 		itemInfo.setName(this.name);
 		itemInfo.setCaption(this.caption);
 		itemInfo.setBrandName(this.brandName);
@@ -168,6 +199,7 @@ public class ItemInfoBuilder {
 		itemInfo.setBarcode(this.barcode);
 		itemInfo.setImages(this.images);
 		itemInfo.setStatus(this.status);
+		itemInfo.setStatusName(this.statusName);
 		itemInfo.setAdminUserId(this.adminUserId);
 		itemInfo.setCreatedTime(this.createdTime);
 		itemInfo.setUpdatedTime(this.updatedTime);

@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/css/login-register.css">
 <link rel="stylesheet" href="/css/footer.css">
 <link rel="stylesheet" href="/css/loading.css">
+<script src="/js/constants.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="header">
@@ -26,17 +27,23 @@
 	<div class="main">
 		<input id="redirectURL" type="hidden" value="${redirect}"> <input
 			id="initType" type="hidden" value="${type }">
-		<div class="wrap">
+		<!-- <div class="wrap">
 			<ul class="select-list">
 				<li class="login" onclick="goLogIn()"><b>登陆</b></li>
 				<li class="signup" onclick="goSignUp()"><b>注册</b></li>
 			</ul>
-		</div>
+		</div> -->
 		<div class="window-wrap">
 			<div class="login-window" id="login-interface">
 				<form id="login_form" method="post" onsubmit="return false">
-
-					<h2>登陆您的账户</h2>
+					<div class="window-title">
+						<div class="title-left">
+							<h2>登陆您的账户</h2>
+						</div>
+						<div class="title-right" onclick="goSignUp()">
+							<h3>创建新用户</h3>
+						</div>
+					</div>
 					<br> <label for="email">用户名/邮箱</label><br> <input
 						id="usernameOrEmail" name="usernameOrEmail" class="email" /> <br>
 					<div class="pw-wrap">
@@ -46,16 +53,25 @@
 							<img class="v-btn" src="/images/icons/view.svg" alt="">
 						</button>
 					</div>
-					<p id="login_error_message" class="error_message">密码须包含至少八位字符，并同时包含小写字母及数字</p>
-					<a class="forget" href="/page/forget_psw">忘记密码？</a><br>
-					<button id="login_submit" class="login-btn" type="submit">登陆</button>
+					<p id="login_error_message" class="error_message"></p>
+					<div class="window-bottom">
+						<a class="forget" href="/page/forget_psw">忘记密码？</a><br>
+						<button id="login_submit" class="login-btn" type="submit">登陆</button>
+					</div>
 				</form>
 
 			</div>
 			<div class="signup-window" id="register-interface">
 				<form id="signup_form" name="signup_form" method="post"
 					onsubmit="return false">
-					<h2>注册新用户</h2>
+					<div class="window-title">
+						<div class="title-left">
+							<h2>注册新用户</h2>
+						</div>
+						<div class="title-right" onclick="goLogIn()">
+							<h3>已有账号？登录</h3>
+						</div>
+					</div>
 					<label for="email">邮箱</label><br> <input id="register_email"
 						name="email" class="email">
 					<p id="register_error_message_email" class="error_message"></p>
@@ -72,10 +88,15 @@
 
 					<!-- <p id="warning">两次密码不一致</p> -->
 					<p id="register_error_message_password_check" class="error_message"></p>
-					<button id="signup_submit" class="signup-btn" type="submit">创建账户</button>
-					<p>
-						点击创建账户即表示同意 <a href=""><b>&nbsp;使用条款&nbsp;</b></a> 与 <a href=""><b>&nbsp;用户协议&nbsp;</b></a>
-					</p>
+					
+					
+					<div class="window-bottom">
+						<p class="policy">
+							点击创建账户即表示同意 <a href=""><b>&nbsp;使用条款&nbsp;</b></a> 与 <a
+							href=""><b>&nbsp;用户协议&nbsp;</b></a>
+						</p>
+						<button id="signup_submit" class="signup-btn" type="submit">创建账户</button>
+					</div>
 				</form>
 
 			</div>

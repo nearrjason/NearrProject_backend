@@ -30,6 +30,9 @@
 				<configuration>
 					<path>/</path>
 					<port>8087</port>
+					<url>http://18.216.78.31:8087/manager/text</url>
+					<username>nearrTomcat</username>
+					<password>Nearr123!</password>
 				</configuration>
 			</plugin>
 		</plugins>

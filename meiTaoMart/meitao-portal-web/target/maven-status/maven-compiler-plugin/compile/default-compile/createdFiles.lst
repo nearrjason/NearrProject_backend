@@ -1,3 +1,4 @@
 com\meitaomart\portal\interceptor\LoginInterceptor.class
 com\meitaomart\portal\controller\IndexController.class
 com\meitaomart\portal\controller\LogoutController.class
+com\meitaomart\portal\exception\GlobalExceptionResolver.class

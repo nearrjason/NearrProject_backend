@@ -6,7 +6,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <div class="header">
 	<div class="logo">
-		<a href="http://192.168.1.100:8082"><img src="/images/logo.svg" alt=""></a>
+		<a href="http://192.168.1.100"><img src="/images/logo.svg" alt=""></a>
 	</div>
 
 	<div class="search">
@@ -16,7 +16,7 @@
 			<input type="text" class="text" name="keyword" id="keyword" value=""
 				style="color: rgb(153, 153, 153);" autocomplete="off">
 			<button id="searchButton" class="submit-btn">
-				<img src="/images/icons/search.svg" alt="">
+				<img src="/images/icons/search-dark.svg" alt="">
 			</button>
 		</form>
 	</div>
@@ -27,7 +27,7 @@
 				<c:set var="totalQuantity"
 				value="${ totalQuantity + cartItem.purchaseQuantity}" />
 			</c:forEach>
-			<a href="http://192.168.1.100:8090/cart/cart.html"><img
+			<a href="http://192.168.1.100:8090/cart/cart.html" class="shopping-cart"><img
 				src="/images/icons/shopping-cart.svg" alt="">购物车&nbsp; 
 				<span>
 					<c:if test="${fn:length(cartItemList) > 0}">

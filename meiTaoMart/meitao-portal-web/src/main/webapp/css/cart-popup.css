@@ -1,19 +1,24 @@
 .cart-popup {
+	border-radius:10px;
     display: none;
     width: fit-content;
     height: fit-content;
     min-width: 340px;
-    border: #f2f2f2 outset 1px;
+    border: #f2f2f2 solid 1px;
     position: absolute;
     right: 0;
-    top: 45px;
+    top: 44px;
     background-color: white;
     z-index: 100;
+    box-shadow: 2px 2px 2px #e0e0e0;
 }
 
 .cart-popup hr {
-    border-color: #fefefe 1px;
-    margin:0px;
+    background-color:#f2f2f2;
+    color:#f2f2f2;
+    border: 0 none;
+    height: 2px;
+    margin: 0px;
     padding: 0px;
 }
 
@@ -24,7 +29,7 @@
 }
 
 .s-item {
-    height: 75px;
+    height: 80px;
     display: flex;
     margin: 5px;
 }
@@ -47,13 +52,16 @@
 
 .div2 {
     order: 2;
-    flex: 6;
+    flex: 4;
 }
 
 .div2 .itemName {
     font-size: 12px;
     font-family: STXihei;
     color: #707070;
+    max-height: 30px;
+    height: 30px;
+    overflow: hidden;
 }
 
 .div2 .itemCount {
@@ -81,17 +89,39 @@
     background-color: white;
 }
 
+.sub-total {
+    font-size: 12px;
+    color: #707070;
+    text-decoration: none;
+    font-family:'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', sans-serif;
+    float: left;
+    margin: 5px;
+    padding: 0;
+}
+
+.sub-total span {
+    font-size: 16px;
+}
+
 .check-cart {
     position: relative;
     margin: 10px;
     height: 20px;
+    margin-bottom:15px;
 }
 
 .check-cart a {
     float: right;
-    color: #707070;
+    color: white;
     text-decoration: none;
     font-family: STXihei;
     background-color: white;
     top: 0px;
+    
+    padding: 15px;
+    padding-top: 8px;
+    padding-bottom: 0px;
+    border-radius: 20px;
+    background-color: #d93838;
+    margin-bottom: 10px;
 }

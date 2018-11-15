@@ -20,7 +20,7 @@
 	</div>
 
 	<div class="copyright">
-		<img src="../images/logo.svg" alt="">
+		<img src="/images/logo.svg" alt="">
 		<p>&copy;2018 meitaomart.com 版权所有</p>
 	</div>
 </div>

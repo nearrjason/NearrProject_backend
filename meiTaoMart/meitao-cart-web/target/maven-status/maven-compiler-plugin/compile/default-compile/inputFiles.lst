@@ -1,2 +1,3 @@
 D:\meiTaoMart\meitao-cart-web\src\main\java\com\meitaomart\cart\controller\CartController.java
 D:\meiTaoMart\meitao-cart-web\src\main\java\com\meitaomart\cart\interceptor\LoginInterceptor.java
+D:\meiTaoMart\meitao-cart-web\src\main\java\com\meitaomart\cart\exception\GlobalExceptionResolver.java

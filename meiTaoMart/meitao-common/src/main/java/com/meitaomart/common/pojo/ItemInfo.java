@@ -10,6 +10,12 @@ public class ItemInfo implements Serializable {
 	private Long id;
 
 	private Long categoryId;
+	
+	private String categoryName;
+	
+	private Integer specialCategoryId;
+	
+	private String specialCategoryName;
 
 	private String name;
 
@@ -30,6 +36,8 @@ public class ItemInfo implements Serializable {
 	private String images;
 
 	private Byte status;
+	
+	private String statusName;
 
 	private Integer adminUserId;
 
@@ -61,6 +69,30 @@ public class ItemInfo implements Serializable {
 
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+	
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	
+	public Integer getSpecialCategoryId() {
+		return specialCategoryId;
+	}
+
+	public void setSpecialCategoryId(Integer specialCategoryId) {
+		this.specialCategoryId = specialCategoryId;
+	}
+
+	public String getSpecialCategoryName() {
+		return specialCategoryName;
+	}
+
+	public void setSpecialCategoryName(String specialCategoryName) {
+		this.specialCategoryName = specialCategoryName;
 	}
 
 	public String getName() {
@@ -141,6 +173,14 @@ public class ItemInfo implements Serializable {
 
 	public void setStatus(Byte status) {
 		this.status = status;
+	}
+	
+	public String getStatusName() {
+		return statusName;
+	}
+
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
 	}
 
 	public Integer getAdminUserId() {

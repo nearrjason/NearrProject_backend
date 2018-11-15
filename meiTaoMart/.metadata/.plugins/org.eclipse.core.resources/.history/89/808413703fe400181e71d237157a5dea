@@ -1,0 +1,9 @@
+const ORDER_URL = "18.188.38.24:8092";
+const PORTAL_URL = "18.188.38.24";
+const SSO_URL = "18.188.38.24:8088";
+const SEARCH_URL = "18.188.38.24:8085";
+const CART_URL = "18.188.38.24:8090";
+const USER_URL = "18.188.38.24:8094";
+const ITEM_URL = "18.188.38.24:8086 ";
+
+const URL_PREFIX = "http://";

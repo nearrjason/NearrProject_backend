@@ -18,7 +18,7 @@
 				<div class="street">
 					<p>
 						<img src="/images/icons/phone.svg" alt="">
-						(${fn:substring(address.shippingPhone, 0, 3) })${fn:substring(address.shippingPhone, 3, 6)}-${fn:substring(address.shippingPhone, 6, 10) }
+						(${fn:substring(address.shippingPhone, 0, 3) })&nbsp;${fn:substring(address.shippingPhone, 3, 6)}-${fn:substring(address.shippingPhone, 6, 10) }
 					</p>
 					<p>
 						<img src="/images/icons/location.svg" alt="">${address.street},

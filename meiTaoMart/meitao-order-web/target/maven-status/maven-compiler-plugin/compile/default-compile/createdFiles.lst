@@ -1,3 +1,4 @@
+com\meitaomart\order\exception\GlobalExceptionResolver.class
+com\meitaomart\order\controller\OrderController.class
 com\meitaomart\order\interceptor\LoginInterceptor.class
 com\meitaomart\order\pojo\FinalCheckoutMap.class
-com\meitaomart\order\controller\OrderController.class

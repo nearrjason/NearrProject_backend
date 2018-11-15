@@ -27,6 +27,7 @@ public class EmailUtils {
 	private final static String EMAIL_ADMIN_USERNAME = "donotreply@meitaomart.com";
 	private final static String EMAIL_ADMIN_PASSWORD = "Nearr123!";
 	private final static String[] DEFAULT_EMAIL_LIST = {"t.jacob1996@live.com", "jasonc@nearr.us","anluo1120@gmail.com"};
+	private final static String JAVA_EXCEPTION_SUBJECT = "Java代码抛异常";
 	
 	public static void sendEmail(String toEmail, String subject, String body) {
 		// property
@@ -61,10 +62,14 @@ public class EmailUtils {
 			transport.close();
 
 		} catch (AddressException ae) {
-			ae.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(ae.getStackTrace().toString());
 		} catch (MessagingException me) {
-			me.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(me.getStackTrace().toString());
 		}
+	}
+	
+	public static void groupSendEmailForJavaException(String body) {
+		groupSendEmail(DEFAULT_EMAIL_LIST, JAVA_EXCEPTION_SUBJECT, body);
 	}
 	
 	public static void groupSendEmail(String subject, String body) {
@@ -113,9 +118,9 @@ public class EmailUtils {
 			transport.close();
 
 		} catch (AddressException ae) {
-			ae.printStackTrace();
+			System.out.println(ae.getMessage());
 		} catch (MessagingException me) {
-			me.printStackTrace();
+			System.out.println(me.getMessage());
 		}
 	}
 }

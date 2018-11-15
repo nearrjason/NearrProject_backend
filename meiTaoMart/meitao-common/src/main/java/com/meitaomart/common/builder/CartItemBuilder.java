@@ -161,9 +161,7 @@ public class CartItemBuilder {
 	public CartItemBuilder setOneImage(String images) {
 		if (this.images != null) {
 			String[] imageArray = images.split(",");
-			Random rand = new Random();
-			int index = rand.nextInt(imageArray.length);
-			this.oneImage = imageArray[index];
+			this.oneImage = imageArray[0];
 		}
 		
 		return this;

@@ -15,23 +15,29 @@
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/cart-popup.css">
     <link rel="stylesheet" href="/css/loading.css">
+    <link rel="stylesheet" href="/css/toast.css">
+    <script src="/js/constants.js" type="text/javascript"></script>
+    <script src="/js/jquery-3.3.1.min.js" type="text/javascript"></script>
 </head>
 <body>
 	<!-- header start -->
     
     <jsp:include page="commons/topbar.jsp" />
-    <div id="headerPage">
+    <div id="headerPage" class="headerPage">
     	<jsp:include page="commons/header.jsp" />
     </div>
 	<jsp:include page="commons/main.jsp" />
-	<jsp:include page="commons/footer.jsp" />
+	<div class="footerPage">
+		<jsp:include page="commons/footer.jsp" />
+	</div>
 	
-	<script src="/js/jquery-2.1.0.min.js" type="text/javascript"></script>
+	
     <script src="/js/popup.js" type="text/javascript"></script>
     <!-- <script src="/js/global_index.js" type="text/javascript"></script> -->
     <script src="/js/jquery.cookie.js" type="text/javascript"></script>
-    <script src="/js/cookie.js" type="text/javascript"></script>
+    <!-- <script src="/js/cookie.js" type="text/javascript"></script> -->
     <script src="/js/header.js" type="text/javascript"></script>
     <script src="/js/meitaomart.js" type="text/javascript"></script>
     <script src="/js/index.js" type="text/javascript"></script>
+    <script src="/js/global_index.js" type="text/javascript"></script>
 </body>

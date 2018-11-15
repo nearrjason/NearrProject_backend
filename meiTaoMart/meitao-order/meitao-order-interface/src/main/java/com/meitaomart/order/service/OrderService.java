@@ -28,5 +28,5 @@ public interface OrderService {
 	List<OrderInfo> getOrderInfoListByUserId(Long userId);
 	
 	MeitaoResult goToPay(MeitaoUser user, MeitaoAddress shippingAddress, MeitaoAddress billingAddress, MeitaoBankingCard card, OrderInfo orderInfo, List<MeitaoOrderItem> orderItemList, String cvv);
-	
+	MeitaoResult goToPay(MeitaoUser user, Long addressId, Long cardId, OrderInfo orderInfo, List<MeitaoOrderItem> orderItemList, String cvv);
 }

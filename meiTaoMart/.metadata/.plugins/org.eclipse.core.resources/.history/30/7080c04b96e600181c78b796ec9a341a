@@ -1,0 +1,121 @@
+package com.meitaomart.portal.controller;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.meitaomart.cart.service.CartService;
+import com.meitaomart.common.pojo.CartItem;
+import com.meitaomart.common.pojo.ItemInfo;
+import com.meitaomart.common.utils.CookieUtils;
+import com.meitaomart.common.utils.JsonUtils;
+import com.meitaomart.content.pojo.ItemCategoryList;
+import com.meitaomart.content.service.ContentService;
+import com.meitaomart.pojo.MeitaoContent;
+import com.meitaomart.pojo.MeitaoItemCategory;
+import com.meitaomart.pojo.MeitaoUser;
+import com.meitaomart.service.ItemCategoryService;
+import com.meitaomart.service.ItemService;
+
+/**
+ * 首頁展示controller
+ * @author anluo
+ *
+ */
+@Controller
+public class IndexController {
+	
+	@Value("${CONTENT_LUNBO_ID}")
+	private Long CONTENT_LUNBO_ID;
+	@Value("${PARENT_CATEGORY_ID}")
+	private Long PARENT_CATEGORY_ID;
+	@Value("${OPTIMIZED_CATEGORY_ID}")
+	private Integer OPTIMIZED_CATEGORY_ID;
+	@Value("${RECENT_DAYS}")
+	private Integer RECENT_DAYS;
+	
+	@Autowired
+	private ContentService contentService;
+	@Autowired
+	private ItemService itemService;
+	@Autowired
+	private ItemCategoryService itemCategoryService;
+	@Autowired
+	private CartService cartService;
+	
+	@RequestMapping("/index")
+	public String showIndex(Model model, HttpServletRequest request, HttpServletResponse response) {
+		List<CartItem> cartItemList = getCartListByCartToken(request);
+		
+		// 判断用户是否为登录状态
+		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
+		// 如果是登录状态
+		if (user != null) {
+			// 从cookie中取购物车列表
+			// 如果不为空，把cookie中的购物车商品和服务端的购物车商品合并。
+			cartService.mergeCart(user.getId(), cartItemList);
+			// 把cookie中的购物车删除
+			CookieUtils.deleteCookie(request, response, "cart");
+			// 从服务端取购物车列表
+			cartItemList = cartService.getCartList(user.getId(), false);
+
+		}
+		// 把列表传递给页面
+		request.setAttribute("cartItemList", cartItemList);
+		// 查詢內容列表
+		List<MeitaoContent> ad1List = contentService.getContentListByCid(CONTENT_LUNBO_ID);
+		// 把結果傳遞給頁面
+		List<ItemCategoryList> itemCategoryList = itemCategoryService.getItemCategoryListWithChildrenList(PARENT_CATEGORY_ID);
+		List<ItemInfo> recentItemList = itemService.getItemListBySpecialCategoryId(specialCategoryId)
+		List<ItemInfo> optimizedItemList = itemService.getItemListBySpecialCategoryId(OPTIMIZED_CATEGORY_ID);
+		List<ItemInfo> limitNumberItemList = itemService.getItemListByLimitNumber(10, "created_time");
+		
+		model.addAttribute("recentItemList", limitNumberItemList);
+		model.addAttribute("optimizedItemList", optimizedItemList);
+ 		model.addAttribute("ad1List", ad1List);
+		model.addAttribute("itemCatList", itemCategoryList);
+		return "index";
+	}
+	
+	@RequestMapping("/refresh/cart")
+	public String refreshCart(HttpServletRequest request, HttpServletResponse response) {
+		List<CartItem> cartItemList = getCartListByCartToken(request);
+		// 判断用户是否为登录状态
+		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
+		// 如果是登录状态
+		if (user != null) {
+			// 从cookie中取购物车列表
+			// 如果不为空，把cookie中的购物车商品和服务端的购物车商品合并。
+			cartService.mergeCart(user.getId(), cartItemList);
+			// 把cookie中的购物车删除
+			CookieUtils.deleteCookie(request, response, "cart");
+			// 从服务端取购物车列表
+			cartItemList = cartService.getCartList(user.getId(), false);
+
+		}
+		// 把列表传递给页面
+		request.setAttribute("cartItemList", cartItemList);
+		return "commons/header";
+	}
+	
+	private List<CartItem> getCartListByCartToken(HttpServletRequest request) {
+		String cartToken = CookieUtils.getCookieValue(request, "cart", true);
+		// 判断json是否为空
+		if (StringUtils.isBlank(cartToken)) {
+			return new ArrayList<>();
+		}
+		// 把json转换成商品列表
+		List<CartItem> list = cartService.getCartListByToken(cartToken, false);
+		return list;
+	}
+}

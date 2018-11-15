@@ -1,8 +1,11 @@
 package com.meitaomart.common.jedis;
 
+import java.io.IOException;
 import java.util.List;
 
 import redis.clients.jedis.JedisCluster;
+
+//import redis.clients.jedis.JedisCluster;
 
 public class JedisClientCluster implements JedisClient {
 	
@@ -74,6 +77,12 @@ public class JedisClientCluster implements JedisClient {
 	@Override
 	public long del(String key) {
 		return jedisCluster.del(key);
+	}
+
+	@Override
+	public void close() throws IOException {
+		jedisCluster.close();
+		
 	}
 	
 }

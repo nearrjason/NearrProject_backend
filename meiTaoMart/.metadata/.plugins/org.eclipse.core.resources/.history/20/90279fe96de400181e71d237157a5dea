@@ -1,0 +1,156 @@
+/* .orderDetailBox, #accountBox, #addressBox, #paymentBox, #ordersBox {
+    display: none;
+}
+
+.links li {
+    cursor: pointer;
+}
+
+
+
+.selected {
+	cursor: auto;
+} */
+
+body {
+	background-color:#f2f2f2;
+}
+
+.error_message {
+    font-size: 12px;
+    display: none;
+    color: #e03c3c;
+    margin: 5px;
+    margin-left: 10%;
+}
+
+.orderDetailBox {
+    display: none;
+    border-radius: 10px;
+}
+
+.right {
+	display: none;
+    border-radius: 10px;
+}
+
+.username, .links {
+    border-radius: 10px;
+}
+
+.links li {
+    cursor: pointer;
+}
+
+* {
+    font-family:'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', sans-serif;
+}
+
+.main {
+    margin: 0 auto;
+    width: 1100px;
+    font-family:'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', sans-serif;
+    color: #707070;
+}
+
+.main-box {
+    display: flex;
+}
+
+.main h1 {
+    font-family:'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', sans-serif;
+    font-size: 200%;
+    color: #707070;
+}
+
+.left {
+    margin: 2%;
+    margin-left: 2%;
+    /* margin-right: 10%; */
+    flex: 0 0 15%;
+    height: fit-content;;
+}
+
+.right{
+    position: relative;
+    margin: 2%;
+    margin-right: 2%;
+    flex: 1;
+    background-color: white;
+    box-shadow: 2px 2px 5px #e0e0e0;
+    
+}
+
+.right h2 {
+    font-family:'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', sans-serif;
+    color: #707070;
+    margin: 2%;
+    font-size: 20px;
+    float: left;
+}
+
+.right hr {
+    width: 98%;
+    border-color: #fefefe;
+}
+
+.username {
+    background-color: white;
+    height: fit-content;
+    padding: 10%;
+    background-color: white;
+    box-shadow: 2px 2px 5px #e0e0e0
+}
+
+.username img {
+    display:block;
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.username p {
+    text-align: center;
+    font-family:'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', sans-serif;
+    color: #707070;
+}
+
+.links {
+    padding-top: 10%;
+    padding-bottom: 10%;
+    background-color: white;
+    margin-top: 10%;
+    background-color: white;
+    box-shadow: 2px 2px 5px #e0e0e0
+}
+
+.links ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+.links li{
+    text-decoration: none;
+    list-style: none;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    text-align: left;
+    padding-left: 20%;
+}
+
+.links li:hover {
+    background-color: #fdf6f6;
+}
+
+.links a {
+    text-decoration: none;
+    color: #707070;
+    font-family:'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', sans-serif;
+}
+
+.links li.selected {
+    background: linear-gradient(to right, #d93838 3%, #fce9e9 3%) !important;
+    cursor: default;
+}

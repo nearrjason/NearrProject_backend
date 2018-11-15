@@ -6,37 +6,44 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!--change password popup-->
 <div class="changeForm" id="changeForm">
+	<h2>设置新密码</h2>
 	<form id="changePasswordForm" class="form-container"
 		onsubmit="return false">
-		<h1>设置新密码</h1>
-		<label for="oldPW">请输入旧密码</label> <input type="password"
-			placeholder="" name="oldPassword" required style="width: 90%">&emsp;
-		<br> <label for="newPW">请输入新密码</label> <input type="password"
-			placeholder="密码须包含至少八位字符，并同时包含小写字母及数字" name="newPassword" required
-			style="width: 90%">&emsp; <br> <label for="newPW-repeat">请重复新密码</label>
-		<input type="password" placeholder="" name="newPasswordRepeat"
-			required style="width: 90%">&emsp; <br>
+
+		<label for="oldPW">请输入旧密码</label> <input id="oldPassword"
+			type="password" placeholder="" name="oldPassword" style="width: 90%">&emsp;
+		<br> <label for="newPW">请输入新密码</label> <input id="newPassword"
+			type="password" placeholder="" name="newPassword"
+			pattern="(?=.*\d)(?=.*[a-z]).{8,}"
+			onfocusout="checkPW(this)
+			style="width: 90%" >&emsp; <br>
+		<label for="newPW-repeat">请重复新密码</label> <input type="password"
+			placeholder="" name="newPasswordRepeat" style="width: 90%">&emsp;
+		<br>
 		<p id="reset_password_error_message" class="error_message"></p>
-		<button type="button" class="btn cancel" onclick="closeChangeForm()">Cancel</button>
-		<button type="submit" class="btn" onclick="submitChangePassword()">Submit</button>
+
 	</form>
+	<button type="button" class="btn cancel" onclick="closeChangeForm()">Cancel</button>
+	<button type="button" class="btn" onclick="submitChangePassword()">Submit</button>
 </div>
 
 
 
 <!--Edit credit card-->
 <c:forEach items="${cardList}" var="card" varStatus="status">
+	<c:set var="cardNumberStr" value="${fn:trim(card.cardNumber)}"></c:set>
 	<div class="form-popup" id="editCreditForm${status.index }">
+		<h2>编辑银行卡</h2>
 		<form id="editCreditFormSubmit${status.index }" class="form-container"
 			onsubmit="return false">
-			<h1>请确保持卡姓名及其他信息与卡片上一致</h1>
 			<input type="text" placeholder="First Name" value="${card.firstName}"
 				name="firstName" style="width: 60%">&emsp; <br> <input
 				type="text" placeholder="Last Name" value="${card.lastName}"
 				name="lastName" style="width: 60%">&emsp; <br> <input
-				type="text" placeholder="Card Number" value="${card.cardNumber}"
-				name="cardNumber" required style="width: 60%"> <br>
-
+				type="text" placeholder="Card Number"
+				value="****&emsp;****&emsp;****&emsp;${fn:substring(cardNumberStr, 12, 16)}"
+				disabled style="width: 60%"> <br> <input type="hidden"
+				value="${card.cardNumber}" name="cardNumber">
 			<div>Month</div>
 			<select name="month">
 				<option value="01"
@@ -111,77 +118,196 @@
 					${card.year == "2038" ? 'selected="selected"' : ''}>2038</option>
 			</select> <input type="hidden" name="cardId" value="${card.id }">
 			<p id="user_update_card_method${status.index }" class="error_message"></p>
-			<button type="button" class="btn cancel"
-				onclick="closeForm('#editCreditForm${status.index }')">Cancel</button>
-			<button
-				onclick="confirmUpdate('#editCreditFormSubmit${status.index }', 'card', '${status.index }')"
-				type="submit" class="btn">Submit</button>
+
 		</form>
+		<button type="button" class="btn cancel"
+			onclick="closeForm('#editCreditForm${status.index }')">Cancel</button>
+		<button
+			onclick="confirmUpdate('#editCreditFormSubmit${status.index }', 'card', '${status.index }')"
+			type="submit" class="btn">Submit</button>
 	</div>
 </c:forEach>
 
 <!--Add credit card-->
 <div class="addForm" id="addCreditForm">
-	<form id="addCardFormSubmit" class="form-container"
-		onsubmit="return false">
-		<h1>请确保持卡姓名及其他信息与卡片上一致</h1>
+	<h2>添加银行卡</h2>
+	<div class="form-container2">
+		<div class="container-left">
 
-		<input type="text" placeholder="First Name" name="firstName"
-			style="width: 60%">&emsp; <br> <input type="text"
-			placeholder="Last Name" name="lastName" style="width: 60%">&emsp;
-		<br> <input type="text" placeholder="Card Number"
-			name="cardNumber" style="width: 60%">
+			<form id="addCardFormSubmit" onsubmit="return false">
+				<h2>信用卡信息</h2>
+				<br>
+				<!-- <label for="">First Name</label><br>
+				<input type="text" name="firstName"
+					>&emsp; <br> 
+				<label for="">Last Name</label><br>
+				<input type="text"
+					name="lastName" >&emsp;
+				<br>  -->
+				
+				<div class="billing-name">
+					<div>
+						<label for="">First Name</label><br> <input type="text" value=""
+							name="name" style="width: 90%"> 
+					</div>
 
-		<div>Month</div>
-		<div>
-			<select name="month">
-				<option value="01">01</option>
-				<option value="02">02</option>
-				<option value="03">03</option>
-				<option value="04">04</option>
-				<option value="05">05</option>
-				<option value="06">06</option>
-				<option value="07">07</option>
-				<option value="08">08</option>
-				<option value="09">09</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-			</select>
+					<div>
+						<label for="">Last Name</label><br> <input type="text" value=""
+							name="name" style="width: 90%"> 
+					</div>
+				</div>
+				
+				<label for="">Card Number</label><br>
+				
+				<div class="card-num-logo">
+                    <input type="text"
+					name="cardNumber" style="width: 65%">
+                    <img src="/icons/image-cvv.svg" alt="">
+                </div>
+				
+
+				<div>Month</div>
+				<div>
+					<select name="month">
+						<option value="01">01</option>
+						<option value="02">02</option>
+						<option value="03">03</option>
+						<option value="04">04</option>
+						<option value="05">05</option>
+						<option value="06">06</option>
+						<option value="07">07</option>
+						<option value="08">08</option>
+						<option value="09">09</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+					</select>
+				</div>
+				<div>Year</div>
+				<div>
+					<select name="year">
+						<option value="2018">2018</option>
+						<option value="2019">2019</option>
+						<option value="2020">2020</option>
+						<option value="2021">2021</option>
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+						<option value="2024">2024</option>
+						<option value="2025">2025</option>
+						<option value="2026">2026</option>
+						<option value="2027">2027</option>
+						<option value="2028">2028</option>
+						<option value="2029">2029</option>
+						<option value="2030">2030</option>
+						<option value="2031">2031</option>
+						<option value="2032">2032</option>
+						<option value="2033">2033</option>
+						<option value="2034">2034</option>
+						<option value="2035">2035</option>
+						<option value="2036">2036</option>
+						<option value="2037">2037</option>
+						<option value="2038">2038</option>
+					</select>
+				</div>
+			</form>
 		</div>
-		<br>
-		<div>Year</div>
-		<div>
-			<select name="year">
-				<option value="2018">2018</option>
-				<option value="2019">2019</option>
-				<option value="2020">2020</option>
-				<option value="2021">2021</option>
-				<option value="2022">2022</option>
-				<option value="2023">2023</option>
-				<option value="2024">2024</option>
-				<option value="2025">2025</option>
-				<option value="2026">2026</option>
-				<option value="2027">2027</option>
-				<option value="2028">2028</option>
-				<option value="2029">2029</option>
-				<option value="2030">2030</option>
-				<option value="2031">2031</option>
-				<option value="2032">2032</option>
-				<option value="2033">2033</option>
-				<option value="2034">2034</option>
-				<option value="2035">2035</option>
-				<option value="2036">2036</option>
-				<option value="2037">2037</option>
-				<option value="2038">2038</option>
-			</select>
+		<div class="container-right">
+			<form id="addBillingAddressFormSubmit" onsubmit="return false">
+				<h2>账单地址</h2>
+				<br>
+				<div class="billing-name">
+					<div>
+						<label for="">First Name</label><br> <input type="text" value=""
+							name="firstName" style="width: 90%"> 
+					</div>
+
+					<div>
+						<label for="">Last Name</label><br> <input type="text" value=""
+							name="lastName" style="width: 90%"> 
+					</div>
+				</div>
+				
+				<label for="">Phone
+							Number</label><br>
+				<input type="text" value="" name="shippingPhone" style="width: 90%">
+				<label for="">Street</label><br> <input type="text" value=""
+					name="street" style="width: 90%"> <br>
+				<div class="city-state-zip">
+					<div>
+						<label for="">City</label> <input type="text" value="" name="city"
+							style="width: 95%">
+					</div>
+					<div class="billing-state">
+						<label for="">State</label>
+						<!-- <input type="text" placeholder="State" value="" name="state"  style="width:95%"> -->
+						<select name="state" style="width: 95%">
+							<option value="AL"></option>
+							<option value="AL">AL</option>
+							<option value="AK">AK</option>
+							<option value="AR">AR</option>
+							<option value="AZ">AZ</option>
+							<option value="CA">CA</option>
+							<option value="CO">CO</option>
+							<option value="CT">CT</option>
+							<option value="DC">DC</option>
+							<option value="DE">DE</option>
+							<option value="FL">FL</option>
+							<option value="GA">GA</option>
+							<option value="HI">HI</option>
+							<option value="IA">IA</option>
+							<option value="ID">ID</option>
+							<option value="IL">IL</option>
+							<option value="IN">IN</option>
+							<option value="KS">KS</option>
+							<option value="KY">KY</option>
+							<option value="LA">LA</option>
+							<option value="MA">MA</option>
+							<option value="MD">MD</option>
+							<option value="ME">ME</option>
+							<option value="MI">MI</option>
+							<option value="MN">MN</option>
+							<option value="MO">MO</option>
+							<option value="MS">MS</option>
+							<option value="MT">MT</option>
+							<option value="NC">NC</option>
+							<option value="NE">NE</option>
+							<option value="NH">NH</option>
+							<option value="NJ">NJ</option>
+							<option value="NM">NM</option>
+							<option value="NV">NV</option>
+							<option value="NY">NY</option>
+							<option value="ND">ND</option>
+							<option value="OH">OH</option>
+							<option value="OK">OK</option>
+							<option value="OR">OR</option>
+							<option value="PA">PA</option>
+							<option value="RI">RI</option>
+							<option value="SC">SC</option>
+							<option value="SD">SD</option>
+							<option value="TN">TN</option>
+							<option value="TX">TX</option>
+							<option value="UT">UT</option>
+							<option value="VT">VT</option>
+							<option value="VA">VA</option>
+							<option value="WA">WA</option>
+							<option value="WI">WI</option>
+							<option value="WV">WV</option>
+							<option value="WY">WY</option>
+						</select>
+					</div>
+					<div>
+						<label for="">Zip Code</label> <input type="text" value=""
+							name="zipcode" style="width: 95%">
+					</div>
+				</div>
+			</form>
 		</div>
-		<p id="user_add_card" class="error_message"></p>
-		<button type="button" class="btn cancel"
-			onclick="closeAddForm('#addCreditForm')">Cancel</button>
-		<button onclick="confirmAdd('#addCardFormSubmit', 'card')"
-			type="submit" class="btn">Submit</button>
-	</form>
+	</div>
+	<p id="user_add_card" class="error_message"></p>
+	<button type="button" class="btn cancel"
+		onclick="closeAddForm('#addCreditForm')">Cancel</button>
+	<button onclick="confirmAdd('#addCardFormSubmit', 'card')"
+		type="submit" class="btn">Submit</button>
 </div>
 
 <!--delete credit card popup-->
@@ -196,14 +322,13 @@
 
 
 
-<!--Edit address card-->
+<!--Edit address popup-->
 <c:forEach items="${addressList}" var="address" varStatus="status">
 	<div class="form-popup" id="editAddressForm${status.index }">
+		<h2>编辑地址</h2>
 		<form id="editAddressFormSubmit${status.index }"
 			class="form-container" onsubmit="return false">
-			<h1>请勿输入P.O. Box</h1>
 
-			
 			<input type="text" placeholder="First Name:" name="firstName"
 				style="width: 60%" value="${address.firstName }">&emsp; <br>
 			<input type="text" placeholder="Last Name:" name="lastName"
@@ -225,19 +350,16 @@
 				<div class="phonemark">-</div>
 				<input id="userUpdateAddressShippingPhoneThree${status.index }"
 					class="phonenum-fill fillup" type="number" placeholder=""
-					maxlength="4" value="${fn:substring(address.shippingPhone, 6, 10) }" />
+					maxlength="4"
+					value="${fn:substring(address.shippingPhone, 6, 10) }" />
 			</div>
 
-			<input id="userUpdateAddressShippingPhone${status.index }" name="shippingPhone"
-				type="hidden" class="emailaddr-fill fillup" value=""> <br>
-
-
-
-
-			<input type="text" placeholder="Street:" name="street"
-				style="width: 60%" value="${address.street }">&emsp; <br>
-			<input type="text" placeholder="City:" name="city" style="width: 30%"
-				value="${address.city }">&emsp; <br>
+			<input id="userUpdateAddressShippingPhone${status.index }"
+				name="shippingPhone" type="hidden" class="emailaddr-fill fillup"
+				value=""> <br> <input type="text" placeholder="Street:"
+				name="street" style="width: 60%" value="${address.street }">&emsp;
+			<br> <input type="text" placeholder="City:" name="city"
+				style="width: 30%" value="${address.city }">&emsp; <br>
 
 
 
@@ -360,25 +482,26 @@
 
 
 			<input type="text" placeholder="Zip Code:" name="zipcode"
-				style="width: 20%" value="${address.zipcode }">
-			<input type="hidden" name="addressId" value="${address.id }">
+				style="width: 20%" value="${address.zipcode }"> <input
+				type="hidden" name="addressId" value="${address.id }">
 			<p id="user_update_address_method${status.index }"
 				class="error_message"></p>
-			<button type="button" class="btn cancel"
-				onclick="closeAddForm('#editAddressForm${status.index }')">Cancel</button>
-			<button
-				onclick="confirmUpdate('#editAddressFormSubmit${status.index }', 'address', '${status.index }')"
-				type="submit" class="btn">Submit</button>
 		</form>
+		<button type="button" class="btn cancel"
+			onclick="closeAddForm('#editAddressForm${status.index }')">Cancel</button>
+		<button
+			onclick="confirmUpdate('#editAddressFormSubmit${status.index }', 'address', '${status.index }')"
+			type="submit" class="btn">Submit</button>
 	</div>
 </c:forEach>
 
 
 <!--Add address card-->
 <div class="addForm" id="addAddressForm">
+	<h2>添加新地址</h2>
 	<form id="addAddressFormSubmit" class="form-container"
 		onsubmit="return false">
-		<h1>请勿输入P.O. Box</h1>
+
 
 		<input type="text" placeholder="First Name:" name="firstName"
 			style="width: 60%">&emsp; <br> <input type="text"
@@ -387,7 +510,8 @@
 
 
 
-		<div>Shipping Phone:</div>
+		<div style="font-size: 12px; margin-left: 15px; margin-top: 10px;">Shipping
+			Phone:</div>
 		<!-- <input type="text" placeholder="Shipping Phone:"
 			name="shippingPhone" style="width: 60%">&emsp; <br> -->
 
@@ -404,12 +528,10 @@
 		</div>
 
 		<input id="userAddAddressShippingPhone" name="shippingPhone"
-			type="hidden" class="emailaddr-fill fillup" value=""> <br>
-
-		<input type="text" placeholder="Street:" name="street"
-			style="width: 60%">&emsp; <br> <input type="text"
-			placeholder="City:" name="city" required style="width: 30%">&emsp;
-		<br>
+			type="hidden" value=""> <br> <input type="text"
+			placeholder="Street:" name="street" style="width: 60%">&emsp;
+		<br> <input type="text" placeholder="City:" name="city"
+			style="width: 30%">&emsp; <br>
 
 		<!-- <input type="text"
 			placeholder="State: e.g. NJ" name="state" style="width: 20%">&emsp;
@@ -476,11 +598,11 @@
 		<input type="text" placeholder="Zip Code:" name="zipcode"
 			style="width: 20%">
 		<p id="user_add_address" class="error_message"></p>
-		<button type="button" class="btn cancel"
-			onclick="closeAddForm('#addAddressForm')">Cancel</button>
-		<button type="submit"
-			onclick="confirmAdd('#addAddressFormSubmit', 'address')" class="btn">Submit</button>
 	</form>
+	<button type="button" class="btn cancel"
+		onclick="closeAddForm('#addAddressForm')">Cancel</button>
+	<button type="submit"
+		onclick="confirmAdd('#addAddressFormSubmit', 'address')" class="btn">Submit</button>
 </div>
 
 <!--Cancel button click popup-->

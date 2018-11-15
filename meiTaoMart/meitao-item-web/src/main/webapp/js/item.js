@@ -46,10 +46,31 @@ function addItem(itemId) {
     }
 }
 
+function toast(message, id) {
+    // Get the snackbar DIV
+    var x = document.getElementById(id);
+    $("#snackbar-fail p").html(message);
+    // Add the "show" class to DIV
+    x.className = "show";
+    console.log(id);
+    if (id == "snackbar") {
+    	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+}
+/*
+function close() {
+    var x = document.getElementById("snackbar-fail");
+    
+    x.className = x.className.replace("show", "");
+    // setTimeout(function(){ x.className = x.className.replace("show", ""); }, 1);
+}*/
+
+function refreshPage() {
+	location.reload();
+}
+
 function addToCart(product_id) {
 	var purchaseQuantity = $("#purchaseQuantity" + product_id).val();
-	$("#loadingImage").fadeIn(100);
-	$("#overlay").show();
 	$.ajax({
 		url : "http://192.168.1.100:8090/cart/add/"+product_id+".action?purchaseQuantity=" + purchaseQuantity,
 		dataType : "jsonp",
@@ -57,15 +78,16 @@ function addToCart(product_id) {
 		type : "GET",
 		success : function(response){
 			if (response.status == 200) {
-				//alert("添加购物车成功！");
-				$("#loadingImage").fadeOut(100);
-				$("#overlay").hide();
+				toast("", "snackbar");
 				$.get(
 					"/refresh/cart.html",
 					function(page) {
+						//$("#overlay").hide();
 						$("#headerPage").html(page);
 					}
 				)
+			} else {
+				toast(response.msg, "snackbar-fail");
 			}
 		}
 	});

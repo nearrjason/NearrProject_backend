@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 public class MeitaoResult implements Serializable{
 
     // 定义jackson对象
@@ -118,7 +119,7 @@ public class MeitaoResult implements Serializable{
         try {
             return MAPPER.readValue(json, MeitaoResult.class);
         } catch (Exception e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
         return null;
     }

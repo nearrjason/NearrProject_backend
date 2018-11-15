@@ -28,7 +28,7 @@ public interface MeitaoUserMapper {
 
     int updateByPrimaryKey(MeitaoUser record);
     
-    int updateSexByPrimaryKey(@Param("sex") Boolean sex, @Param("id") Long userId);
-    
+    // self defined
     int updatePasswordByPrimaryKey(@Param("password") String password, @Param("id") Long userId);
+    int setAsDefaultByPrimaryKey(@Param("is_main") Boolean isMain, @Param("id") Long Id);
 }

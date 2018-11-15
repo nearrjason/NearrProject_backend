@@ -17,7 +17,6 @@ public class LogoutServiceImpl implements LogoutService {
 	
 	@Override
 	public MeitaoResult userLogout(String token) {
-		
 		// 删除redis里的token
 		jedisClient.del(SESSION_PREFIX + token);
 		return MeitaoResult.ok();

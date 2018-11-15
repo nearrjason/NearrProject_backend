@@ -22,7 +22,7 @@ import com.shippo.model.Transaction;
 public class UpsTest {
 	@Test
 	public void testUps() {
-		System.out.println("=============shipping service start==============");
+		/*System.out.println("=============shipping service start==============");
 
 		// replace with your Shippo Token
 		// need to switch this to live apikey
@@ -80,16 +80,16 @@ public class UpsTest {
 			shipment = Shipment.create(shipmentMap, Shippo.apiKey);
 		} catch (AuthenticationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		} catch (InvalidRequestException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		} catch (APIConnectionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		} catch (APIException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		}
 
 		// select shipping rate according to your business logic
@@ -106,16 +106,16 @@ public class UpsTest {
 			transaction = Transaction.create(transParams, Shippo.apiKey);
 		} catch (AuthenticationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		} catch (InvalidRequestException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		} catch (APIConnectionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		} catch (APIException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		}
 		
 		String trackingNumber = transaction.getTrackingNumber().toString();
@@ -126,12 +126,12 @@ public class UpsTest {
 		} else {
 			System.out.println(String.format("An Error has occured while generating you label. Messages : %s",
 					transaction.getMessages()));
-		}
+		}*/
 	}
 	
 	@Test
 	public void testUps1() {
-		ShippingInfo shippingInfo = ShippingInfoBuilder.getInstance().setFirstName("Donald")
+		/*ShippingInfo shippingInfo = ShippingInfoBuilder.getInstance().setFirstName("Donald")
 				.setLastName("Trump").setPhoneNumber("3126473347")
 				.setEmailAddress("luoanfast000@gmail.com").setStreet("32 Cutter Ave%2C Apt 1").setCity("Boston")
 				.setState("MA").setZip("02114").setTotalWeight(52)
@@ -141,6 +141,6 @@ public class UpsTest {
 				.setEmailAddress("luoanfast000@gmail.com").setStreet("32 Cutter Ave%2C Apt 1").setCity("South Amboy")
 				.setState("NJ").setZip("08879").setTotalWeight(52)
 				.setOrderId(100576L).build();
-		ShippingUtils.getShippingInfo(shippingInfo);
+		ShippingUtils.getShippingInfo(shippingInfo);*/
 	}
 }

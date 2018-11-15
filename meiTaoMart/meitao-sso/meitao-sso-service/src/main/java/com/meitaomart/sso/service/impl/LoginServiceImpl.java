@@ -1,6 +1,8 @@
 package com.meitaomart.sso.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,14 +51,14 @@ public class LoginServiceImpl implements LoginService {
 		List<MeitaoUser> list = meitaoUserMapper.selectByExample(example);
 		if (list == null || list.size() == 0) {
 			// 返回登录失败
-			return MeitaoResult.build(400, "用户名不存在");
+			return MeitaoResult.build(400, "用户名或邮箱不存在！");
 		}
 		// 取用户信息
 		MeitaoUser user = list.get(0);
 		// 判断密码是否正确
 		if (!DigestUtils.md5DigestAsHex(password.getBytes()).equals(user.getPassword())) {
 			// 2、如果不正确，返回登录失败
-			return MeitaoResult.build(400, "用户名或密码错误");
+			return MeitaoResult.build(400, "用户名或密码错误！");
 		}
 		// 3、如果正确生成token。
 		String token = UUID.randomUUID().toString();
@@ -67,7 +69,11 @@ public class LoginServiceImpl implements LoginService {
 		jedisClient.expire("SESSION:" + token, SESSION_EXPIRE);
 		// 6、把token返回
 
-		return MeitaoResult.ok(token);
+		Map<String, Object> map = new HashMap<>();
+		map.put("user", user);
+		map.put("token", token);
+		
+		return MeitaoResult.ok(map);
 	}
 
 }

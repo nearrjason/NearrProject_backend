@@ -9,6 +9,7 @@ import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.meitaomart.common.pojo.SearchItem;
+import com.meitaomart.common.utils.EmailUtils;
 import com.meitaomart.search.mapper.SearchItemMapper;
 
 /**
@@ -20,7 +21,7 @@ import com.meitaomart.search.mapper.SearchItemMapper;
 public class ItemAddMessageListener implements MessageListener {
 
 	@Autowired
-	private SearchItemMapper itemMapper;
+	private SearchItemMapper searchItemMapper;
 	@Autowired
 	private SolrServer solrServer;
 	
@@ -34,7 +35,7 @@ public class ItemAddMessageListener implements MessageListener {
 			// 等待事务提交
 			Thread.sleep(1000);
 			// 根据商品id查询商品信息
-			SearchItem searchItem = itemMapper.getItemById(itemId);
+			SearchItem searchItem = searchItemMapper.getItemByPrimaryKey(itemId);
 			// 创建一个文档对象
 			SolrInputDocument document = new SolrInputDocument();
 			// 向文档对象中添加域
@@ -50,7 +51,7 @@ public class ItemAddMessageListener implements MessageListener {
 			// 提交
 			solrServer.commit();
 		} catch (Exception e) {
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		}
 
 	}

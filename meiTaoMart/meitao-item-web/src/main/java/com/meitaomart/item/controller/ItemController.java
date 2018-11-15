@@ -52,7 +52,7 @@ public class ItemController {
 	
 	@RequestMapping("/refresh/cart")
 	public String refreshCart(HttpServletRequest request, HttpServletResponse response) {
-		List<CartItem> cartItemList = getCartListFromCookie(request);
+		List<CartItem> cartItemList = getCartListByCartToken(request);
 		// 判断用户是否为登录状态
 		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
 		// 如果是登录状态
@@ -72,7 +72,7 @@ public class ItemController {
 	}
 	
 	private List<CartItem> getCartItemList(HttpServletRequest request, HttpServletResponse response) {
-		List<CartItem> cartItemList = getCartListFromCookie(request);
+		List<CartItem> cartItemList = getCartListByCartToken(request);
 		// 判断用户是否为登录状态
 		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
 		// 如果是登录状态
@@ -90,14 +90,14 @@ public class ItemController {
 		return cartItemList;
 	}
 	
-	private List<CartItem> getCartListFromCookie(HttpServletRequest request) {
-		String json = CookieUtils.getCookieValue(request, "cart", true);
+	private List<CartItem> getCartListByCartToken(HttpServletRequest request) {
+		String cartToken = CookieUtils.getCookieValue(request, "cart", true);
 		// 判断json是否为空
-		if (StringUtils.isBlank(json)) {
+		if (StringUtils.isBlank(cartToken)) {
 			return new ArrayList<>();
 		}
 		// 把json转换成商品列表
-		List<CartItem> list = JsonUtils.jsonToList(json, CartItem.class);
+		List<CartItem> list = cartService.getCartListByToken(cartToken, false);
 		return list;
 	}
 }

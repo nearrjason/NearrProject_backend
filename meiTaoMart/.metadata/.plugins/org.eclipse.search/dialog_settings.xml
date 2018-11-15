@@ -20,7 +20,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="${orderInfo" key="textPattern"/>
+			<item value="ERROR_MEESAGE_FOR_MEITAO_SYSTEM_EXCEPTION" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -32,7 +32,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="商品管理" key="textPattern"/>
+			<item value="网络异常" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -44,7 +44,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="ground" key="textPattern"/>
+			<item value="/item/save" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -56,7 +56,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="/pic/upload" key="textPattern"/>
+			<item value="billing-name" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -68,7 +68,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="/order/checkout_page" key="textPattern"/>
+			<item value="确定" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -78,15 +78,17 @@
 		</section>
 		<section name="EXTENSIONS">
 			<item value="*" key="0"/>
-			<item value="/images_meitao/icons" key="1"/>
+			<item value="*properties" key="1"/>
 			<item value="" key="2"/>
-			<item value="/images/design1.png" key="3"/>
+			<item value="*.jsp" key="3"/>
+			<item value="/images_meitao/icons" key="4"/>
+			<item value="/images/design1.png" key="5"/>
 		</section>
 		<section name="HISTORY11">
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="uploadError" key="textPattern"/>
+			<item value="addCardFormSubmit" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -98,7 +100,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="宜" key="textPattern"/>
+			<item value="192.168.1.100" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -110,7 +112,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="uploadJson" key="textPattern"/>
+			<item value="去结算" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -122,7 +124,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="购物车有更新" key="textPattern"/>
+			<item value="SSO_URL" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -134,7 +136,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="checkoutAddress" key="textPattern"/>
+			<item value="&lt;mappers&gt;" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -146,7 +148,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value=".min" key="textPattern"/>
+			<item value="/order/final_payment" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -158,7 +160,7 @@
 			<item value="true" key="ignoreCase"/>
 			<item value="0" key="scope"/>
 			<item value="false" key="isWholeWord"/>
-			<item value="min" key="textPattern"/>
+			<item value="JsonUtils.jsonToList" key="textPattern"/>
 			<item value="false" key="isRegExSearch"/>
 			<list key="fileNamePatterns">
 				<item value="*"/>
@@ -192,13 +194,13 @@
 	</section>
 	<section name="ReplaceDialog2">
 		<list key="replace_with">
-			<item value="user_add_card"/>
-			<item value="user_add_address"/>
-			<item value="selectShippingAddress"/>
-			<item value="openShippingAddressList"/>
-			<item value="/images/design1.png"/>
-			<item value="meitaoResult"/>
 			<item value="192.168.1.100"/>
+			<item value="18.191.235.137:3306"/>
+			<item value="6379"/>
+			<item value="172.31.46.1"/>
+			<item value="${zookeeper.url}:${zookeeper.port}"/>
+			<item value="${redis.port}"/>
+			<item value="${redis.url}"/>
 		</list>
 	</section>
 	<section name="SearchDialog">
@@ -208,8 +210,8 @@
 		<item value="653" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="465" key="DIALOG_HEIGHT"/>
-		<item value="579" key="DIALOG_X_ORIGIN"/>
-		<item value="123" key="DIALOG_Y_ORIGIN"/>
+		<item value="219" key="DIALOG_X_ORIGIN"/>
+		<item value="271" key="DIALOG_Y_ORIGIN"/>
 	</section>
 	<section name="org.eclipse.wst.jsdt.ui.JavaSearchResultPage">
 		<item value="1000" key="org.eclipse.wst.jsdt.search.resultpage.limit"/>

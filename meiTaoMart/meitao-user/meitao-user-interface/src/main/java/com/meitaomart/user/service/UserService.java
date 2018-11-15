@@ -19,7 +19,7 @@ public interface UserService {
 	MeitaoBankingCard getCardByPrimaryId(Long id);
 	List<MeitaoBankingCard> getCardListByUserId(Long userId);
 	
-	MeitaoUser updateUser(MeitaoUser user, Long userId);
+	MeitaoResult updateUser(MeitaoUser user, Long userId);
 	MeitaoResult setAsDefault(Long id, String type, Long userId);
 	
 	MeitaoResult addNewAddress(MeitaoAddress address, Long userId);

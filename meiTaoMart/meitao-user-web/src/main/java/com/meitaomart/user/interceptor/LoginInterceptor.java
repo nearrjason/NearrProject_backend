@@ -1,5 +1,8 @@
 package com.meitaomart.user.interceptor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -63,13 +66,21 @@ public class LoginInterceptor implements HandlerInterceptor {
 		MeitaoUser user = (MeitaoUser) meitaoResult.getData();
 		request.setAttribute("user", user);
 		// 判断cookie中是否有购物车数据，如果有就合并到服务端。
-		String jsonCartList = CookieUtils.getCookieValue(request, "cart", true);
-		if (StringUtils.isNoneBlank(jsonCartList)) {
-			// 合并购物车
-			cartService.mergeCart(user.getId(), JsonUtils.jsonToList(jsonCartList, CartItem.class));
-		}
+		List<CartItem> cartItemList = getCartListByCartToken(request);
+		cartService.mergeCart(user.getId(), cartItemList);
 		// 放行
 		return true;
+	}
+	
+	private List<CartItem> getCartListByCartToken(HttpServletRequest request) {
+		String cartToken = CookieUtils.getCookieValue(request, "cart", true);
+		// 判断json是否为空
+		if (StringUtils.isBlank(cartToken)) {
+			return new ArrayList<>();
+		}
+		// 把json转换成商品列表
+		List<CartItem> list = cartService.getCartListByToken(cartToken, false);
+		return list;
 	}
 
 }

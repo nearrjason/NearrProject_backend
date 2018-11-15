@@ -27,38 +27,38 @@
 			</div>
 			<div class="gender">
 				<label for="gender">Gender: </label><br>
-				<c:if test="${empty user.sex}">
+				<c:if test="${user.sex == 3}">
 					<select name="sex">
-						<option value="" selected>保密</option>
-						<option value=true>男</option>
-						<option value=false>女</option>
+						<option value="3" selected>保密</option>
+						<option value="1">男</option>
+						<option value="2">女</option>
 					</select>
 				</c:if>
-				<c:if test="${user.sex == true}">
+				<c:if test="${user.sex == 1}">
 					<select name="sex">
-						<option value="">保密</option>
-						<option value=true selected>男</option>
-						<option value=false>女</option>
+						<option value="3">保密</option>
+						<option value="1" selected>男</option>
+						<option value="2">女</option>
 					</select>
 				</c:if>
-				<c:if test="${user.sex == false}">
+				<c:if test="${user.sex == 2}">
 					<select name="sex">
-						<option value="">保密</option>
-						<option value=true>男</option>
-						<option value=false selected>女</option>
+						<option value="3">保密</option>
+						<option value="1">男</option>
+						<option value="2" selected>女</option>
 					</select>
 				</c:if>
 
 			</div>
 
 			<br> <br>
-
 			<div class="dob">
-				<label for="dob">Date of birth: </label><br> <input name="birthdayStr" type="date">
+				<label for="dob">Date of birth: </label><br> <input
+					name="birthdayStr" type="date" value="${birthday }">
 			</div>
 			<div class="phone">
-				<label for="phone">Phone: </label><br> <input type="tel"
-					placeholder="" value="${user.phone}" name="phone">
+				<label for="phone">Phone: </label><br> <input id="phoneNumberInput" type="tel"
+					placeholder="" maxlength="10" value="${user.phone}" name="phone">
 			</div>
 			<br>
 			<!-- <div class="info">

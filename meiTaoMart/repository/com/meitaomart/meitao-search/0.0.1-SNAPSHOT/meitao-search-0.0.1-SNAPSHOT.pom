@@ -29,6 +29,9 @@
 				<configuration>
 					<path>/</path>
 					<port>8084</port>
+					<url>http://18.216.78.31:8084/manager/text</url>
+					<username>nearrTomcat</username>
+					<password>Nearr123!</password>
 				</configuration>
 			</plugin>
 		</plugins>

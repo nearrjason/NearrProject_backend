@@ -1,5 +1,7 @@
 package com.meitaomart.order.service.impl;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -89,6 +91,8 @@ public class OrderServiceImpl implements OrderService {
 	private String DEFAULT_COUNTRY;
 	@Value("${REDIS_CART_PRE}")
 	private String REDIS_CART_PRE;
+	@Value("${REDIS_ITEM_PRE}")
+	private String REDIS_ITEM_PRE;
 
 	@Override
 	public OrderInfo getOrderInfo(List<CartItem> cartItemList, MeitaoUser meitaoUser, MeitaoAddress primaryAddress) {
@@ -190,10 +194,17 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public MeitaoResult goToPay(MeitaoUser user, Long addressId, Long cardId, OrderInfo orderInfo,
+			List<MeitaoOrderItem> orderItemList, String cvv) {
+		MeitaoAddress address = addressMapper.selectByPrimaryKey(addressId);
+		MeitaoBankingCard card = cardMapper.selectByPrimaryKey(cardId);
+		return goToPay(user, address, null, card, orderInfo, orderItemList, cvv);
+	}
+
+	@Override
 	public MeitaoResult goToPay(MeitaoUser user, MeitaoAddress shippingAddress, MeitaoAddress billingAddress,
 			MeitaoBankingCard card, OrderInfo orderInfo, List<MeitaoOrderItem> orderItemList, String cvv) {
-		MeitaoResult result = finalPaymentValidation(user, shippingAddress, billingAddress, card, orderInfo,
-				orderItemList);
+		MeitaoResult result = finalPaymentValidation(user, shippingAddress, card, orderInfo, orderItemList);
 		if (!Integer.valueOf(200).equals(result.getStatus())) {
 			return result;
 		}
@@ -208,29 +219,62 @@ public class OrderServiceImpl implements OrderService {
 			return MeitaoResult.build(401, finalPaymentMessage);
 		}
 
-		String subject = "支付成功！";
-		String body = "某用户购买商品支付成功!\n用户信息:" + "\n\nuser id: " + user.getId() + "\nName: "
-				+ shippingAddress.getFirstName() + " " + shippingAddress.getLastName() + "\nusername: "
-				+ user.getUsername() + "\nuser email: " + user.getEmail();
-		EmailUtils.groupSendEmail(subject, body);
+		List<Long> itemIdList = updateItemStockNumber(orderItemList);
 
-		// 创建订单！
-		orderInfo.setOrderItems(orderItemList);
-		Long orderId = (Long) createOrder(orderInfo, shippingAddress, card, user).getData();
+		try {
+			String subject = "支付成功！";
+			String body = "某用户购买商品支付成功!\n用户信息:" + "\n\nuser id: " + user.getId() + "\nName: "
+					+ shippingAddress.getFirstName() + " " + shippingAddress.getLastName() + "\nusername: "
+					+ user.getUsername() + "\nuser email: " + user.getEmail();
+			EmailUtils.groupSendEmail(subject, body);
 
-		// 创建ups
-		Transaction transaction = goToShipping(user, shippingAddress, orderItemList, orderId);
-		if (transaction != null && orderId != null) {
-			// 将tracking number加入数据库
-			MeitaoOrder orderWithShippingCode = new MeitaoOrder();
-			orderWithShippingCode.setShippingCode((String) transaction.getTrackingNumber());
-			MeitaoOrderExample example = new MeitaoOrderExample();
-			com.meitaomart.pojo.MeitaoOrderExample.Criteria criteria = example.createCriteria();
-			criteria.andIdEqualTo(orderId);
-			orderMapper.updateByExampleSelective(orderWithShippingCode, example);
+			// 创建订单！
+			orderInfo.setOrderItems(orderItemList);
+			Long orderId = (Long) createOrder(orderInfo, shippingAddress, card, user).getData();
+
+			// 创建ups
+			Transaction transaction = goToShipping(user, shippingAddress, orderItemList, orderId);
+			if (transaction != null && orderId != null) {
+				// 将tracking number加入数据库
+				MeitaoOrder orderWithShippingCode = new MeitaoOrder();
+				orderWithShippingCode.setShippingCode((String) transaction.getTrackingNumber());
+				MeitaoOrderExample example = new MeitaoOrderExample();
+				com.meitaomart.pojo.MeitaoOrderExample.Criteria criteria = example.createCriteria();
+				criteria.andIdEqualTo(orderId);
+				orderMapper.updateByExampleSelective(orderWithShippingCode, example);
+			}
+		} catch (Exception e) {
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e.printStackTrace(pw);
+
+			String subject = "系统出现异常";
+			String body = sw.toString();
+			EmailUtils.groupSendEmail(subject, body);
+		}
+		return MeitaoResult.ok(itemIdList);
+	}
+
+	private List<Long> updateItemStockNumber(List<MeitaoOrderItem> orderItemList) {
+		List<Long> itemIdList = new ArrayList<>();
+		for (MeitaoOrderItem orderItem : orderItemList) {
+			Long itemId = orderItem.getItemId();
+			Integer itemNumber = orderItem.getItemNumber();
+
+			if (itemId != null && itemNumber != null) {
+				Integer stockNumber = itemMapper.selectStockNumberByPrimaryKey(itemId);
+				if (stockNumber != null && stockNumber >= itemNumber) {
+					itemIdList.add(itemId);
+					MeitaoItem item = new MeitaoItem();
+					item.setId(itemId);
+					item.setStockNumber(stockNumber - itemNumber);
+					itemMapper.updateByPrimaryKeySelective(item);
+					// deleteRedis(REDIS_ITEM_PRE + ":" + itemId + ":BASE");
+				}
+			}
 		}
 
-		return result;
+		return itemIdList;
 	}
 
 	private OrderInfo createOrderInfo(MeitaoOrder meitaoOrder, List<MeitaoOrderItem> meitaoOrderItemList) {
@@ -366,11 +410,9 @@ public class OrderServiceImpl implements OrderService {
 		return MeitaoResult.ok(orderId);
 	}
 
-	private MeitaoResult finalPaymentValidation(MeitaoUser user, MeitaoAddress shippingAddress,
-			MeitaoAddress billingAddress, MeitaoBankingCard card, OrderInfo orderInfo,
-			List<MeitaoOrderItem> orderItemList) {
-		if (user == null || shippingAddress == null || billingAddress == null || card == null || orderInfo == null
-				|| orderItemList == null) {
+	private MeitaoResult finalPaymentValidation(MeitaoUser user, MeitaoAddress shippingAddress, MeitaoBankingCard card,
+			OrderInfo orderInfo, List<MeitaoOrderItem> orderItemList) {
+		if (user == null || shippingAddress == null || card == null || orderInfo == null || orderItemList == null) {
 			String subject = "美桃服务器错误！";
 			String body = "某用户在支付时出现空指针，请立即检查！对应用户id(若无法检测到用户，则不显示): ";
 			reportAdminByEmail(subject, body, user != null ? user.getId() : null);
@@ -444,7 +486,7 @@ public class OrderServiceImpl implements OrderService {
 			String subject = "某用户支付的商品列表中没有商品！";
 			String message = "对应用户id: ";
 			reportAdminByEmail(subject, message, user.getId());
-			return MeitaoResult.build(201, "无商品信息！");
+			return MeitaoResult.build(201, "购物车为空！");
 		}
 
 		/*
@@ -456,7 +498,22 @@ public class OrderServiceImpl implements OrderService {
 			Integer itemNumber = orderItem.getItemNumber();
 
 			if (itemId == null || itemNumber == null) {
-				return MeitaoResult.build(201, "无法检测到商品信息！");
+				return MeitaoResult.build(400, "无法检测到商品信息！");
+			}
+			
+			MeitaoItem item = itemMapper.selectByPrimaryKey(itemId);
+			if (item == null) {
+				String subject = "商品id错误！";
+				String message = "某用户支付时商品id无法找到对应的商品\n对应商品id: ";
+				reportAdminByEmail(subject, message, itemId);
+				return MeitaoResult.build(400, "此商品id没有对应的商品: " + itemId);
+			}
+			
+			if (item.getStatus() == null || !item.getStatus().equals((byte)1)) {
+				String subject ="商品已下架或已删除!";
+				String message ="某用户在支付时出现商品已下架或已删除!\n对应商品id: " + itemId + "\n对应用户id: " + user.getId();
+				reportAdminByEmail(subject, message);
+				return MeitaoResult.build(202, "对不起，您的订单中有近期下架商品: " + item.getName() + ", 点击确定将过滤已下架商品!");
 			}
 
 			Integer stockNumber = itemMapper.selectStockNumberByPrimaryKey(itemId);
@@ -464,6 +521,7 @@ public class OrderServiceImpl implements OrderService {
 				String subject = "数据库发生错误！";
 				String message = "数据库中商品库存为空\n对应商品id: ";
 				reportAdminByEmail(subject, message, itemId);
+				return MeitaoResult.build(400, message + itemId);
 			}
 
 			if (itemNumber.compareTo(stockNumber) > 0) {
@@ -533,5 +591,23 @@ public class OrderServiceImpl implements OrderService {
 		// body
 		String body = "" + message + id + "\n" + dateFormat.format(date);
 		EmailUtils.groupSendEmail(subject, body);
+	}
+
+	private void reportAdminByEmail(String subject, String message) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		// body
+		String body = "" + message + "\n" + dateFormat.format(date);
+		EmailUtils.groupSendEmail(subject, body);
+	}
+
+	private void deleteRedis(String key) {
+		if (jedisClient.exists(key)) {
+			try {
+				jedisClient.del(key);
+			} catch (Exception e) {
+				EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
+			}
+		}
 	}
 }

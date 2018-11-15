@@ -27,10 +27,13 @@ public class TokenServiceImpl implements TokenService {
 	@Override
 	public MeitaoResult getUserByToken(String token) {
 		// 根据token到redis中取用户信息
+		if (StringUtils.isBlank(token)) {
+			return MeitaoResult.build(2015, "无法检测到token!");
+		}
 		String json = jedisClient.get("SESSION:" + token);
 		// 取不到用户信息，登录已经过期，返回登录过期
 		if (StringUtils.isBlank(json)) {
-			return MeitaoResult.build(201, "用户登录已经过期");
+			return MeitaoResult.build(2015, "用户登录已经过期");
 		}
 		// 取到用户信息更新token的过期时间
 		jedisClient.expire("SESSION:" + token, SESSION_EXPIRE);

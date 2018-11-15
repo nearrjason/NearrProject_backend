@@ -25,7 +25,7 @@ public class contentServiceTest {
 		 * { //json = jedisClient.hget("CONTENT_LIST", "0");
 		 * jedisClient.set("mytest", "jedisClient"); String str =
 		 * jedisClient.get("mytest"); System.out.println(str); } catch
-		 * (Exception e) { // TODO: handle exception e.printStackTrace(); }
+		 * (Exception e) { // TODO: handle exception EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString()); }
 		 * System.out.println(json);
 		 */
 	}

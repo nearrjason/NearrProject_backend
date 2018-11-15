@@ -7,11 +7,7 @@
 		<list key="name">
 		</list>
 		<list key="artifactId">
-			<item value="meitao-user-web"/>
-			<item value="meitao-parent"/>
-			<item value="meitao-user-service"/>
-			<item value="meitao-user"/>
-			<item value="meitao-user-interface"/>
+			<item value="meitao-thirdParty-api"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -36,6 +32,12 @@
 		</list>
 		<list key="issueManagementUrl">
 		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.ui.internal.dialogs.MavenRepositorySearchDialog">
+		<item value="480" key="width"/>
+		<item value="443" key="x"/>
+		<item value="10" key="y"/>
+		<item value="531" key="height"/>
 	</section>
 	<section name="MavenProjectWizardArchetypePage">
 		<list key="projectNameTemplate">
@@ -76,8 +78,10 @@
 	</section>
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
-			<item value="D:\meiTaoMart\meitao-user"/>
+			<item value="D:\meiTaoMart\meitao-common\pom.xml"/>
+			<item value="D:\meiTaoMart\generatorSqlmapCustom"/>
 			<item value="D:\meiTaoMart\meitao-common"/>
+			<item value="D:\meiTaoMart\meitao-user"/>
 			<item value="D:\meiTaoMart\meitao-order\pom.xml"/>
 			<item value="D:\meiTaoMart\meitao-parent"/>
 			<item value="D:\meiTaoMart\meitao-sso"/>

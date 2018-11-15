@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.topbar {
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    top:0;
+    left:0;
+    background-color: #f2f2f2;
+    margin: 0px;
+    min-width: 1000px;
+    color: #707070;
+}
+
+.shortcut {
+    float: right;
+    height: 20px;
+    width: fit-content;
+    font-size: 12px;
+    margin: 0px;
+    margin-right: 20px;
+    padding: 0px;
+}
+
+.loginbar {
+	 width: fit-content;
+}
+
+.shortcut ul {
+    height: 20px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.shortcut li{
+    display: inline-block;
+    list-style: none;
+    position: relative;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.shortcut a {
+    text-decoration: none;
+    color: #707070;
+    font-family: STXihei;
+}
+
+.shortcut img {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    margin: 0px;
+    padding: 0px;
+    margin-right: 5px;
+    top: 3px;
+}
+
+.login {
+    float: left;
+}
+
+.user {
+    float: left;
+    margin-left: 10%;
+    margin-right: 10%;
+}

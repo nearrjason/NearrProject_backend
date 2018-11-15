@@ -52,7 +52,7 @@ public final class CookieUtils {
                 }
             }
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
         return retValue;
     }
@@ -78,7 +78,7 @@ public final class CookieUtils {
                 }
             }
         } catch (UnsupportedEncodingException e) {
-        	 e.printStackTrace();
+        	 EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
         return retValue;
     }
@@ -152,14 +152,14 @@ public final class CookieUtils {
             if (null != request) {// 设置域名的cookie
             	String domainName = getDomainName(request);
             	System.out.println(domainName);
-                if (!"localhost".equals(domainName)) {
+                if (!"172.31.2.33".equals(domainName)) {
                 	cookie.setDomain(domainName);
                 }
             }
             cookie.setPath("/");
             response.addCookie(cookie);
         } catch (Exception e) {
-        	 e.printStackTrace();
+        	 EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
     }
 
@@ -182,14 +182,14 @@ public final class CookieUtils {
             if (null != request) {// 设置域名的cookie
             	String domainName = getDomainName(request);
             	System.out.println(domainName);
-                if (!"localhost".equals(domainName)) {
+                if (!"172.31.2.33".equals(domainName)) {
                 	cookie.setDomain(domainName);
                 }
             }
             cookie.setPath("/");
             response.addCookie(cookie);
         } catch (Exception e) {
-        	 e.printStackTrace();
+        	 EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
     }
 

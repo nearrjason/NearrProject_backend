@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.meitaomart.common.pojo.EasyUIDataGridResult;
+import com.meitaomart.common.pojo.ItemInfo;
 import com.meitaomart.common.utils.MeitaoResult;
 import com.meitaomart.pojo.MeitaoItem;
 import com.meitaomart.pojo.MeitaoItemPrice;
+import com.meitaomart.search.service.SearchItemService;
 import com.meitaomart.pojo.MeitaoItem;
 import com.meitaomart.service.ItemService;
 
@@ -30,16 +32,17 @@ import com.meitaomart.service.ItemService;
 public class ItemController {
 	@Autowired
 	private ItemService itemService;
+	@Autowired
+	private SearchItemService searchItemService;
 
-	/*
 	@RequestMapping("/item/{itemId}")
 	@ResponseBody
-	public MeitaoItem getItemById(@PathVariable Long itemId) {
+	public ItemInfo getItemById(@PathVariable Long itemId) {
 
-		MeitaoItem item = itemService.getItemById(itemId);
+		ItemInfo item = itemService.getItemById(itemId);
 		return item;
 	}
-	*/
+	
 
 	@RequestMapping("/item/list")
 	@ResponseBody
@@ -54,10 +57,7 @@ public class ItemController {
 	 */
 	@RequestMapping(value = "/item/save", method = RequestMethod.POST)
 	@ResponseBody
-	public MeitaoResult addItem(MeitaoItem item, MeitaoItemPrice itemPrices, String desc, String descImages, Long specialCategory) {
-		if (!Long.valueOf(0).equals(specialCategory)) {
-			item.setCategoryId(specialCategory);
-		}
+	public MeitaoResult addItem(MeitaoItem item, MeitaoItemPrice itemPrices, String desc, String descImages) {
 		MeitaoResult result = itemService.addItem(item, itemPrices, desc, descImages);
 		return result;
 	}
@@ -65,12 +65,14 @@ public class ItemController {
 	/**
 	 * 商品编辑功能
 	 */
-	@RequestMapping(value = "/rest/page/item-edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/item/update", method = RequestMethod.POST)
 	@ResponseBody
-	public MeitaoResult updateItem(MeitaoItem item) {
-		System.out.println(item);
-		// MeitaoResult result = itemService.addItem(item, desc);
-		return null;
+	public MeitaoResult updateItem(MeitaoItem item, MeitaoItemPrice itemPrices, String desc, String descImages, Long specialCategory) {
+		if (!Long.valueOf(0).equals(specialCategory)) {
+			item.setCategoryId(specialCategory);
+		}
+		MeitaoResult result = itemService.updateItem(item, itemPrices, desc, descImages);
+		return result;
 	}
 
 	/**
@@ -80,6 +82,23 @@ public class ItemController {
 	@ResponseBody
 	public MeitaoResult deleteItem(String ids) {
 		MeitaoResult result = itemService.deleteItems(ids);
+		searchItemService.updatePartialItemsByStringIds(ids);
+		return result;
+	}
+	
+	@RequestMapping(value = "/item/onShelf", method = RequestMethod.POST)
+	@ResponseBody
+	public MeitaoResult onShelf(String ids) {
+		MeitaoResult result = itemService.onShelf(ids);
+		searchItemService.updatePartialItemsByStringIds(ids);
+		return result;
+	}
+	
+	@RequestMapping(value = "/item/offShelf", method = RequestMethod.POST)
+	@ResponseBody
+	public MeitaoResult offShelf(String ids) {
+		MeitaoResult result = itemService.offShelf(ids);
+		searchItemService.updatePartialItemsByStringIds(ids);
 		return result;
 	}
 }

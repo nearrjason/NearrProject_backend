@@ -108,6 +108,7 @@
 			<artifactId>commons-fileupload</artifactId>
 		</dependency>
 	</dependencies>
+
 	<!-- 配置tomcat插件 -->
 	<build>
 		<plugins>
@@ -117,6 +118,9 @@
 				<configuration>
 					<path>/</path>
 					<port>8081</port>
+					<url>http://18.223.211.108:8080/manager/text</url>
+					<username>tomcat</username>
+					<password>tomcat</password>
 				</configuration>
 			</plugin>
 		</plugins>

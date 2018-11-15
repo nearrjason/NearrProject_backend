@@ -125,7 +125,7 @@ function login(email, password) {
 		password : password
 	}, function(data) {
 		if (data.status == 200) {
-			location.href = "http://192.168.1.100:8082";
+			location.href = "http://192.168.1.100";
 		} else {
 			showError("login_error_message", data.msg);
 		}

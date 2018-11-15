@@ -71,7 +71,7 @@ public class FtpUtil {
 			ftp.logout();
 			result = true;
 		} catch (IOException e) {
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		} finally {
 			if (ftp.isConnected()) {
 				try {
@@ -123,7 +123,7 @@ public class FtpUtil {
 			ftp.logout();
 			result = true;
 		} catch (IOException e) {
-			e.printStackTrace();
+			EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
 		} finally {
 			if (ftp.isConnected()) {
 				try {

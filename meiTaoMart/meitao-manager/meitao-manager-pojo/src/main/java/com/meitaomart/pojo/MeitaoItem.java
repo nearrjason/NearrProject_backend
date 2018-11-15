@@ -3,10 +3,12 @@ package com.meitaomart.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-public class MeitaoItem implements Serializable {
+public class MeitaoItem implements Serializable{
     private Long id;
 
     private Long categoryId;
+
+    private Integer specialCategoryId;
 
     private String name;
 
@@ -48,6 +50,14 @@ public class MeitaoItem implements Serializable {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public Integer getSpecialCategoryId() {
+        return specialCategoryId;
+    }
+
+    public void setSpecialCategoryId(Integer specialCategoryId) {
+        this.specialCategoryId = specialCategoryId;
     }
 
     public String getName() {

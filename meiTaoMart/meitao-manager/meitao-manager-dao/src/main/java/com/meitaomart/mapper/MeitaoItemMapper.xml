@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.meitaomart.pojo.MeitaoItem" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="category_id" property="categoryId" jdbcType="BIGINT" />
+    <result column="special_category_id" property="specialCategoryId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="caption" property="caption" jdbcType="VARCHAR" />
     <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
@@ -77,8 +78,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, category_id, name, caption, brand_name, supplier, sell_point, net_weight, stock_number, 
-    barcode, images, status, admin_user_id, created_time, updated_time
+    id, category_id, special_category_id, name, caption, brand_name, supplier, sell_point, 
+    net_weight, stock_number, barcode, images, status, admin_user_id, created_time, updated_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.meitaomart.pojo.MeitaoItemExample" >
     select
@@ -93,6 +94,7 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+    <!-- self -->
     <if test="limitNumber != null" >
       limit ${limitNumber}
     </if>
@@ -103,12 +105,14 @@
     from meitao_item
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectStockNumberByPrimaryKey" resultType="java.lang.Integer" parameterType="java.lang.Long" >
+  <!-- self -->
+   <select id="selectStockNumberByPrimaryKey" resultType="java.lang.Integer" parameterType="java.lang.Long" >
     select 
     stock_number
     from meitao_item
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <!-- self -->
   <select id="selectItemNameByPrimaryKey" resultType="java.lang.String" parameterType="java.lang.Long" >
     select 
     name
@@ -126,18 +130,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.meitaomart.pojo.MeitaoItem" >
-    insert into meitao_item (id, category_id, name, 
-      caption, brand_name, supplier, 
-      sell_point, net_weight, stock_number, 
-      barcode, images, status, 
-      admin_user_id, created_time, updated_time
-      )
-    values (#{id,jdbcType=BIGINT}, #{categoryId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{caption,jdbcType=VARCHAR}, #{brandName,jdbcType=VARCHAR}, #{supplier,jdbcType=VARCHAR}, 
-      #{sellPoint,jdbcType=VARCHAR}, #{netWeight,jdbcType=INTEGER}, #{stockNumber,jdbcType=INTEGER}, 
-      #{barcode,jdbcType=VARCHAR}, #{images,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
-      #{adminUserId,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}
-      )
+    insert into meitao_item (id, category_id, special_category_id, 
+      name, caption, brand_name, 
+      supplier, sell_point, net_weight, 
+      stock_number, barcode, images, 
+      status, admin_user_id, created_time, 
+      updated_time)
+    values (#{id,jdbcType=BIGINT}, #{categoryId,jdbcType=BIGINT}, #{specialCategoryId,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{caption,jdbcType=VARCHAR}, #{brandName,jdbcType=VARCHAR}, 
+      #{supplier,jdbcType=VARCHAR}, #{sellPoint,jdbcType=VARCHAR}, #{netWeight,jdbcType=INTEGER}, 
+      #{stockNumber,jdbcType=INTEGER}, #{barcode,jdbcType=VARCHAR}, #{images,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{adminUserId,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.meitaomart.pojo.MeitaoItem" >
     insert into meitao_item
@@ -147,6 +151,9 @@
       </if>
       <if test="categoryId != null" >
         category_id,
+      </if>
+      <if test="specialCategoryId != null" >
+        special_category_id,
       </if>
       <if test="name != null" >
         name,
@@ -194,6 +201,9 @@
       </if>
       <if test="categoryId != null" >
         #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="specialCategoryId != null" >
+        #{specialCategoryId,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -251,6 +261,9 @@
       <if test="record.categoryId != null" >
         category_id = #{record.categoryId,jdbcType=BIGINT},
       </if>
+      <if test="record.specialCategoryId != null" >
+        special_category_id = #{record.specialCategoryId,jdbcType=INTEGER},
+      </if>
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
@@ -299,6 +312,7 @@
     update meitao_item
     set id = #{record.id,jdbcType=BIGINT},
       category_id = #{record.categoryId,jdbcType=BIGINT},
+      special_category_id = #{record.specialCategoryId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       caption = #{record.caption,jdbcType=VARCHAR},
       brand_name = #{record.brandName,jdbcType=VARCHAR},
@@ -321,6 +335,9 @@
     <set >
       <if test="categoryId != null" >
         category_id = #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="specialCategoryId != null" >
+        special_category_id = #{specialCategoryId,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -367,6 +384,7 @@
   <update id="updateByPrimaryKey" parameterType="com.meitaomart.pojo.MeitaoItem" >
     update meitao_item
     set category_id = #{categoryId,jdbcType=BIGINT},
+      special_category_id = #{specialCategoryId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       caption = #{caption,jdbcType=VARCHAR},
       brand_name = #{brandName,jdbcType=VARCHAR},

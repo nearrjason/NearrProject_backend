@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <table class="easyui-datagrid" id="itemList" title="商品列表"
-	data-options="singleSelect:false,collapsible:true,pagination:true,url:'/item/list',method:'get',pageSize:1000,toolbar:toolbar">
+	data-options="singleSelect:false,collapsible:true,pagination:true, url:'/item/list',method:'get',pageSize:1000,toolbar:toolbar">
 	<thead>
 		<tr>
 			<th data-options="field:'ck',checkbox:true"></th>
-			<th data-options="field:'id',width:200,align:'center'">商品ID</th>
+			<th data-options="field:'barcode',width:200,align:'center'">商品条形码 </th>
 			<th data-options="field:'name',width:200,align:'center'">商品名称</th>
 			<th data-options="field:'caption',width:200,align:'center'">商品副标题</th>
-			<th data-options="field:'categoryId',width:100,align:'center'">商品类型
-				id</th>
+			<!-- <th data-options="field:'categoryId',width:100,align:'center'">商品类型
+				id</th> -->
+			<th data-options="field:'categoryName',width:200,align:'center'">商品分类名称</th>
+			<th data-options="field:'specialCategoryName',width:200,align:'center'">商品特殊分类</th>
+			<th data-options="field:'statusName',width:200,align:'center'">商品状态</th>
 			<th data-options="field:'brandName',width:200,align:'center'">商品商标</th>
 			<th data-options="field:'supplier',width:200,align:'center'">商品供应商</th>
 			<th data-options="field:'sellPoint',width:100,align:'center'">商品卖点</th>
@@ -17,9 +20,10 @@
 				data-options="field:'salePrice',width:100,align:'center',formatter:E3.formatPrice"">商品单价($)</th>
 			<th
 				data-options="field:'cost',width:100,align:'center',formatter:E3.formatPrice"">商品成本($)</th>
-			<th data-options="field:'discount',width:100,align:'center'">商品折扣(%)</th>
+			<th data-options="field:'discount',width:100,align:'center'">商品折扣(%)off</th>
 			<th data-options="field:'netWeight',width:100,align:'center'">商品净含量(g)</th>
 			<th data-options="field:'stockNumber',width:100,align:'center'">库存数量</th>
+			<th data-options="field:'images',width:100,align:'center'">图片</th>
 			<th
 				data-options="field:'createdTime',width:130,align:'center',formatter:E3.formatDateTime">创建日期</th>
 			<th
@@ -43,13 +47,17 @@
 	</thead>
 </table>
 <div id="itemEditWindow" class="easyui-window" title="编辑商品"
-	data-options="modal:true,closed:true,iconCls:'icon-save',href:'/rest/page/item-edit'"
+	data-options="modal:true,closed:true,iconCls:'icon-save',href:'/item-edit'"
 	style="width: 80%; height: 80%; padding: 10px;"></div>
 <script>
+	$("#imagesButton").bind("click", function() {
+		alert("hehe");
+	});
+			
 	function getSelectionsIds() {
 		var itemList = $("#itemList");
 		var sels = itemList.datagrid("getSelections");
-		console.log(sels);
+		console.log("hehe" + sels);
 		var ids = [];
 		for ( var i in sels) {
 			ids.push(sels[i].id);
@@ -80,94 +88,21 @@
 						return;
 					}
 
-					$("#itemEditWindow")
-							.window(
-									{
-										onLoad : function() {
-											//回显数据
-											var data = $("#itemList").datagrid(
-													"getSelections")[0];
-											data.priceView = E3
-													.formatPrice(data.price);
-											$("#itemeEditForm").form("load",
-													data);
-
-											// 加载商品描述
-											$
-													.getJSON(
-															'/rest/item/query/item/desc/'
-																	+ data.id,
-															function(_data) {
-																if (_data.status == 200) {
-																	//UM.getEditor('itemeEditDescEditor').setContent(_data.data.itemDesc, false);
-																	itemEditEditor
-																			.html(_data.data.itemDesc);
-																}
-															});
-
-											//加载商品规格
-											$
-													.getJSON(
-															'/rest/item/param/item/query/'
-																	+ data.id,
-															function(_data) {
-																if (_data
-																		&& _data.status == 200
-																		&& _data.data
-																		&& _data.data.paramData) {
-																	$(
-																			"#itemeEditForm .params")
-																			.show();
-																	$(
-																			"#itemeEditForm [name=itemParams]")
-																			.val(
-																					_data.data.paramData);
-																	$(
-																			"#itemeEditForm [name=itemParamId]")
-																			.val(
-																					_data.data.id);
-
-																	//回显商品规格
-																	var paramData = JSON
-																			.parse(_data.data.paramData);
-
-																	var html = "<ul>";
-																	for ( var i in paramData) {
-																		var pd = paramData[i];
-																		html += "<li><table>";
-																		html += "<tr><td colspan=\"2\" class=\"group\">"
-																				+ pd.group
-																				+ "</td></tr>";
-
-																		for ( var j in pd.params) {
-																			var ps = pd.params[j];
-																			html += "<tr><td class=\"param\"><span>"
-																					+ ps.k
-																					+ "</span>: </td><td><input autocomplete=\"off\" type=\"text\" value='"+ps.v+"'/></td></tr>";
-																		}
-
-																		html += "</li></table>";
-																	}
-																	html += "</ul>";
-																	$(
-																			"#itemeEditForm .params td")
-																			.eq(
-																					1)
-																			.html(
-																					html);
-																}
-															});
-
-											E3.init({
-												"pics" : data.image,
-												"categoryId" : data.categoryId,
-												fun : function(node) {
-													E3.changeItemParam(node,
-															"itemeEditForm");
-												}
-											});
-										}
-									}).window("open");
+					// window start
+					$("#itemEditWindow").window(
+							{
+								onLoad : function() {
+									var data = $("#itemList").datagrid("getSelections")[0];
+									data.salePriceView = data.salePrice / 100;
+									data.costView = data.cost / 100;
+									data.discountView = data.discount;
+									$("#currentCategoryName").html(data.categoryName);
+									$("#itemEditForm").form("load",
+											data);
+								}
+							}).window("open");
+					// window end
+					
 				}
 			},
 			{
@@ -232,7 +167,7 @@
 											};
 											$
 													.post(
-															"/rest/item/instock",
+															"/item/offShelf",
 															params,
 															function(data) {
 																if (data.status == 200) {
@@ -273,7 +208,7 @@
 											};
 											$
 													.post(
-															"/rest/item/reshelf",
+															"/item/onShelf",
 															params,
 															function(data) {
 																if (data.status == 200) {

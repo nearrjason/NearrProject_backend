@@ -17,8 +17,8 @@ import com.shippo.model.Shipment;
 import com.shippo.model.Transaction;
 
 public final class ShippingUtils {
-	private static final long GROUND_SHIPPING = 599L;
-	private static final long EXPRESS_SHIPPING = 1999L;
+	private static final long GROUND_SHIPPING = 1L;
+	private static final long EXPRESS_SHIPPING = 2L;
 	private static final long FREE_SHIPPING_TRESHOLD = 4900L;
 	
 	private static final String SHIPPING_API_KEY = "shippo_test_ac84135ba9c1d983eab147a0ae7bff682ed23acf";
@@ -58,6 +58,28 @@ public final class ShippingUtils {
 	}
 
 	public static Transaction getShippingInfo(ShippingInfo shippingInfo) {
+		
+ 		Rate rate = getShippingRate(shippingInfo);
+ 		//System.out.println( "=============final rate==============:"+ rate);
+ 		//System.out.println("Getting shipping label..");
+ 		Map<String, Object> transParams = new HashMap<String, Object>();
+ 		transParams.put("rate", rate.getObjectId());
+ 		transParams.put("async", false);
+ 		
+ 		Transaction transaction = null;
+		try {
+			transaction = Transaction.create(transParams,Shippo.apiKey);
+		} catch (Exception e) {
+			String body = e.getMessage();
+			EmailUtils.groupSendEmail(ERROR_SUBJECT, body);
+			return null;
+		}
+
+		return SUCCESS_MESSAGE.equals(transaction.getStatus()) ? transaction : null;
+
+	}
+	
+	public static Rate getShippingRate(ShippingInfo shippingInfo) {
 		Shippo.apiKey = SHIPPING_API_KEY;
 
 		Map<String, Object> toAddressMap = new HashMap<String, Object>();
@@ -115,28 +137,6 @@ public final class ShippingUtils {
  		// select shipping rate according to your business logic
  		// we select the first rate in this example
  		List<Rate> rates = shipment.getRates();
- 		if (rates == null || rates.size() == 0) {
- 			String body = "无法得到shipping rate: shipping rate为空！";
-			EmailUtils.groupSendEmail(ERROR_SUBJECT, body);
- 			return null;
- 		}
- 		Rate rate = rates.get(0);
- 		//System.out.println( "=============final rate==============:"+ rate);
- 		//System.out.println("Getting shipping label..");
- 		Map<String, Object> transParams = new HashMap<String, Object>();
- 		transParams.put("rate", rate.getObjectId());
- 		transParams.put("async", false);
- 		
- 		Transaction transaction = null;
-		try {
-			transaction = Transaction.create(transParams,Shippo.apiKey);
-		} catch (Exception e) {
-			String body = e.getMessage();
-			EmailUtils.groupSendEmail(ERROR_SUBJECT, body);
-			return null;
-		}
-
-		return SUCCESS_MESSAGE.equals(transaction.getStatus()) ? transaction : null;
-
+ 		return rates == null || rates.size() == 0 ? null : rates.get(0);
 	}
 }

@@ -3,6 +3,7 @@ $(function() {
 	$('#creditLink').on('click', goToPayment);
 	$('#accLink').on('click', goToAcc);
 	$('#orderLink').on('click', goToOrders);
+	
 	var showType = $("#showType").val();
 	console.log(showType)
 	switch (showType) {
@@ -59,6 +60,8 @@ function showAddress() {
 		$('#addrLink').addClass('selected');
 		$('.right').fadeOut(1);
 		$('#orderDetailBox').fadeOut(1);
+		
+		
 		$('#addressBox').fadeIn(300);
 		$('#addrLink').off('click');
 		$('#orderLink').off('click').on('click', goToOrders);
@@ -137,15 +140,17 @@ function checkOrderDetail(e) {
 }
 
 function submitChangePassword() {
+	closeError("reset_password_error_message");
+	
 	var changePasswordFormArray = $("#changePasswordForm").serializeArray();
-	var newPassword = changePasswordFormArray[1].value;
-	var newPasswordRepeat = changePasswordFormArray[2].value;
-	if (newPassword != newPasswordRepeat) {
-		showError("reset_password_error_message", "两次密码不一致");
+	if (!eval(passwordInvalidation(changePasswordFormArray))) {
+		return;
 	}
+	
 	$.post("/user/profile/change_password", $("#changePasswordForm")
 			.serialize(), function(response) {
 		if (response.status == 200) {
+			$("#changePasswordForm").trigger("reset");
 			$('#changeForm').fadeOut(100);
 			$('#overlay').fadeOut(100);
 			alert("密码修改成功！");
@@ -154,6 +159,38 @@ function submitChangePassword() {
 		}
 	})
 }
+
+function passwordInvalidation(changePasswordFormArray) {
+	var newPassword = changePasswordFormArray[1].value;
+	var newPasswordRepeat = changePasswordFormArray[2].value;
+	
+	if ($("#oldPassword").val() == "") {
+		showError("reset_password_error_message", "请输入旧密码");
+		return false;
+	}
+	
+	if (newPassword == null || newPassword == "") {
+		showError("reset_password_error_message", "新密码不能为空!");
+		return false;
+	}
+	
+	if (newPassword != newPasswordRepeat) {
+		showError("reset_password_error_message", "两次密码不一致");
+		return false;
+	}
+	
+	if (!checkPW(document.getElementById("newPassword"))) {
+		showError("reset_password_error_message", "密码须包含至少八位字符，并同时包含小写字母及数字");
+		return false;
+	}
+	
+	return true;
+}
+
+$('.back-btn').on('click', function() {
+    $('.orderDetailBox').slideUp(1);
+    $('#ordersBox').slideDown(300);
+});
 
 $('#allOrders').on('click', function() {
 	$('.orderDetailBox').fadeOut(1);

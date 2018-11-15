@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
 	<!-- 加載配置文件 -->
-	<context:property-placeholder location="classpath:conf/resource.properties" />
+	<context:property-placeholder location="classpath:/*.properties" />
 
 	<context:component-scan base-package="com.meitaomart.portal.controller" />
 	<mvc:annotation-driven />
@@ -19,6 +19,9 @@
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	<!-- 全局异常处理器 -->
+	<bean class="com.meitaomart.portal.exception.GlobalExceptionResolver" />
 
 	<!-- 拦截器配置 -->
 	<mvc:interceptors>
@@ -31,17 +34,17 @@
 
 	<!-- 引用dubbo服务 -->
 	<dubbo:application name="meitao-portal-web" />
-	<dubbo:registry protocol="zookeeper" address="192.168.1.211:2181" />
+	<dubbo:registry protocol="zookeeper" address="${zookeeper.url}:${zookeeper.port}" />
 	<dubbo:reference interface="com.meitaomart.content.service.ContentService"
-		id="contentService" />
+		id="contentService" check="false"/>
 	<dubbo:reference interface="com.meitaomart.service.ItemCategoryService"
-		id="itemCategoryService" />
+		id="itemCategoryService" check="false"/>
 	<dubbo:reference interface="com.meitaomart.service.ItemService"
-		id="itemService" />
+		id="itemService" check="false"/>
 	<dubbo:reference interface="com.meitaomart.sso.service.LogoutService"
-		id="logoutService" />
+		id="logoutService" check="false"/>
 	<dubbo:reference interface="com.meitaomart.cart.service.CartService"
-		id="cartService" />
+		id="cartService" check="false"/>
 	<dubbo:reference interface="com.meitaomart.sso.service.TokenService"
-		id="tokenService" />
+		id="tokenService" check="false"/>
 </beans>

@@ -19,14 +19,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.meitaomart.cart.service.CartService;
 import com.meitaomart.common.pojo.CartItem;
+import com.meitaomart.common.pojo.ItemInfo;
 import com.meitaomart.common.pojo.SearchItem;
 import com.meitaomart.common.pojo.SearchResult;
 import com.meitaomart.common.utils.CookieUtils;
 import com.meitaomart.common.utils.JsonUtils;
 import com.meitaomart.content.pojo.ItemCategoryList;
+import com.meitaomart.pojo.MeitaoItemCategory;
 import com.meitaomart.pojo.MeitaoUser;
 import com.meitaomart.search.service.SearchService;
 import com.meitaomart.service.ItemCategoryService;
+import com.meitaomart.service.ItemService;
 
 /**
  * 商品搜索Controller
@@ -42,6 +45,8 @@ public class SearchController {
 	private CartService cartService;
 	@Autowired
 	private ItemCategoryService itemCategoryService;
+	@Autowired
+	private ItemService itemService;
 	
 	@Value("${SEARCH_RESULT_ROWS}")
 	private Integer SEARCH_RESULT_ROWS;
@@ -56,7 +61,23 @@ public class SearchController {
 		keyword = new String(keyword.getBytes("iso-8859-1"), "utf-8");
 		// 查询商品列表
 		SearchResult searchResult = searchService.search(keyword, page, SEARCH_RESULT_ROWS);
+		model.addAttribute("searchType", "keyword");
+		return postSearch(searchResult, keyword, page, model, request, response);
 		
+	}
+	
+	@RequestMapping("/category")
+	public String searchItemListByCategorys(Model model, @RequestParam String cn, @RequestParam(defaultValue = "1") Integer page, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (cn == null) {
+			return "search_meitao";
+		}
+		cn = new String(cn.getBytes("iso-8859-1"), "utf-8");
+		model.addAttribute("searchType", "categoryName");
+		SearchResult searchResult = searchService.search(cn, page, SEARCH_RESULT_ROWS);
+		return postSearch(searchResult, cn, page, model, request, response);
+	}
+	
+	private String postSearch(SearchResult searchResult, String keyword, int page, Model model, HttpServletRequest request, HttpServletResponse response) {
 		List<SearchItem> itemList = searchResult.getItemList();
 		Long levelOneCategoryId = null;
 		if (itemList != null && itemList.size() != 0) {
@@ -84,37 +105,9 @@ public class SearchController {
 		return "search_meitao";
 	}
 	
-	@RequestMapping("/category/{categoryId}")
-	public String searchItemListByCategory(Model model, @PathVariable Long categoryId, @RequestParam String cn, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String categoryName = new String(cn.getBytes("iso-8859-1"), "utf-8");
-		SearchResult searchResult = searchService.search(categoryName, 1, SEARCH_RESULT_ROWS);
-		
-		Long levelOneCategoryId = getLevelOneCategoryId(categoryId);
-		List<ItemCategoryList> itemCategoryListWithChildrenList = new ArrayList<>();
-		if (levelOneCategoryId != null) {
-			itemCategoryListWithChildrenList = itemCategoryService.getItemCategoryListWithChildrenList(levelOneCategoryId);
-		}
-		
-		List<CartItem> cartItemList = getCartItemList(request, response);
-		// 把结果传递给页面
-		model.addAttribute("query", categoryName);
-		model.addAttribute("totalPages", searchResult.getTotalPages());
-		model.addAttribute("page", 1);
-		model.addAttribute("recordCount", searchResult.getRecordCount());
-		model.addAttribute("itemList", searchResult.getItemList());
-		model.addAttribute("cartItemList", cartItemList);
-		model.addAttribute("itemCategoryList", itemCategoryListWithChildrenList);
-		return "search_meitao";
-	}
-	
-	@RequestMapping("/category/{categoryId2}/{categoryId3}")
-	public String searchItemListByCategorys(Model model, @PathVariable Long categoryId2, @PathVariable Long categoryId3, @RequestParam String cn, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return searchItemListByCategory(model, categoryId3, cn, request, response);
-	}
-	
 	@RequestMapping("/refresh/cart")
 	public String refreshCart(HttpServletRequest request, HttpServletResponse response) {
-		List<CartItem> cartItemList = getCartListFromCookie(request);
+		List<CartItem> cartItemList = getCartListByCartToken(request);
 		// 判断用户是否为登录状态
 		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
 		// 如果是登录状态
@@ -134,13 +127,20 @@ public class SearchController {
 	}
 	
 	private Long getLevelOneCategoryId(Long categoryId) {
-		Long parentId = itemCategoryService.getParentCategoryId(categoryId);
-		Long levelOneCategoryId = itemCategoryService.getParentCategoryId(parentId);
-		return Long.valueOf(0L).equals(levelOneCategoryId) ? parentId : levelOneCategoryId;
+		Long parentId1 = itemCategoryService.getParentCategoryId(categoryId);
+		if (Long.valueOf(0L).equals(parentId1)) {
+			return categoryId;
+		}
+		Long parentId2 = itemCategoryService.getParentCategoryId(parentId1);
+		if (Long.valueOf(0L).equals(parentId2)) {
+			return parentId1;
+		}
+		
+		return itemCategoryService.getParentCategoryId(parentId2);
 	}
 	
 	private List<CartItem> getCartItemList(HttpServletRequest request, HttpServletResponse response) {
-		List<CartItem> cartItemList = getCartListFromCookie(request);
+		List<CartItem> cartItemList = getCartListByCartToken(request);
 		// 判断用户是否为登录状态
 		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
 		// 如果是登录状态
@@ -158,15 +158,14 @@ public class SearchController {
 		return cartItemList;
 	}
 	
-	private List<CartItem> getCartListFromCookie(HttpServletRequest request) {
-		String json = CookieUtils.getCookieValue(request, "cart", true);
+	private List<CartItem> getCartListByCartToken(HttpServletRequest request) {
+		String cartToken = CookieUtils.getCookieValue(request, "cart", true);
 		// 判断json是否为空
-		if (StringUtils.isBlank(json)) {
+		if (StringUtils.isBlank(cartToken)) {
 			return new ArrayList<>();
 		}
 		// 把json转换成商品列表
-		List<CartItem> list = JsonUtils.jsonToList(json, CartItem.class);
+		List<CartItem> list = cartService.getCartListByToken(cartToken, false);
 		return list;
 	}
-	
 }

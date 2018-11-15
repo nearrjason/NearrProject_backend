@@ -40,7 +40,9 @@ public class IndexController {
 	@Value("${PARENT_CATEGORY_ID}")
 	private Long PARENT_CATEGORY_ID;
 	@Value("${OPTIMIZED_CATEGORY_ID}")
-	private Long OPTIMIZED_CATEGORY_ID;
+	private Integer OPTIMIZED_CATEGORY_ID;
+	@Value("${RECENT_CATEGORY_ID}")
+	private Integer RECENT_CATEGORY_ID;
 	@Value("${RECENT_DAYS}")
 	private Integer RECENT_DAYS;
 	
@@ -55,7 +57,8 @@ public class IndexController {
 	
 	@RequestMapping("/index")
 	public String showIndex(Model model, HttpServletRequest request, HttpServletResponse response) {
-		List<CartItem> cartItemList = getCartListFromCookie(request);
+		List<CartItem> cartItemList = getCartListByCartToken(request);
+		
 		// 判断用户是否为登录状态
 		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
 		// 如果是登录状态
@@ -75,11 +78,11 @@ public class IndexController {
 		List<MeitaoContent> ad1List = contentService.getContentListByCid(CONTENT_LUNBO_ID);
 		// 把結果傳遞給頁面
 		List<ItemCategoryList> itemCategoryList = itemCategoryService.getItemCategoryListWithChildrenList(PARENT_CATEGORY_ID);
-		List<ItemInfo> recentItemList = itemService.getRecentItemList(RECENT_DAYS);
-		List<ItemInfo> optimizedItemList = itemService.getItemListByCategoryId(OPTIMIZED_CATEGORY_ID);
+		List<ItemInfo> recentItemList = itemService.getItemListBySpecialCategoryId(RECENT_CATEGORY_ID);
+		List<ItemInfo> optimizedItemList = itemService.getItemListBySpecialCategoryId(OPTIMIZED_CATEGORY_ID);
 		List<ItemInfo> limitNumberItemList = itemService.getItemListByLimitNumber(10, "created_time");
 		
-		model.addAttribute("recentItemList", limitNumberItemList);
+		model.addAttribute("recentItemList", recentItemList);
 		model.addAttribute("optimizedItemList", optimizedItemList);
  		model.addAttribute("ad1List", ad1List);
 		model.addAttribute("itemCatList", itemCategoryList);
@@ -88,7 +91,7 @@ public class IndexController {
 	
 	@RequestMapping("/refresh/cart")
 	public String refreshCart(HttpServletRequest request, HttpServletResponse response) {
-		List<CartItem> cartItemList = getCartListFromCookie(request);
+		List<CartItem> cartItemList = getCartListByCartToken(request);
 		// 判断用户是否为登录状态
 		MeitaoUser user = (MeitaoUser) request.getAttribute("user");
 		// 如果是登录状态
@@ -107,14 +110,14 @@ public class IndexController {
 		return "commons/header";
 	}
 	
-	private List<CartItem> getCartListFromCookie(HttpServletRequest request) {
-		String json = CookieUtils.getCookieValue(request, "cart", true);
+	private List<CartItem> getCartListByCartToken(HttpServletRequest request) {
+		String cartToken = CookieUtils.getCookieValue(request, "cart", true);
 		// 判断json是否为空
-		if (StringUtils.isBlank(json)) {
+		if (StringUtils.isBlank(cartToken)) {
 			return new ArrayList<>();
 		}
 		// 把json转换成商品列表
-		List<CartItem> list = JsonUtils.jsonToList(json, CartItem.class);
+		List<CartItem> list = cartService.getCartListByToken(cartToken, false);
 		return list;
 	}
 }

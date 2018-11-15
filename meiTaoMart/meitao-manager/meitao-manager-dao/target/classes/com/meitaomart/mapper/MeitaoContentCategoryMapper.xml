@@ -91,7 +91,7 @@
     <include refid="Base_Column_List" />
     from meitao_content_category
     where id = #{id,jdbcType=BIGINT}
-  </select>
+  </select> 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from meitao_content_category
     where id = #{id,jdbcType=BIGINT}

@@ -120,7 +120,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -139,7 +139,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -162,7 +162,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -179,7 +179,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -198,7 +198,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -223,7 +223,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -246,7 +246,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -265,7 +265,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -288,7 +288,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -305,7 +305,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -324,7 +324,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -349,7 +349,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -372,7 +372,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -391,7 +391,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -414,7 +414,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -433,7 +433,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -456,7 +456,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -475,7 +475,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -498,7 +498,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -517,7 +517,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -540,7 +540,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -557,7 +557,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -576,7 +576,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -601,7 +601,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -624,7 +624,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -643,7 +643,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -666,7 +666,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -685,7 +685,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -708,7 +708,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -727,7 +727,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -750,7 +750,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -769,7 +769,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -792,7 +792,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -811,7 +811,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -834,7 +834,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -851,7 +851,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -870,7 +870,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -895,7 +895,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -918,7 +918,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -937,7 +937,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -960,7 +960,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -979,7 +979,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -1002,7 +1002,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -1021,7 +1021,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -1044,7 +1044,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -1063,7 +1063,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -1086,7 +1086,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -1105,7 +1105,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -1128,7 +1128,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -1147,7 +1147,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }
@@ -1170,7 +1170,7 @@ public class Taxjar {
                 throw new TaxjarException(response.errorBody().string());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
         }
 
         return null;
@@ -1189,7 +1189,7 @@ public class Taxjar {
                         TaxjarException exception = new TaxjarException(response.errorBody().string());
                         listener.onError(exception);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        EmailUtils.groupSendEmailForJavaException(e.getStackTrace().toString());
                     }
                 }
             }

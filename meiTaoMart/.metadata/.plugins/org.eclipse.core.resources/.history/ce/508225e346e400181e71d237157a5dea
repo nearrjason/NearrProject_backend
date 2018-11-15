@@ -1,0 +1,40 @@
+header {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    padding-top: 10px;
+    width: 1200px;
+    margin: 0 auto;
+    height: fit-content;
+}
+
+.logo {
+    float: left;
+    margin-left: 25px;
+}
+
+.logo a {
+    position: relative;
+    width: 200px;
+    height: 90px;
+    margin-left: 20px;
+    /* display: block; */
+}
+
+.logo img {
+    width: 200px;
+    height: 90px;
+    margin-left: 10px;
+}
+
+
+.title-jiesuan {
+    padding-inline-start: 550px;
+    font-family: STXihei;
+    font-size: 20px;
+    color: #707070;
+}
+
+.clearfix {
+    clear:both;
+}

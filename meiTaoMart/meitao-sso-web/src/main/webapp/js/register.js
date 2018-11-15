@@ -30,6 +30,11 @@ var REGISTER = {
 			showError("register_error_message_username", "用户名不能为空");
 			return false;
 		}
+		
+		if (!eval(validateUsername($("#register_username").val()))) {
+			showError("register_error_message_username", "用户名格式不正确: 用户名只能包括英文字母、数字、下划线或邮箱格式!");
+			return false;
+		}
 
 		if ($("#register_password").val() == "") {
 			showError("register_error_message_password", "密码不能为空");
@@ -94,9 +99,9 @@ var REGISTER = {
 		$.post("/user/register", $("#signup_form").serialize(), function(data) {
 
 			if (data.status == 200) {
-				REGISTER.login($("#register_email").val(), $("#register_password").val());
+				location.href = "http://192.168.1.100";
 			} else {
-				showError("register_error_message", "注册失败");
+				showError("register_error_message", data.msg);
 			}
 		});
 	},
@@ -106,7 +111,7 @@ var REGISTER = {
 			password : password
 		}, function(data) {
 			if (data.status == 200) {
-				location.href = "http://192.168.1.100:8082";
+				location.href = "http://192.168.1.100";
 			} else {
 				showError("login_error_message", data.msg);
 			}

@@ -19,7 +19,6 @@ function showError(inputId, error_message) {
 }
 
 function closeError(inputId) {
-	console.log(inputId);
 	var errorElement = $("#" + inputId);
 	errorElement.fadeOut(1);
 }

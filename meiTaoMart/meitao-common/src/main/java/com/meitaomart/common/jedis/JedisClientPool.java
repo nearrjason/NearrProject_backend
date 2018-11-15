@@ -91,17 +91,31 @@ public class JedisClientPool implements JedisClient {
 	@Override
 	public Boolean hexists(String key, String field) {
 		Jedis jedis = jedisPool.getResource();
-		return jedis.hexists(key, field);
+		Boolean result =  jedis.hexists(key, field);
+		jedis.close();
+		return result;
 	}
 
 	@Override
 	public List<String> hvals(String key) {
-		return null;
+		Jedis jedis = jedisPool.getResource();
+		List<String> result = jedis.hvals(key);
+		jedis.close();
+		return result;
 	}
 
 	@Override
 	public long del(String key) {
-		return 0;
+		Jedis jedis = jedisPool.getResource();
+		long result = jedis.del(key);
+		jedis.close();
+		return result;
+	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,0 +1,642 @@
+/* The popup form - hidden by default */
+.form-popup {
+	display: none;
+	position: fixed;
+	border: none;
+	z-index: 100;
+	top: 50%;
+	left: 50%;
+	width: 600px; /* adjust as per your needs */
+	height: fit-content; /* adjust as per your needs */
+	margin-left: -300px; /* negative half of width above */
+	margin-top: -225px; /* negative half of height above */
+	background-color: white;
+	border-radius: 5px;
+}
+
+.form-popup h1 {
+	font-family: 'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB',
+		'Microsoft Yahei', '微软雅黑', sans-serif;
+	color: #707070;
+	padding: 10px;
+	margin: 0px;
+	font-size: 12px;
+}
+
+.form-popup h2 {
+	font-family: 'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB',
+		'Microsoft Yahei', '微软雅黑', sans-serif;
+	color: black;
+	width: fit-content;
+	padding: 20px;
+	margin: 0 auto;
+	font-size: 14px;
+}
+
+.addForm {
+	display: none;
+	position: fixed;
+	border: none;
+	z-index: 100;
+	top: 50%;
+	left: 50%;
+	width: 600px; /* adjust as per your needs */
+	height: fit-content; /* adjust as per your needs */
+	margin-left: -300px; /* negative half of width above */
+	margin-top: -200px; /* negative half of height above */
+	background-color: white;
+	border-radius: 5px;
+}
+
+.addForm h1 {
+	font-family: 'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB',
+		'Microsoft Yahei', '微软雅黑', sans-serif;
+	color: #707070;
+	padding: 10px;
+	margin: 0px;
+	font-size: 12px;
+}
+
+.addForm h2 {
+	font-family: 'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB',
+		'Microsoft Yahei', '微软雅黑', sans-serif;
+	color: black;
+	width: fit-content;
+	padding: 20px;
+	margin: 0 auto;
+	font-size: 14px;
+}
+
+.changeForm {
+	display: none;
+	position: fixed;
+	border: none;
+	z-index: 100;
+	top: 50%;
+	left: 50%;
+	width: 400px; /* adjust as per your needs */
+	height: fit-content; /* adjust as per your needs */
+	margin-left: -200px; /* negative half of width above */
+	margin-top: -200px; /* negative half of height above */
+	background-color: white;
+	border-radius: 5px;
+}
+
+.changeForm h1 {
+	font-family: 'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB',
+		'Microsoft Yahei', '微软雅黑', sans-serif;
+	color: #707070;
+	padding: 10px;
+	margin: 0px;
+	margin-bottom: 10px;
+	font-size: 16px;
+}
+
+.changeForm h2 {
+	font-family: 'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB',
+		'Microsoft Yahei', '微软雅黑', sans-serif;
+	color: black;
+	width: fit-content;
+	padding: 20px;
+	margin: 0 auto;
+	font-size: 14px;
+}
+
+.changeForm label {
+	font-family: 'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB',
+		'Microsoft Yahei', '微软雅黑', sans-serif;
+	color: #707070;
+	padding: 10px;
+	margin: 0px;
+	font-size: 14px;
+}
+
+/* Add styles to the form container */
+.form-container {
+	max-width: 700px;
+	margin: 30px;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding: 10px;
+	background-color: #f2f2f2;
+	border: #707070 dashed 1px;
+	border-radius: 5px;
+}
+
+/* Full-width input fields */
+.form-container input[type=text] {
+	width: 87%;
+	padding: 10px;
+	margin: 5px;
+	margin-right: 20px;
+	border: none;
+	border-bottom: #707070 solid 1px;
+	background: #f2f2f2;
+}
+
+/* Full-width input fields */
+.form-container input[type=password] {
+	width: 87%;
+	padding: 10px;
+	margin: 5px;
+	margin-right: 20px;
+	border: none;
+	border-bottom: #707070 solid 1px;
+	background: #f2f2f2;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus {
+	background-color: #f2f2f2;
+	outline: none;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=password]:focus {
+	background-color: #f2f2f2;
+	outline: none;
+}
+
+/* Set a style for the submit/login button */
+.btn {
+	background-color: #d93838;
+	color: white;
+	padding: 10px 10px;
+	border: none;
+	cursor: pointer;
+	width: 20%;
+	opacity: 1;
+	display: block;
+	margin: 5px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border-radius: 30px;
+	outline: 0;
+	float: right;
+}
+
+/* Add a red background color to the cancel button */
+.btn.cancel {
+	background-color: #707070;
+	margin-right: 30px;
+}
+
+/* Add some hover effects to buttons */
+.btn:hover, .btn.cancel:hover {
+	opacity: 0.8;
+}
+/* popup form css done */
+.popup-box {
+	display: none;
+	position: absolute;
+	border: none;
+	z-index: 110;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 300px; /* adjust as per your needs */
+	height: 180px; /* adjust as per your needs */
+	margin-left: -150px; /* negative half of width above */
+	margin-top: -90px; /* negative half of height above */
+	background-color: white;
+	border-radius: 10px;
+}
+
+.popup-box p {
+	font-family: 'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB',
+		'Microsoft Yahei', '微软雅黑', sans-serif;
+	color: #707070;
+	font-size: 20px;
+	margin: 45px;
+	text-align: center;
+}
+
+.popup-box .bttn {
+	background-color: #d93838;
+	color: white;
+	padding: 8px;
+	border: none;
+	cursor: pointer;
+	width: 90px;
+	margin-left: 40px;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	opacity: 1;
+	display: inline-block;
+	border-radius: 30px;
+	outline: 0;
+}
+
+/* Add a red background color to the cancel button */
+.popup-box .not-confirm {
+	background-color: #707070;
+}
+
+/* Add some hover effects to buttons */
+.popup-box .confirm:hover, .not-confirm:hover {
+	opacity: 0.8;
+}
+/*popup box css done*/
+#overlay {
+	position: fixed; /* Sit on top of the page content */
+	display: none; /* Hidden by default */
+	width: 100%; /* Full width (cover the whole page) */
+	height: 100%; /* Full height (cover the whole page) */
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(112, 112, 112, 0.8);
+	/* Black background with opacity */
+	z-index: 100;
+	/* Specify a stack order in case you're using a different order for other elements */
+	cursor: pointer; /* Add a pointer on hover */
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+}
+
+.billing-name {
+	display: flex;
+}
+
+.billing-name div {
+	flex: 1;
+	margin-right: 5px;
+}
+
+.email-phone-fill {
+	display: flex;
+	margin: 5px;
+}
+
+.phonenum-fill {
+	width: 50px;
+	margin-right: 5px;
+	text-align: center;
+	border: none;
+	border-bottom: 1px solid #707070;
+	-moz-appearance: textfield;
+	float: left;
+	background-color: #f2f2f2;
+}
+
+.phonenum-fill[type=number]::-webkit-inner-spin-button, .phonenum-fill[type=number]::-webkit-outer-spin-button
+	{
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	margin: 0;
+}
+
+.form-container2 {
+	max-width: 700px;
+	margin: 30px;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding: 20px;
+	padding-left: 0;
+	padding-right: 0;
+	background-color: #f2f2f2;
+	border: #707070 dashed 1px;
+	border-radius: 5px;
+	display: flex;
+}
+
+.form-container2 label {
+	font-size: 12px;
+}
+
+.container-left, .container-right {
+	flex: 1;
+	padding: 20px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.container-left {
+	border-right: #707070 dashed 1px;
+}
+
+.card-num-logo {
+	display: flex;
+}
+
+.card-num-logo img {
+	height: 24px;
+}
+
+.billing-state {
+	flex: 1 !important;
+	margin-top: 4px;
+}
+
+.city-state-zip {
+	display: flex;
+}
+
+.city-state-zip div {
+	flex: 2;
+	margin-right: 5px;
+}
+
+.city-state-zip div input {
+	margin: 0 !important;
+	padding: 0 !important;
+	margin-left: 5px !important;
+}
+
+.city-state-zip div select {
+	border-bottom: #707070 solid 1px;
+	border-radius: 0;
+	-webkit-appearance: none;
+	height: 18px;
+	margin: 0;
+	padding: 0;
+	margin-left: 5px;
+}
+
+.form-container2 h2 {
+	font-family: 'PingFang SC', 'Myriad Pro', 'Hiragino Sans GB',
+		'Microsoft Yahei', '微软雅黑', sans-serif;
+	color: black;
+	width: fit-content;
+	padding: 0;
+	margin: 0 auto;
+	font-size: 14px;
+}
+
+/* Full-width input fields */
+.form-container2 input[type=text] {
+	width: 87%;
+	padding: 10px;
+	margin: 5px;
+	margin-right: 20px;
+	padding-bottom: 2px;
+	padding-top: 5px;
+	margin-top: 0;
+	border: none;
+	border-bottom: #707070 solid 1px;
+	background: #f2f2f2;
+}
+
+/* Full-width input fields */
+.form-container2 input[type=password] {
+	width: 87%;
+	padding: 10px;
+	margin: 5px;
+	margin-right: 20px;
+	padding-bottom: 2px;
+	padding-top: 5px;
+	margin-top: 0;
+	border: none;
+	border-bottom: #707070 solid 1px;
+	background: #f2f2f2;
+}
+
+/* When the inputs get focus, do something */
+.form-container2 input[type=text]:focus {
+	background-color: #f2f2f2;
+	outline: none;
+}
+
+/* When the inputs get focus, do something */
+.form-container2 input[type=password]:focus {
+	background-color: #f2f2f2;
+	outline: none;
+}
+
+.container-left div {
+    width: 60%;
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+.container-left div select {
+    font-size: 12px;
+    height: 18px;
+}
+
+/* The popup form - hidden by default */
+/* .form-popup {
+    display: none;
+    position: fixed;
+    border: none;
+    z-index: 100;
+    top:50%;
+    left:50%;
+    width:600px;  adjust as per your needs
+    height:fit-content;   adjust as per your needs
+    margin-left:-300px;   negative half of width above
+    margin-top:-200px;   negative half of height above
+    background-color: #f2f2f2;
+  }
+
+  .form-popup h1 {
+    font-family: STXihei;
+    color: #707070;
+    padding: 10px;
+    margin: 0px;
+    font-size: 12px;
+  }
+
+  .addForm {
+    display: none;
+    position: fixed;
+    border: none;
+    z-index: 100;
+    top:50%;
+    left:50%;
+    width:600px;  adjust as per your needs
+    height:fit-content;   adjust as per your needs
+    margin-left:-300px;   negative half of width above
+    margin-top:-200px;   negative half of height above
+    background-color: #f2f2f2;
+  }
+
+  .addForm h1 {
+    font-family: STXihei;
+    color: #707070;
+    padding: 10px;
+    margin: 0px;
+    font-size: 12px;
+  }
+
+  .changeForm {
+    display: none;
+    position: fixed;
+    border: none;
+    z-index: 100;
+    top:50%;
+    left:50%;
+    width:400px;  adjust as per your needs
+    height:fit-content;   adjust as per your needs
+    margin-left:-200px;   negative half of width above
+    margin-top:-200px;   negative half of height above
+    background-color: #f2f2f2;
+  }
+
+  .changeForm h1 {
+    font-family: STXihei;
+    color: #707070;
+    padding: 10px;
+    margin: 0px;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  .changeForm label {
+    font-family: STXihei;
+    color: #707070;
+    padding: 10px;
+    margin: 0px;
+    font-size: 14px;
+  }
+  
+  Add styles to the form container
+  .form-container {
+    max-width: 700px;
+    padding: 10px;
+    background-color: #f2f2f2;
+  }
+  
+  Full-width input fields
+  .form-container input[type=text]{
+    width: 87%;
+    padding: 10px;
+    margin: 5px;
+    margin-right: 20px;
+    border: none;
+    border-bottom: #707070 solid 1px;
+    background: #f2f2f2;
+  }
+
+    Full-width input fields
+  .form-container input[type=password]{
+    width: 87%;
+    padding: 10px;
+    margin: 5px;
+    margin-right: 20px;
+    border: none;
+    border-bottom: #707070 solid 1px;
+    background: #f2f2f2;
+  }
+  
+  When the inputs get focus, do something
+  .form-container input[type=text]:focus {
+    background-color: #f2f2f2;
+    outline: none;
+  }
+
+  When the inputs get focus, do something
+  .form-container input[type=password]:focus {
+    background-color: #f2f2f2;
+    outline: none;
+  }
+  
+  Set a style for the submit/login button
+  .form-container .btn {
+    background-color: #e03c3c;
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    opacity: 1;
+    display: block;
+    margin:5px;
+    margin-top: 15px;
+    border-radius: 30px;
+    outline: 0;
+    float: right;
+  }
+  
+  Add a red background color to the cancel button
+  .form-container .cancel {
+    background-color: #707070;
+  }
+  
+  Add some hover effects to buttons
+  .form-container .btn:hover, .open-button:hover {
+    opacity: 0.8;
+  }
+  popup form css done
+  .popup-box {
+    display: none;
+    border: none;
+    z-index: 110;
+    position:fixed;
+    top:50%;
+    left:50%;
+    width:300px;  adjust as per your needs
+    height:180px;   adjust as per your needs
+    margin-left:-150px;   negative half of width above
+    margin-top:-90px;   negative half of height above
+    background-color: #f2f2f2;
+}
+
+.popup-box p{
+    font-family: STXihei;
+    color: #707070;
+    font-size: 20px;
+    margin: 40px;
+    text-align: center;
+}
+
+.popup-box .bttn {
+    background-color: #e03c3c;
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    cursor: pointer;
+    width: 45%;
+    margin-bottom:10px;
+    opacity: 1;
+    display: inline-block;
+    border-radius: 30px;
+    margin:6px;;
+    outline: 0;
+  }
+  
+  Add a red background color to the cancel button
+  .popup-box .not-confirm {
+    background-color: #707070;
+  }
+  
+  Add some hover effects to buttons
+  .popup-box .confirm:hover, .not-confirm:hover {
+    opacity: 0.8;
+  }
+popup box css done
+
+
+
+
+
+
+
+
+
+
+
+
+
+  #overlay {
+    position: fixed; Sit on top of the page content
+    display: none; Hidden by default
+    width: 100%; Full width (cover the whole page)
+    height: 100%; Full height (cover the whole page)
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(112,112,112,0.8); Black background with opacity
+    z-index: 10; Specify a stack order in case you're using a different order for other elements
+    cursor: pointer; Add a pointer on hover
+}
+
+
+
+.keep-parallel {
+    display: flex;
+    flex-wrap: nowrap;
+} */
